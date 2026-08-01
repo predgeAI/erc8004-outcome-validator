@@ -50,26 +50,26 @@ score can never silently drift from the signed evidence.
 | `src/fire-testnet.mjs` | **owner-run** broadcast to a testnet (`npm run fire`) |
 | `abi/ValidationRegistry.json` | the REAL registry ABI, vendored |
 
-## Broadcasting to a testnet (owner only)
+## Broadcasting to a testnet (owner only) — turnkey
 
-Needs a **funded key**, a **registered `agentId`** you own, and the **deployed registry
-address** on your chosen testnet. Supported testnet chainIds (from the reference repo)
-include **Base Sepolia 84532**, **Sepolia 11155111**, and **Arc testnet 5042002** (Predge
-already deploys on Arc). The registry is a per-chain singleton (CREATE2/vanity) — get the
-address from `erc-8004/erc-8004-contracts` (README / `scripts/addresses.ts`) or the chain explorer.
+The ERC-8004 registries are CREATE2 singletons at the **same address on every testnet**
+(Base Sepolia 84532, Sepolia 11155111, Arb Sepolia 421614, …), so all you need is an RPC
+and a **funded key** (a little testnet ETH for gas). The script auto-registers an agentId
+and uses the known registry addresses — no addresses/agentId to look up.
 
 ```bash
-export RPC_URL='https://sepolia.base.org'            # or your testnet RPC
-export PRIVATE_KEY='0x…'                              # funded; owns AGENT_ID; is the validator
-export VALIDATION_REGISTRY='0x…'                      # deployed registry on that chain
-export AGENT_ID='…'                                   # an agentId you own in the Identity Registry
+export RPC_URL='https://sepolia.base.org'      # Base Sepolia
+export PRIVATE_KEY='0x…'                        # a key with a little Base Sepolia ETH
 export CONFIRM_TESTNET=yes
 npm run fire
 ```
 
-The script refuses mainnet chainIds and refuses without `CONFIRM_TESTNET=yes`. It prints
-the tx hashes and reads the record back, confirming `responseHash` matches the signed attest.
-Prerequisite: register an agent in the Identity Registry first (so `ownerOf(agentId)` is your key).
+It: registers an agentId (`IdentityRegistry` `0x8004A818…`), commits the claim
+(`validationRequest`), writes the outcome-match `validationResponse` on the
+`ValidationRegistry` (`0x8004Cb1B…4272`), reads it back to confirm `responseHash` matches
+the signed attest, and **prints the explorer link** for the response tx — cite that in the
+outreach. Refuses mainnet chainIds and refuses without `CONFIRM_TESTNET=yes`. Base Sepolia
+ETH faucet: https://www.alchemy.com/faucets/base-sepolia
 
 ## Next step (outreach — owner-gated)
 
