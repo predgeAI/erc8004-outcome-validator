@@ -88,3 +88,7 @@ npm ci
 npm run verify-vectors                            # Node
 python3 grounded-feedback/verify_test_vectors.py  # Python
 ```
+
+## License
+
+MIT, see [LICENSE](LICENSE).

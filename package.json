@@ -4,11 +4,14 @@
   "private": true,
   "type": "module",
   "description": "Predge as an ERC-8004 Validation Registry validator: real-world-resolution-vs-claim outcome attestation, mapped to the on-chain validationResponse.",
+  "license": "MIT",
   "scripts": {
     "prove": "node src/prove.mjs",
     "fire": "node src/fire-testnet.mjs",
     "vectors": "node grounded-feedback/make-test-vectors.mjs",
     "verify-vectors": "node grounded-feedback/verify-test-vectors.mjs"
   },
-  "dependencies": { "ethers": "^6.13.4" }
+  "dependencies": {
+    "ethers": "^6.13.4"
+  }
 }
