@@ -1,0 +1,51 @@
+{
+  "_README": "x402-grounded-feedback-v0, grounding escrow-release. An escrowed job paid out on release; nonce is the escrow's job id as bytes32. Check offline: node grounded-feedback/verify-test-vectors.mjs",
+  "spec": "grounded-feedback/README.md",
+  "signingKeyNote": "Signed with the RFC 8032 section 7.1 TEST 1 ed25519 key: secret 9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60, public d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a. Publicly known, never used for anything real. TEST KEY ONLY.",
+  "envelope": {
+    "payload": {
+      "scheme": "x402-grounded-feedback-v0",
+      "grounding": "escrow-release",
+      "payer": "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+      "payee": "0x90f79bf6eb2c4f870365e785982e1f101e93b906",
+      "ratee": {
+        "agentRegistry": "eip155:42161:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+        "agentId": "7"
+      },
+      "amount": "250000",
+      "asset": "eip155:42161/erc20:0xaf88d065e77c8cc2239327c5edb3a432268e5831",
+      "escrow": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "resource": "https://example.com/jobs/1/spec.json",
+      "nonce": "0x0000000000000000000000000000000000000000000000000000000000000001",
+      "settlementTx": "0x3333333333333333333333333333333333333333333333333333333333333333"
+    },
+    "canonical": "{\"amount\":\"250000\",\"asset\":\"eip155:42161/erc20:0xaf88d065e77c8cc2239327c5edb3a432268e5831\",\"escrow\":\"0x5fbdb2315678afecb367f032d93f642f64180aa3\",\"grounding\":\"escrow-release\",\"nonce\":\"0x0000000000000000000000000000000000000000000000000000000000000001\",\"payee\":\"0x90f79bf6eb2c4f870365e785982e1f101e93b906\",\"payer\":\"0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc\",\"ratee\":{\"agentId\":\"7\",\"agentRegistry\":\"eip155:42161:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432\"},\"resource\":\"https://example.com/jobs/1/spec.json\",\"scheme\":\"x402-grounded-feedback-v0\",\"settlementTx\":\"0x3333333333333333333333333333333333333333333333333333333333333333\"}",
+    "signature": "1ebaea9762ee20e195206bcba814da659a3c39b1894e1b2e3429a18ca21f93340e3a9dd6e4551cf5bb2d3b2a9df406fed23e20ec787dd1a863ad3bc756e53c08",
+    "public_key": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+    "algorithm": "ed25519"
+  },
+  "canonicalByteLength": 626,
+  "responseHash": "0x7cdbaa58ccbac72dbe0bf16b2918c5e6f9bdcc5b9823923cb8a378fb40e984a9",
+  "validationResponse": {
+    "function": "validationResponse(bytes32,uint8,string,bytes32,string)",
+    "requestHash": "0x5a0b62a5653bc4eaf0b0123175b8684d13a3563ac41196cee283f4378da4026e",
+    "response": 100,
+    "responseURI": "https://example.com/attestations/2.json",
+    "responseHash": "0x7cdbaa58ccbac72dbe0bf16b2918c5e6f9bdcc5b9823923cb8a378fb40e984a9",
+    "tag": "escrow-release",
+    "calldata": "0x3d659a965a0b62a5653bc4eaf0b0123175b8684d13a3563ac41196cee283f4378da4026e000000000000000000000000000000000000000000000000000000000000006400000000000000000000000000000000000000000000000000000000000000a07cdbaa58ccbac72dbe0bf16b2918c5e6f9bdcc5b9823923cb8a378fb40e984a90000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000002768747470733a2f2f6578616d706c652e636f6d2f6174746573746174696f6e732f322e6a736f6e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e657363726f772d72656c65617365000000000000000000000000000000000000"
+  },
+  "expect": {
+    "canonicalMatches": true,
+    "signatureValid": true,
+    "responseHashMatches": true,
+    "accept": true
+  },
+  "notes": {
+    "canonical": "Keys sorted by UTF-16 code units at every level, no whitespace, UTF-8. Every leaf value in the record is a string, so no number formatting is involved. Absent optional keys are omitted, never null.",
+    "responseHash": "keccak256 (Ethereum's, not NIST SHA3-256) over the UTF-8 bytes of the canonical string.",
+    "signature": "ed25519 over the UTF-8 bytes of the canonical string itself, not over responseHash and not over a hex string.",
+    "ratee": "ratee is the agent credited; payee only proves where the money went. Here payee is a treasury, so the two differ.",
+    "settlement": "A consumer reads settlementTx: status 1, the escrow contract's own release event for this job, and Transfer(escrow, payee, amount) from the asset contract. escrow, payee and settlementTx here are placeholders."
+  }
+}

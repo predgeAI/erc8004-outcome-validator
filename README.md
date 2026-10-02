@@ -49,6 +49,10 @@ score can never silently drift from the signed evidence.
 | `src/prove.mjs` | offline GREEN proof (`npm run prove`) |
 | `src/fire-testnet.mjs` | **owner-run** broadcast to a testnet (`npm run fire`) |
 | `abi/ValidationRegistry.json` | the REAL registry ABI, vendored |
+| `grounded-feedback/README.md` | x402-grounded-feedback-v0: payment-grounded ERC-8004 records (draft, [#99](https://github.com/erc-8004/erc-8004-contracts/issues/99)) |
+| `grounded-feedback/test-vectors/` | signed test vectors with expected `responseHash` and calldata |
+| `grounded-feedback/verify-test-vectors.mjs`, `verify_test_vectors.py` | two independent verifiers, Node and Python (`npm run verify-vectors`) |
+| `grounded-feedback/make-test-vectors.mjs` | deterministic generator (`npm run vectors`) |
 
 ## Broadcasting to a testnet (owner only) — turnkey
 
@@ -67,13 +71,20 @@ npm run fire
 It: registers an agentId (`IdentityRegistry` `0x8004A818…`), commits the claim
 (`validationRequest`), writes the outcome-match `validationResponse` on the
 `ValidationRegistry` (`0x8004Cb1B…4272`), reads it back to confirm `responseHash` matches
-the signed attest, and **prints the explorer link** for the response tx — cite that in the
-outreach. Refuses mainnet chainIds and refuses without `CONFIRM_TESTNET=yes`. Base Sepolia
-ETH faucet: https://www.alchemy.com/faucets/base-sepolia
+the signed attest, and **prints the explorer link** for the response tx. Refuses mainnet
+chainIds and refuses without `CONFIRM_TESTNET=yes`. Base Sepolia ETH faucet:
+https://www.alchemy.com/faucets/base-sepolia
 
-## Next step (outreach — owner-gated)
+## Grounded feedback: x402-grounded-feedback-v0
 
-This is the **artifact** the EF/ERC-8004 outreach was gated on (see
-`briefs/predge-ethereum-ef-buterin-prep.md`). Once a real testnet tx exists, the credible
-contact path is a concrete validator-method proposal in the ERC-8004 GitHub / Ethereum
-Magicians thread to **Davide Crapis / the EF dAI team** — not a cold DM, not Vitalik. Send is owner's call.
+[`grounded-feedback/`](grounded-feedback/README.md) writes down the payment-grounded record shape
+discussed in [erc-8004/erc-8004-contracts#99](https://github.com/erc-8004/erc-8004-contracts/issues/99).
+A record proves that a payment settled, names the rated agent separately from the payee, and says
+how it was verified. It maps onto `validationResponse` with no registry change. The folder also
+holds test vectors and two independent verifiers:
+
+```bash
+npm ci
+npm run verify-vectors                            # Node
+python3 grounded-feedback/verify_test_vectors.py  # Python
+```

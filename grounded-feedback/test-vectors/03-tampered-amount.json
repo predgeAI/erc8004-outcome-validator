@@ -1,0 +1,61 @@
+{
+  "_README": "Negative vector: vector 01 with payload.amount changed from 5000 to 50000 after signing. Every check must fail and the record must be rejected. Check offline: node grounded-feedback/verify-test-vectors.mjs",
+  "spec": "grounded-feedback/README.md",
+  "signingKeyNote": "Signed with the RFC 8032 section 7.1 TEST 1 ed25519 key: secret 9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60, public d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a. Publicly known, never used for anything real. TEST KEY ONLY.",
+  "requirements": {
+    "scheme": "exact",
+    "network": "eip155:8453",
+    "amount": "5000",
+    "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "payTo": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "maxTimeoutSeconds": 60,
+    "extra": {
+      "name": "USD Coin",
+      "version": "2"
+    }
+  },
+  "envelope": {
+    "payload": {
+      "scheme": "x402-grounded-feedback-v0",
+      "grounding": "x402-settlement",
+      "payer": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "payee": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "ratee": {
+        "agentRegistry": "eip155:8453:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+        "agentId": "42"
+      },
+      "amount": "50000",
+      "asset": "eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "resource": "https://api.example.com/v1/signal/0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc",
+      "requirementsHash": "0xc4d3ba7824071c96df7270c740c724bf1a1d445d562625faa9cfab32e02a9b06",
+      "nonce": "0x988234df687c4d4ea61ca7bacca3143d6a4ab117445813fd50bc03f61ae0e603",
+      "settlementTx": "0x2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "canonical": "{\"amount\":\"5000\",\"asset\":\"eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913\",\"grounding\":\"x402-settlement\",\"nonce\":\"0x988234df687c4d4ea61ca7bacca3143d6a4ab117445813fd50bc03f61ae0e603\",\"payee\":\"0x70997970c51812dc3a010c7d01b50e0d17dc79c8\",\"payer\":\"0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266\",\"ratee\":{\"agentId\":\"42\",\"agentRegistry\":\"eip155:8453:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432\"},\"requirementsHash\":\"0xc4d3ba7824071c96df7270c740c724bf1a1d445d562625faa9cfab32e02a9b06\",\"resource\":\"https://api.example.com/v1/signal/0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc\",\"scheme\":\"x402-grounded-feedback-v0\",\"settlementTx\":\"0x2222222222222222222222222222222222222222222222222222222222222222\"}",
+    "signature": "5f308ab6d43ab12c70d2d15eaee8c926c8b87f189366accda1c7a8c84a2c53ccf7eec913aca7842a8d05727e9463fa6b8a900f7cac1ac4cc7063a0bd43c70906",
+    "public_key": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+    "algorithm": "ed25519"
+  },
+  "canonicalByteLength": 698,
+  "responseHash": "0xf8274393b844c1b742e4b1d3d9f3138c1ca7f3a9369bfa47d6f48f135050f0ba",
+  "validationResponse": {
+    "function": "validationResponse(bytes32,uint8,string,bytes32,string)",
+    "requestHash": "0xee9830d10e0cc574da0cebd6a53fc9f2039fd609712efc76bc0a070a1692a558",
+    "response": 100,
+    "responseURI": "https://example.com/attestations/1.json",
+    "responseHash": "0xf8274393b844c1b742e4b1d3d9f3138c1ca7f3a9369bfa47d6f48f135050f0ba",
+    "tag": "x402-settlement",
+    "calldata": "0x3d659a96ee9830d10e0cc574da0cebd6a53fc9f2039fd609712efc76bc0a070a1692a558000000000000000000000000000000000000000000000000000000000000006400000000000000000000000000000000000000000000000000000000000000a0f8274393b844c1b742e4b1d3d9f3138c1ca7f3a9369bfa47d6f48f135050f0ba0000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000002768747470733a2f2f6578616d706c652e636f6d2f6174746573746174696f6e732f312e6a736f6e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f783430322d736574746c656d656e740000000000000000000000000000000000"
+  },
+  "expect": {
+    "canonicalMatches": false,
+    "signatureValid": false,
+    "responseHashMatches": false,
+    "requirementsHashMatches": true,
+    "requirementsConsistent": false,
+    "accept": false
+  },
+  "notes": {
+    "why": "The consumer canonicalizes the payload it was given, so the edit changes the bytes: they no longer equal envelope.canonical, the signature no longer verifies over them, and their keccak256 no longer equals the responseHash on chain. A consumer that verified envelope.canonical instead of the payload would accept a record whose fields say something else."
+  }
+}
