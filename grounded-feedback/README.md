@@ -39,7 +39,8 @@ never set to `null`. Unknown keys make the record invalid.
 | `settlementTx` | yes | The transaction that moved the money. |
 | `escrow` | for `escrow-release` | Address of the escrow contract. |
 | `requirementsHash` | no | x402 only: `0x` + sha256 of the canonical JSON of the `accepts[]` entry the payer accepted, exactly as the unpaid 402 returned it. |
-| `issuedAt` | with `measured` | When the record was signed, `YYYY-MM-DDTHH:MM:SSZ`. |
+| `issuedAt` | with `measured` | When the record was signed, `YYYY-MM-DDTHH:MM:SS.sssZ` with exactly three fractional digits: capacity-attest's strict `timestamp` form. |
+| `assetType` | with `measured` | capacity-attest's `assetType`: `gpu-hours`, `storage`, `bandwidth` or `api-credits`. Present exactly when `measured` is. |
 | `measured` | no | Metered delivery, as defined by capacity-attest (see [Metered delivery](#metered-delivery-measured)). |
 
 Example (test vector 01; `payee` is a treasury, so it differs from the rated agent):
@@ -164,6 +165,8 @@ multicall. A real x402 settlement on Base shows the shape: in
 - **Hash the unpaid runtime challenge, not the static manifest** (@filip-study, @MuhammedAkinci).
   That is why `requirementsHash` is defined over the `accepts[]` entry as the 402 returned it. For
   Base USDC, the EIP-712 `extra.name` there is `USD Coin`.
+- **`measured` keeps capacity-attest's rules** (@holistis). `assetType` sits next to `measured`, and
+  `issuedAt` uses the strict timestamp form, so a record cannot be looser than the claim it maps.
 - **Both logs from one receipt, payee from the record** (@goun7, in
   [coinbase/x402#360](https://github.com/coinbase/x402/pull/360)). The settlement check is scoped
   to `settlementTx`, and `payee` is a required field, so a third party can run it.
@@ -190,10 +193,12 @@ document references it rather than restating it:
 }
 ```
 
-Two capacity-attest rules refer to fields of its own claim that this record does not have:
-- **`unit`**: restricted there by the claim's `assetType`. Here, `unit` is any unit in that table.
-- **`period.end`**: must not be later than the claim's `timestamp` there. Here, it must not be
-  later than `issuedAt`, which is why `issuedAt` is required whenever `measured` is present.
+Two capacity-attest rules check `measured` against fields of its own claim. The record carries
+the same fields under the same rules:
+- **`assetType`** is a record field, required with `measured`. `measured.unit` must be in its row
+  of the unit table, so a `byte` record says whether it is storage or bandwidth.
+- **`timestamp`** becomes `issuedAt`, in the same strict form `YYYY-MM-DDTHH:MM:SS.sssZ`. The first
+  19 characters of `period.end` must not be later than the first 19 characters of `issuedAt`.
 
 ## Test vectors
 
@@ -202,6 +207,8 @@ Two capacity-attest rules refer to fields of its own claim that this record does
 | [`01-x402-settlement.json`](test-vectors/01-x402-settlement.json) | x402 payment to a treasury `payTo`, with `requirementsHash` and the 402 `requirements` it came from | accept |
 | [`02-escrow-release.json`](test-vectors/02-escrow-release.json) | escrowed job paid on release | accept |
 | [`03-tampered-amount.json`](test-vectors/03-tampered-amount.json) | vector 01 with `amount` edited after signing | reject: canonical bytes, signature, `responseHash` and the requirements check all fail |
+| [`04-metered-gpu.json`](test-vectors/04-metered-gpu.json) | x402 payment for metered GPU time, with `measured`, `assetType` and `issuedAt` | accept |
+| [`05-unit-not-in-asset-type.json`](test-vectors/05-unit-not-in-asset-type.json) | correctly signed, but `unit` is `byte` under `assetType` `gpu-hours` | reject: the schema check fails, everything else holds |
 
 Each file carries:
 - the record, the envelope, the exact canonical string and its byte length;
@@ -209,8 +216,9 @@ Each file carries:
 - an `expect` block and notes on the likely mistakes.
 
 They are signed with the RFC 8032 section 7.1 TEST 1 key, which is public and was never used for
-anything real. Every settlement transaction is a placeholder. The metered case lives in
-capacity-attest (linked above) and is not duplicated here.
+anything real. Every settlement transaction is a placeholder. capacity-attest (linked above)
+tests its own rules for the `measured` block; vectors 04 and 05 test only the two fields this
+record maps them onto.
 
 ```bash
 npm ci
@@ -220,7 +228,7 @@ node grounded-feedback/make-test-vectors.mjs         # regenerate; output is byt
 ```
 
 The two verifiers share no code with each other or with the generator, and both report GREEN on
-all three vectors.
+all five vectors.
 
 ## Open questions
 
@@ -230,5 +238,3 @@ all three vectors.
    document so `tag` stays free for application use?
 3. Should the same envelope be the feedback document in the Reputation Registry, with
    `feedbackHash = keccak256(canonical bytes)`?
-4. Is mapping capacity-attest's `assetType` and `timestamp` rules onto `unit` and `issuedAt`, as
-   above, right for @holistis?

@@ -1,0 +1,66 @@
+{
+  "_README": "Negative vector: vector 04 with measured.unit set to byte, which capacity-attest does not allow under assetType gpu-hours. The record is correctly signed and hashed, so only the schema check fails, and the record must be rejected. Check offline: node grounded-feedback/verify-test-vectors.mjs",
+  "spec": "grounded-feedback/README.md",
+  "signingKeyNote": "Signed with the RFC 8032 section 7.1 TEST 1 ed25519 key: secret 9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60, public d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a. Publicly known, never used for anything real. TEST KEY ONLY.",
+  "envelope": {
+    "payload": {
+      "scheme": "x402-grounded-feedback-v0",
+      "grounding": "x402-settlement",
+      "payer": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+      "payee": "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc",
+      "ratee": {
+        "agentRegistry": "eip155:8453:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+        "agentId": "9"
+      },
+      "amount": "4000000",
+      "asset": "eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "resource": "https://gpu.example.com/v1/jobs/8f21a3",
+      "nonce": "0x81c492185ca739ec555c1ffa2250c8b0402521eec98497e6e2f33ff7f75c619c",
+      "settlementTx": "0x5555555555555555555555555555555555555555555555555555555555555555",
+      "issuedAt": "2026-09-01T08:00:05.000Z",
+      "assetType": "gpu-hours",
+      "measured": {
+        "unit": "byte",
+        "basis": "supplied",
+        "promisedAmount": "28800",
+        "deliveredAmount": "25230",
+        "period": {
+          "start": "2026-09-01T04:00:00Z",
+          "end": "2026-09-01T08:00:00Z"
+        },
+        "method": {
+          "attribution": "buyer",
+          "instrument": "nvidia-smi accounting, 10s polling, job 8f21a3",
+          "readingsHash": "0d08539780ad082368c65079bf21cc1daaf62617549d20d5a304cc551248021d"
+        }
+      }
+    },
+    "canonical": "{\"amount\":\"4000000\",\"asset\":\"eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913\",\"assetType\":\"gpu-hours\",\"grounding\":\"x402-settlement\",\"issuedAt\":\"2026-09-01T08:00:05.000Z\",\"measured\":{\"basis\":\"supplied\",\"deliveredAmount\":\"25230\",\"method\":{\"attribution\":\"buyer\",\"instrument\":\"nvidia-smi accounting, 10s polling, job 8f21a3\",\"readingsHash\":\"0d08539780ad082368c65079bf21cc1daaf62617549d20d5a304cc551248021d\"},\"period\":{\"end\":\"2026-09-01T08:00:00Z\",\"start\":\"2026-09-01T04:00:00Z\"},\"promisedAmount\":\"28800\",\"unit\":\"byte\"},\"nonce\":\"0x81c492185ca739ec555c1ffa2250c8b0402521eec98497e6e2f33ff7f75c619c\",\"payee\":\"0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc\",\"payer\":\"0x15d34aaf54267db7d7c367839aaf71a00a2c6a65\",\"ratee\":{\"agentId\":\"9\",\"agentRegistry\":\"eip155:8453:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432\"},\"resource\":\"https://gpu.example.com/v1/jobs/8f21a3\",\"scheme\":\"x402-grounded-feedback-v0\",\"settlementTx\":\"0x5555555555555555555555555555555555555555555555555555555555555555\"}",
+    "signature": "11f388c53b6021ff675a27dcf7b6b63d99d6c7c23aecb2b4f5808f0644bc761b3061dd0d42680f5f7c08e464084cc2926a9ae7434d69dd3f53338fd029054406",
+    "public_key": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+    "algorithm": "ed25519"
+  },
+  "canonicalByteLength": 981,
+  "responseHash": "0x897f5c9175e081051edc34a0093522e62db8de7121aad336484ecb7cc9918f31",
+  "validationResponse": {
+    "function": "validationResponse(bytes32,uint8,string,bytes32,string)",
+    "requestHash": "0x5df2a94b361eae0edcd9d4c3414e53a9d9c37b4990e95246d8687b43be798418",
+    "response": 100,
+    "responseURI": "https://example.com/attestations/5.json",
+    "responseHash": "0x897f5c9175e081051edc34a0093522e62db8de7121aad336484ecb7cc9918f31",
+    "tag": "x402-settlement",
+    "calldata": "0x3d659a965df2a94b361eae0edcd9d4c3414e53a9d9c37b4990e95246d8687b43be798418000000000000000000000000000000000000000000000000000000000000006400000000000000000000000000000000000000000000000000000000000000a0897f5c9175e081051edc34a0093522e62db8de7121aad336484ecb7cc9918f310000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000002768747470733a2f2f6578616d706c652e636f6d2f6174746573746174696f6e732f352e6a736f6e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f783430322d736574746c656d656e740000000000000000000000000000000000"
+  },
+  "expect": {
+    "canonicalMatches": true,
+    "signatureValid": true,
+    "responseHashMatches": true,
+    "schemaValid": false,
+    "accept": false
+  },
+  "notes": {
+    "assetType": "Present exactly when `measured` is. measured.unit must be in its row of capacity-attest's unit table: gpu-hours: gpu-second; storage: byte, byte-second; bandwidth: byte; api-credits: call, token, credit.",
+    "issuedAt": "With `measured`, YYYY-MM-DDTHH:MM:SS.sssZ with exactly three fractional digits, and the first 19 characters of measured.period.end must not be later than the first 19 characters of issuedAt.",
+    "why": "A signature proves who wrote the record, not that its fields are allowed. byte is a storage or bandwidth unit, so a consumer that skips the unit table would accept GPU time measured in bytes."
+  }
+}
