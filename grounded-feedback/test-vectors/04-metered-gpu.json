@@ -1,0 +1,69 @@
+{
+  "_README": "x402-grounded-feedback-v0 with metered delivery: an x402 payment for GPU time, with the capacity-attest `measured` block, `assetType` and `issuedAt`. Check offline: node grounded-feedback/verify-test-vectors.mjs",
+  "spec": "grounded-feedback/README.md",
+  "signingKeyNote": "Signed with the RFC 8032 section 7.1 TEST 1 ed25519 key: secret 9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60, public d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a. Publicly known, never used for anything real. TEST KEY ONLY.",
+  "envelope": {
+    "payload": {
+      "scheme": "x402-grounded-feedback-v0",
+      "grounding": "x402-settlement",
+      "payer": "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+      "payee": "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc",
+      "ratee": {
+        "agentRegistry": "eip155:8453:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+        "agentId": "9"
+      },
+      "amount": "4000000",
+      "asset": "eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "resource": "https://gpu.example.com/v1/jobs/8f21a3",
+      "nonce": "0xcaed7a7ea54b232e9c2d483646b227c6d1c7ec3727d9eec9155689f6e776c926",
+      "settlementTx": "0x4444444444444444444444444444444444444444444444444444444444444444",
+      "issuedAt": "2026-09-01T08:00:05.000Z",
+      "assetType": "gpu-hours",
+      "measured": {
+        "unit": "gpu-second",
+        "basis": "supplied",
+        "promisedAmount": "28800",
+        "deliveredAmount": "25230",
+        "period": {
+          "start": "2026-09-01T04:00:00Z",
+          "end": "2026-09-01T08:00:00Z"
+        },
+        "method": {
+          "attribution": "buyer",
+          "instrument": "nvidia-smi accounting, 10s polling, job 8f21a3",
+          "readingsHash": "0d08539780ad082368c65079bf21cc1daaf62617549d20d5a304cc551248021d"
+        }
+      }
+    },
+    "canonical": "{\"amount\":\"4000000\",\"asset\":\"eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913\",\"assetType\":\"gpu-hours\",\"grounding\":\"x402-settlement\",\"issuedAt\":\"2026-09-01T08:00:05.000Z\",\"measured\":{\"basis\":\"supplied\",\"deliveredAmount\":\"25230\",\"method\":{\"attribution\":\"buyer\",\"instrument\":\"nvidia-smi accounting, 10s polling, job 8f21a3\",\"readingsHash\":\"0d08539780ad082368c65079bf21cc1daaf62617549d20d5a304cc551248021d\"},\"period\":{\"end\":\"2026-09-01T08:00:00Z\",\"start\":\"2026-09-01T04:00:00Z\"},\"promisedAmount\":\"28800\",\"unit\":\"gpu-second\"},\"nonce\":\"0xcaed7a7ea54b232e9c2d483646b227c6d1c7ec3727d9eec9155689f6e776c926\",\"payee\":\"0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc\",\"payer\":\"0x15d34aaf54267db7d7c367839aaf71a00a2c6a65\",\"ratee\":{\"agentId\":\"9\",\"agentRegistry\":\"eip155:8453:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432\"},\"resource\":\"https://gpu.example.com/v1/jobs/8f21a3\",\"scheme\":\"x402-grounded-feedback-v0\",\"settlementTx\":\"0x4444444444444444444444444444444444444444444444444444444444444444\"}",
+    "signature": "8789a654a4c21d1de61249582400843bcf3c22b0f029ae448a83f911bb516605f591fa967ee730ff3579109ae52382509a74dde48bd5fcb4a988a3a0daba290c",
+    "public_key": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+    "algorithm": "ed25519"
+  },
+  "canonicalByteLength": 987,
+  "responseHash": "0xb3e30f3ae8ed4cd1dc5ddec364f253ed36d70e2d7ff320e76764c2453d22b7a6",
+  "validationResponse": {
+    "function": "validationResponse(bytes32,uint8,string,bytes32,string)",
+    "requestHash": "0x7dce9626159992e5f6f7c640929117e99a8f8fca4b6665bffb5a302e21fb56cb",
+    "response": 100,
+    "responseURI": "https://example.com/attestations/4.json",
+    "responseHash": "0xb3e30f3ae8ed4cd1dc5ddec364f253ed36d70e2d7ff320e76764c2453d22b7a6",
+    "tag": "x402-settlement",
+    "calldata": "0x3d659a967dce9626159992e5f6f7c640929117e99a8f8fca4b6665bffb5a302e21fb56cb000000000000000000000000000000000000000000000000000000000000006400000000000000000000000000000000000000000000000000000000000000a0b3e30f3ae8ed4cd1dc5ddec364f253ed36d70e2d7ff320e76764c2453d22b7a60000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000002768747470733a2f2f6578616d706c652e636f6d2f6174746573746174696f6e732f342e6a736f6e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f783430322d736574746c656d656e740000000000000000000000000000000000"
+  },
+  "expect": {
+    "canonicalMatches": true,
+    "signatureValid": true,
+    "responseHashMatches": true,
+    "schemaValid": true,
+    "accept": true
+  },
+  "notes": {
+    "canonical": "Keys sorted by UTF-16 code units at every level, no whitespace, UTF-8. Every leaf value in the record is a string, so no number formatting is involved. Absent optional keys are omitted, never null.",
+    "responseHash": "keccak256 (Ethereum's, not NIST SHA3-256) over the UTF-8 bytes of the canonical string.",
+    "signature": "ed25519 over the UTF-8 bytes of the canonical string itself, not over responseHash and not over a hex string.",
+    "ratee": "ratee is the agent credited; payee only proves where the money went. Here payee is a treasury, so the two differ.",
+    "assetType": "Present exactly when `measured` is. measured.unit must be in its row of capacity-attest's unit table: gpu-hours: gpu-second; storage: byte, byte-second; bandwidth: byte; api-credits: call, token, credit.",
+    "issuedAt": "With `measured`, YYYY-MM-DDTHH:MM:SS.sssZ with exactly three fractional digits, and the first 19 characters of measured.period.end must not be later than the first 19 characters of issuedAt."
+  }
+}

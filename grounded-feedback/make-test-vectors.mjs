@@ -161,3 +161,80 @@ vector("03-tampered-amount.json", {
       "The consumer canonicalizes the payload it was given, so the edit changes the bytes: they no longer equal envelope.canonical, the signature no longer verifies over them, and their keccak256 no longer equals the responseHash on chain. A consumer that verified envelope.canonical instead of the payload would accept a record whose fields say something else.",
   },
 });
+
+// Metered delivery: the `measured` block is the capacity-attest example. The record adds the two
+// fields capacity-attest checks it against: `assetType`, and `issuedAt` in the strict timestamp form.
+const meteredRecord = {
+  scheme: "x402-grounded-feedback-v0",
+  grounding: "x402-settlement",
+  payer: "0x15d34aaf54267db7d7c367839aaf71a00a2c6a65",
+  payee: "0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc",
+  ratee: { agentRegistry: "eip155:8453:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432", agentId: "9" },
+  amount: "4000000",
+  asset: "eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+  resource: "https://gpu.example.com/v1/jobs/8f21a3",
+  nonce: sha256("x402-grounded-feedback-v0 test vector 04 nonce"),
+  settlementTx: "0x" + "44".repeat(32),
+  issuedAt: "2026-09-01T08:00:05.000Z",
+  assetType: "gpu-hours",
+  measured: {
+    unit: "gpu-second",
+    basis: "supplied",
+    promisedAmount: "28800",
+    deliveredAmount: "25230",
+    period: { start: "2026-09-01T04:00:00Z", end: "2026-09-01T08:00:00Z" },
+    method: {
+      attribution: "buyer",
+      instrument: "nvidia-smi accounting, 10s polling, job 8f21a3",
+      readingsHash: "0d08539780ad082368c65079bf21cc1daaf62617549d20d5a304cc551248021d",
+    },
+  },
+};
+
+const MEASURED_NOTES = {
+  assetType:
+    "Present exactly when `measured` is. measured.unit must be in its row of capacity-attest's unit table: gpu-hours: gpu-second; storage: byte, byte-second; bandwidth: byte; api-credits: call, token, credit.",
+  issuedAt:
+    "With `measured`, YYYY-MM-DDTHH:MM:SS.sssZ with exactly three fractional digits, and the first 19 characters of measured.period.end must not be later than the first 19 characters of issuedAt.",
+};
+
+const e4 = envelope(meteredRecord);
+const h4 = keccak(e4.canonical);
+vector("04-metered-gpu.json", {
+  _README:
+    "x402-grounded-feedback-v0 with metered delivery: an x402 payment for GPU time, with the capacity-attest `measured` block, `assetType` and `issuedAt`. Check offline: node grounded-feedback/verify-test-vectors.mjs",
+  spec: "grounded-feedback/README.md",
+  signingKeyNote: KEY_NOTE,
+  envelope: e4,
+  canonicalByteLength: Buffer.byteLength(e4.canonical, "utf8"),
+  responseHash: h4,
+  validationResponse: onChain(4, h4, meteredRecord.grounding),
+  expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: true, accept: true },
+  notes: { ...PITFALLS, ...MEASURED_NOTES },
+});
+
+// Negative: correctly signed and hashed, but `byte` is not a gpu-hours unit. Only the schema check
+// can catch it, since the signature covers the wrong value as faithfully as a right one.
+const wrongUnitRecord = {
+  ...meteredRecord,
+  nonce: sha256("x402-grounded-feedback-v0 test vector 05 nonce"),
+  settlementTx: "0x" + "55".repeat(32),
+  measured: { ...meteredRecord.measured, unit: "byte" },
+};
+const e5 = envelope(wrongUnitRecord);
+const h5 = keccak(e5.canonical);
+vector("05-unit-not-in-asset-type.json", {
+  _README:
+    "Negative vector: vector 04 with measured.unit set to byte, which capacity-attest does not allow under assetType gpu-hours. The record is correctly signed and hashed, so only the schema check fails, and the record must be rejected. Check offline: node grounded-feedback/verify-test-vectors.mjs",
+  spec: "grounded-feedback/README.md",
+  signingKeyNote: KEY_NOTE,
+  envelope: e5,
+  canonicalByteLength: Buffer.byteLength(e5.canonical, "utf8"),
+  responseHash: h5,
+  validationResponse: onChain(5, h5, wrongUnitRecord.grounding),
+  expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: false, accept: false },
+  notes: {
+    ...MEASURED_NOTES,
+    why: "A signature proves who wrote the record, not that its fields are allowed. byte is a storage or bandwidth unit, so a consumer that skips the unit table would accept GPU time measured in bytes.",
+  },
+});
