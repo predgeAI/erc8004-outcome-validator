@@ -131,9 +131,16 @@ The `tag` says how the record was verified and nothing about how much it is wort
 
 | `tag` | What proves the settlement | Signature needed |
 |---|---|---|
-| `x402-settlement` | The `settlementTx` receipt has status 1. The asset contract emitted `AuthorizationUsed(payer, nonce)` and `Transfer(payer, payee, amount)`. | yes |
-| `escrow-release` | The `settlementTx` receipt has status 1. The `escrow` contract emitted its release event for job `nonce`, and the asset emitted `Transfer(escrow, payee, amount)`. | yes |
+| `x402-settlement` | The `settlementTx` receipt has status 1, and its own logs include `AuthorizationUsed(payer, nonce)` and `Transfer(payer, payee, amount)`, both emitted by the asset contract. | yes |
+| `escrow-release` | The `settlementTx` receipt has status 1, and its own logs include the `escrow` contract's release event for job `nonce` and the asset's `Transfer(escrow, payee, amount)`. | yes |
 | `settlement-contract` | The validator is the settlement contract itself. It calls `validationResponse` in the same transaction that pays, so one receipt holds both the `Transfer` to `payee` and the registry's `ValidationResponse` event. The record could not exist without the settlement. | no |
+
+Take both logs from the `settlementTx` receipt itself, never from a scan of the block or a time
+window. `Transfer` carries no nonce, so a check that finds the two events anywhere in a block
+would accept a real `AuthorizationUsed` next to an unrelated transfer of the same amount. Take
+`payee` from the record, not from the log: a verifier who is not the payee has no other source
+for it, and a check of `Transfer(payer, any, amount)` would pass a settlement to an address the
+payer chose.
 
 Match logs by the asset's address, not by `tx.to`, because facilitators often settle through a
 multicall. A real x402 settlement on Base shows the shape: in
@@ -157,6 +164,9 @@ multicall. A real x402 settlement on Base shows the shape: in
 - **Hash the unpaid runtime challenge, not the static manifest** (@filip-study, @MuhammedAkinci).
   That is why `requirementsHash` is defined over the `accepts[]` entry as the 402 returned it. For
   Base USDC, the EIP-712 `extra.name` there is `USD Coin`.
+- **Both logs from one receipt, payee from the record** (@goun7, in
+  [coinbase/x402#360](https://github.com/coinbase/x402/pull/360)). The settlement check is scoped
+  to `settlementTx`, and `payee` is a required field, so a third party can run it.
 - **Registry writes are advisory** (@MuhammedAkinci). A settlement contract should catch a failed
   registry write and emit an event rather than revert the payment. The write is not free: Wiener
   Labs measured about 48,000 extra gas per finalize against the real registries (465,486 versus
