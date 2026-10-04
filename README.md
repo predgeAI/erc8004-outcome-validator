@@ -49,6 +49,7 @@ score can never silently drift from the signed evidence.
 | `src/prove.mjs` | offline GREEN proof (`npm run prove`) |
 | `src/fire-testnet.mjs` | **owner-run** broadcast to a testnet (`npm run fire`) |
 | `abi/ValidationRegistry.json` | the REAL registry ABI, vendored |
+| `monad/smoke.mjs` | Monad testnet smoke run on the deployed Predge contracts + canonical ERC-8004 registries |
 | `grounded-feedback/README.md` | x402-grounded-feedback-v0: payment-grounded ERC-8004 records (draft, [#99](https://github.com/erc-8004/erc-8004-contracts/issues/99)) |
 | `grounded-feedback/test-vectors/` | signed test vectors with expected `responseHash` and calldata |
 | `grounded-feedback/verify-test-vectors.mjs`, `verify_test_vectors.py` | two independent verifiers, Node and Python (`npm run verify-vectors`) |
@@ -74,6 +75,44 @@ It: registers an agentId (`IdentityRegistry` `0x8004A818…`), commits the claim
 the signed attest, and **prints the explorer link** for the response tx. Refuses mainnet
 chainIds and refuses without `CONFIRM_TESTNET=yes`. Base Sepolia ETH faucet:
 https://www.alchemy.com/faucets/base-sepolia
+
+## Monad testnet (Monad Metropolis hackathon)
+
+Chain: Monad Testnet, chain id `10143`, RPC `https://testnet-rpc.monad.xyz`, explorer
+[testnet.monadvision.com](https://testnet.monadvision.com). Testnet only; MON on testnet has no value.
+
+**Status: deployment pending faucet funding of the deployer
+[`0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9`](https://testnet.monadvision.com/address/0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9).**
+Addresses and transaction links go here once the contracts are live.
+
+What gets deployed (same audited builds as Arbitrum One, Robinhood Chain and Arc, byte-for-byte):
+
+| Contract | Role |
+|---|---|
+| `PredgeAgentValidator` | ERC-8004-style validation request/response, 0..100 verdict bound to a signed record |
+| `AgentJob` | escrowed job: client, provider, evaluator |
+| `PredgeValidatorBond` | validator bond behind each verdict; challengeable for 24 h counted from the verdict |
+| `PredgeSettlement` | pay-per-call receipts |
+
+The canonical ERC-8004 `IdentityRegistry` (`0x8004A818…D9e`) and `ValidationRegistry`
+(`0x8004Cb1B…4272`) singletons are also live on Monad testnet; the smoke run writes the same verdict there.
+
+Smoke run (`monad/smoke.mjs`): fetches the signed Settlement Risk evidence pack from
+data.predge.io, verifies ed25519 and sha256 offline, then on chain: validation request, job with
+escrow, bond, provider submit (separate key), verdict 100, verdict recorded behind the bond, job
+completed, pay-per-call receipt, then an ERC-8004 agent registration plus request and response on the
+canonical registries, read back with `responseHash == keccak256(signed bytes)`. It also simulates a
+challenge against the honest verdict, which reverts `VerdictHonest()`.
+
+```bash
+node monad/smoke.mjs                                # read-only preflight
+CONFIRM_TESTNET=yes node monad/smoke.mjs --send     # broadcast (keys from ~/.predge-monad/monad-testnet.env)
+```
+
+Honest limits: the evidence pack in the demo is signed with a throwaway prototype key, not Predge's
+production key. Client and validator are one key in the demo; the provider is a separate key. A slash
+only happens when a verdict contradicts what the provider committed on chain, so the honest demo
+flow never slashes.
 
 ## Grounded feedback: x402-grounded-feedback-v0
 
