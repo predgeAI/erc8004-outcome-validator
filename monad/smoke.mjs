@@ -106,9 +106,14 @@ const sha = crypto.createHash("sha256").update(pack.canonical).digest("hex");
 const payloadOk = canon(pack.payload) === pack.canonical;
 console.log(`\npack ${PACK_URL}\ned25519 ${sigOk} | sha256 == content_hash ${sha === pack.content_hash} | payload == canonical ${payloadOk}`);
 if (!sigOk || sha !== pack.content_hash || !payloadOk) throw new Error("evidence pack failed offline verification; refusing to record a verdict");
-const requestHash = ethers.keccak256(ethers.toUtf8Bytes(pack.canonical));
-const expected = "0x" + sha;
-const verdict = { requestHash, verified: true, signer: pack.public_key, pack: PACK_URL, contentHash: pack.content_hash, issuedAt: pack.payload.issued_at };
+// The bond takes one stake per requestHash. RUN_TAG=<anything> makes a fresh request for a re-run
+// (e.g. a recorded demo): the deliverable becomes the signed canonical bytes + "\n#run=<tag>".
+const RUN_TAG = process.env.RUN_TAG || "";
+const deliverable = RUN_TAG ? `${pack.canonical}\n#run=${RUN_TAG}` : pack.canonical;
+const requestHash = ethers.keccak256(ethers.toUtf8Bytes(deliverable));
+const expected = "0x" + crypto.createHash("sha256").update(deliverable).digest("hex");
+if (RUN_TAG) console.log(`run tag    ${RUN_TAG} (deliverable = signed bytes + run tag)`);
+const verdict = { requestHash, runTag: RUN_TAG || null, verified: true, signer: pack.public_key, pack: PACK_URL, contentHash: pack.content_hash, issuedAt: pack.payload.issued_at };
 const responseHash = ethers.keccak256(ethers.toUtf8Bytes(canon(verdict)));
 console.log(`requestHash  ${requestHash}\nresponseHash ${responseHash}`);
 if (!SEND) { console.log("\nPREFLIGHT OK. To broadcast: CONFIRM_TESTNET=yes node monad/smoke.mjs --send"); process.exit(0); }

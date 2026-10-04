@@ -107,6 +107,7 @@ challenge against the honest verdict, which reverts `VerdictHonest()`.
 ```bash
 node monad/smoke.mjs                                # read-only preflight
 CONFIRM_TESTNET=yes node monad/smoke.mjs --send     # broadcast (keys from ~/.predge-monad/monad-testnet.env)
+RUN_TAG=demo2 CONFIRM_TESTNET=yes node monad/smoke.mjs --send   # a re-run needs a fresh request (one bond per request)
 ```
 
 Honest limits: the evidence pack in the demo is signed with a throwaway prototype key, not Predge's
