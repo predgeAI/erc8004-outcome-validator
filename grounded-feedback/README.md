@@ -209,6 +209,7 @@ the same fields under the same rules:
 | [`03-tampered-amount.json`](test-vectors/03-tampered-amount.json) | vector 01 with `amount` edited after signing | reject: canonical bytes, signature, `responseHash` and the requirements check all fail |
 | [`04-metered-gpu.json`](test-vectors/04-metered-gpu.json) | x402 payment for metered GPU time, with `measured`, `assetType` and `issuedAt` | accept |
 | [`05-unit-not-in-asset-type.json`](test-vectors/05-unit-not-in-asset-type.json) | correctly signed, but `unit` is `byte` under `assetType` `gpu-hours` | reject: the schema check fails, everything else holds |
+| `06` to `11` | oracle-outcome-validation-v0 on Polymarket market 1992979, see [oracle-outcome.md](oracle-outcome.md#test-vectors-polymarket-market-1992979) | 06, 07 accept; 08 to 11 reject |
 
 Each file carries:
 - the record, the envelope, the exact canonical string and its byte length;
@@ -216,19 +217,31 @@ Each file carries:
 - an `expect` block and notes on the likely mistakes.
 
 They are signed with the RFC 8032 section 7.1 TEST 1 key, which is public and was never used for
-anything real. Every settlement transaction is a placeholder. capacity-attest (linked above)
+anything real. Every settlement transaction in vectors 01 to 05 is a placeholder; the on-chain
+references in vectors 06 to 11 are real. capacity-attest (linked above)
 tests its own rules for the `measured` block; vectors 04 and 05 test only the two fields this
 record maps them onto.
 
 ```bash
 npm ci
 node grounded-feedback/verify-test-vectors.mjs       # Node: node:crypto + ethers
+node grounded-feedback/verify-test-vectors.mjs --onchain   # plus Polygon RPC re-read of 06 to 11
 python3 grounded-feedback/verify_test_vectors.py     # Python: cryptography + pycryptodome
 node grounded-feedback/make-test-vectors.mjs         # regenerate; output is byte-identical
 ```
 
 The two verifiers share no code with each other or with the generator, and both report GREEN on
-all five vectors.
+all eleven vectors, including the negative ones (each vector's `expect` block says which checks
+must fail).
+
+## Oracle outcome validation: `outcomeState`
+
+Outcome validators that read an optimistic oracle use a sibling document,
+[`oracle-outcome-validation-v0`](oracle-outcome.md), with the same canonical bytes, signature and
+`responseHash` rules. It binds the oracle's lifecycle state (`proposed`, `disputed`, `final`) and
+the oracle reference that was read (contract, question and request, chain, block, block hash and
+the state-changing transaction), and defines how a later `final` record supersedes an earlier one.
+Vectors 06 to 11 use one real Polymarket market on Polygon; `--onchain` re-reads them over RPC.
 
 ## Open questions
 

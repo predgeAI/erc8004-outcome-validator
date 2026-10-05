@@ -1,4 +1,4 @@
-// Generates the x402-grounded-feedback-v0 test vectors in ./test-vectors from fixed inputs.
+// Generates the x402-grounded-feedback-v0 and oracle-outcome-validation-v0 test vectors in ./test-vectors from fixed inputs.
 // Deterministic: same inputs, same bytes (ed25519 signatures are deterministic).
 //
 //   node grounded-feedback/make-test-vectors.mjs
@@ -237,4 +237,205 @@ vector("05-unit-not-in-asset-type.json", {
     ...MEASURED_NOTES,
     why: "A signature proves who wrote the record, not that its fields are allowed. byte is a storage or bandwidth unit, so a consumer that skips the unit table would accept GPU time measured in bytes.",
   },
+});
+
+// ---------------------------------------------------------------------------------------------
+// oracle-outcome-validation-v0: outcome validation with the oracle lifecycle state bound by
+// responseHash. One real Polymarket market (1992979) on Polygon, from the committed evidence file
+// written by tools/collect-uma-ctf.mjs. "Yes" was proposed, disputed, and the market settled "No".
+// ---------------------------------------------------------------------------------------------
+const ev = JSON.parse(readFileSync(join(here, "evidence/polymarket-1992979.json"), "utf8"));
+const byEvent = (contract, event, n = 0) => ev.timeline.filter((e) => e.contract === contract && e.event === event)[n];
+const firstProposal = byEvent("optimisticOracle", "ProposePrice", 0);
+const resolution = byEvent("adapter", "QuestionResolved");
+const finalRequest = byEvent("optimisticOracle", "Settle");
+
+const ratee = { agentRegistry: "eip155:8453:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432", agentId: "42" };
+const subject = { venue: "polymarket", marketId: ev.market.marketId, conditionId: ev.market.conditionId };
+// The ERC-8004 request: the agent claimed "Yes". requestHash commits to this document.
+const oracleRequest = { scheme: "oracle-outcome-validation-v0", ratee, subject, claimedOutcome: "Yes" };
+const oracleRequestHash = keccak(canonicalJson(oracleRequest));
+const oracleRequestURI = "https://example.com/requests/polymarket-1992979-yes.json";
+
+function oracleRef(state, requestTimestamp, price, read, stateTx) {
+  return {
+    kind: "uma-ctf-adapter",
+    chainId: ev.chainId,
+    oracle: ev.contracts.optimisticOracle,
+    requester: ev.contracts.adapter,
+    conditionalTokens: ev.contracts.conditionalTokens,
+    questionId: ev.market.questionId,
+    identifier: ev.identifier,
+    requestTimestamp,
+    price,
+    readBlock: read.blockNumber,
+    readBlockHash: read.blockHash,
+    stateTx,
+  };
+}
+const label = (price) => ({ "0": "No", "1000000000000000000": "Yes", "500000000000000000": "Unknown" })[price];
+
+const proposedRecord = {
+  scheme: "oracle-outcome-validation-v0",
+  requestHash: oracleRequestHash,
+  ratee,
+  subject,
+  claimedOutcome: "Yes",
+  observedOutcome: label(firstProposal.price),
+  score: "100",
+  outcomeState: "proposed",
+  oracle: oracleRef("proposed", firstProposal.requestTimestamp, firstProposal.price, ev.reads.proposed, firstProposal.transactionHash),
+  issuedAt: "2026-07-02T05:14:30.000Z",
+};
+const eP = envelope(proposedRecord);
+const hP = keccak(eP.canonical);
+
+const finalRecord = {
+  scheme: "oracle-outcome-validation-v0",
+  requestHash: oracleRequestHash,
+  ratee,
+  subject,
+  claimedOutcome: "Yes",
+  observedOutcome: label(resolution.settledPrice),
+  score: "0",
+  outcomeState: "final",
+  oracle: oracleRef("final", finalRequest.requestTimestamp, resolution.settledPrice, ev.reads.final, resolution.transactionHash),
+  issuedAt: "2026-07-02T09:00:30.000Z",
+  supersedes: hP,
+};
+const eF = envelope(finalRecord);
+const hF = keccak(eF.canonical);
+
+function oracleCall(n, responseHash, tag, response, requestHash = oracleRequestHash) {
+  const responseURI = `https://example.com/attestations/${n}.json`;
+  const calldata = iface.encodeFunctionData("validationResponse", [requestHash, response, responseURI, responseHash, tag]);
+  return { function: "validationResponse(bytes32,uint8,string,bytes32,string)", requestHash, response, responseURI, responseHash, tag, calldata };
+}
+
+const ORACLE_EVIDENCE = {
+  file: "grounded-feedback/evidence/polymarket-1992979.json",
+  market: `${ev.market.title} (Polymarket market ${ev.market.marketId})`,
+  ancillaryData: ev.ancillaryData,
+  timeline: ev.timeline.map((e) => `${e.blockNumber} ${e.contract}.${e.event} ${e.transactionHash}${e.price !== undefined ? " price " + e.price : ""}${e.payoutNumerators ? " payouts " + e.payoutNumerators.join(",") : ""}`),
+};
+const ORACLE_NOTES = {
+  outcomeState:
+    "Inside the signed record, so responseHash binds it. proposed and disputed records are provisional: the on-chain tag must say the same state (oracle-outcome:<state>), and a consumer must not present them as final.",
+  oracle:
+    "The oracle reference a reader re-checks on Polygon: at readBlock, OO.getState(requester, identifier, requestTimestamp, ancillaryData) and ConditionalTokens.payoutDenominator(conditionId); stateTx is the transaction that put the request into outcomeState. keccak256(ancillaryData) = questionId and conditionId = keccak256(requester ++ questionId ++ uint256(2)).",
+  supersedes:
+    "A later record for the same requestHash names the responseHash it replaces. The earlier record stays visible: its ValidationResponse event stays in the registry logs and its envelope stays at its responseURI.",
+  onchain: "node grounded-feedback/verify-test-vectors.mjs --onchain re-reads every reference over Polygon RPC (RPC_URL, default https://polygon.gateway.tenderly.co).",
+};
+
+vector("06-oracle-proposed.json", {
+  _README:
+    "oracle-outcome-validation-v0 at outcomeState proposed. Real Polymarket market 1992979: an agent claimed Yes; at Polygon block 89509500 the UMA request held a proposed Yes (proposed at block 89508637, disputed at 89510574). Score 100 against the proposal, tag oracle-outcome:proposed. Check offline: node grounded-feedback/verify-test-vectors.mjs; on chain: add --onchain",
+  spec: "grounded-feedback/oracle-outcome.md",
+  signingKeyNote: KEY_NOTE,
+  request: { requestURI: oracleRequestURI, document: oracleRequest },
+  evidence: ORACLE_EVIDENCE,
+  envelope: eP,
+  canonicalByteLength: Buffer.byteLength(eP.canonical, "utf8"),
+  responseHash: hP,
+  validationResponse: oracleCall(6, hP, "oracle-outcome:proposed", 100),
+  expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: true, stateTagConsistent: true, supersedeChainValid: true, acceptOffline: true, onchainStateMatches: true, accept: true },
+  notes: { ...PITFALLS, ...ORACLE_NOTES },
+});
+
+vector("07-oracle-final-supersedes.json", {
+  _README:
+    "oracle-outcome-validation-v0 at outcomeState final for the same request as vector 06, after on-chain resolution (QuestionResolved and ConditionResolution, payouts 0,1 = No, at block 89518530). Score 0, tag oracle-outcome:final, supersedes = responseHash of vector 06, which stays visible. Check offline: node grounded-feedback/verify-test-vectors.mjs; on chain: add --onchain",
+  spec: "grounded-feedback/oracle-outcome.md",
+  signingKeyNote: KEY_NOTE,
+  request: { requestURI: oracleRequestURI, document: oracleRequest },
+  evidence: ORACLE_EVIDENCE,
+  envelope: eF,
+  canonicalByteLength: Buffer.byteLength(eF.canonical, "utf8"),
+  responseHash: hF,
+  validationResponse: oracleCall(7, hF, "oracle-outcome:final", 0),
+  expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: true, stateTagConsistent: true, supersedeChainValid: true, acceptOffline: true, onchainStateMatches: true, accept: true },
+  notes: { ...PITFALLS, ...ORACLE_NOTES },
+});
+
+// Negative: vector 06's record, unchanged and correctly signed, written on chain as if it were final.
+vector("08-proposed-presented-as-final.json", {
+  _README:
+    "Negative vector: the signed proposed record of vector 06, written with tag oracle-outcome:final. The signature and responseHash are fine; the presentation contradicts the bound outcomeState, so the record must be rejected.",
+  spec: "grounded-feedback/oracle-outcome.md",
+  signingKeyNote: KEY_NOTE,
+  request: { requestURI: oracleRequestURI, document: oracleRequest },
+  evidence: ORACLE_EVIDENCE,
+  envelope: eP,
+  canonicalByteLength: Buffer.byteLength(eP.canonical, "utf8"),
+  responseHash: hP,
+  validationResponse: oracleCall(8, hP, "oracle-outcome:final", 100),
+  expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: true, stateTagConsistent: false, supersedeChainValid: true, acceptOffline: false, onchainStateMatches: true, accept: false },
+  notes: { why: "A contract or indexer that filters on the tag would read a provisional proposal as the final outcome. outcomeState is bound by responseHash, so the tag must agree with it." },
+});
+
+// Negative: a correctly signed final record whose supersedes names a record of a different request.
+const wrongSupersede = { ...finalRecord, supersedes: h1 };
+const eW = envelope(wrongSupersede);
+const hW = keccak(eW.canonical);
+vector("09-supersedes-wrong-hash.json", {
+  _README:
+    "Negative vector: vector 07 re-signed with supersedes pointing at the responseHash of vector 01, an x402 record for a different request. Signature and hash are valid; the supersede chain is not, so the record must be rejected.",
+  spec: "grounded-feedback/oracle-outcome.md",
+  signingKeyNote: KEY_NOTE,
+  request: { requestURI: oracleRequestURI, document: oracleRequest },
+  evidence: ORACLE_EVIDENCE,
+  envelope: eW,
+  canonicalByteLength: Buffer.byteLength(eW.canonical, "utf8"),
+  responseHash: hW,
+  validationResponse: oracleCall(9, hW, "oracle-outcome:final", 0),
+  expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: true, stateTagConsistent: true, supersedeChainValid: false, acceptOffline: false, onchainStateMatches: true, accept: false },
+  notes: { why: "supersedes must name an earlier, non-final record of the same requestHash, ratee, subject and claim, read at an earlier block. Otherwise the proposed record that vector 07 replaces would silently drop out of the history." },
+});
+
+// Negative: vector 06 edited after signing: outcomeState proposed -> final (and the tag to match).
+const tamperedState = { ...eP, payload: { ...proposedRecord, outcomeState: "final" } };
+vector("10-tampered-outcome-state.json", {
+  _README:
+    "Negative vector: vector 06 with payload.outcomeState changed from proposed to final after signing, and the tag changed to match. Canonical bytes, signature and responseHash all fail, so the record must be rejected.",
+  spec: "grounded-feedback/oracle-outcome.md",
+  signingKeyNote: KEY_NOTE,
+  request: { requestURI: oracleRequestURI, document: oracleRequest },
+  evidence: ORACLE_EVIDENCE,
+  envelope: tamperedState,
+  canonicalByteLength: Buffer.byteLength(tamperedState.canonical, "utf8"),
+  responseHash: hP,
+  validationResponse: oracleCall(10, hP, "oracle-outcome:final", 100),
+  expect: { canonicalMatches: false, signatureValid: false, responseHashMatches: false, accept: false },
+  notes: { why: "outcomeState is part of the signed canonical bytes, so a consumer that canonicalizes the payload it received sees the edit. The on-chain responseHash still names the proposed record." },
+});
+
+// Negative: a correctly signed record that calls the market final at the proposed-state block.
+// Only the on-chain check can catch it: the validator labelled the state instead of reading it.
+// It answers its own request (agent 43 claiming Yes), so it has no earlier record to supersede.
+const ratee43 = { ...ratee, agentId: "43" };
+const request43 = { ...oracleRequest, ratee: ratee43 };
+const requestHash43 = keccak(canonicalJson(request43));
+const finalTooEarly = {
+  ...proposedRecord,
+  requestHash: requestHash43,
+  ratee: ratee43,
+  outcomeState: "final",
+  issuedAt: "2026-07-02T05:14:31.000Z",
+};
+const eE = envelope(finalTooEarly);
+const hE = keccak(eE.canonical);
+vector("11-final-claimed-at-proposed-block.json", {
+  _README:
+    "Negative vector: a correctly signed record that says outcomeState final with observedOutcome Yes, at block 89509500 where the request was only proposed. It passes every offline check; --onchain rejects it because payoutDenominator(conditionId) is 0 and getState is PROPOSED at that block.",
+  spec: "grounded-feedback/oracle-outcome.md",
+  signingKeyNote: KEY_NOTE,
+  request: { requestURI: "https://example.com/requests/polymarket-1992979-yes-agent-43.json", document: request43 },
+  evidence: ORACLE_EVIDENCE,
+  envelope: eE,
+  canonicalByteLength: Buffer.byteLength(eE.canonical, "utf8"),
+  responseHash: hE,
+  validationResponse: oracleCall(11, hE, "oracle-outcome:final", 100, requestHash43),
+  expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: true, stateTagConsistent: true, supersedeChainValid: true, acceptOffline: true, onchainStateMatches: false, accept: false },
+  notes: { why: "This is why the oracle reference is bound next to outcomeState: a label alone can be wrong, a block plus a contract read can be checked. Offline verifiers accept it and say that the on-chain check is still owed." },
 });
