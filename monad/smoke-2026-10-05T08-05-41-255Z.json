@@ -1,0 +1,120 @@
+{
+  "chain": "monad-testnet",
+  "chainId": 10143,
+  "ranAt": "2026-10-05T08:05:41.255Z",
+  "explorer": "https://testnet.monadvision.com",
+  "pack": "https://data.predge.io/samples/pm-2169995-microstrategy-may31.pack.json",
+  "packKeyNotice": "THROWAWAY DEV KEY generated for this prototype on 2026-10-03. Not Predge's production identity; do not trust it as such.",
+  "requestHash": "0x80b502a5ab222406784e43395b76c4da86525a55f43da21555fb77c9de79bbd0",
+  "expectedSha256": "0xfed6d15eb50da0c8e08e4a1fd95b767f7d9ced13985e246ede843705454b1f64",
+  "responseHash": "0x325f13d6cf34fae6dc2e6eaf3aa9055ceb5d864dbf13e1e42118236af4a0e796",
+  "jobId": "1",
+  "parties": {
+    "client": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+    "validator": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+    "provider": "0x41c31248B5187635f0c639605E53D43792c900ad"
+  },
+  "values": {
+    "bond": "0.01",
+    "escrow": "0.005",
+    "pay": "0.001",
+    "providerGas": "0.05"
+  },
+  "bond": {
+    "wouldSlash": false,
+    "challengeSimulated": "VerdictHonest",
+    "scoredAt": 1791187532
+  },
+  "erc8004": {
+    "agentId": "2003",
+    "requestHash": "0x9bfb85500f04a193fc6a2ef282a2a183d19587925c544df91ea5820b07208882",
+    "responseHash": "0x80b502a5ab222406784e43395b76c4da86525a55f43da21555fb77c9de79bbd0",
+    "bound": true
+  },
+  "receipts": [
+    {
+      "step": "1 validationRequest (Predge)",
+      "tx": "0x95b06acc13ffd118cbb39d2353431aa0f4cb36001fe71ec63a0373f655cc6f52",
+      "url": "https://testnet.monadvision.com/tx/0x95b06acc13ffd118cbb39d2353431aa0f4cb36001fe71ec63a0373f655cc6f52",
+      "status": 1,
+      "block": 68349122
+    },
+    {
+      "step": "  fund provider gas",
+      "tx": "0x5a4dfa986eef4c2d71459eae88fb64f0c5c8a0c2f4a442fb89777ec14763d1da",
+      "url": "https://testnet.monadvision.com/tx/0x5a4dfa986eef4c2d71459eae88fb64f0c5c8a0c2f4a442fb89777ec14763d1da",
+      "status": 1,
+      "block": 68349125
+    },
+    {
+      "step": "2 createJob (escrow)",
+      "tx": "0x1fd8016125af780b31c7de7ad5d0b2fedea1ddff3fa92cead54475cd634df224",
+      "url": "https://testnet.monadvision.com/tx/0x1fd8016125af780b31c7de7ad5d0b2fedea1ddff3fa92cead54475cd634df224",
+      "status": 1,
+      "block": 68349129
+    },
+    {
+      "step": "3 stakeAndCommit (bond)",
+      "tx": "0x09fe44dc165fe63850762f1a743bff1f9892266348f83665f8c0542da30b1141",
+      "url": "https://testnet.monadvision.com/tx/0x09fe44dc165fe63850762f1a743bff1f9892266348f83665f8c0542da30b1141",
+      "status": 1,
+      "block": 68349132
+    },
+    {
+      "step": "4 submit (provider key)",
+      "tx": "0xce7db23a206c372fb74825c0989f2b68f9a0454b1ea33f8d95576e777d42bfc4",
+      "url": "https://testnet.monadvision.com/tx/0xce7db23a206c372fb74825c0989f2b68f9a0454b1ea33f8d95576e777d42bfc4",
+      "status": 1,
+      "block": 68349135
+    },
+    {
+      "step": "5 validationResponse (verdict 100)",
+      "tx": "0x80aea2ea52ddb0583052d12ad6e93e727f874c3987701d39484b8e6f9a9229a0",
+      "url": "https://testnet.monadvision.com/tx/0x80aea2ea52ddb0583052d12ad6e93e727f874c3987701d39484b8e6f9a9229a0",
+      "status": 1,
+      "block": 68349140
+    },
+    {
+      "step": "6 recordScore (verdict behind bond)",
+      "tx": "0x40e803d4274c2857a785a00344cb8084e307593e50799e13100ff711d270b50b",
+      "url": "https://testnet.monadvision.com/tx/0x40e803d4274c2857a785a00344cb8084e307593e50799e13100ff711d270b50b",
+      "status": 1,
+      "block": 68349155
+    },
+    {
+      "step": "7 complete (escrow released)",
+      "tx": "0xd985d51f9cd406905f2e4a969646c0367bbbf86c1e7a35691db230f17936398e",
+      "url": "https://testnet.monadvision.com/tx/0xd985d51f9cd406905f2e4a969646c0367bbbf86c1e7a35691db230f17936398e",
+      "status": 1,
+      "block": 68349158
+    },
+    {
+      "step": "8 payForRoute (pay-per-call)",
+      "tx": "0x9cd46a446a185349b0d3977ee58446b14d5da6a639654c9c82b0a9b09772a63a",
+      "url": "https://testnet.monadvision.com/tx/0x9cd46a446a185349b0d3977ee58446b14d5da6a639654c9c82b0a9b09772a63a",
+      "status": 1,
+      "block": 68349161
+    },
+    {
+      "step": "9 ERC-8004 IdentityRegistry.register",
+      "tx": "0x815041cb953d1de1c55c63f405e3a22134b19304bfa14e446cce2705fad2e80c",
+      "url": "https://testnet.monadvision.com/tx/0x815041cb953d1de1c55c63f405e3a22134b19304bfa14e446cce2705fad2e80c",
+      "status": 1,
+      "block": 68349165
+    },
+    {
+      "step": "10 ERC-8004 validationRequest",
+      "tx": "0x44c62cb86d999f32f5256848e77ecc433828755c0ba6ae3adf01c1c9f9797977",
+      "url": "https://testnet.monadvision.com/tx/0x44c62cb86d999f32f5256848e77ecc433828755c0ba6ae3adf01c1c9f9797977",
+      "status": 1,
+      "block": 68349168
+    },
+    {
+      "step": "11 ERC-8004 validationResponse",
+      "tx": "0x3bb937170050e5fc6eaa65e7213da5f6ad66c7d867a04f47ba7dd8a495f9c274",
+      "url": "https://testnet.monadvision.com/tx/0x3bb937170050e5fc6eaa65e7213da5f6ad66c7d867a04f47ba7dd8a495f9c274",
+      "status": 1,
+      "block": 68349171
+    }
+  ]
+}
