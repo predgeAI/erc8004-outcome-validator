@@ -1,0 +1,9 @@
+verification-profile-manifest.schema.json in this directory is vendored byte for byte from
+pipavlo82/recomputable-verification-receipts, path conformance/rvr-v0/verification-profile-manifest.schema.json,
+as frozen at the v0.0.1-rc.2 tag commit f4476754c92e0bea549474722108ec60ded1385a and unchanged at
+9dd36e882dd372f264b77b179130948aa5adcbde.
+
+SHA-256 148afeb484d3866c1caae82e574182c1b748dd461dfaeb1d8095ecf4905690c1
+
+It is the generic RVR v0 profile-manifest bootstrap schema. It is licensed under the Apache License,
+Version 2.0 (copy in LICENSE next to this file). It is not modified here.

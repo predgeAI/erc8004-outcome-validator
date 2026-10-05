@@ -1,0 +1,34 @@
+name: Test vectors
+
+# Offline checks only: both grounded-feedback verifiers and the ERC-8404 profile gate.
+# The Polygon re-read (npm run verify-vectors-onchain) needs an archive RPC and is run by hand.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  vectors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 20
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12"
+      - run: npm ci
+      - name: Generator output is byte-identical to the committed vectors
+        run: node grounded-feedback/make-test-vectors.mjs && git diff --exit-code grounded-feedback/test-vectors
+      - name: Node verifier
+        run: node grounded-feedback/verify-test-vectors.mjs
+      - name: Python verifier
+        run: pip install cryptography pycryptodome && python3 grounded-feedback/verify_test_vectors.py
+      - name: ERC-8404 oracle-outcome profile gate
+        run: python3 erc8404-profile/oracle-outcome/adapter.py --check > /tmp/profile.json && python3 -m unittest erc8404-profile/oracle-outcome/test_profile.py

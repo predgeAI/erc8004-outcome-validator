@@ -1,0 +1,62 @@
+{
+  "schema": "rvr.profile-package-manifest.v0",
+  "hashAlgorithm": "sha256-lowercase-hex",
+  "packageRoot": "erc8404-profile/",
+  "memberCount": "13",
+  "members": [
+    {
+      "path": "conformance/rvr-v0/LICENSE",
+      "sha256": "fa7fe2e14249d2da31c0d2a0bbefc17a1994a93b42ae652a3dab450b6f1c0251"
+    },
+    {
+      "path": "conformance/rvr-v0/NOTICE",
+      "sha256": "1ac75e1fc1318b27c73d17fec6d57bb4407ea11ff5c4b742c4b671659ff84eff"
+    },
+    {
+      "path": "conformance/rvr-v0/verification-profile-manifest.schema.json",
+      "sha256": "148afeb484d3866c1caae82e574182c1b748dd461dfaeb1d8095ecf4905690c1"
+    },
+    {
+      "path": "oracle-outcome/README.md",
+      "sha256": "9b4e4039fb66d6cca39b88c071cacf0a182488bea193653eab8d90611e94f672"
+    },
+    {
+      "path": "oracle-outcome/SPEC.md",
+      "sha256": "f8de6355de2268b0625815042a84327497baf5053ea7baf04b040cd528e74cea"
+    },
+    {
+      "path": "oracle-outcome/adapter.py",
+      "sha256": "a133b0f0e7dc030d636bc0fe3dabff9f3802e3e248abaa18f68778e7f89050c5"
+    },
+    {
+      "path": "oracle-outcome/expected.json",
+      "sha256": "48b6172802198cd7d98013d60b67004bf3bcb55c59122407258cee44fa3daccc"
+    },
+    {
+      "path": "oracle-outcome/profile.schema.json",
+      "sha256": "81943f4b6f3409b9c98e8be14aefe45f532fce350b00329d3f2c311d2f703d90"
+    },
+    {
+      "path": "oracle-outcome/receipts.json",
+      "sha256": "4c9a420b54d774ec4c5d03cb27148f88234d6b11d77bb8f2153416f37c981d78"
+    },
+    {
+      "path": "oracle-outcome/rvr.schema.json",
+      "sha256": "19384ff1954cf972b7602df572c94bf95485e6de85c433527e687e5b845a6414"
+    },
+    {
+      "path": "oracle-outcome/test_profile.py",
+      "sha256": "377f393437ead50058580e7f3f9c2a50db02c830b808f25c09fd02f9fcc1c9a3"
+    },
+    {
+      "path": "oracle-outcome/vectors.json",
+      "sha256": "a36471c2225b77e9b4a98b5da972d155de3396f116f0c6738a91879191bc1815"
+    },
+    {
+      "path": "oracle-outcome/verification-profile.json",
+      "sha256": "6bc8616213810beb5952d91bfeeccbf3cfb191fbde44490c12e1c89530cd3f9d"
+    }
+  ],
+  "packageDigestRule": "sha256-utf8-sorted-path-tab-file-sha256-lf-rows-manifest-excluded",
+  "packageDigest": "a5bd8ba98e56f73946dd122de97e273aff4260c45af262c7d2635a7ec5c49101"
+}

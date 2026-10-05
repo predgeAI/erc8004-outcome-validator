@@ -1,0 +1,129 @@
+{
+  "schema": "rvr.verification-profile.v0",
+  "profileId": "rvr-oracle-outcome-uma-ctf-v0",
+  "profileSchemaContract": {
+    "manifest": {
+      "id": "verification-profile-manifest-schema",
+      "path": "conformance/rvr-v0/verification-profile-manifest.schema.json",
+      "sha256": "148afeb484d3866c1caae82e574182c1b748dd461dfaeb1d8095ecf4905690c1",
+      "requiredForRecomputation": true
+    },
+    "constraints": {
+      "id": "oracle-outcome-profile-schema",
+      "path": "oracle-outcome/profile.schema.json",
+      "sha256": "81943f4b6f3409b9c98e8be14aefe45f532fce350b00329d3f2c311d2f703d90",
+      "requiredForRecomputation": true
+    }
+  },
+  "dependencyResolution": {
+    "base": "SUPPLIED_PROFILE_PACKAGE_ROOT",
+    "pathFormat": "relative-posix-no-empty-dot-dotdot-or-colon-segments",
+    "locatorRole": "NORMATIVE_PACKAGE_RELATIVE_PATH",
+    "verificationOrder": "resolve-read-sha256-match-use"
+  },
+  "verificationSpecification": {
+    "id": "oracle-outcome-verification-specification",
+    "path": "oracle-outcome/SPEC.md",
+    "sha256": "f8de6355de2268b0625815042a84327497baf5053ea7baf04b040cd528e74cea",
+    "requiredForRecomputation": true
+  },
+  "conformanceVectorSet": {
+    "id": "rvr-oracle-outcome-uma-ctf-v0-vectors",
+    "members": [
+      {
+        "id": "oracle-outcome-expected-results",
+        "path": "oracle-outcome/expected.json",
+        "sha256": "48b6172802198cd7d98013d60b67004bf3bcb55c59122407258cee44fa3daccc",
+        "requiredForRecomputation": false
+      },
+      {
+        "id": "oracle-outcome-verification-vectors",
+        "path": "oracle-outcome/vectors.json",
+        "sha256": "a36471c2225b77e9b4a98b5da972d155de3396f116f0c6738a91879191bc1815",
+        "requiredForRecomputation": false
+      }
+    ],
+    "digest": "3f1bc28c4c7263a75938481e70d9db3656abb676cf5ee705a6c982899c2530a3",
+    "digestRule": "sha256-utf8-sorted-path-tab-file-sha256-lf-rows"
+  },
+  "canonicalByteContract": {
+    "id": "rvr-canonical-json-v0",
+    "encoding": "UTF-8",
+    "domain": "null-boolean-unicode-scalar-string-array-object",
+    "objectKeyOrder": "unicode-scalar-value-ascending",
+    "arrayOrder": "preserved-with-duplicates",
+    "unicode": "scalar-values-only-no-normalization",
+    "numbers": "forbidden",
+    "stringEscaping": "rvr-json-string-escaping-v0",
+    "solidus": "literal",
+    "lineSeparators": "U+2028-and-U+2029-literal",
+    "whitespace": "none"
+  },
+  "schemaContracts": [
+    {
+      "id": "oracle-outcome-rvr-schema",
+      "path": "oracle-outcome/rvr.schema.json",
+      "sha256": "19384ff1954cf972b7602df572c94bf95485e6de85c433527e687e5b845a6414",
+      "requiredForRecomputation": true
+    }
+  ],
+  "evidenceSetContract": {
+    "schemaPath": "oracle-outcome/rvr.schema.json",
+    "schemaSha256": "19384ff1954cf972b7602df572c94bf95485e6de85c433527e687e5b845a6414",
+    "schemaPointer": "#/$defs/evidenceSet",
+    "digestRule": "sha256-utf8-rvr-canonical-json-v0-normalized-member-order"
+  },
+  "canonicalResultContract": {
+    "schemaPath": "oracle-outcome/rvr.schema.json",
+    "schemaSha256": "19384ff1954cf972b7602df572c94bf95485e6de85c433527e687e5b845a6414",
+    "schemaPointer": "#/$defs/canonicalResult",
+    "outcomeProjection": "/outcome",
+    "reasonCodeProjection": "/reasonCode"
+  },
+  "resultHashRules": {
+    "algorithm": "SHA-256",
+    "input": "rvr-canonical-json-v0(canonicalResult)",
+    "encoding": "UTF-8-exactly-once",
+    "output": "lowercase-hex-no-prefix"
+  },
+  "reasonCodeNamespace": {
+    "verification": [
+      "rvr.oracle-outcome.v0.final_outcome_verified",
+      "rvr.oracle-outcome.v0.final_outcome_mismatch",
+      "rvr.oracle-outcome.v0.lifecycle_not_final",
+      "rvr.oracle-outcome.v0.resolution_evidence_incomplete",
+      "rvr.oracle-outcome.v0.proposal_verified",
+      "rvr.oracle-outcome.v0.proposed_outcome_mismatch",
+      "rvr.oracle-outcome.v0.lifecycle_state_mismatch",
+      "rvr.oracle-outcome.v0.market_mismatch",
+      "rvr.oracle-outcome.v0.snapshot_identity_inconsistent",
+      "rvr.oracle-outcome.v0.rules_version_mismatch",
+      "rvr.oracle-outcome.v0.rules_labels_unrecognized",
+      "rvr.oracle-outcome.v0.required_snapshot_unavailable"
+    ],
+    "recomputation": [
+      "rvr.recompute.identical",
+      "rvr.recompute.canonical_result_diverged",
+      "rvr.recompute.normative_dependency_unavailable",
+      "rvr.recompute.normative_dependency_identity_mismatch",
+      "rvr.recompute.committed_evidence_unavailable"
+    ],
+    "gateRejections": [
+      "rvr.gate.schema_invalid",
+      "rvr.gate.identity_mismatch",
+      "rvr.gate.result_projection_mismatch",
+      "rvr.gate.evidence_closure_incomplete"
+    ]
+  },
+  "externalContextPolicy": {
+    "mode": "COMMITTED_SNAPSHOTS_ONLY",
+    "ambientInputs": "FORBIDDEN",
+    "immutableCommitments": [
+      "oracle-outcome-committed-chain-read-snapshot",
+      "polygon-chain-id:137",
+      "uma-ctf-adapter:0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+      "uma-managed-optimistic-oracle-v2:0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1",
+      "gnosis-conditional-tokens:0x4d97dcd97ec945f40cf65f87097ace5ea0476045"
+    ]
+  }
+}
