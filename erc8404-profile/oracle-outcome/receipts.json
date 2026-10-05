@@ -1,0 +1,334 @@
+{
+  "_README": "Original receipts, as a producer would publish them, with the claim, evidence-set descriptor and canonical result each one accompanies. Snapshot payloads are in vectors.json. adapter.py --check recomputes each from committed bytes.",
+  "verificationProfileDigest": "7194768dc68d25bbe9228fd494c8d763bdd41797253ddf8b121becdadbfb2ea1",
+  "receipts": {
+    "NEGATIVE_FINAL_CLAIM_ON_PROPOSED_SNAPSHOT": {
+      "receipt": {
+        "claimDigest": "7b26960a9e15b0eda3b3b07741ef90f10d6d2772b35d8f2d1dcf258c3cd0cb4e",
+        "evidenceSetDigest": "5a7ac69316d031f782b9efbfcd814ca5889046867c0613ea1d6972677621ae78",
+        "verificationProfileDigest": "7194768dc68d25bbe9228fd494c8d763bdd41797253ddf8b121becdadbfb2ea1",
+        "outcome": "UNVERIFIABLE",
+        "reasonCode": "rvr.oracle-outcome.v0.lifecycle_not_final",
+        "resultDigest": "bf1e4dd1bebc97ced430bc2601390f02963d604967e4462d88f66407a05ac9a9"
+      },
+      "claim": {
+        "schema": "rvr.claim.oracle-outcome-uma-ctf.v0",
+        "proposition": "rvr.oracle-outcome.v0.final_outcome_under_committed_rules",
+        "market": {
+          "chainId": "137",
+          "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+          "optimisticOracle": "0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1",
+          "conditionalTokens": "0x4d97dcd97ec945f40cf65f87097ace5ea0476045",
+          "identifier": "YES_OR_NO_QUERY",
+          "questionId": "0x627ca22bfb2e14b76927ea325fedc7a0bfc72149c2cac5012836a20c0d1b3cc5",
+          "conditionId": "0xe4de1c9dd575e36eafc75160212e3b99613d03723bf4683fe151e3b353811953"
+        },
+        "rules": {
+          "ancillaryDataKeccak256": "0x627ca22bfb2e14b76927ea325fedc7a0bfc72149c2cac5012836a20c0d1b3cc5",
+          "bulletinUpdatesDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "outcome": "Yes",
+        "snapshotMember": "chain-snapshot",
+        "snapshotAssurance": "COMMITTED_CHAIN_READ_SNAPSHOT"
+      },
+      "evidenceSet": {
+        "schema": "rvr.evidence-set.v0",
+        "members": [
+          {
+            "id": "chain-snapshot",
+            "status": "PRESENT",
+            "mediaType": "application/json",
+            "byteLength": "4101",
+            "digest": "19d6d8595dadf85547d812a1e9457e4033725c2022851076927463f0b323bf06"
+          }
+        ]
+      },
+      "canonicalResult": {
+        "schema": "rvr.canonical-result.oracle-outcome-uma-ctf.v0",
+        "proposition": "rvr.oracle-outcome.v0.final_outcome_under_committed_rules",
+        "outcome": "UNVERIFIABLE",
+        "reasonCode": "rvr.oracle-outcome.v0.lifecycle_not_final",
+        "evaluation": {
+          "procedure": "UMA_CTF_LIFECYCLE_FROM_COMMITTED_CHAIN_READ",
+          "snapshotAssurance": "COMMITTED_CHAIN_READ_SNAPSHOT",
+          "snapshotDigest": "19d6d8595dadf85547d812a1e9457e4033725c2022851076927463f0b323bf06",
+          "chainId": "137",
+          "blockNumber": "89509500",
+          "blockHash": "0x5eb84ad6e95307dfe3bd4ff95653a1f3644d5afe2ca863ec55b19fb7b371a162",
+          "lifecycleState": "PROPOSED",
+          "finality": {
+            "lifecycleFinal": false,
+            "rulesBound": true,
+            "resolutionEvidence": false
+          },
+          "currentRequestTimestamp": "1776352668",
+          "proposedOutcome": "Yes",
+          "finalOutcome": null,
+          "claimedOutcome": "Yes"
+        }
+      }
+    },
+    "POSITIVE_CONTROL_FINAL_SNAPSHOT": {
+      "receipt": {
+        "claimDigest": "2d59fd6d04b1913f2be2e4eefed9ca55b49ca8d30ae0106b52e130989f936681",
+        "evidenceSetDigest": "a1a0378ba2d253fa6748308dbc0797387769b10007bf123cd8174892fdcc4bee",
+        "verificationProfileDigest": "7194768dc68d25bbe9228fd494c8d763bdd41797253ddf8b121becdadbfb2ea1",
+        "outcome": "VERIFIED",
+        "reasonCode": "rvr.oracle-outcome.v0.final_outcome_verified",
+        "resultDigest": "8f3879f0990d0fc1e5af69388db9cd566cdfecc5cc27ce164d548e0a654eaeeb"
+      },
+      "claim": {
+        "schema": "rvr.claim.oracle-outcome-uma-ctf.v0",
+        "proposition": "rvr.oracle-outcome.v0.final_outcome_under_committed_rules",
+        "market": {
+          "chainId": "137",
+          "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+          "optimisticOracle": "0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1",
+          "conditionalTokens": "0x4d97dcd97ec945f40cf65f87097ace5ea0476045",
+          "identifier": "YES_OR_NO_QUERY",
+          "questionId": "0x627ca22bfb2e14b76927ea325fedc7a0bfc72149c2cac5012836a20c0d1b3cc5",
+          "conditionId": "0xe4de1c9dd575e36eafc75160212e3b99613d03723bf4683fe151e3b353811953"
+        },
+        "rules": {
+          "ancillaryDataKeccak256": "0x627ca22bfb2e14b76927ea325fedc7a0bfc72149c2cac5012836a20c0d1b3cc5",
+          "bulletinUpdatesDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "outcome": "No",
+        "snapshotMember": "chain-snapshot",
+        "snapshotAssurance": "COMMITTED_CHAIN_READ_SNAPSHOT"
+      },
+      "evidenceSet": {
+        "schema": "rvr.evidence-set.v0",
+        "members": [
+          {
+            "id": "chain-snapshot",
+            "status": "PRESENT",
+            "mediaType": "application/json",
+            "byteLength": "10386",
+            "digest": "4e07a1a70427e593f944beeafdd625a3ac61355fa93519a01b3ddfa2c9742b32"
+          }
+        ]
+      },
+      "canonicalResult": {
+        "schema": "rvr.canonical-result.oracle-outcome-uma-ctf.v0",
+        "proposition": "rvr.oracle-outcome.v0.final_outcome_under_committed_rules",
+        "outcome": "VERIFIED",
+        "reasonCode": "rvr.oracle-outcome.v0.final_outcome_verified",
+        "evaluation": {
+          "procedure": "UMA_CTF_LIFECYCLE_FROM_COMMITTED_CHAIN_READ",
+          "snapshotAssurance": "COMMITTED_CHAIN_READ_SNAPSHOT",
+          "snapshotDigest": "4e07a1a70427e593f944beeafdd625a3ac61355fa93519a01b3ddfa2c9742b32",
+          "chainId": "137",
+          "blockNumber": "89518530",
+          "blockHash": "0xd4aab01890e10c08c5e3df570bbaf96e21a8a7dd7b5cd197d83095c9b3bd56b4",
+          "lifecycleState": "FINAL",
+          "finality": {
+            "lifecycleFinal": true,
+            "rulesBound": true,
+            "resolutionEvidence": true
+          },
+          "currentRequestTimestamp": "1782970856",
+          "proposedOutcome": "No",
+          "finalOutcome": "No",
+          "claimedOutcome": "No"
+        }
+      }
+    },
+    "DISPUTED_PROPOSAL_CLAIMED_FINAL": {
+      "receipt": {
+        "claimDigest": "7b26960a9e15b0eda3b3b07741ef90f10d6d2772b35d8f2d1dcf258c3cd0cb4e",
+        "evidenceSetDigest": "a1a0378ba2d253fa6748308dbc0797387769b10007bf123cd8174892fdcc4bee",
+        "verificationProfileDigest": "7194768dc68d25bbe9228fd494c8d763bdd41797253ddf8b121becdadbfb2ea1",
+        "outcome": "REFUTED",
+        "reasonCode": "rvr.oracle-outcome.v0.final_outcome_mismatch",
+        "resultDigest": "4666cb439047e713b875c7c1eaa9486f611e48921537625db53f095342d3bc77"
+      },
+      "claim": {
+        "schema": "rvr.claim.oracle-outcome-uma-ctf.v0",
+        "proposition": "rvr.oracle-outcome.v0.final_outcome_under_committed_rules",
+        "market": {
+          "chainId": "137",
+          "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+          "optimisticOracle": "0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1",
+          "conditionalTokens": "0x4d97dcd97ec945f40cf65f87097ace5ea0476045",
+          "identifier": "YES_OR_NO_QUERY",
+          "questionId": "0x627ca22bfb2e14b76927ea325fedc7a0bfc72149c2cac5012836a20c0d1b3cc5",
+          "conditionId": "0xe4de1c9dd575e36eafc75160212e3b99613d03723bf4683fe151e3b353811953"
+        },
+        "rules": {
+          "ancillaryDataKeccak256": "0x627ca22bfb2e14b76927ea325fedc7a0bfc72149c2cac5012836a20c0d1b3cc5",
+          "bulletinUpdatesDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "outcome": "Yes",
+        "snapshotMember": "chain-snapshot",
+        "snapshotAssurance": "COMMITTED_CHAIN_READ_SNAPSHOT"
+      },
+      "evidenceSet": {
+        "schema": "rvr.evidence-set.v0",
+        "members": [
+          {
+            "id": "chain-snapshot",
+            "status": "PRESENT",
+            "mediaType": "application/json",
+            "byteLength": "10386",
+            "digest": "4e07a1a70427e593f944beeafdd625a3ac61355fa93519a01b3ddfa2c9742b32"
+          }
+        ]
+      },
+      "canonicalResult": {
+        "schema": "rvr.canonical-result.oracle-outcome-uma-ctf.v0",
+        "proposition": "rvr.oracle-outcome.v0.final_outcome_under_committed_rules",
+        "outcome": "REFUTED",
+        "reasonCode": "rvr.oracle-outcome.v0.final_outcome_mismatch",
+        "evaluation": {
+          "procedure": "UMA_CTF_LIFECYCLE_FROM_COMMITTED_CHAIN_READ",
+          "snapshotAssurance": "COMMITTED_CHAIN_READ_SNAPSHOT",
+          "snapshotDigest": "4e07a1a70427e593f944beeafdd625a3ac61355fa93519a01b3ddfa2c9742b32",
+          "chainId": "137",
+          "blockNumber": "89518530",
+          "blockHash": "0xd4aab01890e10c08c5e3df570bbaf96e21a8a7dd7b5cd197d83095c9b3bd56b4",
+          "lifecycleState": "FINAL",
+          "finality": {
+            "lifecycleFinal": true,
+            "rulesBound": true,
+            "resolutionEvidence": true
+          },
+          "currentRequestTimestamp": "1782970856",
+          "proposedOutcome": "No",
+          "finalOutcome": "No",
+          "claimedOutcome": "Yes"
+        }
+      }
+    },
+    "SCOPED_PROPOSAL_CLAIM_ON_PROPOSED_SNAPSHOT": {
+      "receipt": {
+        "claimDigest": "ba422b3e4eb094f944d539c84db76cf0282108408cc44368ddc4d4211238eac8",
+        "evidenceSetDigest": "5a7ac69316d031f782b9efbfcd814ca5889046867c0613ea1d6972677621ae78",
+        "verificationProfileDigest": "7194768dc68d25bbe9228fd494c8d763bdd41797253ddf8b121becdadbfb2ea1",
+        "outcome": "VERIFIED",
+        "reasonCode": "rvr.oracle-outcome.v0.proposal_verified",
+        "resultDigest": "5b5a7cb5d857313f08acd0427620fb8067bc5baec3509e6c8bb64c95524a191c"
+      },
+      "claim": {
+        "schema": "rvr.claim.oracle-outcome-uma-ctf.v0",
+        "proposition": "rvr.oracle-outcome.v0.proposed_outcome_at_committed_snapshot",
+        "market": {
+          "chainId": "137",
+          "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+          "optimisticOracle": "0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1",
+          "conditionalTokens": "0x4d97dcd97ec945f40cf65f87097ace5ea0476045",
+          "identifier": "YES_OR_NO_QUERY",
+          "questionId": "0x627ca22bfb2e14b76927ea325fedc7a0bfc72149c2cac5012836a20c0d1b3cc5",
+          "conditionId": "0xe4de1c9dd575e36eafc75160212e3b99613d03723bf4683fe151e3b353811953"
+        },
+        "rules": {
+          "ancillaryDataKeccak256": "0x627ca22bfb2e14b76927ea325fedc7a0bfc72149c2cac5012836a20c0d1b3cc5",
+          "bulletinUpdatesDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "outcome": "Yes",
+        "snapshotMember": "chain-snapshot",
+        "snapshotAssurance": "COMMITTED_CHAIN_READ_SNAPSHOT"
+      },
+      "evidenceSet": {
+        "schema": "rvr.evidence-set.v0",
+        "members": [
+          {
+            "id": "chain-snapshot",
+            "status": "PRESENT",
+            "mediaType": "application/json",
+            "byteLength": "4101",
+            "digest": "19d6d8595dadf85547d812a1e9457e4033725c2022851076927463f0b323bf06"
+          }
+        ]
+      },
+      "canonicalResult": {
+        "schema": "rvr.canonical-result.oracle-outcome-uma-ctf.v0",
+        "proposition": "rvr.oracle-outcome.v0.proposed_outcome_at_committed_snapshot",
+        "outcome": "VERIFIED",
+        "reasonCode": "rvr.oracle-outcome.v0.proposal_verified",
+        "evaluation": {
+          "procedure": "UMA_CTF_LIFECYCLE_FROM_COMMITTED_CHAIN_READ",
+          "snapshotAssurance": "COMMITTED_CHAIN_READ_SNAPSHOT",
+          "snapshotDigest": "19d6d8595dadf85547d812a1e9457e4033725c2022851076927463f0b323bf06",
+          "chainId": "137",
+          "blockNumber": "89509500",
+          "blockHash": "0x5eb84ad6e95307dfe3bd4ff95653a1f3644d5afe2ca863ec55b19fb7b371a162",
+          "lifecycleState": "PROPOSED",
+          "finality": {
+            "lifecycleFinal": false,
+            "rulesBound": true,
+            "resolutionEvidence": false
+          },
+          "currentRequestTimestamp": "1776352668",
+          "proposedOutcome": "Yes",
+          "finalOutcome": null,
+          "claimedOutcome": "Yes"
+        }
+      }
+    },
+    "SNAPSHOT_COMMITTED_UNAVAILABLE": {
+      "receipt": {
+        "claimDigest": "2d59fd6d04b1913f2be2e4eefed9ca55b49ca8d30ae0106b52e130989f936681",
+        "evidenceSetDigest": "445243ba211d213914342e3a0089c71eb5ea9f8fbbd3715fa471bf5e8ebfadf7",
+        "verificationProfileDigest": "7194768dc68d25bbe9228fd494c8d763bdd41797253ddf8b121becdadbfb2ea1",
+        "outcome": "UNVERIFIABLE",
+        "reasonCode": "rvr.oracle-outcome.v0.required_snapshot_unavailable",
+        "resultDigest": "f438df9fc340b77acd70f7f9e13e51e1a90ed024a30948dd3daba9514802f559"
+      },
+      "claim": {
+        "schema": "rvr.claim.oracle-outcome-uma-ctf.v0",
+        "proposition": "rvr.oracle-outcome.v0.final_outcome_under_committed_rules",
+        "market": {
+          "chainId": "137",
+          "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+          "optimisticOracle": "0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1",
+          "conditionalTokens": "0x4d97dcd97ec945f40cf65f87097ace5ea0476045",
+          "identifier": "YES_OR_NO_QUERY",
+          "questionId": "0x627ca22bfb2e14b76927ea325fedc7a0bfc72149c2cac5012836a20c0d1b3cc5",
+          "conditionId": "0xe4de1c9dd575e36eafc75160212e3b99613d03723bf4683fe151e3b353811953"
+        },
+        "rules": {
+          "ancillaryDataKeccak256": "0x627ca22bfb2e14b76927ea325fedc7a0bfc72149c2cac5012836a20c0d1b3cc5",
+          "bulletinUpdatesDigest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "outcome": "No",
+        "snapshotMember": "chain-snapshot",
+        "snapshotAssurance": "COMMITTED_CHAIN_READ_SNAPSHOT"
+      },
+      "evidenceSet": {
+        "schema": "rvr.evidence-set.v0",
+        "members": [
+          {
+            "id": "chain-snapshot",
+            "status": "UNAVAILABLE",
+            "reasonCode": "rvr.oracle-outcome.v0.evidence_unavailable"
+          }
+        ]
+      },
+      "canonicalResult": {
+        "schema": "rvr.canonical-result.oracle-outcome-uma-ctf.v0",
+        "proposition": "rvr.oracle-outcome.v0.final_outcome_under_committed_rules",
+        "outcome": "UNVERIFIABLE",
+        "reasonCode": "rvr.oracle-outcome.v0.required_snapshot_unavailable",
+        "evaluation": {
+          "procedure": "UMA_CTF_LIFECYCLE_FROM_COMMITTED_CHAIN_READ",
+          "snapshotAssurance": "COMMITTED_CHAIN_READ_SNAPSHOT",
+          "snapshotDigest": null,
+          "chainId": null,
+          "blockNumber": null,
+          "blockHash": null,
+          "lifecycleState": null,
+          "finality": {
+            "lifecycleFinal": false,
+            "rulesBound": false,
+            "resolutionEvidence": false
+          },
+          "currentRequestTimestamp": null,
+          "proposedOutcome": null,
+          "finalOutcome": null,
+          "claimedOutcome": "No"
+        }
+      }
+    }
+  }
+}

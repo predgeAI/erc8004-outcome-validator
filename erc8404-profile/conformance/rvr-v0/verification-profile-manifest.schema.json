@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rvr.dev/schemas/verification-profile-manifest.v0.schema.json",
+  "title": "RVR Verification Profile Manifest v0",
+  "description": "Generic RVR v0 profile envelope. Profile semantics are constrained by the separately pinned profile-specific schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "profileId",
+    "profileSchemaContract",
+    "dependencyResolution",
+    "verificationSpecification",
+    "conformanceVectorSet",
+    "canonicalByteContract",
+    "schemaContracts",
+    "evidenceSetContract",
+    "canonicalResultContract",
+    "resultHashRules",
+    "reasonCodeNamespace",
+    "externalContextPolicy"
+  ],
+  "properties": {
+    "schema": { "const": "rvr.verification-profile.v0" },
+    "profileId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+    "profileSchemaContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifest", "constraints"],
+      "properties": {
+        "manifest": { "$ref": "#/$defs/dependency" },
+        "constraints": { "$ref": "#/$defs/dependency" }
+      }
+    },
+    "dependencyResolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["base", "pathFormat", "locatorRole", "verificationOrder"],
+      "properties": {
+        "base": { "const": "SUPPLIED_PROFILE_PACKAGE_ROOT" },
+        "pathFormat": { "const": "relative-posix-no-empty-dot-dotdot-or-colon-segments" },
+        "locatorRole": { "const": "NORMATIVE_PACKAGE_RELATIVE_PATH" },
+        "verificationOrder": { "const": "resolve-read-sha256-match-use" }
+      }
+    },
+    "verificationSpecification": { "$ref": "#/$defs/dependency" },
+    "conformanceVectorSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "members", "digest", "digestRule"],
+      "properties": {
+        "id": { "type": "string" },
+        "members": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/dependency" }
+        },
+        "digest": { "$ref": "#/$defs/digest" },
+        "digestRule": { "const": "sha256-utf8-sorted-path-tab-file-sha256-lf-rows" }
+      }
+    },
+    "canonicalByteContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "encoding",
+        "domain",
+        "objectKeyOrder",
+        "arrayOrder",
+        "unicode",
+        "numbers",
+        "stringEscaping",
+        "solidus",
+        "lineSeparators",
+        "whitespace"
+      ],
+      "properties": {
+        "id": { "const": "rvr-canonical-json-v0" },
+        "encoding": { "const": "UTF-8" },
+        "domain": { "const": "null-boolean-unicode-scalar-string-array-object" },
+        "objectKeyOrder": { "const": "unicode-scalar-value-ascending" },
+        "arrayOrder": { "const": "preserved-with-duplicates" },
+        "unicode": { "const": "scalar-values-only-no-normalization" },
+        "numbers": { "const": "forbidden" },
+        "stringEscaping": { "const": "rvr-json-string-escaping-v0" },
+        "solidus": { "const": "literal" },
+        "lineSeparators": { "const": "U+2028-and-U+2029-literal" },
+        "whitespace": { "const": "none" }
+      }
+    },
+    "schemaContracts": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/dependency" }
+    },
+    "evidenceSetContract": { "$ref": "#/$defs/schemaPointerDigestContract" },
+    "canonicalResultContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaPath", "schemaSha256", "schemaPointer", "outcomeProjection", "reasonCodeProjection"],
+      "properties": {
+        "schemaPath": { "$ref": "#/$defs/dependencyPath" },
+        "schemaSha256": { "$ref": "#/$defs/digest" },
+        "schemaPointer": { "$ref": "#/$defs/jsonSchemaPointer" },
+        "outcomeProjection": { "$ref": "#/$defs/jsonPointer" },
+        "reasonCodeProjection": { "$ref": "#/$defs/jsonPointer" }
+      }
+    },
+    "resultHashRules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "input", "encoding", "output"],
+      "properties": {
+        "algorithm": { "const": "SHA-256" },
+        "input": { "const": "rvr-canonical-json-v0(canonicalResult)" },
+        "encoding": { "const": "UTF-8-exactly-once" },
+        "output": { "const": "lowercase-hex-no-prefix" }
+      }
+    },
+    "reasonCodeNamespace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verification", "recomputation", "gateRejections"],
+      "properties": {
+        "verification": { "type": "array", "items": { "type": "string" } },
+        "recomputation": { "type": "array", "items": { "type": "string" } },
+        "gateRejections": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "externalContextPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "ambientInputs", "immutableCommitments"],
+      "properties": {
+        "mode": { "enum": ["FORBIDDEN_UNLESS_COMMITTED", "COMMITTED_SNAPSHOTS_ONLY"] },
+        "ambientInputs": { "const": "FORBIDDEN" },
+        "immutableCommitments": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "dependencyPath": { "type": "string", "pattern": "^[^/\\\\:][^\\\\:]*$" },
+    "jsonPointer": { "type": "string", "pattern": "^/.*$" },
+    "jsonSchemaPointer": { "type": "string", "pattern": "^#(?:/.*)?$" },
+    "dependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "path", "sha256", "requiredForRecomputation"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+        "path": { "$ref": "#/$defs/dependencyPath" },
+        "sha256": { "$ref": "#/$defs/digest" },
+        "requiredForRecomputation": { "type": "boolean" }
+      }
+    },
+    "schemaPointerDigestContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaPath", "schemaSha256", "schemaPointer", "digestRule"],
+      "properties": {
+        "schemaPath": { "$ref": "#/$defs/dependencyPath" },
+        "schemaSha256": { "$ref": "#/$defs/digest" },
+        "schemaPointer": { "$ref": "#/$defs/jsonSchemaPointer" },
+        "digestRule": { "type": "string" }
+      }
+    }
+  }
+}

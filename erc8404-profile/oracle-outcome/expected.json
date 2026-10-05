@@ -1,0 +1,85 @@
+{
+  "schema": "rvr.oracle-outcome.expected-results.v0",
+  "cases": {
+    "NEGATIVE_FINAL_CLAIM_ON_PROPOSED_SNAPSHOT": {
+      "verificationOutcome": "UNVERIFIABLE",
+      "verificationReasonCode": "rvr.oracle-outcome.v0.lifecycle_not_final",
+      "lifecycleState": "PROPOSED",
+      "recomputationStatus": "REPRODUCED",
+      "evaluationPerformed": true
+    },
+    "POSITIVE_CONTROL_FINAL_SNAPSHOT": {
+      "verificationOutcome": "VERIFIED",
+      "verificationReasonCode": "rvr.oracle-outcome.v0.final_outcome_verified",
+      "lifecycleState": "FINAL",
+      "recomputationStatus": "REPRODUCED",
+      "evaluationPerformed": true
+    },
+    "DISPUTED_PROPOSAL_CLAIMED_FINAL": {
+      "verificationOutcome": "REFUTED",
+      "verificationReasonCode": "rvr.oracle-outcome.v0.final_outcome_mismatch",
+      "lifecycleState": "FINAL",
+      "recomputationStatus": "REPRODUCED",
+      "evaluationPerformed": true
+    },
+    "SCOPED_PROPOSAL_CLAIM_ON_PROPOSED_SNAPSHOT": {
+      "verificationOutcome": "VERIFIED",
+      "verificationReasonCode": "rvr.oracle-outcome.v0.proposal_verified",
+      "lifecycleState": "PROPOSED",
+      "recomputationStatus": "REPRODUCED",
+      "evaluationPerformed": true
+    },
+    "SNAPSHOT_COMMITTED_UNAVAILABLE": {
+      "verificationOutcome": "UNVERIFIABLE",
+      "verificationReasonCode": "rvr.oracle-outcome.v0.required_snapshot_unavailable",
+      "recomputationStatus": "REPRODUCED",
+      "evaluationPerformed": true
+    },
+    "DIVERGED": {
+      "verificationOutcome": "REFUTED",
+      "verificationReasonCode": "rvr.oracle-outcome.v0.final_outcome_mismatch",
+      "recomputationStatus": "DIVERGED",
+      "evaluationPerformed": true
+    },
+    "SNAPSHOT_UNRESOLVED": {
+      "recomputationStatus": "CANNOT_RECOMPUTE",
+      "reasonCode": "rvr.recompute.committed_evidence_unavailable",
+      "evaluationPerformed": false
+    },
+    "NORMATIVE_DEPENDENCY_UNAVAILABLE": {
+      "recomputationStatus": "CANNOT_RECOMPUTE",
+      "reasonCode": "rvr.recompute.normative_dependency_unavailable",
+      "evaluationPerformed": false
+    },
+    "NORMATIVE_DEPENDENCY_IDENTITY_MISMATCH": {
+      "recomputationStatus": "CANNOT_RECOMPUTE",
+      "reasonCode": "rvr.recompute.normative_dependency_identity_mismatch",
+      "evaluationPerformed": false
+    },
+    "TAMPERED_PROFILE_CONSTRAINTS_PIN": {
+      "gateStatus": "REJECTED",
+      "reasonCode": "rvr.gate.identity_mismatch",
+      "constraintsApplied": false
+    },
+    "PROJECTION_NEGATIVE_CONTROL": {
+      "gateStatus": "REJECTED",
+      "reasonCode": "rvr.gate.result_projection_mismatch"
+    },
+    "HIDDEN_STATE_NEGATIVE_CONTROL": {
+      "gateStatus": "REJECTED",
+      "reasonCode": "rvr.gate.evidence_closure_incomplete",
+      "evaluationPerformed": false,
+      "counterfactualOutcome": "rvr.oracle-outcome.v0.final_outcome_mismatch"
+    },
+    "NON_CANONICAL_SNAPSHOT": {
+      "gateStatus": "REJECTED",
+      "reasonCode": "rvr.gate.identity_mismatch"
+    },
+    "SEMANTIC_FAILURES": {
+      "market-mismatch": "rvr.oracle-outcome.v0.market_mismatch",
+      "rules-version-mismatch": "rvr.oracle-outcome.v0.rules_version_mismatch",
+      "resolution-evidence-incomplete": "rvr.oracle-outcome.v0.resolution_evidence_incomplete",
+      "snapshot-identity-inconsistent": "rvr.oracle-outcome.v0.snapshot_identity_inconsistent"
+    }
+  }
+}

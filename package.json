@@ -9,7 +9,10 @@
     "prove": "node src/prove.mjs",
     "fire": "node src/fire-testnet.mjs",
     "vectors": "node grounded-feedback/make-test-vectors.mjs",
-    "verify-vectors": "node grounded-feedback/verify-test-vectors.mjs"
+    "verify-vectors": "node grounded-feedback/verify-test-vectors.mjs",
+    "verify-vectors-onchain": "node grounded-feedback/verify-test-vectors.mjs --onchain",
+    "collect-oracle-evidence": "node tools/collect-uma-ctf.mjs",
+    "profile-check": "python3 erc8404-profile/oracle-outcome/adapter.py --check"
   },
   "dependencies": {
     "ethers": "^6.13.4"

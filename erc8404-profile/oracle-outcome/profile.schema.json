@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://predge.io/rvr/profiles/rvr-oracle-outcome-uma-ctf-v0/profile.schema.json",
+  "title": "RVR oracle-outcome (UMA CTF adapter) profile constraints v0",
+  "type": "object",
+  "required": [
+    "schema",
+    "profileId",
+    "profileSchemaContract",
+    "verificationSpecification",
+    "conformanceVectorSet",
+    "schemaContracts",
+    "evidenceSetContract",
+    "canonicalResultContract",
+    "externalContextPolicy"
+  ],
+  "properties": {
+    "schema": { "const": "rvr.verification-profile.v0" },
+    "profileId": { "const": "rvr-oracle-outcome-uma-ctf-v0" },
+    "profileSchemaContract": {
+      "type": "object",
+      "properties": {
+        "manifest": {
+          "type": "object",
+          "properties": {
+            "id": { "const": "verification-profile-manifest-schema" },
+            "path": { "const": "conformance/rvr-v0/verification-profile-manifest.schema.json" },
+            "sha256": { "const": "148afeb484d3866c1caae82e574182c1b748dd461dfaeb1d8095ecf4905690c1" },
+            "requiredForRecomputation": { "const": true }
+          }
+        },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "id": { "const": "oracle-outcome-profile-schema" },
+            "path": { "const": "oracle-outcome/profile.schema.json" },
+            "requiredForRecomputation": { "const": true }
+          }
+        }
+      }
+    },
+    "verificationSpecification": {
+      "type": "object",
+      "properties": {
+        "id": { "const": "oracle-outcome-verification-specification" },
+        "path": { "const": "oracle-outcome/SPEC.md" },
+        "requiredForRecomputation": { "const": true }
+      }
+    },
+    "conformanceVectorSet": {
+      "type": "object",
+      "properties": {
+        "id": { "const": "rvr-oracle-outcome-uma-ctf-v0-vectors" }
+      }
+    },
+    "schemaContracts": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "const": "oracle-outcome-rvr-schema" },
+          "path": { "const": "oracle-outcome/rvr.schema.json" },
+          "requiredForRecomputation": { "const": true }
+        }
+      }
+    },
+    "evidenceSetContract": {
+      "type": "object",
+      "properties": {
+        "schemaPath": { "const": "oracle-outcome/rvr.schema.json" },
+        "schemaPointer": { "const": "#/$defs/evidenceSet" },
+        "digestRule": { "const": "sha256-utf8-rvr-canonical-json-v0-normalized-member-order" }
+      }
+    },
+    "canonicalResultContract": {
+      "type": "object",
+      "properties": {
+        "schemaPath": { "const": "oracle-outcome/rvr.schema.json" },
+        "schemaPointer": { "const": "#/$defs/canonicalResult" },
+        "outcomeProjection": { "const": "/outcome" },
+        "reasonCodeProjection": { "const": "/reasonCode" }
+      }
+    },
+    "externalContextPolicy": {
+      "type": "object",
+      "properties": {
+        "mode": { "const": "COMMITTED_SNAPSHOTS_ONLY" },
+        "ambientInputs": { "const": "FORBIDDEN" },
+        "immutableCommitments": {
+          "const": [
+            "oracle-outcome-committed-chain-read-snapshot",
+            "polygon-chain-id:137",
+            "uma-ctf-adapter:0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+            "uma-managed-optimistic-oracle-v2:0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1",
+            "gnosis-conditional-tokens:0x4d97dcd97ec945f40cf65f87097ace5ea0476045"
+          ]
+        }
+      }
+    }
+  }
+}

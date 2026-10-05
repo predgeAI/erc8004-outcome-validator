@@ -1,0 +1,692 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://predge.io/rvr/profiles/rvr-oracle-outcome-uma-ctf-v0/rvr.schema.json",
+  "title": "RVR oracle-outcome (UMA CTF adapter) receipt, claim, evidence, snapshot and result v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "claimDigest",
+    "evidenceSetDigest",
+    "verificationProfileDigest",
+    "outcome",
+    "reasonCode",
+    "resultDigest"
+  ],
+  "properties": {
+    "claimDigest": {
+      "$ref": "#/$defs/digest"
+    },
+    "evidenceSetDigest": {
+      "$ref": "#/$defs/digest"
+    },
+    "verificationProfileDigest": {
+      "$ref": "#/$defs/digest"
+    },
+    "outcome": {
+      "$ref": "#/$defs/outcome"
+    },
+    "reasonCode": {
+      "$ref": "#/$defs/verificationReasonCode"
+    },
+    "resultDigest": {
+      "$ref": "#/$defs/digest"
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "hex32": {
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{64}$"
+    },
+    "hexBytes": {
+      "type": "string",
+      "pattern": "^0x([0-9a-f]{2})*$"
+    },
+    "lowerHexAddress": {
+      "type": "string",
+      "pattern": "^0x[0-9a-f]{40}$"
+    },
+    "decimal": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "integer": {
+      "type": "string",
+      "pattern": "^(0|-?[1-9][0-9]*)$"
+    },
+    "nullableInteger": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/integer"
+        }
+      ]
+    },
+    "nullableString": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "outcomeLabel": {
+      "enum": [
+        "Yes",
+        "No",
+        "Unknown"
+      ]
+    },
+    "outcome": {
+      "enum": [
+        "VERIFIED",
+        "REFUTED",
+        "UNVERIFIABLE"
+      ]
+    },
+    "proposition": {
+      "enum": [
+        "rvr.oracle-outcome.v0.final_outcome_under_committed_rules",
+        "rvr.oracle-outcome.v0.proposed_outcome_at_committed_snapshot"
+      ]
+    },
+    "lifecycleState": {
+      "enum": [
+        "REQUESTED",
+        "PROPOSED",
+        "DISPUTED",
+        "EXPIRED_UNRESOLVED",
+        "SETTLED_UNRESOLVED",
+        "RESOLVED_WITHOUT_EVIDENCE",
+        "FINAL"
+      ]
+    },
+    "verificationReasonCode": {
+      "enum": [
+        "rvr.oracle-outcome.v0.final_outcome_verified",
+        "rvr.oracle-outcome.v0.final_outcome_mismatch",
+        "rvr.oracle-outcome.v0.lifecycle_not_final",
+        "rvr.oracle-outcome.v0.resolution_evidence_incomplete",
+        "rvr.oracle-outcome.v0.proposal_verified",
+        "rvr.oracle-outcome.v0.proposed_outcome_mismatch",
+        "rvr.oracle-outcome.v0.lifecycle_state_mismatch",
+        "rvr.oracle-outcome.v0.market_mismatch",
+        "rvr.oracle-outcome.v0.snapshot_identity_inconsistent",
+        "rvr.oracle-outcome.v0.rules_version_mismatch",
+        "rvr.oracle-outcome.v0.rules_labels_unrecognized",
+        "rvr.oracle-outcome.v0.required_snapshot_unavailable"
+      ]
+    },
+    "market": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "chainId",
+        "adapter",
+        "optimisticOracle",
+        "conditionalTokens",
+        "identifier",
+        "questionId",
+        "conditionId"
+      ],
+      "properties": {
+        "chainId": {
+          "const": "137"
+        },
+        "adapter": {
+          "const": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7"
+        },
+        "optimisticOracle": {
+          "const": "0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1"
+        },
+        "conditionalTokens": {
+          "const": "0x4d97dcd97ec945f40cf65f87097ace5ea0476045"
+        },
+        "identifier": {
+          "const": "YES_OR_NO_QUERY"
+        },
+        "questionId": {
+          "$ref": "#/$defs/hex32"
+        },
+        "conditionId": {
+          "$ref": "#/$defs/hex32"
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ancillaryDataKeccak256",
+        "bulletinUpdatesDigest"
+      ],
+      "properties": {
+        "ancillaryDataKeccak256": {
+          "$ref": "#/$defs/hex32"
+        },
+        "bulletinUpdatesDigest": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "proposition",
+        "market",
+        "rules",
+        "outcome",
+        "snapshotMember",
+        "snapshotAssurance"
+      ],
+      "properties": {
+        "schema": {
+          "const": "rvr.claim.oracle-outcome-uma-ctf.v0"
+        },
+        "proposition": {
+          "$ref": "#/$defs/proposition"
+        },
+        "market": {
+          "$ref": "#/$defs/market"
+        },
+        "rules": {
+          "$ref": "#/$defs/rules"
+        },
+        "outcome": {
+          "$ref": "#/$defs/outcomeLabel"
+        },
+        "snapshotMember": {
+          "const": "chain-snapshot"
+        },
+        "snapshotAssurance": {
+          "const": "COMMITTED_CHAIN_READ_SNAPSHOT"
+        }
+      }
+    },
+    "presentEvidenceMember": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status",
+        "mediaType",
+        "byteLength",
+        "digest"
+      ],
+      "properties": {
+        "id": {
+          "const": "chain-snapshot"
+        },
+        "status": {
+          "const": "PRESENT"
+        },
+        "mediaType": {
+          "const": "application/json"
+        },
+        "byteLength": {
+          "$ref": "#/$defs/decimal"
+        },
+        "digest": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "unavailableEvidenceMember": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status",
+        "reasonCode"
+      ],
+      "properties": {
+        "id": {
+          "const": "chain-snapshot"
+        },
+        "status": {
+          "const": "UNAVAILABLE"
+        },
+        "reasonCode": {
+          "const": "rvr.oracle-outcome.v0.evidence_unavailable"
+        }
+      }
+    },
+    "evidenceSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "members"
+      ],
+      "properties": {
+        "schema": {
+          "const": "rvr.evidence-set.v0"
+        },
+        "members": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/presentEvidenceMember"
+              },
+              {
+                "$ref": "#/$defs/unavailableEvidenceMember"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "oracleEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event",
+        "transactionHash",
+        "blockNumber",
+        "logIndex",
+        "price"
+      ],
+      "properties": {
+        "event": {
+          "enum": [
+            "RequestPrice",
+            "ProposePrice",
+            "DisputePrice",
+            "Settle"
+          ]
+        },
+        "transactionHash": {
+          "$ref": "#/$defs/hex32"
+        },
+        "blockNumber": {
+          "$ref": "#/$defs/decimal"
+        },
+        "logIndex": {
+          "$ref": "#/$defs/decimal"
+        },
+        "price": {
+          "$ref": "#/$defs/nullableInteger"
+        }
+      }
+    },
+    "oracleRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requestTimestamp",
+        "stateAtBlock",
+        "events"
+      ],
+      "properties": {
+        "requestTimestamp": {
+          "$ref": "#/$defs/decimal"
+        },
+        "stateAtBlock": {
+          "enum": [
+            "REQUESTED",
+            "PROPOSED",
+            "EXPIRED",
+            "DISPUTED",
+            "RESOLVED",
+            "SETTLED"
+          ]
+        },
+        "events": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/oracleEvent"
+          }
+        }
+      }
+    },
+    "bulletinUpdate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transactionHash",
+        "blockNumber",
+        "logIndex",
+        "owner",
+        "update"
+      ],
+      "properties": {
+        "transactionHash": {
+          "$ref": "#/$defs/hex32"
+        },
+        "blockNumber": {
+          "$ref": "#/$defs/decimal"
+        },
+        "logIndex": {
+          "$ref": "#/$defs/decimal"
+        },
+        "owner": {
+          "$ref": "#/$defs/lowerHexAddress"
+        },
+        "update": {
+          "$ref": "#/$defs/hexBytes"
+        }
+      }
+    },
+    "receiptLog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "address",
+        "topics",
+        "data",
+        "logIndex"
+      ],
+      "properties": {
+        "address": {
+          "$ref": "#/$defs/lowerHexAddress"
+        },
+        "topics": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/hex32"
+          }
+        },
+        "data": {
+          "$ref": "#/$defs/hexBytes"
+        },
+        "logIndex": {
+          "$ref": "#/$defs/decimal"
+        }
+      }
+    },
+    "resolutionReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transactionHash",
+        "status",
+        "blockNumber",
+        "blockHash",
+        "logs"
+      ],
+      "properties": {
+        "transactionHash": {
+          "$ref": "#/$defs/hex32"
+        },
+        "status": {
+          "enum": [
+            "SUCCESS",
+            "REVERTED"
+          ]
+        },
+        "blockNumber": {
+          "$ref": "#/$defs/decimal"
+        },
+        "blockHash": {
+          "$ref": "#/$defs/hex32"
+        },
+        "logs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/receiptLog"
+          }
+        }
+      }
+    },
+    "chainSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "snapshotAssurance",
+        "chainId",
+        "blockNumber",
+        "blockHash",
+        "blockTimestamp",
+        "contracts",
+        "identifier",
+        "questionId",
+        "conditionId",
+        "ancillaryData",
+        "bulletinUpdates",
+        "oracleRequests",
+        "conditionResolution",
+        "resolutionReceipt"
+      ],
+      "properties": {
+        "schema": {
+          "const": "rvr.oracle-outcome.uma-ctf-snapshot.v0"
+        },
+        "snapshotAssurance": {
+          "const": "COMMITTED_CHAIN_READ_SNAPSHOT"
+        },
+        "chainId": {
+          "$ref": "#/$defs/decimal"
+        },
+        "blockNumber": {
+          "$ref": "#/$defs/decimal"
+        },
+        "blockHash": {
+          "$ref": "#/$defs/hex32"
+        },
+        "blockTimestamp": {
+          "$ref": "#/$defs/decimal"
+        },
+        "contracts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "adapter",
+            "optimisticOracle",
+            "conditionalTokens"
+          ],
+          "properties": {
+            "adapter": {
+              "$ref": "#/$defs/lowerHexAddress"
+            },
+            "optimisticOracle": {
+              "$ref": "#/$defs/lowerHexAddress"
+            },
+            "conditionalTokens": {
+              "$ref": "#/$defs/lowerHexAddress"
+            }
+          }
+        },
+        "identifier": {
+          "const": "YES_OR_NO_QUERY"
+        },
+        "questionId": {
+          "$ref": "#/$defs/hex32"
+        },
+        "conditionId": {
+          "$ref": "#/$defs/hex32"
+        },
+        "ancillaryData": {
+          "$ref": "#/$defs/hexBytes"
+        },
+        "bulletinUpdates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/bulletinUpdate"
+          }
+        },
+        "oracleRequests": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/oracleRequest"
+          }
+        },
+        "conditionResolution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "payoutDenominator",
+            "payoutNumerators"
+          ],
+          "properties": {
+            "payoutDenominator": {
+              "$ref": "#/$defs/decimal"
+            },
+            "payoutNumerators": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/$defs/decimal"
+              }
+            }
+          }
+        },
+        "resolutionReceipt": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/resolutionReceipt"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "procedure",
+        "snapshotAssurance",
+        "snapshotDigest",
+        "chainId",
+        "blockNumber",
+        "blockHash",
+        "lifecycleState",
+        "finality",
+        "currentRequestTimestamp",
+        "proposedOutcome",
+        "finalOutcome",
+        "claimedOutcome"
+      ],
+      "properties": {
+        "procedure": {
+          "const": "UMA_CTF_LIFECYCLE_FROM_COMMITTED_CHAIN_READ"
+        },
+        "snapshotAssurance": {
+          "const": "COMMITTED_CHAIN_READ_SNAPSHOT"
+        },
+        "snapshotDigest": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/digest"
+            }
+          ]
+        },
+        "chainId": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "blockNumber": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "blockHash": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "lifecycleState": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/lifecycleState"
+            }
+          ]
+        },
+        "finality": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "lifecycleFinal",
+            "rulesBound",
+            "resolutionEvidence"
+          ],
+          "properties": {
+            "lifecycleFinal": {
+              "type": "boolean"
+            },
+            "rulesBound": {
+              "type": "boolean"
+            },
+            "resolutionEvidence": {
+              "type": "boolean"
+            }
+          }
+        },
+        "currentRequestTimestamp": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "proposedOutcome": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/outcomeLabel"
+            }
+          ]
+        },
+        "finalOutcome": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/outcomeLabel"
+            }
+          ]
+        },
+        "claimedOutcome": {
+          "$ref": "#/$defs/outcomeLabel"
+        }
+      }
+    },
+    "canonicalResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "proposition",
+        "outcome",
+        "reasonCode",
+        "evaluation"
+      ],
+      "properties": {
+        "schema": {
+          "const": "rvr.canonical-result.oracle-outcome-uma-ctf.v0"
+        },
+        "proposition": {
+          "$ref": "#/$defs/proposition"
+        },
+        "outcome": {
+          "$ref": "#/$defs/outcome"
+        },
+        "reasonCode": {
+          "$ref": "#/$defs/verificationReasonCode"
+        },
+        "evaluation": {
+          "$ref": "#/$defs/evaluation"
+        }
+      }
+    }
+  }
+}

@@ -54,6 +54,9 @@ score can never silently drift from the signed evidence.
 | `grounded-feedback/test-vectors/` | signed test vectors with expected `responseHash` and calldata |
 | `grounded-feedback/verify-test-vectors.mjs`, `verify_test_vectors.py` | two independent verifiers, Node and Python (`npm run verify-vectors`) |
 | `grounded-feedback/make-test-vectors.mjs` | deterministic generator (`npm run vectors`) |
+| `grounded-feedback/oracle-outcome.md` | oracle-outcome-validation-v0: `outcomeState`, the bound oracle reference, and superseding (vectors 06 to 11, one real Polymarket market) |
+| `grounded-feedback/evidence/` | raw Polygon facts behind those vectors, from `tools/collect-uma-ctf.mjs` |
+| `erc8404-profile/oracle-outcome/` | ERC-8404 (RVR) Verification Profile for oracle outcomes, with the proposed/final conformance pair on the same market |
 
 ## Broadcasting to a testnet (owner only) — turnkey
 
