@@ -84,9 +84,14 @@ exact canonical bytes of a `#/$defs/chainSnapshot` object:
 
 The snapshot is the evidence. Evaluation never reads an RPC, an indexer or a clock. A snapshot
 whose bytes are not exact canonical JSON is a gate rejection (`rvr.gate.identity_mismatch`). A
-snapshot with any event, update or resolution later than B, or with a successful resolution
-receipt while the payout denominator is 0, does not describe one chain state and is a gate
-rejection (`rvr.gate.schema_invalid`). Any outcome-relevant input outside the claim, the evidence
+snapshot with any event or update later than B, with a `resolutionReceipt` whose block is later
+than B (whatever its status), with a `resolutionReceipt` at block B whose `blockHash` is not
+the snapshot's `blockHash`, with a `payoutDenominator` that is not the sum of the two
+`payoutNumerators` (ConditionalTokens sets it to that sum, so an unresolved condition reads 0 and
+`[0,0]`), or with a successful resolution receipt while the payout denominator is 0, does not
+describe one chain state and is a gate rejection
+(`rvr.gate.schema_invalid`). This check runs before evaluation, so such a snapshot never reaches
+the lifecycle derivation in section 5. Any outcome-relevant input outside the claim, the evidence
 set and this profile (for example a live `latest` read) is a gate rejection
 (`rvr.gate.evidence_closure_incomplete`).
 
@@ -109,8 +114,12 @@ The lifecycle state at B is derived from the snapshot alone:
    `(uint256 outcomeSlotCount, uint256[] payoutNumerators)` with the snapshot's payout read, and
    exactly one log from the adapter with topics
    `[0x566c3fbdd12dd86bb341787f6d531f79fd7ad4ce7e3ae2d15ac0ca1b601af9df, questionId, settledPrice]`
-   (`QuestionResolved`). Logs are matched by emitting address and topics, never by position: the
-   resolution may be batched with other markets.
+   (`QuestionResolved`) whose data is exactly `abi.encode(uint256[] payouts)` (offset 32, two
+   entries, no trailing bytes) with payouts equal to the snapshot's payout read, and whose
+   `settledPrice` (an `int256` topic) is one of the three label prices below and gives the same
+   label as those payouts. If any of these contents disagree, or the data is empty or malformed,
+   there is no resolution evidence. Logs are matched by emitting address and topics, never by
+   position: the resolution may be batched with other markets.
 2. If `payoutDenominator` is not `0`: `FINAL` with resolution evidence, else
    `RESOLVED_WITHOUT_EVIDENCE`.
 3. Otherwise the current request is the one with the largest `requestTimestamp`, and its state
@@ -162,7 +171,9 @@ The receipt's `outcome` and `reasonCode` are projections of `/outcome` and `/rea
 As in RVR v0 section 9. Profile bootstrap: parse and apply the trusted generic manifest schema;
 resolve, read and SHA-256-check each dependency once; only then parse and apply
 `profile.schema.json`. A constraints file whose digest does not match is rejected without being
-parsed or applied.
+parsed or applied. The required-dependency status below is decided before the stored receipt,
+claim, evidence-set descriptor or canonical result is validated against any pinned schema, so a
+missing or altered `rvr.schema.json` gives `CANNOT_RECOMPUTE`, never an error or a gate result.
 
 - Required dependency unavailable: `CANNOT_RECOMPUTE`, `rvr.recompute.normative_dependency_unavailable`.
 - Required dependency with other bytes: `CANNOT_RECOMPUTE`, `rvr.recompute.normative_dependency_identity_mismatch`.

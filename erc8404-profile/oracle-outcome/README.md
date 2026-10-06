@@ -22,6 +22,14 @@ snapshot and for a missing or altered normative dependency, committed-`UNAVAILAB
 gate rejections for a tampered constraints pin, a contradictory receipt projection, a live-RPC
 input (with the counterfactual it would have caused), and non-canonical snapshot bytes.
 
+Review regressions (thread post 33, Pavlo Tvardovskyi), each an adversarial edit of the final
+snapshot recomputed against the positive control's receipt: `QuestionResolved` payouts that
+conflict with the `ConditionResolution` log and read, empty `QuestionResolved` data, and a
+conflicting `settledPrice` (all `UNVERIFIABLE` `resolution_evidence_incomplete`, `DIVERGED`); a
+resolution receipt later than B, a receipt at B with another block hash, and a payout denominator
+that is not the numerators' sum (all `rvr.gate.schema_invalid`); and a missing or altered
+`rvr.schema.json` (`CANNOT_RECOMPUTE`).
+
 ```bash
 python3 erc8404-profile/oracle-outcome/adapter.py --check          # recompute and compare with expected.json
 python3 -m unittest erc8404-profile/oracle-outcome/test_profile.py

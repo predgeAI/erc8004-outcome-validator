@@ -24,7 +24,7 @@
   "verificationSpecification": {
     "id": "oracle-outcome-verification-specification",
     "path": "oracle-outcome/SPEC.md",
-    "sha256": "f8de6355de2268b0625815042a84327497baf5053ea7baf04b040cd528e74cea",
+    "sha256": "bc7b0826c3510b696e87b9fcc36b1e93572b782da1915e5f39d893bca40abb66",
     "requiredForRecomputation": true
   },
   "conformanceVectorSet": {
@@ -33,7 +33,7 @@
       {
         "id": "oracle-outcome-expected-results",
         "path": "oracle-outcome/expected.json",
-        "sha256": "48b6172802198cd7d98013d60b67004bf3bcb55c59122407258cee44fa3daccc",
+        "sha256": "2e7f2be19a809229a947b8093ebb6fab6f1e221decae360e5b6288de0fb6a363",
         "requiredForRecomputation": false
       },
       {
@@ -43,7 +43,7 @@
         "requiredForRecomputation": false
       }
     ],
-    "digest": "3f1bc28c4c7263a75938481e70d9db3656abb676cf5ee705a6c982899c2530a3",
+    "digest": "8e187872918568d7ea7c7ce6177ec278e6b5dbee5099a69eecf556075a8fd517",
     "digestRule": "sha256-utf8-sorted-path-tab-file-sha256-lf-rows"
   },
   "canonicalByteContract": {

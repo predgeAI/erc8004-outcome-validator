@@ -398,6 +398,20 @@ def decode_payouts(data_hex: str) -> list[str] | None:
     return [str(int.from_bytes(data[offset + 32 + 32 * i: offset + 64 + 32 * i], "big")) for i in range(n)]
 
 
+def decode_question_resolved(data_hex: str) -> list[str] | None:
+    """QuestionResolved data = abi.encode(uint256[] payouts). Strict: offset 32, two entries, no trailing bytes."""
+    data = bytes.fromhex(data_hex[2:])
+    if len(data) != 128 or int.from_bytes(data[0:32], "big") != 32 or int.from_bytes(data[32:64], "big") != 2:
+        return None
+    return [str(int.from_bytes(data[64:96], "big")), str(int.from_bytes(data[96:128], "big"))]
+
+
+def int256_topic(topic: str) -> str:
+    """An indexed int256 topic (two's complement) as a canonical decimal string."""
+    v = int(topic, 16)
+    return str(v - (1 << 256) if v >> 255 else v)
+
+
 def pad_address(address: str) -> str:
     return "0x" + "0" * 24 + address[2:]
 
@@ -415,11 +429,16 @@ def lifecycle(s: dict[str, Any]) -> tuple[str, bool, str | None, str | None, str
             TOPIC_CONDITION_RESOLUTION, s["conditionId"], pad_address(s["contracts"]["adapter"]), s["questionId"]]]
         qr = [lg for lg in receipt["logs"] if lg["address"] == s["contracts"]["adapter"] and len(lg["topics"]) == 3
               and lg["topics"][0] == TOPIC_QUESTION_RESOLVED and lg["topics"][1] == s["questionId"]]
+        read = s["conditionResolution"]["payoutNumerators"]
         payouts = decode_payouts(cr[0]["data"]) if len(cr) == 1 else None
-        evidence = len(qr) == 1 and payouts is not None and payouts == s["conditionResolution"]["payoutNumerators"]
+        qr_payouts = decode_question_resolved(qr[0]["data"]) if len(qr) == 1 else None
+        # ConditionResolution payouts, QuestionResolved payouts and the payout read must all agree,
+        # and QuestionResolved's settledPrice must carry the same label as those payouts.
+        evidence = payouts is not None and payouts == read and qr_payouts == read
         if evidence:
             final_outcome = PAYOUT_LABEL.get(tuple(payouts))
-            evidence = final_outcome is not None
+            settled = label_of_price(int256_topic(qr[0]["topics"][2]))
+            evidence = final_outcome is not None and settled == final_outcome
     if s["conditionResolution"]["payoutDenominator"] != "0":
         state = "FINAL" if evidence else "RESOLVED_WITHOUT_EVIDENCE"
         return state, evidence, current["requestTimestamp"], proposed, final_outcome if evidence else None
@@ -435,6 +454,15 @@ def snapshot_gate(s: dict[str, Any]) -> None:
     later += [u for u in s["bulletinUpdates"] if int(u["blockNumber"]) > b]
     if later:
         raise GateRejected("rvr.gate.schema_invalid", "snapshot holds events later than its block")
+    receipt = s["resolutionReceipt"]
+    if receipt is not None and int(receipt["blockNumber"]) > b:
+        raise GateRejected("rvr.gate.schema_invalid", "snapshot holds a resolution receipt later than its block")
+    if receipt is not None and int(receipt["blockNumber"]) == b and receipt["blockHash"] != s["blockHash"]:
+        raise GateRejected("rvr.gate.schema_invalid", "resolution receipt at the snapshot block names another block hash")
+    cr = s["conditionResolution"]
+    if int(cr["payoutDenominator"]) != sum(int(n) for n in cr["payoutNumerators"]):
+        # ConditionalTokens.reportPayouts sets the denominator to the numerators' sum; unresolved is 0 = 0 + 0.
+        raise GateRejected("rvr.gate.schema_invalid", "payoutDenominator is not the sum of payoutNumerators")
     if s["resolutionReceipt"] is not None and s["conditionResolution"]["payoutDenominator"] == "0" \
             and s["resolutionReceipt"]["status"] == "SUCCESS" and int(s["resolutionReceipt"]["blockNumber"]) <= b:
         raise GateRejected("rvr.gate.schema_invalid", "snapshot holds a resolution receipt for an unresolved condition")
@@ -530,10 +558,12 @@ def validate_stored(p: Profile, stored: dict[str, Any]) -> None:
 
 def recompute(p: Profile, stored: dict[str, Any], claim: dict[str, Any], evidence_set: dict[str, Any],
               payloads: dict[str, bytes], hidden_inputs: dict[str, Any] | None = None) -> dict[str, Any]:
-    validate_stored(p, stored)
+    # Dependency status first: the stored objects are validated against pinned schemas
+    # (rvr.schema.json), which may be the dependency that is missing or has other bytes.
     status = p.required_status()
     if status:
         return status
+    validate_stored(p, stored)
     if hidden_inputs:
         raise GateRejected("rvr.gate.evidence_closure_incomplete", "outcome-relevant input outside the committed closure")
     present = [m for m in evidence_set["members"] if m["status"] == "PRESENT"]
@@ -545,7 +575,8 @@ def recompute(p: Profile, stored: dict[str, Any], claim: dict[str, Any], evidenc
     return {"recomputationStatus": "REPRODUCED" if same else "DIVERGED",
             "reasonCode": "rvr.recompute.identical" if same else "rvr.recompute.canonical_result_diverged",
             "evaluationPerformed": True, "verificationOutcome": res["outcome"], "verificationReasonCode": res["reasonCode"],
-            "lifecycleState": res["evaluation"]["lifecycleState"]}
+            "lifecycleState": res["evaluation"]["lifecycleState"],
+            "resolutionEvidence": res["evaluation"]["finality"]["resolutionEvidence"]}
 
 
 # ---- vectors ------------------------------------------------------------------------------------
@@ -560,8 +591,9 @@ def snapshot_bytes(vectors: dict[str, Any], name: str) -> bytes:
 
 
 def mutate_payouts(s: dict[str, Any]) -> dict[str, Any]:
-    """Semantic mutation: the same resolution, but paying Yes. Read and log are changed together, so the
-    snapshot stays internally consistent and evaluation completes."""
+    """Semantic mutation: the same resolution, but paying Yes. Read, ConditionResolution and
+    QuestionResolved (payouts and settledPrice) are changed together, so the snapshot stays internally
+    consistent and evaluation completes."""
     s = copy.deepcopy(s)
     s["conditionResolution"]["payoutNumerators"] = ["1", "0"]
     for lg in s["resolutionReceipt"]["logs"]:
@@ -570,6 +602,9 @@ def mutate_payouts(s: dict[str, Any]) -> dict[str, Any]:
             n_off = int.from_bytes(data[32:64], "big") + 32
             data = data[:n_off] + (1).to_bytes(32, "big") + (0).to_bytes(32, "big") + data[n_off + 64:]
             lg["data"] = "0x" + data.hex()
+        if lg["address"] == s["contracts"]["adapter"] and lg["topics"][:2] == [TOPIC_QUESTION_RESOLVED, s["questionId"]]:
+            lg["topics"][2] = "0x" + (10 ** 18).to_bytes(32, "big").hex()
+            lg["data"] = "0x" + b"".join(n.to_bytes(32, "big") for n in (32, 2, 1, 0)).hex()
     return s
 
 
@@ -611,6 +646,11 @@ def run_check() -> dict[str, Any]:
     spec_id = p.profile["verificationSpecification"]["id"]
     cases["NORMATIVE_DEPENDENCY_UNAVAILABLE"] = recompute(Profile({spec_id: None}), stored_all["POSITIVE_CONTROL_FINAL_SNAPSHOT"], claim, evidence_for(sb), {"chain-snapshot": sb})
     cases["NORMATIVE_DEPENDENCY_IDENTITY_MISMATCH"] = recompute(Profile({spec_id: p.bytes[spec_id] + b"\n"}), stored_all["POSITIVE_CONTROL_FINAL_SNAPSHOT"], claim, evidence_for(sb), {"chain-snapshot": sb})
+    # The same for rvr.schema.json, which the stored receipt objects are validated against: the
+    # dependency status is decided before any stored object is checked.
+    rvr_id = "oracle-outcome-rvr-schema"
+    cases["RVR_SCHEMA_UNAVAILABLE"] = recompute(Profile({rvr_id: None}), stored_all["POSITIVE_CONTROL_FINAL_SNAPSHOT"], claim, evidence_for(sb), {"chain-snapshot": sb})
+    cases["RVR_SCHEMA_IDENTITY_MISMATCH"] = recompute(Profile({rvr_id: p.bytes[rvr_id] + b"\n"}), stored_all["POSITIVE_CONTROL_FINAL_SNAPSHOT"], claim, evidence_for(sb), {"chain-snapshot": sb})
 
     # Gate rejections.
     def gate(fn) -> dict[str, Any]:
@@ -639,7 +679,8 @@ def run_check() -> dict[str, Any]:
     leak = copy.deepcopy(vectors["snapshots"]["proposed"])
     leak["conditionResolution"] = {"payoutDenominator": "1", "payoutNumerators": ["0", "1"]}
     leak["resolutionReceipt"] = vectors["snapshots"]["final"]["resolutionReceipt"]
-    leak["blockNumber"] = vectors["snapshots"]["final"]["blockNumber"]
+    for key in ("blockNumber", "blockHash", "blockTimestamp"):
+        leak[key] = vectors["snapshots"]["final"][key]
     lb = canonical_bytes(leak)
     hidden["counterfactualOutcome"] = evaluate(vectors["claims"]["final-yes"], evidence_for(lb), {"chain-snapshot": lb}, p.rvr)["reasonCode"]
     hidden["evaluationPerformed"] = False
@@ -649,6 +690,57 @@ def run_check() -> dict[str, Any]:
         pretty = json.dumps(vectors["snapshots"]["final"], indent=1, sort_keys=True).encode("utf-8")
         return recompute(p, stored_all["POSITIVE_CONTROL_FINAL_SNAPSHOT"], claim, evidence_for(pretty), {"chain-snapshot": pretty})
     cases["NON_CANONICAL_SNAPSHOT"] = gate(non_canonical)
+
+    # Review regressions (Ethereum Magicians thread 29521, post 33): adversarial edits of the final
+    # snapshot, each recomputed against the positive control's original receipt.
+    positive = stored_all["POSITIVE_CONTROL_FINAL_SNAPSHOT"]
+
+    def adversarial(mutate) -> dict[str, Any]:
+        s = copy.deepcopy(vectors["snapshots"]["final"])
+        mutate(s)
+        b = canonical_bytes(s)
+        try:
+            return recompute(p, positive, claim, evidence_for(b), {"chain-snapshot": b})
+        except GateRejected as e:
+            return {"gateStatus": "REJECTED", "reasonCode": e.reason_code, "evaluationPerformed": False}
+
+    def question_resolved_log(s: dict[str, Any]) -> dict[str, Any]:
+        return next(lg for lg in s["resolutionReceipt"]["logs"] if lg["address"] == s["contracts"]["adapter"]
+                    and lg["topics"][:2] == [TOPIC_QUESTION_RESOLVED, s["questionId"]])
+
+    def qr_payouts_yes(s: dict[str, Any]) -> None:
+        question_resolved_log(s)["data"] = "0x" + b"".join(n.to_bytes(32, "big") for n in (32, 2, 1, 0)).hex()
+
+    def qr_empty(s: dict[str, Any]) -> None:
+        question_resolved_log(s)["data"] = "0x"
+
+    def qr_price_yes(s: dict[str, Any]) -> None:
+        question_resolved_log(s)["topics"][2] = "0x" + (10 ** 18).to_bytes(32, "big").hex()
+
+    cases["QUESTION_RESOLVED_PAYOUTS_CONFLICT"] = adversarial(qr_payouts_yes)
+    cases["QUESTION_RESOLVED_EMPTY_DATA"] = adversarial(qr_empty)
+    cases["QUESTION_RESOLVED_SETTLED_PRICE_CONFLICT"] = adversarial(qr_price_yes)
+
+    def receipt_after_block(s: dict[str, Any]) -> None:
+        s["resolutionReceipt"]["blockNumber"] = str(int(s["blockNumber"]) + 1)
+
+    cases["RESOLUTION_RECEIPT_AFTER_SNAPSHOT_BLOCK"] = adversarial(receipt_after_block)
+
+    def denominator_not_sum(s: dict[str, Any]) -> None:
+        s["conditionResolution"]["payoutDenominator"] = "2"  # numerators stay [0,1]
+
+    def unresolved_with_numerators(s: dict[str, Any]) -> None:
+        s["conditionResolution"]["payoutDenominator"] = "0"  # numerators stay [0,1]
+        s["resolutionReceipt"] = None
+
+    cases["PAYOUT_DENOMINATOR_NOT_SUM"] = adversarial(denominator_not_sum)
+    cases["PAYOUT_DENOMINATOR_ZERO_WITH_NUMERATORS"] = adversarial(unresolved_with_numerators)
+
+    def receipt_block_hash_mismatch(s: dict[str, Any]) -> None:
+        assert s["resolutionReceipt"]["blockNumber"] == s["blockNumber"]  # the real pair resolves at B
+        s["resolutionReceipt"]["blockHash"] = "0x" + "11" * 32
+
+    cases["RESOLUTION_RECEIPT_BLOCK_HASH_MISMATCH"] = adversarial(receipt_block_hash_mismatch)
 
     # Semantic failures: well-formed inputs that evaluate to a specific non-VERIFIED reason.
     semantic = {}

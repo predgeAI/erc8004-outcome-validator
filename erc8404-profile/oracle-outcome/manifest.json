@@ -18,19 +18,19 @@
     },
     {
       "path": "oracle-outcome/README.md",
-      "sha256": "9b4e4039fb66d6cca39b88c071cacf0a182488bea193653eab8d90611e94f672"
+      "sha256": "43563607b824b82f88ed384fef32738c0df4ab094691e85dd411db5ee2479959"
     },
     {
       "path": "oracle-outcome/SPEC.md",
-      "sha256": "f8de6355de2268b0625815042a84327497baf5053ea7baf04b040cd528e74cea"
+      "sha256": "bc7b0826c3510b696e87b9fcc36b1e93572b782da1915e5f39d893bca40abb66"
     },
     {
       "path": "oracle-outcome/adapter.py",
-      "sha256": "a133b0f0e7dc030d636bc0fe3dabff9f3802e3e248abaa18f68778e7f89050c5"
+      "sha256": "a5afc19bc91683950b13d7d3b18eb6a424bbac3b178ccc6485413f5246633fc8"
     },
     {
       "path": "oracle-outcome/expected.json",
-      "sha256": "48b6172802198cd7d98013d60b67004bf3bcb55c59122407258cee44fa3daccc"
+      "sha256": "2e7f2be19a809229a947b8093ebb6fab6f1e221decae360e5b6288de0fb6a363"
     },
     {
       "path": "oracle-outcome/profile.schema.json",
@@ -38,7 +38,7 @@
     },
     {
       "path": "oracle-outcome/receipts.json",
-      "sha256": "4c9a420b54d774ec4c5d03cb27148f88234d6b11d77bb8f2153416f37c981d78"
+      "sha256": "b99698a0e17fca8edd6eae41bded3da8f61414f162f9cc1dc2beb0e10c5ee5bc"
     },
     {
       "path": "oracle-outcome/rvr.schema.json",
@@ -46,7 +46,7 @@
     },
     {
       "path": "oracle-outcome/test_profile.py",
-      "sha256": "377f393437ead50058580e7f3f9c2a50db02c830b808f25c09fd02f9fcc1c9a3"
+      "sha256": "b64b180708dd221abb4fc9d2df0e0aaa5bedffa4b3e36bd2589461f26cd05d70"
     },
     {
       "path": "oracle-outcome/vectors.json",
@@ -54,9 +54,9 @@
     },
     {
       "path": "oracle-outcome/verification-profile.json",
-      "sha256": "6bc8616213810beb5952d91bfeeccbf3cfb191fbde44490c12e1c89530cd3f9d"
+      "sha256": "8fa6e4875cdb10158fb7245f4c1e80af553f8b9e4e5bcbec75fc08553db11be6"
     }
   ],
   "packageDigestRule": "sha256-utf8-sorted-path-tab-file-sha256-lf-rows-manifest-excluded",
-  "packageDigest": "a5bd8ba98e56f73946dd122de97e273aff4260c45af262c7d2635a7ec5c49101"
+  "packageDigest": "bfe9381e4c0440477cdb4697849904347cfe8a20cc8f1e507fca51328e02f187"
 }
