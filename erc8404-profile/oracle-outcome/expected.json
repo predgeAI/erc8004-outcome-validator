@@ -13,7 +13,8 @@
       "verificationReasonCode": "rvr.oracle-outcome.v0.final_outcome_verified",
       "lifecycleState": "FINAL",
       "recomputationStatus": "REPRODUCED",
-      "evaluationPerformed": true
+      "evaluationPerformed": true,
+      "resolutionEvidence": true
     },
     "DISPUTED_PROPOSAL_CLAIMED_FINAL": {
       "verificationOutcome": "REFUTED",
@@ -80,6 +81,30 @@
       "rules-version-mismatch": "rvr.oracle-outcome.v0.rules_version_mismatch",
       "resolution-evidence-incomplete": "rvr.oracle-outcome.v0.resolution_evidence_incomplete",
       "snapshot-identity-inconsistent": "rvr.oracle-outcome.v0.snapshot_identity_inconsistent"
+    },
+    "QUESTION_RESOLVED_PAYOUTS_CONFLICT": {
+      "recomputationStatus": "DIVERGED",
+      "evaluationPerformed": true,
+      "verificationOutcome": "UNVERIFIABLE",
+      "verificationReasonCode": "rvr.oracle-outcome.v0.resolution_evidence_incomplete",
+      "lifecycleState": "RESOLVED_WITHOUT_EVIDENCE",
+      "resolutionEvidence": false
+    },
+    "QUESTION_RESOLVED_EMPTY_DATA": {
+      "recomputationStatus": "DIVERGED",
+      "evaluationPerformed": true,
+      "verificationOutcome": "UNVERIFIABLE",
+      "verificationReasonCode": "rvr.oracle-outcome.v0.resolution_evidence_incomplete",
+      "lifecycleState": "RESOLVED_WITHOUT_EVIDENCE",
+      "resolutionEvidence": false
+    },
+    "QUESTION_RESOLVED_SETTLED_PRICE_CONFLICT": {
+      "recomputationStatus": "DIVERGED",
+      "evaluationPerformed": true,
+      "verificationOutcome": "UNVERIFIABLE",
+      "verificationReasonCode": "rvr.oracle-outcome.v0.resolution_evidence_incomplete",
+      "lifecycleState": "RESOLVED_WITHOUT_EVIDENCE",
+      "resolutionEvidence": false
     }
   }
 }

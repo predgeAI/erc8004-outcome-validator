@@ -109,8 +109,12 @@ The lifecycle state at B is derived from the snapshot alone:
    `(uint256 outcomeSlotCount, uint256[] payoutNumerators)` with the snapshot's payout read, and
    exactly one log from the adapter with topics
    `[0x566c3fbdd12dd86bb341787f6d531f79fd7ad4ce7e3ae2d15ac0ca1b601af9df, questionId, settledPrice]`
-   (`QuestionResolved`). Logs are matched by emitting address and topics, never by position: the
-   resolution may be batched with other markets.
+   (`QuestionResolved`) whose data is exactly `abi.encode(uint256[] payouts)` (offset 32, two
+   entries, no trailing bytes) with payouts equal to the snapshot's payout read, and whose
+   `settledPrice` (an `int256` topic) is one of the three label prices below and gives the same
+   label as those payouts. If any of these contents disagree, or the data is empty or malformed,
+   there is no resolution evidence. Logs are matched by emitting address and topics, never by
+   position: the resolution may be batched with other markets.
 2. If `payoutDenominator` is not `0`: `FINAL` with resolution evidence, else
    `RESOLVED_WITHOUT_EVIDENCE`.
 3. Otherwise the current request is the one with the largest `requestTimestamp`, and its state
