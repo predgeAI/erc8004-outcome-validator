@@ -439,3 +439,44 @@ vector("11-final-claimed-at-proposed-block.json", {
   expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: true, stateTagConsistent: true, supersedeChainValid: true, acceptOffline: true, onchainStateMatches: false, accept: false },
   notes: { why: "This is why the oracle reference is bound next to outcomeState: a label alone can be wrong, a block plus a contract read can be checked. Offline verifiers accept it and say that the on-chain check is still owed." },
 });
+
+// Negative: a correctly signed final record read in the window between the UMA request reaching
+// SETTLED (Settle, block 89518525) and the adapter's resolve (block 89518530). getState is
+// SETTLED but payoutDenominator is still 0, so the condition is not resolved: no record is valid
+// here, in any outcomeState. --onchain rejects it with the distinct reason settled_not_resolved.
+// It answers its own request (agent 44 claiming Yes), so it has no earlier record to supersede.
+const settle = byEvent("optimisticOracle", "Settle");
+const ratee44 = { ...ratee, agentId: "44" };
+const request44 = { ...oracleRequest, ratee: ratee44 };
+const requestHash44 = keccak(canonicalJson(request44));
+const settledNotResolved = {
+  scheme: "oracle-outcome-validation-v0",
+  requestHash: requestHash44,
+  ratee: ratee44,
+  subject,
+  claimedOutcome: "Yes",
+  observedOutcome: label(settle.price),
+  score: "0",
+  outcomeState: "final",
+  oracle: oracleRef("final", settle.requestTimestamp, settle.price, ev.reads.settledNotResolved, settle.transactionHash),
+  issuedAt: "2026-07-02T08:59:56.000Z",
+};
+const eS = envelope(settledNotResolved);
+const hS = keccak(eS.canonical);
+vector("12-final-in-settled-not-resolved-window.json", {
+  _README:
+    "Negative vector: a correctly signed record that says outcomeState final with observedOutcome No, read at block 89518527. The UMA request settled at No in block 89518525, but the adapter only resolved the condition in block 89518530, so at 89518527 getState is SETTLED and payoutDenominator is 0. No record is valid in that window. It passes every offline check; --onchain rejects it with reason settled_not_resolved, not as a state mismatch.",
+  spec: "grounded-feedback/oracle-outcome.md",
+  signingKeyNote: KEY_NOTE,
+  request: { requestURI: "https://example.com/requests/polymarket-1992979-yes-agent-44.json", document: request44 },
+  evidence: ORACLE_EVIDENCE,
+  envelope: eS,
+  canonicalByteLength: Buffer.byteLength(eS.canonical, "utf8"),
+  responseHash: hS,
+  validationResponse: oracleCall(12, hS, "oracle-outcome:final", 0, requestHash44),
+  expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: true, stateTagConsistent: true, supersedeChainValid: true, acceptOffline: true, onchainStateMatches: false, onchainReason: "settled_not_resolved", accept: false },
+  notes: {
+    why: "final means the condition is resolved: payoutDenominator(conditionId) > 0 at readBlock. A SETTLED oracle request is not that yet; the adapter writes the payouts, and until it does a validator writes nothing and waits to write final after resolve. proposed and disputed fail too, since the request is no longer in either state.",
+    window: "Market 1992979: Settle 0x4f54a4e26d71dc4341e6266b0be18aa3b68175ffd6ef96db9df954f8bc14fdff at block 89518525, resolve 0xbf29967cbfbb8d389f58d5a03088232382d412cff1335293d6a75f8a9590bc94 at block 89518530. Blocks 89518525 to 89518529: getState SETTLED, payoutDenominator 0. The read at 89518527 is reads.settledNotResolved in the evidence file.",
+  },
+});

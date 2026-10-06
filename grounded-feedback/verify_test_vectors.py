@@ -11,6 +11,9 @@ vector comes out as its `expect` block says.
 
 Offline only: for oracle-outcome vectors whose verdict also depends on chain state (`onchainStateMatches` in
 `expect`), it checks `acceptOffline`; the on-chain re-read is `node grounded-feedback/verify-test-vectors.mjs --onchain`.
+One on-chain rule it does check, against the read committed in the vector's evidence file rather than a chain call:
+a record read where the oracle request is SETTLED or RESOLVED and payoutDenominator is still 0 gets reason settled_not_resolved
+(`onchainReason` in `expect`).
 """
 import glob
 import hashlib
@@ -191,6 +194,25 @@ def oracle_schema_problems(r, ancillary_hex):
     return p
 
 
+SETTLED_NOT_RESOLVED = "settled_not_resolved"
+
+
+def committed_read(v, r):
+    """The read in the vector's evidence file at the record's readBlock and readBlockHash, or None."""
+    ev = v.get("evidence") or {}
+    o = r.get("oracle") if isinstance(r.get("oracle"), dict) else {}
+    if not ev.get("file") or not o:
+        return None
+    reads = json.load(open(os.path.join(HERE, "..", ev["file"]), encoding="utf-8")).get("reads", {})
+    return next((x for x in reads.values() if x.get("blockNumber") == o.get("readBlock") and x.get("blockHash") == o.get("readBlockHash")), None)
+
+
+def window_reason(r, read):
+    """oracle-outcome.md rule 2, settled but not resolved: no record is valid there, whatever its outcomeState."""
+    state = read["oracleStates"].get(r["oracle"]["requestTimestamp"])
+    return SETTLED_NOT_RESOLVED if state in ("SETTLED", "RESOLVED") and read["payoutDenominator"] == "0" else None
+
+
 def self_consistent(v):
     env = v["envelope"]
     data = canonical(env["payload"]).encode("utf-8")
@@ -280,16 +302,23 @@ for path in files:
         and got.get("stateTagConsistent", True) and got.get("supersedeChainValid", True) and call_ok
     needs_chain = "onchainStateMatches" in v["expect"]
     got["accept"] = got["acceptOffline"]
+    read = committed_read(v, payload) if is_oracle and got["schemaValid"] and "onchainReason" in v["expect"] else None
+    if read is not None:
+        got["onchainReason"] = window_reason(payload, read)
 
     name = os.path.basename(path)
     for check, want in v["expect"].items():
         if needs_chain and check in ("onchainStateMatches", "accept"):
             continue
+        if check == "onchainReason" and read is None:
+            print(f"     {name} onchainReason not checked: no committed read at its readBlock")
+            continue
         if check == "acceptOffline" and not needs_chain:
             continue
         ok = got.get(check) == want
         failed |= not ok
-        print(f"{'ok  ' if ok else 'FAIL'} {name} {check} = {got.get(check)} (expected {want})")
+        src = " (from the committed read in evidence/, not a chain call)" if check == "onchainReason" else ""
+        print(f"{'ok  ' if ok else 'FAIL'} {name} {check} = {got.get(check)} (expected {want}){src}")
     if needs_chain:
         print(f"     {name} on-chain checks not run here (node grounded-feedback/verify-test-vectors.mjs --onchain)")
     if problems and v["expect"].get("schemaValid") is not False:

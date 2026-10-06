@@ -209,7 +209,7 @@ the same fields under the same rules:
 | [`03-tampered-amount.json`](test-vectors/03-tampered-amount.json) | vector 01 with `amount` edited after signing | reject: canonical bytes, signature, `responseHash` and the requirements check all fail |
 | [`04-metered-gpu.json`](test-vectors/04-metered-gpu.json) | x402 payment for metered GPU time, with `measured`, `assetType` and `issuedAt` | accept |
 | [`05-unit-not-in-asset-type.json`](test-vectors/05-unit-not-in-asset-type.json) | correctly signed, but `unit` is `byte` under `assetType` `gpu-hours` | reject: the schema check fails, everything else holds |
-| `06` to `11` | oracle-outcome-validation-v0 on Polymarket market 1992979, see [oracle-outcome.md](oracle-outcome.md#test-vectors-polymarket-market-1992979) | 06, 07 accept; 08 to 11 reject |
+| `06` to `12` | oracle-outcome-validation-v0 on Polymarket market 1992979, see [oracle-outcome.md](oracle-outcome.md#test-vectors-polymarket-market-1992979) | 06, 07 accept; 08 to 12 reject (12: `settled_not_resolved`) |
 
 Each file carries:
 - the record, the envelope, the exact canonical string and its byte length;
@@ -225,7 +225,7 @@ record maps them onto.
 ```bash
 npm ci
 node grounded-feedback/verify-test-vectors.mjs       # Node: node:crypto + ethers
-node grounded-feedback/verify-test-vectors.mjs --onchain   # plus Polygon RPC re-read of 06 to 11
+node grounded-feedback/verify-test-vectors.mjs --onchain   # plus Polygon RPC re-read of 06 to 12
 python3 grounded-feedback/verify_test_vectors.py     # Python: cryptography + pycryptodome
 node grounded-feedback/make-test-vectors.mjs         # regenerate; output is byte-identical
 ```

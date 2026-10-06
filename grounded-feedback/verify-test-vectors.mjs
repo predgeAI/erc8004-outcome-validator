@@ -5,7 +5,9 @@
 //
 // --onchain re-reads every oracle reference of the oracle-outcome vectors over Polygon RPC
 // (RPC_URL, default https://polygon.gateway.tenderly.co): block hash, the state-changing
-// transaction's logs, OO.getState and ConditionalTokens payouts at the read block. Without it the
+// transaction's logs, OO.getState and ConditionalTokens payouts at the read block. A failed re-read
+// gets a reason code: settled_not_resolved when the request is SETTLED or RESOLVED but payoutDenominator is
+// still 0 (no record is valid there), onchain_mismatch otherwise. Without it the
 // verifier makes no network call, and for vectors whose verdict depends on chain state it checks
 // `acceptOffline` instead of `accept`.
 //
@@ -201,6 +203,9 @@ const chainIface = new ethers.Interface([
   "function payoutNumerators(bytes32, uint256) view returns (uint256)",
 ]);
 const PAYOUT_LABEL = { "1,0": "Yes", "0,1": "No", "1,1": "Unknown" };
+// Reason codes for a failed on-chain re-read: settled_not_resolved for a record read after the
+// request settled (or resolved) but before the adapter's resolve, onchain_mismatch for anything else.
+const SETTLED_NOT_RESOLVED = "settled_not_resolved";
 const rpcCache = new Map();
 let provider;
 async function rpc(method, params) {
@@ -211,15 +216,22 @@ async function rpc(method, params) {
 async function onchainProblems(r, ancillaryData) {
   provider ??= new ethers.JsonRpcProvider(process.env.RPC_URL || "https://polygon.gateway.tenderly.co", 137, { staticNetwork: true });
   const o = r.oracle, p = [];
-  if (o.chainId !== "137") return [`chain ${o.chainId} is not Polygon`];
-  if (ancillaryData === undefined || ethers.keccak256(ancillaryData) !== o.questionId) return ["ancillaryData for the getState call is missing or does not hash to questionId"];
+  if (o.chainId !== "137") return { reason: "onchain_mismatch", problems: [`chain ${o.chainId} is not Polygon`] };
+  if (ancillaryData === undefined || ethers.keccak256(ancillaryData) !== o.questionId) return { reason: "onchain_mismatch", problems: ["ancillaryData for the getState call is missing or does not hash to questionId"] };
   const blockTag = ethers.toQuantity(BigInt(o.readBlock));
   const block = await rpc("eth_getBlockByNumber", [blockTag, false]);
   if (block?.hash !== o.readBlockHash) p.push(`readBlockHash: chain has ${block?.hash}`);
   const call = async (to, fn, a) => chainIface.decodeFunctionResult(fn, await rpc("eth_call", [{ to, data: chainIface.encodeFunctionData(fn, a) }, blockTag]))[0];
   const state = OO_STATE[Number(await call(o.oracle, "getState", [o.requester, ethers.encodeBytes32String(o.identifier), o.requestTimestamp, ancillaryData]))];
-  if (!WANT_STATE[r.outcomeState].includes(state)) p.push(`getState at ${o.readBlock} is ${state}, not ${r.outcomeState}`);
   const den = await call(o.conditionalTokens, "payoutDenominator", [r.subject.conditionId]);
+  // Settled, not yet resolved (oracle-outcome.md rule 2): the request is SETTLED (or RESOLVED) but the
+  // adapter has not resolved the condition; the ERC-8404 profile's SETTLED_UNRESOLVED. No record is valid at such a block, whatever its outcomeState, so
+  // this is its own reason rather than a state mismatch.
+  if ((state === "SETTLED" || state === "RESOLVED") && den === 0n) {
+    p.push(`${SETTLED_NOT_RESOLVED}: getState at ${o.readBlock} is ${state} and payoutDenominator is 0; a validator writes no record until the adapter resolves the condition`);
+    return { reason: SETTLED_NOT_RESOLVED, problems: p };
+  }
+  if (!WANT_STATE[r.outcomeState].includes(state)) p.push(`getState at ${o.readBlock} is ${state}, not ${r.outcomeState}`);
   const nums = [String(await call(o.conditionalTokens, "payoutNumerators", [r.subject.conditionId, 0])), String(await call(o.conditionalTokens, "payoutNumerators", [r.subject.conditionId, 1]))];
   if (r.outcomeState === "final") {
     if (den === 0n) p.push(`payoutDenominator is 0 at ${o.readBlock}: not resolved`);
@@ -244,7 +256,7 @@ async function onchainProblems(r, ancillaryData) {
       else if (ev.e.args.proposedPrice.toString() !== o.price) p.push(`${name} price ${ev.e.args.proposedPrice} is not ${o.price}`);
     }
   }
-  return p;
+  return { reason: p.length ? "onchain_mismatch" : null, problems: p };
 }
 
 for (const file of files) {
@@ -290,14 +302,16 @@ for (const file of files) {
   let onchain = [];
   const needsChain = "onchainStateMatches" in v.expect;
   if (needsChain && ONCHAIN && got.schemaValid) {
-    onchain = await onchainProblems(payload, ancillaryData);
+    const res = await onchainProblems(payload, ancillaryData);
+    onchain = res.problems;
     got.onchainStateMatches = onchain.length === 0;
+    got.onchainReason = res.reason;
   }
   got.accept = got.acceptOffline && got.onchainStateMatches !== false;
 
   const name = file.split("/").pop();
   for (const [check, want] of Object.entries(v.expect)) {
-    if (needsChain && !ONCHAIN && (check === "onchainStateMatches" || check === "accept")) continue;
+    if (needsChain && !ONCHAIN && (check === "onchainStateMatches" || check === "onchainReason" || check === "accept")) continue;
     if (check === "acceptOffline" && !needsChain) continue;
     if (got[check] === undefined && check === "acceptOffline") continue;
     const ok = got[check] === want;

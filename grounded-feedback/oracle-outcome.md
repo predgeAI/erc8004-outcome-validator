@@ -79,6 +79,16 @@ Two identities a verifier checks offline: `keccak256(ancillaryData) = questionId
    - A validator MUST NOT write `final` unless, at `oracle.readBlock`, the condition is resolved
      (`payoutDenominator(conditionId) > 0`) and `stateTx` holds the resolution. This is checkable
      on chain, which is why the reference is bound next to the label (vector 11).
+   - **Settled, not yet resolved: no record.** The UMA request can reach `SETTLED` some blocks
+     before the adapter's `resolve` writes the payouts. In that window `getState` is `SETTLED` and
+     `payoutDenominator(conditionId)` is 0, so the request is no longer `proposed` or `disputed`
+     and the condition is not yet resolved. A validator MUST NOT write a record read in that
+     window, in any `outcomeState`; it waits for `resolve` and writes `final`. A verifier that
+     finds such a record rejects it with the reason `settled_not_resolved`, not as a state
+     mismatch (vector 12). The same holds for `RESOLVED` with denominator 0 (a price resolved by
+     a UMA vote, not yet settled on the oracle); this is the ERC-8404 profile's `SETTLED_UNRESOLVED`.
+     `final` is not widened to accept `SETTLED` with denominator 0: `final` means the condition is
+     resolved, and it is the adapter, not the oracle, that resolves it.
 3. **A later `final` record for the same request supersedes the earlier one, which stays visible.**
    - The later record carries `supersedes: <responseHash of the record it replaces>`. The
      superseded record MUST have the same `requestHash`, `ratee`, `subject` and `claimedOutcome`,
@@ -116,6 +126,8 @@ again for the same `requestHash`.
      `proposed`, `DISPUTED` for `disputed`, `RESOLVED` or `SETTLED` for `final`;
    - `payoutDenominator(conditionId)` is 0 unless `final`; for `final` it is not 0 and the payouts
      give `observedOutcome`;
+   - if `getState` is `SETTLED` or `RESOLVED` and `payoutDenominator` is 0, reject with reason
+     `settled_not_resolved` whatever `outcomeState` says (rule 2), and skip the state checks above;
    - `stateTx` succeeded no later than `readBlock` and holds the matching `ProposePrice`,
      `DisputePrice`, or `QuestionResolved` plus `ConditionResolution` for this question and price.
 
@@ -135,7 +147,8 @@ settled differently from the disputed proposal.
 | 89509500 | | read for vector 06: request 1 `PROPOSED`, condition unresolved |
 | 89510574 | `0x850b0ba3…3c57` | request 1 disputed; adapter resets, opens request 2 |
 | 89513671 | `0x02cfc7e4…fa41` | request 2: `No` proposed |
-| 89518525 | `0x4f54a4e2…fdff` | request 2 settled at `No` |
+| 89518525 | `0x4f54a4e2…fdff` | request 2 settled at `No`; condition still unresolved |
+| 89518527 | | read for vector 12: request 2 `SETTLED`, `payoutDenominator` 0 |
 | 89518530 | `0xbf29967c…bc94` | `QuestionResolved` and `ConditionResolution`, payouts `0,1`; read for vector 07 |
 
 | File | Case | Expected |
@@ -146,6 +159,7 @@ settled differently from the disputed proposal.
 | [`09-supersedes-wrong-hash.json`](test-vectors/09-supersedes-wrong-hash.json) | vector 07 re-signed with `supersedes` naming vector 01, another request | reject: supersede chain |
 | [`10-tampered-outcome-state.json`](test-vectors/10-tampered-outcome-state.json) | vector 06 with `outcomeState` edited to `final` after signing | reject: bytes, signature, hash |
 | [`11-final-claimed-at-proposed-block.json`](test-vectors/11-final-claimed-at-proposed-block.json) | correctly signed `final` at block 89509500 | offline accept; reject `--onchain` |
+| [`12-final-in-settled-not-resolved-window.json`](test-vectors/12-final-in-settled-not-resolved-window.json) | correctly signed `final` (`No`) at block 89518527, after `Settle`, before `resolve` | offline accept; reject `--onchain` with reason `settled_not_resolved` |
 
 They are signed with the same RFC 8032 TEST 1 key as vectors 01 to 05: a public test key, never
 Predge's production key. The block numbers, block hashes and transaction hashes are real; the
@@ -157,6 +171,9 @@ node grounded-feedback/verify-test-vectors.mjs --onchain   # plus Polygon RPC re
 python3 grounded-feedback/verify_test_vectors.py           # second verifier, offline
 ```
 
+The Python verifier also checks vector 12's `settled_not_resolved` reason, against the read at
+block 89518527 committed in the evidence file (`reads.settledNotResolved`), not against the chain.
+
 The same market is the conformance pair of the ERC-8404 oracle-outcome profile in
 [`../erc8404-profile/oracle-outcome/`](../erc8404-profile/oracle-outcome/README.md).
 
@@ -167,3 +184,9 @@ The same market is the conformance pair of the ERC-8404 oracle-outcome profile i
 2. Is `tag = oracle-outcome:<state>` the right place for the state, or should ERC-8004 give
    responses a typed status next to the score?
 3. Should a validator be required to write the `final` record, or may it stop at `proposed`?
+4. The same gap for an undisputed proposal: once liveness has passed, the request can read
+   `EXPIRED` with `payoutDenominator` still 0 (the profile's `EXPIRED_UNRESOLVED`). Today a
+   `proposed` record read there fails the state check like any mismatch; it probably wants its
+   own reason too. No vector covers it, nor `RESOLVED` with denominator 0: on market 1992979 the
+   Managed Optimistic Oracle V2 still returned `PROPOSED` for request 2 after its
+   `expirationTimestamp` and until `Settle`, so those cases need another market.

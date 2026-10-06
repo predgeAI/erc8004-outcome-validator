@@ -27,7 +27,7 @@ const C = {
 };
 const INIT_BLOCK = 85616312; // QuestionInitialized
 const LAST_BLOCK = 89518530; // QuestionResolved
-const READ_BLOCKS = { proposed: 89509500, final: 89518530 };
+const READ_BLOCKS = { proposed: 89509500, settledNotResolved: 89518527, final: 89518530 };
 const IDENTIFIER = ethers.encodeBytes32String("YES_OR_NO_QUERY");
 
 const oo = new ethers.Interface([
