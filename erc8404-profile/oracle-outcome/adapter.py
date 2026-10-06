@@ -457,6 +457,8 @@ def snapshot_gate(s: dict[str, Any]) -> None:
     receipt = s["resolutionReceipt"]
     if receipt is not None and int(receipt["blockNumber"]) > b:
         raise GateRejected("rvr.gate.schema_invalid", "snapshot holds a resolution receipt later than its block")
+    if receipt is not None and int(receipt["blockNumber"]) == b and receipt["blockHash"] != s["blockHash"]:
+        raise GateRejected("rvr.gate.schema_invalid", "resolution receipt at the snapshot block names another block hash")
     cr = s["conditionResolution"]
     if int(cr["payoutDenominator"]) != sum(int(n) for n in cr["payoutNumerators"]):
         # ConditionalTokens.reportPayouts sets the denominator to the numerators' sum; unresolved is 0 = 0 + 0.
@@ -677,7 +679,8 @@ def run_check() -> dict[str, Any]:
     leak = copy.deepcopy(vectors["snapshots"]["proposed"])
     leak["conditionResolution"] = {"payoutDenominator": "1", "payoutNumerators": ["0", "1"]}
     leak["resolutionReceipt"] = vectors["snapshots"]["final"]["resolutionReceipt"]
-    leak["blockNumber"] = vectors["snapshots"]["final"]["blockNumber"]
+    for key in ("blockNumber", "blockHash", "blockTimestamp"):
+        leak[key] = vectors["snapshots"]["final"][key]
     lb = canonical_bytes(leak)
     hidden["counterfactualOutcome"] = evaluate(vectors["claims"]["final-yes"], evidence_for(lb), {"chain-snapshot": lb}, p.rvr)["reasonCode"]
     hidden["evaluationPerformed"] = False
@@ -732,6 +735,12 @@ def run_check() -> dict[str, Any]:
 
     cases["PAYOUT_DENOMINATOR_NOT_SUM"] = adversarial(denominator_not_sum)
     cases["PAYOUT_DENOMINATOR_ZERO_WITH_NUMERATORS"] = adversarial(unresolved_with_numerators)
+
+    def receipt_block_hash_mismatch(s: dict[str, Any]) -> None:
+        assert s["resolutionReceipt"]["blockNumber"] == s["blockNumber"]  # the real pair resolves at B
+        s["resolutionReceipt"]["blockHash"] = "0x" + "11" * 32
+
+    cases["RESOLUTION_RECEIPT_BLOCK_HASH_MISMATCH"] = adversarial(receipt_block_hash_mismatch)
 
     # Semantic failures: well-formed inputs that evaluate to a specific non-VERIFIED reason.
     semantic = {}

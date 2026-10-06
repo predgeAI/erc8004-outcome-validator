@@ -85,7 +85,8 @@ exact canonical bytes of a `#/$defs/chainSnapshot` object:
 The snapshot is the evidence. Evaluation never reads an RPC, an indexer or a clock. A snapshot
 whose bytes are not exact canonical JSON is a gate rejection (`rvr.gate.identity_mismatch`). A
 snapshot with any event or update later than B, with a `resolutionReceipt` whose block is later
-than B (whatever its status), with a `payoutDenominator` that is not the sum of the two
+than B (whatever its status), with a `resolutionReceipt` at block B whose `blockHash` is not
+the snapshot's `blockHash`, with a `payoutDenominator` that is not the sum of the two
 `payoutNumerators` (ConditionalTokens sets it to that sum, so an unresolved condition reads 0 and
 `[0,0]`), or with a successful resolution receipt while the payout denominator is 0, does not
 describe one chain state and is a gate rejection

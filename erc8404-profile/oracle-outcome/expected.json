@@ -130,6 +130,11 @@
       "gateStatus": "REJECTED",
       "reasonCode": "rvr.gate.schema_invalid",
       "evaluationPerformed": false
+    },
+    "RESOLUTION_RECEIPT_BLOCK_HASH_MISMATCH": {
+      "gateStatus": "REJECTED",
+      "reasonCode": "rvr.gate.schema_invalid",
+      "evaluationPerformed": false
     }
   }
 }

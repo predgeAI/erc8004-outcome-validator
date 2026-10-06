@@ -79,6 +79,9 @@ class OracleOutcomeProfileTests(unittest.TestCase):
         self.assert_gate_rejected("PAYOUT_DENOMINATOR_NOT_SUM", "rvr.gate.schema_invalid")
         self.assert_gate_rejected("PAYOUT_DENOMINATOR_ZERO_WITH_NUMERATORS", "rvr.gate.schema_invalid")
 
+    def test_resolution_receipt_block_hash_mismatch(self) -> None:
+        self.assert_gate_rejected("RESOLUTION_RECEIPT_BLOCK_HASH_MISMATCH", "rvr.gate.schema_invalid")
+
 
 if __name__ == "__main__":
     unittest.main()
