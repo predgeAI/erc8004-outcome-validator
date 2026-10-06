@@ -22,15 +22,15 @@
     },
     {
       "path": "oracle-outcome/SPEC.md",
-      "sha256": "1618dcf922eef63e6a897f9a314bbfc33017d69b2fd1cb5cea66481a00d09902"
+      "sha256": "a1989dbd06eede4bb809e1aa05575497cfb5144e84215182c13386c71fc9c3b0"
     },
     {
       "path": "oracle-outcome/adapter.py",
-      "sha256": "11cdb913817838d54d48302bdc7cea188eb1db6c44db5fe6a5e6250e1fb55e86"
+      "sha256": "4a2bc0a5f1468dd66e69e4be281ebcc9797033ed7015ce8b01a226f323855de7"
     },
     {
       "path": "oracle-outcome/expected.json",
-      "sha256": "ddef755bf8e8b2d86504f90b71aefd04f2a008a3c86dcc1b226fdd76e7f52195"
+      "sha256": "2f677e285828d3e6dd1b9e191b4ec20b3246ba704c105a8e4fc6a19a716a8b70"
     },
     {
       "path": "oracle-outcome/profile.schema.json",
@@ -38,7 +38,7 @@
     },
     {
       "path": "oracle-outcome/receipts.json",
-      "sha256": "6f5a66c2e991d36cfc3c32c7a9298bb30037f5bbb28d05ad9ee4268b5c3539c1"
+      "sha256": "1596be67726eb3a305a82dfccc0c983e608a8998cdb5cc012f524f197115892c"
     },
     {
       "path": "oracle-outcome/rvr.schema.json",
@@ -46,7 +46,7 @@
     },
     {
       "path": "oracle-outcome/test_profile.py",
-      "sha256": "f120cbf96dda2f2d5909880e578bce34fa00c564e0b9e15a2e8b9d3fab116912"
+      "sha256": "f0157cd2e9ea19c9389ec3b49cbf4f37a6d9b1f746f34ff120feedb377a6767b"
     },
     {
       "path": "oracle-outcome/vectors.json",
@@ -54,9 +54,9 @@
     },
     {
       "path": "oracle-outcome/verification-profile.json",
-      "sha256": "e91d815b6f784883b6724a5e8dfb55e4bed6a40bd40f0330839939f822726ae5"
+      "sha256": "4345e21c865d8fc179821045868dad3d3f2c815901868aa871abd313b04cbdaf"
     }
   ],
   "packageDigestRule": "sha256-utf8-sorted-path-tab-file-sha256-lf-rows-manifest-excluded",
-  "packageDigest": "20c1101456e4107a9a77853266dac4af1451d18730666c3d1d16fdbd89711c55"
+  "packageDigest": "5a173fc328f73a5649b8633a25245832de97368c79983f7d3bab3f8bea88a36d"
 }

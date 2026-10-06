@@ -105,6 +105,11 @@
       "verificationReasonCode": "rvr.oracle-outcome.v0.resolution_evidence_incomplete",
       "lifecycleState": "RESOLVED_WITHOUT_EVIDENCE",
       "resolutionEvidence": false
+    },
+    "RESOLUTION_RECEIPT_AFTER_SNAPSHOT_BLOCK": {
+      "gateStatus": "REJECTED",
+      "reasonCode": "rvr.gate.schema_invalid",
+      "evaluationPerformed": false
     }
   }
 }

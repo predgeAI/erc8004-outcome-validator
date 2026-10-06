@@ -84,9 +84,11 @@ exact canonical bytes of a `#/$defs/chainSnapshot` object:
 
 The snapshot is the evidence. Evaluation never reads an RPC, an indexer or a clock. A snapshot
 whose bytes are not exact canonical JSON is a gate rejection (`rvr.gate.identity_mismatch`). A
-snapshot with any event, update or resolution later than B, or with a successful resolution
-receipt while the payout denominator is 0, does not describe one chain state and is a gate
-rejection (`rvr.gate.schema_invalid`). Any outcome-relevant input outside the claim, the evidence
+snapshot with any event or update later than B, with a `resolutionReceipt` whose block is later
+than B (whatever its status), or with a successful resolution receipt while the payout
+denominator is 0, does not describe one chain state and is a gate rejection
+(`rvr.gate.schema_invalid`). This check runs before evaluation, so such a snapshot never reaches
+the lifecycle derivation in section 5. Any outcome-relevant input outside the claim, the evidence
 set and this profile (for example a live `latest` read) is a gate rejection
 (`rvr.gate.evidence_closure_incomplete`).
 

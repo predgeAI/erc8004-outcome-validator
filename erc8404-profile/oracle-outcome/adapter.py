@@ -454,6 +454,9 @@ def snapshot_gate(s: dict[str, Any]) -> None:
     later += [u for u in s["bulletinUpdates"] if int(u["blockNumber"]) > b]
     if later:
         raise GateRejected("rvr.gate.schema_invalid", "snapshot holds events later than its block")
+    receipt = s["resolutionReceipt"]
+    if receipt is not None and int(receipt["blockNumber"]) > b:
+        raise GateRejected("rvr.gate.schema_invalid", "snapshot holds a resolution receipt later than its block")
     if s["resolutionReceipt"] is not None and s["conditionResolution"]["payoutDenominator"] == "0" \
             and s["resolutionReceipt"]["status"] == "SUCCESS" and int(s["resolutionReceipt"]["blockNumber"]) <= b:
         raise GateRejected("rvr.gate.schema_invalid", "snapshot holds a resolution receipt for an unresolved condition")
@@ -703,6 +706,11 @@ def run_check() -> dict[str, Any]:
     cases["QUESTION_RESOLVED_PAYOUTS_CONFLICT"] = adversarial(qr_payouts_yes)
     cases["QUESTION_RESOLVED_EMPTY_DATA"] = adversarial(qr_empty)
     cases["QUESTION_RESOLVED_SETTLED_PRICE_CONFLICT"] = adversarial(qr_price_yes)
+
+    def receipt_after_block(s: dict[str, Any]) -> None:
+        s["resolutionReceipt"]["blockNumber"] = str(int(s["blockNumber"]) + 1)
+
+    cases["RESOLUTION_RECEIPT_AFTER_SNAPSHOT_BLOCK"] = adversarial(receipt_after_block)
 
     # Semantic failures: well-formed inputs that evaluate to a specific non-VERIFIED reason.
     semantic = {}

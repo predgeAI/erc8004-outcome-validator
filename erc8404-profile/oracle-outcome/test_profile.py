@@ -56,6 +56,14 @@ class OracleOutcomeProfileTests(unittest.TestCase):
     def test_question_resolved_settled_price_conflict(self) -> None:
         self.assert_no_resolution_evidence("QUESTION_RESOLVED_SETTLED_PRICE_CONFLICT")
 
+    def assert_gate_rejected(self, case_id: str, reason: str) -> None:
+        c = self.cases[case_id]
+        self.assertEqual((c["gateStatus"], c["reasonCode"]), ("REJECTED", reason))
+        self.assertFalse(c["evaluationPerformed"])
+
+    def test_resolution_receipt_after_snapshot_block(self) -> None:
+        self.assert_gate_rejected("RESOLUTION_RECEIPT_AFTER_SNAPSHOT_BLOCK", "rvr.gate.schema_invalid")
+
 
 if __name__ == "__main__":
     unittest.main()
