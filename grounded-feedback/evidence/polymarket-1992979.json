@@ -130,6 +130,20 @@
         "0"
       ]
     },
+    "settledNotResolved": {
+      "blockNumber": "89518527",
+      "blockHash": "0x8216670097a71bbf2e8d4a00735b2d3d62a4958115aea23269766d968b17b349",
+      "blockTimestamp": "1782982786",
+      "oracleStates": {
+        "1776352668": "DISPUTED",
+        "1782970856": "SETTLED"
+      },
+      "payoutDenominator": "0",
+      "payoutNumerators": [
+        "0",
+        "0"
+      ]
+    },
     "final": {
       "blockNumber": "89518530",
       "blockHash": "0xd4aab01890e10c08c5e3df570bbaf96e21a8a7dd7b5cd197d83095c9b3bd56b4",
