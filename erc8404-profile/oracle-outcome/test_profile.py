@@ -75,6 +75,10 @@ class OracleOutcomeProfileTests(unittest.TestCase):
     def test_resolution_receipt_after_snapshot_block(self) -> None:
         self.assert_gate_rejected("RESOLUTION_RECEIPT_AFTER_SNAPSHOT_BLOCK", "rvr.gate.schema_invalid")
 
+    def test_payout_denominator_not_sum(self) -> None:
+        self.assert_gate_rejected("PAYOUT_DENOMINATOR_NOT_SUM", "rvr.gate.schema_invalid")
+        self.assert_gate_rejected("PAYOUT_DENOMINATOR_ZERO_WITH_NUMERATORS", "rvr.gate.schema_invalid")
+
 
 if __name__ == "__main__":
     unittest.main()

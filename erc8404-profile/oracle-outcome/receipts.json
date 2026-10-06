@@ -1,12 +1,12 @@
 {
   "_README": "Original receipts, as a producer would publish them, with the claim, evidence-set descriptor and canonical result each one accompanies. Snapshot payloads are in vectors.json. adapter.py --check recomputes each from committed bytes.",
-  "verificationProfileDigest": "7ac9ccf22848528266e87580791c5e52c4b126a9ad19fb00eb6f040cbb013819",
+  "verificationProfileDigest": "9b28c18a69c8662a29a124f8d756d9064fabae2eb1d132f5582f46fbbd6dd59c",
   "receipts": {
     "NEGATIVE_FINAL_CLAIM_ON_PROPOSED_SNAPSHOT": {
       "receipt": {
         "claimDigest": "7b26960a9e15b0eda3b3b07741ef90f10d6d2772b35d8f2d1dcf258c3cd0cb4e",
         "evidenceSetDigest": "5a7ac69316d031f782b9efbfcd814ca5889046867c0613ea1d6972677621ae78",
-        "verificationProfileDigest": "7ac9ccf22848528266e87580791c5e52c4b126a9ad19fb00eb6f040cbb013819",
+        "verificationProfileDigest": "9b28c18a69c8662a29a124f8d756d9064fabae2eb1d132f5582f46fbbd6dd59c",
         "outcome": "UNVERIFIABLE",
         "reasonCode": "rvr.oracle-outcome.v0.lifecycle_not_final",
         "resultDigest": "bf1e4dd1bebc97ced430bc2601390f02963d604967e4462d88f66407a05ac9a9"
@@ -72,7 +72,7 @@
       "receipt": {
         "claimDigest": "2d59fd6d04b1913f2be2e4eefed9ca55b49ca8d30ae0106b52e130989f936681",
         "evidenceSetDigest": "a1a0378ba2d253fa6748308dbc0797387769b10007bf123cd8174892fdcc4bee",
-        "verificationProfileDigest": "7ac9ccf22848528266e87580791c5e52c4b126a9ad19fb00eb6f040cbb013819",
+        "verificationProfileDigest": "9b28c18a69c8662a29a124f8d756d9064fabae2eb1d132f5582f46fbbd6dd59c",
         "outcome": "VERIFIED",
         "reasonCode": "rvr.oracle-outcome.v0.final_outcome_verified",
         "resultDigest": "8f3879f0990d0fc1e5af69388db9cd566cdfecc5cc27ce164d548e0a654eaeeb"
@@ -138,7 +138,7 @@
       "receipt": {
         "claimDigest": "7b26960a9e15b0eda3b3b07741ef90f10d6d2772b35d8f2d1dcf258c3cd0cb4e",
         "evidenceSetDigest": "a1a0378ba2d253fa6748308dbc0797387769b10007bf123cd8174892fdcc4bee",
-        "verificationProfileDigest": "7ac9ccf22848528266e87580791c5e52c4b126a9ad19fb00eb6f040cbb013819",
+        "verificationProfileDigest": "9b28c18a69c8662a29a124f8d756d9064fabae2eb1d132f5582f46fbbd6dd59c",
         "outcome": "REFUTED",
         "reasonCode": "rvr.oracle-outcome.v0.final_outcome_mismatch",
         "resultDigest": "4666cb439047e713b875c7c1eaa9486f611e48921537625db53f095342d3bc77"
@@ -204,7 +204,7 @@
       "receipt": {
         "claimDigest": "ba422b3e4eb094f944d539c84db76cf0282108408cc44368ddc4d4211238eac8",
         "evidenceSetDigest": "5a7ac69316d031f782b9efbfcd814ca5889046867c0613ea1d6972677621ae78",
-        "verificationProfileDigest": "7ac9ccf22848528266e87580791c5e52c4b126a9ad19fb00eb6f040cbb013819",
+        "verificationProfileDigest": "9b28c18a69c8662a29a124f8d756d9064fabae2eb1d132f5582f46fbbd6dd59c",
         "outcome": "VERIFIED",
         "reasonCode": "rvr.oracle-outcome.v0.proposal_verified",
         "resultDigest": "5b5a7cb5d857313f08acd0427620fb8067bc5baec3509e6c8bb64c95524a191c"
@@ -270,7 +270,7 @@
       "receipt": {
         "claimDigest": "2d59fd6d04b1913f2be2e4eefed9ca55b49ca8d30ae0106b52e130989f936681",
         "evidenceSetDigest": "445243ba211d213914342e3a0089c71eb5ea9f8fbbd3715fa471bf5e8ebfadf7",
-        "verificationProfileDigest": "7ac9ccf22848528266e87580791c5e52c4b126a9ad19fb00eb6f040cbb013819",
+        "verificationProfileDigest": "9b28c18a69c8662a29a124f8d756d9064fabae2eb1d132f5582f46fbbd6dd59c",
         "outcome": "UNVERIFIABLE",
         "reasonCode": "rvr.oracle-outcome.v0.required_snapshot_unavailable",
         "resultDigest": "f438df9fc340b77acd70f7f9e13e51e1a90ed024a30948dd3daba9514802f559"

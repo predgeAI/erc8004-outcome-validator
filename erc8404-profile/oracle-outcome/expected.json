@@ -120,6 +120,16 @@
       "recomputationStatus": "CANNOT_RECOMPUTE",
       "reasonCode": "rvr.recompute.normative_dependency_identity_mismatch",
       "evaluationPerformed": false
+    },
+    "PAYOUT_DENOMINATOR_NOT_SUM": {
+      "gateStatus": "REJECTED",
+      "reasonCode": "rvr.gate.schema_invalid",
+      "evaluationPerformed": false
+    },
+    "PAYOUT_DENOMINATOR_ZERO_WITH_NUMERATORS": {
+      "gateStatus": "REJECTED",
+      "reasonCode": "rvr.gate.schema_invalid",
+      "evaluationPerformed": false
     }
   }
 }

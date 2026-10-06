@@ -457,6 +457,10 @@ def snapshot_gate(s: dict[str, Any]) -> None:
     receipt = s["resolutionReceipt"]
     if receipt is not None and int(receipt["blockNumber"]) > b:
         raise GateRejected("rvr.gate.schema_invalid", "snapshot holds a resolution receipt later than its block")
+    cr = s["conditionResolution"]
+    if int(cr["payoutDenominator"]) != sum(int(n) for n in cr["payoutNumerators"]):
+        # ConditionalTokens.reportPayouts sets the denominator to the numerators' sum; unresolved is 0 = 0 + 0.
+        raise GateRejected("rvr.gate.schema_invalid", "payoutDenominator is not the sum of payoutNumerators")
     if s["resolutionReceipt"] is not None and s["conditionResolution"]["payoutDenominator"] == "0" \
             and s["resolutionReceipt"]["status"] == "SUCCESS" and int(s["resolutionReceipt"]["blockNumber"]) <= b:
         raise GateRejected("rvr.gate.schema_invalid", "snapshot holds a resolution receipt for an unresolved condition")
@@ -718,6 +722,16 @@ def run_check() -> dict[str, Any]:
         s["resolutionReceipt"]["blockNumber"] = str(int(s["blockNumber"]) + 1)
 
     cases["RESOLUTION_RECEIPT_AFTER_SNAPSHOT_BLOCK"] = adversarial(receipt_after_block)
+
+    def denominator_not_sum(s: dict[str, Any]) -> None:
+        s["conditionResolution"]["payoutDenominator"] = "2"  # numerators stay [0,1]
+
+    def unresolved_with_numerators(s: dict[str, Any]) -> None:
+        s["conditionResolution"]["payoutDenominator"] = "0"  # numerators stay [0,1]
+        s["resolutionReceipt"] = None
+
+    cases["PAYOUT_DENOMINATOR_NOT_SUM"] = adversarial(denominator_not_sum)
+    cases["PAYOUT_DENOMINATOR_ZERO_WITH_NUMERATORS"] = adversarial(unresolved_with_numerators)
 
     # Semantic failures: well-formed inputs that evaluate to a specific non-VERIFIED reason.
     semantic = {}
