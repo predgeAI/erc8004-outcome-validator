@@ -18,7 +18,7 @@
     },
     {
       "path": "oracle-outcome/README.md",
-      "sha256": "9b4e4039fb66d6cca39b88c071cacf0a182488bea193653eab8d90611e94f672"
+      "sha256": "43563607b824b82f88ed384fef32738c0df4ab094691e85dd411db5ee2479959"
     },
     {
       "path": "oracle-outcome/SPEC.md",
@@ -58,5 +58,5 @@
     }
   ],
   "packageDigestRule": "sha256-utf8-sorted-path-tab-file-sha256-lf-rows-manifest-excluded",
-  "packageDigest": "49a4711886c18d7916be66fc827e9ef9655a614aaaaf54a9ac723bb7dcc63fb8"
+  "packageDigest": "bfe9381e4c0440477cdb4697849904347cfe8a20cc8f1e507fca51328e02f187"
 }
