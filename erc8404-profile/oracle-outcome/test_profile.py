@@ -61,6 +61,17 @@ class OracleOutcomeProfileTests(unittest.TestCase):
         self.assertEqual((c["gateStatus"], c["reasonCode"]), ("REJECTED", reason))
         self.assertFalse(c["evaluationPerformed"])
 
+    def assert_cannot_recompute(self, case_id: str, reason: str) -> None:
+        c = self.cases[case_id]
+        self.assertEqual((c["recomputationStatus"], c["reasonCode"]), ("CANNOT_RECOMPUTE", reason))
+        self.assertFalse(c["evaluationPerformed"])
+
+    def test_rvr_schema_unavailable(self) -> None:
+        self.assert_cannot_recompute("RVR_SCHEMA_UNAVAILABLE", "rvr.recompute.normative_dependency_unavailable")
+
+    def test_rvr_schema_identity_mismatch(self) -> None:
+        self.assert_cannot_recompute("RVR_SCHEMA_IDENTITY_MISMATCH", "rvr.recompute.normative_dependency_identity_mismatch")
+
     def test_resolution_receipt_after_snapshot_block(self) -> None:
         self.assert_gate_rejected("RESOLUTION_RECEIPT_AFTER_SNAPSHOT_BLOCK", "rvr.gate.schema_invalid")
 

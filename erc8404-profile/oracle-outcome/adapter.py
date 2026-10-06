@@ -552,10 +552,12 @@ def validate_stored(p: Profile, stored: dict[str, Any]) -> None:
 
 def recompute(p: Profile, stored: dict[str, Any], claim: dict[str, Any], evidence_set: dict[str, Any],
               payloads: dict[str, bytes], hidden_inputs: dict[str, Any] | None = None) -> dict[str, Any]:
-    validate_stored(p, stored)
+    # Dependency status first: the stored objects are validated against pinned schemas
+    # (rvr.schema.json), which may be the dependency that is missing or has other bytes.
     status = p.required_status()
     if status:
         return status
+    validate_stored(p, stored)
     if hidden_inputs:
         raise GateRejected("rvr.gate.evidence_closure_incomplete", "outcome-relevant input outside the committed closure")
     present = [m for m in evidence_set["members"] if m["status"] == "PRESENT"]
@@ -638,6 +640,11 @@ def run_check() -> dict[str, Any]:
     spec_id = p.profile["verificationSpecification"]["id"]
     cases["NORMATIVE_DEPENDENCY_UNAVAILABLE"] = recompute(Profile({spec_id: None}), stored_all["POSITIVE_CONTROL_FINAL_SNAPSHOT"], claim, evidence_for(sb), {"chain-snapshot": sb})
     cases["NORMATIVE_DEPENDENCY_IDENTITY_MISMATCH"] = recompute(Profile({spec_id: p.bytes[spec_id] + b"\n"}), stored_all["POSITIVE_CONTROL_FINAL_SNAPSHOT"], claim, evidence_for(sb), {"chain-snapshot": sb})
+    # The same for rvr.schema.json, which the stored receipt objects are validated against: the
+    # dependency status is decided before any stored object is checked.
+    rvr_id = "oracle-outcome-rvr-schema"
+    cases["RVR_SCHEMA_UNAVAILABLE"] = recompute(Profile({rvr_id: None}), stored_all["POSITIVE_CONTROL_FINAL_SNAPSHOT"], claim, evidence_for(sb), {"chain-snapshot": sb})
+    cases["RVR_SCHEMA_IDENTITY_MISMATCH"] = recompute(Profile({rvr_id: p.bytes[rvr_id] + b"\n"}), stored_all["POSITIVE_CONTROL_FINAL_SNAPSHOT"], claim, evidence_for(sb), {"chain-snapshot": sb})
 
     # Gate rejections.
     def gate(fn) -> dict[str, Any]:

@@ -168,7 +168,9 @@ The receipt's `outcome` and `reasonCode` are projections of `/outcome` and `/rea
 As in RVR v0 section 9. Profile bootstrap: parse and apply the trusted generic manifest schema;
 resolve, read and SHA-256-check each dependency once; only then parse and apply
 `profile.schema.json`. A constraints file whose digest does not match is rejected without being
-parsed or applied.
+parsed or applied. The required-dependency status below is decided before the stored receipt,
+claim, evidence-set descriptor or canonical result is validated against any pinned schema, so a
+missing or altered `rvr.schema.json` gives `CANNOT_RECOMPUTE`, never an error or a gate result.
 
 - Required dependency unavailable: `CANNOT_RECOMPUTE`, `rvr.recompute.normative_dependency_unavailable`.
 - Required dependency with other bytes: `CANNOT_RECOMPUTE`, `rvr.recompute.normative_dependency_identity_mismatch`.

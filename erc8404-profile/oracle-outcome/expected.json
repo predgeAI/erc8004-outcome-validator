@@ -110,6 +110,16 @@
       "gateStatus": "REJECTED",
       "reasonCode": "rvr.gate.schema_invalid",
       "evaluationPerformed": false
+    },
+    "RVR_SCHEMA_UNAVAILABLE": {
+      "recomputationStatus": "CANNOT_RECOMPUTE",
+      "reasonCode": "rvr.recompute.normative_dependency_unavailable",
+      "evaluationPerformed": false
+    },
+    "RVR_SCHEMA_IDENTITY_MISMATCH": {
+      "recomputationStatus": "CANNOT_RECOMPUTE",
+      "reasonCode": "rvr.recompute.normative_dependency_identity_mismatch",
+      "evaluationPerformed": false
     }
   }
 }
