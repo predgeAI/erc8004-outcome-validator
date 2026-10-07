@@ -16,5 +16,8 @@
   },
   "dependencies": {
     "ethers": "^6.13.4"
+  },
+  "devDependencies": {
+    "solc": "0.8.26"
   }
 }
