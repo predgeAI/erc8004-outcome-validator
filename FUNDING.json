@@ -1,0 +1,10 @@
+{
+  "drips": {
+    "ethereum": {
+      "ownedBy": "0x9084f5000E07C7133D6dA5eE4f271AB6D1821144"
+    },
+    "optimism": {
+      "ownedBy": "0x9084f5000E07C7133D6dA5eE4f271AB6D1821144"
+    }
+  }
+}

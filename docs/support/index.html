@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support Predge Open Source</title>
+<meta name="description" content="Crypto donation addresses for Predge's open-source repositories. No analytics, no tracking.">
+<meta name="referrer" content="no-referrer">
+<style>
+:root {
+  --bg: #f7f7f5; --panel: #ffffff; --ink: #17171a; --muted: #5d5d66; --line: #e3e3e0;
+  --accent: #6e3df5; --ok: #157347;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e0e12; --panel: #17171d; --ink: #ececf1; --muted: #9a9aa6; --line: #2a2a33;
+    --accent: #9d7bff; --ok: #5fd39a;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e0e12; --panel: #17171d; --ink: #ececf1; --muted: #9a9aa6; --line: #2a2a33;
+  --accent: #9d7bff; --ok: #5fd39a;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
+h1 { font-size: 26px; margin: 0 0 8px; letter-spacing: -0.01em; }
+h2 { font-size: 17px; margin: 0 0 8px; }
+p { margin: 0 0 10px; }
+.sub { color: var(--muted); }
+a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-top: 16px; }
+.addr { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 6px; }
+code { font-family: var(--mono); font-size: 13px; overflow-wrap: anywhere; word-break: break-all; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; flex: 1 1 260px; }
+button { font: inherit; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+.copied { color: var(--ok); border-color: var(--ok); }
+ul { margin: 6px 0 0; padding-left: 20px; }
+li { margin: 3px 0; }
+.note { color: var(--muted); font-size: 13.5px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Support Predge open source</h1>
+  <p class="sub">Predge publishes its verification tools as MIT-licensed open source, maintained by a solo developer. If they are useful to you, a crypto donation helps keep them maintained. Donations cover RPC and hosting costs, test vectors and ongoing maintenance. A donation does not buy a service, a token or any special treatment.</p>
+
+  <section class="panel">
+    <h2>EVM</h2>
+    <p class="note">Base preferred. The same address also works on Arbitrum and Arc.</p>
+    <div class="addr"><code id="evm">0x9084f5000E07C7133D6dA5eE4f271AB6D1821144</code><button type="button" data-copy="evm">Copy</button></div>
+  </section>
+
+  <section class="panel">
+    <h2>Solana</h2>
+    <p class="note">Mainnet.</p>
+    <div class="addr"><code id="sol">9dxMRRtC7RKZH5rFZpUywjmnQ87H9qHhtW43u5LYmpV</code><button type="button" data-copy="sol">Copy</button></div>
+  </section>
+
+  <section class="panel">
+    <h2>Before you send</h2>
+    <ul>
+      <li>These are the same addresses Predge already uses to receive x402 payments on its API.</li>
+      <li>Send USDC or the network's native token only. Other tokens may not be recoverable.</li>
+      <li>Check the first and last characters of the address in your wallet before confirming.</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Other ways to fund</h2>
+    <p>Each repo can also be funded through Drips:</p>
+    <ul>
+      <li><a href="https://www.drips.network/app/projects/github/predgeAI/erc8004-outcome-validator" rel="noopener">erc8004-outcome-validator</a>: ERC-8004 outcome validator, test vectors, Monad verdict board</li>
+      <li><a href="https://www.drips.network/app/projects/github/predgeAI/predge-solana-guard" rel="noopener">predge-solana-guard</a>: Solana Settlement Guard</li>
+      <li><a href="https://www.drips.network/app/projects/github/predgeAI/predge-settle-watch" rel="noopener">predge-settle-watch</a>: Settle Watch Android app</li>
+      <li><a href="https://www.drips.network/app/projects/github/predgeAI/x402-receipts" rel="noopener">x402-receipts</a>: signed, offline-verifiable x402 receipts</li>
+    </ul>
+  </section>
+
+  <p class="note" style="margin-top:20px">This page has no analytics, cookies or tracking. Source: <a href="https://github.com/predgeAI/erc8004-outcome-validator/tree/main/docs/support" rel="noopener">docs/support</a>. <a href="../">Back to the verdict board</a>.</p>
+</main>
+<script>
+document.querySelectorAll("button[data-copy]").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var text = document.getElementById(b.getAttribute("data-copy")).textContent.trim();
+    var done = function () { b.textContent = "Copied"; b.classList.add("copied"); setTimeout(function () { b.textContent = "Copy"; b.classList.remove("copied"); }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(text); done(); });
+    } else { fallback(text); done(); }
+  });
+});
+function fallback(text) {
+  var el = document.createElement("textarea");
+  el.value = text; document.body.appendChild(el); el.select();
+  try { document.execCommand("copy"); } catch (e) {}
+  document.body.removeChild(el);
+}
+</script>
+</body>
+</html>
