@@ -1,0 +1,2316 @@
+{
+ "source": "Predge dispute scan of UMA Optimistic Oracle and Polymarket UMA CTF adapter logs on Polygon, 2026-01-01 to 2026-10-02 (disputed_markets_2026.json)",
+ "selection": "markets with a Polymarket market id and an on-chain resolution, sorted by first dispute time, evenly spaced sample of 330 (300 plus spares for markets the API cannot read)",
+ "markets": [
+  {
+   "market_id": "1004831",
+   "title": "Will there be exactly four announced new U.S. armed forces strikes against drug boats in 2025?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-01T01:22:23Z",
+   "resolved_utc": "2026-01-01T03:53:43Z"
+  },
+  {
+   "market_id": "603152",
+   "title": "Jon Stewart cancelled by December 31?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-01-01T06:51:49Z",
+   "resolved_utc": "2026-01-05T18:43:47Z"
+  },
+  {
+   "market_id": "576912",
+   "title": "Will Zootopia 2 be the third highest grossing movie of 2025?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-02T01:12:43Z",
+   "resolved_utc": "2026-01-06T12:21:35Z"
+  },
+  {
+   "market_id": "1029748",
+   "title": "Spread: Georgia (-6.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-02T04:56:11Z",
+   "resolved_utc": "2026-01-02T07:07:23Z"
+  },
+  {
+   "market_id": "956632",
+   "title": "US forces in Venezuela by March 31, 2026?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-03T13:46:21Z",
+   "resolved_utc": "2026-01-03T15:51:25Z"
+  },
+  {
+   "market_id": "1080385",
+   "title": "Will the highest temperature in Atlanta be 70°F or higher on January 3?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-04T05:35:09Z",
+   "resolved_utc": "2026-01-04T08:02:49Z"
+  },
+  {
+   "market_id": "1102887",
+   "title": "Games Total: O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-04T19:47:55Z",
+   "resolved_utc": "2026-01-09T07:46:10Z"
+  },
+  {
+   "market_id": "1099585",
+   "title": "Will Jensen Huang say \"Million\" or \"Billion\" or \"Trillion\" 20+ times during NVIDIA keynote?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-01-06T00:56:47Z",
+   "resolved_utc": "2026-01-09T02:23:12Z"
+  },
+  {
+   "market_id": "1015962",
+   "title": "Will Parma Calcio 1913 vs. FC Internazionale Milano end in a draw?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-07T21:43:29Z",
+   "resolved_utc": "2026-01-07T23:51:19Z"
+  },
+  {
+   "market_id": "1137824",
+   "title": "Montana Grizzlies vs. Idaho Vandals: O/U 151.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-09T04:42:04Z",
+   "resolved_utc": "2026-01-09T06:58:58Z"
+  },
+  {
+   "market_id": "1063347",
+   "title": "BPL: Durdanto Dhaka vs Rangpur Riders (Game 1) - Team Top Batter Draw",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-09T08:56:22Z",
+   "resolved_utc": "2026-01-17T12:57:04Z"
+  },
+  {
+   "market_id": "1126699",
+   "title": "Will Venezuela give the US oil by January 31?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-10T22:21:38Z",
+   "resolved_utc": "2026-01-11T11:26:52Z"
+  },
+  {
+   "market_id": "1135352",
+   "title": "Will the highest temperature in Dallas be between 54-55°F on January 10?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-11T07:03:52Z",
+   "resolved_utc": "2026-01-11T09:03:32Z"
+  },
+  {
+   "market_id": "633386",
+   "title": "Will M win Best Actress – Television Drama at the 83rd Golden Globes?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-12T02:56:17Z",
+   "resolved_utc": "2026-01-12T05:42:50Z"
+  },
+  {
+   "market_id": "633397",
+   "title": "Will X win Best Actress – Television Drama at the 83rd Golden Globes?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-12T02:56:27Z",
+   "resolved_utc": "2026-01-12T05:41:52Z"
+  },
+  {
+   "market_id": "1143135",
+   "title": "Apple (AAPL) Up or Down on January 12?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-12T21:47:11Z",
+   "resolved_utc": "2026-01-13T00:45:31Z"
+  },
+  {
+   "market_id": "1166583",
+   "title": "Will the highest temperature in Seoul be 1°C on January 14?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-13T15:02:08Z",
+   "resolved_utc": "2026-01-14T13:01:22Z"
+  },
+  {
+   "market_id": "1112268",
+   "title": "Torino FC vs. AS Roma: O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-13T21:11:55Z",
+   "resolved_utc": "2026-01-18T21:29:14Z"
+  },
+  {
+   "market_id": "1173925",
+   "title": "Will the highest temperature in London be 9°C on January 15?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-15T00:04:06Z",
+   "resolved_utc": "2026-01-15T02:38:36Z"
+  },
+  {
+   "market_id": "1185686",
+   "title": "Games Total: O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-15T18:38:22Z",
+   "resolved_utc": "2026-01-15T20:47:38Z"
+  },
+  {
+   "market_id": "1102588",
+   "title": "Manchester United FC vs. Manchester City FC: O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-17T14:23:32Z",
+   "resolved_utc": "2026-01-17T16:44:20Z"
+  },
+  {
+   "market_id": "1184654",
+   "title": "Map Handicap: EF (-1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-18T18:25:34Z",
+   "resolved_utc": "2026-01-18T22:17:34Z"
+  },
+  {
+   "market_id": "1205864",
+   "title": "Will the highest temperature in London be 12°C or higher on January 19?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-19T23:56:22Z",
+   "resolved_utc": "2026-01-20T02:54:14Z"
+  },
+  {
+   "market_id": "1170818",
+   "title": "Will Trump ban institutional investor single-family home purchases?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-21T02:26:42Z",
+   "resolved_utc": "2026-01-21T05:09:38Z"
+  },
+  {
+   "market_id": "1226510",
+   "title": "Set Handicap: Shang (-1.5) vs Zandschulp (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-22T05:14:36Z",
+   "resolved_utc": "2026-01-22T08:27:56Z"
+  },
+  {
+   "market_id": "614362",
+   "title": "Will Inga Ibsdotter Lilleaas win Best Supporting Actress at the 98th Academy Awards?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-22T13:39:06Z",
+   "resolved_utc": "2026-03-16T02:49:55Z"
+  },
+  {
+   "market_id": "1199781",
+   "title": "Will the US strike Iran next?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-23T19:39:20Z",
+   "resolved_utc": "2026-01-23T23:12:32Z"
+  },
+  {
+   "market_id": "1194346",
+   "title": "Will Trump admin release any more Epstein related files by January 24?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-25T01:12:38Z",
+   "resolved_utc": "2026-01-25T07:40:22Z"
+  },
+  {
+   "market_id": "1232188",
+   "title": "Davante Adams: First Touchdown",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-26T01:31:59Z",
+   "resolved_utc": "2026-01-26T05:14:20Z"
+  },
+  {
+   "market_id": "1138816",
+   "title": "Game Handicap: LNG (-1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-28T02:03:36Z",
+   "resolved_utc": "2026-02-03T12:44:50Z"
+  },
+  {
+   "market_id": "1190353",
+   "title": "Series: LNG Esports Tower Handicap (-10.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-28T02:10:24Z",
+   "resolved_utc": "2026-02-03T21:17:24Z"
+  },
+  {
+   "market_id": "1264803",
+   "title": "Will the highest temperature in Buenos Aires be 40°C on January 27?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-28T03:05:25Z",
+   "resolved_utc": "2026-01-28T06:17:25Z"
+  },
+  {
+   "market_id": "1270658",
+   "title": "Will the highest temperature in London be 12°C or higher on January 28?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-29T00:02:26Z",
+   "resolved_utc": "2026-01-29T02:43:24Z"
+  },
+  {
+   "market_id": "1250015",
+   "title": "Will Trump say \"Six Seven\" this week? (February 1)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-29T18:47:01Z",
+   "resolved_utc": "2026-01-29T21:19:20Z"
+  },
+  {
+   "market_id": "1253377",
+   "title": "Will Netflix (NFLX) close at $70-$80 on the final day of trading of the week of Jan 26 – Jan 30?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-30T18:45:51Z",
+   "resolved_utc": "2026-01-30T23:22:12Z"
+  },
+  {
+   "market_id": "1281641",
+   "title": "Was Ilhan Omar sprayed with urine?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-01-31T01:16:06Z",
+   "resolved_utc": "2026-03-01T09:25:03Z"
+  },
+  {
+   "market_id": "920389",
+   "title": "Will Trump talk to Vladimir Putin in January?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-02-01T05:07:41Z",
+   "resolved_utc": "2026-02-04T00:27:32Z"
+  },
+  {
+   "market_id": "1301748",
+   "title": "Mubadala Abu Dhabi Open, Qualification: Hailey Baptiste vs Teodora Kostovic",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-01T20:35:38Z",
+   "resolved_utc": "2026-02-01T23:28:10Z"
+  },
+  {
+   "market_id": "1285673",
+   "title": "Will Lady Gaga win 2 Grammys?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-03T01:51:58Z",
+   "resolved_utc": "2026-02-03T04:00:14Z"
+  },
+  {
+   "market_id": "1279206",
+   "title": "Will the total number of TSA passengers for February 3 be less than 2,000,000?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-04T13:19:28Z",
+   "resolved_utc": "2026-02-04T15:44:07Z"
+  },
+  {
+   "market_id": "1313105",
+   "title": "First Blood in Game 3?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-06T08:35:58Z",
+   "resolved_utc": "2026-02-06T10:39:09Z"
+  },
+  {
+   "market_id": "1318392",
+   "title": "Games Total: O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-07T02:08:41Z",
+   "resolved_utc": "2026-02-07T07:52:17Z"
+  },
+  {
+   "market_id": "1295212",
+   "title": "Will Black Mirror win Best Producer of a TV Limited or Anthology Series at the 37th PGA Awards?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-08T03:24:06Z",
+   "resolved_utc": "2026-03-01T07:48:13Z"
+  },
+  {
+   "market_id": "1295220",
+   "title": "Will Show F win Best Producer of a TV Limited or Anthology Series at the 37th PGA Awards?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-08T03:24:59Z",
+   "resolved_utc": "2026-03-01T07:47:23Z"
+  },
+  {
+   "market_id": "1250919",
+   "title": "Will Millonarios FC vs. Deportivo Pereira end in a draw?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-09T02:13:03Z",
+   "resolved_utc": "2026-02-27T14:50:11Z"
+  },
+  {
+   "market_id": "1335826",
+   "title": "Will Rauw Alejandro perform during the Super Bowl LX halftime show?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-09T03:20:51Z",
+   "resolved_utc": "2026-02-09T06:15:05Z"
+  },
+  {
+   "market_id": "1230225",
+   "title": "Will Sanae Takaichi be the Prime Minister of Japan as a result of the 2026 snap election?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-10T07:31:57Z",
+   "resolved_utc": "2026-02-18T15:52:02Z"
+  },
+  {
+   "market_id": "1302076",
+   "title": "Will the total number of TSA passengers for February 9 be between 1,600,000 and 1,700,000?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-10T13:25:59Z",
+   "resolved_utc": "2026-02-10T15:58:49Z"
+  },
+  {
+   "market_id": "1358835",
+   "title": "Games Total: O/U 2.5",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-02-10T20:27:39Z",
+   "resolved_utc": "2026-02-14T01:58:55Z"
+  },
+  {
+   "market_id": "1362841",
+   "title": "LoL: Invictus Gaming vs Oh My God - Game 1 Winner",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-02-11T07:18:51Z",
+   "resolved_utc": "2026-02-17T09:03:59Z"
+  },
+  {
+   "market_id": "1340808",
+   "title": "Will SOLV Energy, Inc.'s market cap be greater than $5.4B at market close on IPO day?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-02-11T21:54:17Z",
+   "resolved_utc": "2026-02-16T07:47:51Z"
+  },
+  {
+   "market_id": "1359616",
+   "title": "Will Trump and Netanyahu handshake last 10–15 seconds by February 13, 2026?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-12T05:24:53Z",
+   "resolved_utc": "2026-02-14T07:14:57Z"
+  },
+  {
+   "market_id": "1368942",
+   "title": "Will the highest temperature in Seoul be 8°C on February 14?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-14T02:44:47Z",
+   "resolved_utc": "2026-02-14T05:14:25Z"
+  },
+  {
+   "market_id": "1354749",
+   "title": "Total Kills Over/Under 28.5 in Game 1?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-14T19:43:29Z",
+   "resolved_utc": "2026-02-15T14:53:45Z"
+  },
+  {
+   "market_id": "1377984",
+   "title": "Stearns vs. Zheng: Match O/U 23.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-15T10:13:27Z",
+   "resolved_utc": "2026-02-15T12:42:35Z"
+  },
+  {
+   "market_id": "1366205",
+   "title": "Will Wuthering Heights be the highest grossing movie this weekend?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-16T18:12:27Z",
+   "resolved_utc": "2026-02-18T00:14:55Z"
+  },
+  {
+   "market_id": "1363080",
+   "title": "Will The Fall-Off by J. Cole be the Billboard 200 #1 album for the week of February 21?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-17T16:50:03Z",
+   "resolved_utc": "2026-02-18T08:40:42Z"
+  },
+  {
+   "market_id": "1247351",
+   "title": "Series: LGD Gaming Drake Handicap (-1.5) vs Oh My God (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-18T22:46:51Z",
+   "resolved_utc": "2026-02-19T01:39:22Z"
+  },
+  {
+   "market_id": "1385207",
+   "title": "Pascal Siakam: Assists O/U 3.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-20T03:27:06Z",
+   "resolved_utc": "2026-02-24T08:28:20Z"
+  },
+  {
+   "market_id": "1405535",
+   "title": "New Mexico Lobos vs. Fresno State Bulldogs: O/U 156.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-22T03:12:03Z",
+   "resolved_utc": "2026-02-22T05:17:00Z"
+  },
+  {
+   "market_id": "1399305",
+   "title": "Will \"How to Make a Killing\" Opening Weekend Box Office be less than 2m?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-02-23T23:25:34Z",
+   "resolved_utc": "2026-02-28T22:09:01Z"
+  },
+  {
+   "market_id": "1316512",
+   "title": "Will Donald Trump be named in newly released Epstein files by February 28?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-02-25T17:15:04Z",
+   "resolved_utc": "2026-03-02T18:09:47Z"
+  },
+  {
+   "market_id": "1237512",
+   "title": "Will Apple be the second-largest company in the world by market cap on February 28?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-02-28T01:49:44Z",
+   "resolved_utc": "2026-03-04T03:09:21Z"
+  },
+  {
+   "market_id": "1287603",
+   "title": "Will Opinion launch a token by February 28, 2026?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-01T04:42:15Z",
+   "resolved_utc": "2026-03-01T09:10:25Z"
+  },
+  {
+   "market_id": "1289204",
+   "title": "Will Drake Maye Rookie Card be above $27 by end of February?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-03T07:03:07Z",
+   "resolved_utc": "2026-03-03T12:24:09Z"
+  },
+  {
+   "market_id": "1491777",
+   "title": "USD/CAD Up or Down on March 3?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-04T01:49:07Z",
+   "resolved_utc": "2026-03-04T04:19:35Z"
+  },
+  {
+   "market_id": "1421365",
+   "title": "Will Hillary say \"Secretary\" during her Epstein testimony?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-05T13:27:49Z",
+   "resolved_utc": "2026-03-05T16:31:55Z"
+  },
+  {
+   "market_id": "1500916",
+   "title": "Will Khamenei tweet again by March 5?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-06T05:21:53Z",
+   "resolved_utc": "2026-03-06T07:57:37Z"
+  },
+  {
+   "market_id": "1466856",
+   "title": "Will Iran strike a Gulf State on March 4?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-07T23:26:16Z",
+   "resolved_utc": "2026-03-08T01:44:13Z"
+  },
+  {
+   "market_id": "1516383",
+   "title": "Will Big AI be out as #1 Free App in the US Apple Store by March 20?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-08T09:26:52Z",
+   "resolved_utc": "2026-03-08T11:57:55Z"
+  },
+  {
+   "market_id": "1471032",
+   "title": "Tochigi SC vs. Thespa Gunma: O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-08T13:17:47Z",
+   "resolved_utc": "2026-03-08T18:18:51Z"
+  },
+  {
+   "market_id": "1466800",
+   "title": "US/Israel strike Yemen by March 7?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-09T05:54:03Z",
+   "resolved_utc": "2026-03-10T06:22:27Z"
+  },
+  {
+   "market_id": "1363896",
+   "title": "Will The Greens win the second most seats in the 2026 Baden-Württemberg parliamentary elections?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-03-09T20:57:57Z",
+   "resolved_utc": "2026-03-14T00:41:09Z"
+  },
+  {
+   "market_id": "1458175",
+   "title": "Will Kenneth Walker III play for Atlanta Falcons in 2026-27?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-10T06:05:09Z",
+   "resolved_utc": "2026-03-13T13:09:11Z"
+  },
+  {
+   "market_id": "1456408",
+   "title": "Will Mikes Evans play for Indianapolis Colts in 2026-27?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-10T06:05:39Z",
+   "resolved_utc": "2026-03-13T11:52:17Z"
+  },
+  {
+   "market_id": "1456426",
+   "title": "Will Mikes Evans play for Washington Commanders in 2026-27?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-10T06:06:17Z",
+   "resolved_utc": "2026-03-13T11:51:15Z"
+  },
+  {
+   "market_id": "1456407",
+   "title": "Will Mikes Evans play for Houston Texans in 2026-27?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-10T06:06:41Z",
+   "resolved_utc": "2026-03-13T11:48:23Z"
+  },
+  {
+   "market_id": "1456421",
+   "title": "Will Mikes Evans play for Pittsburgh Steelers in 2026-27?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-10T06:07:09Z",
+   "resolved_utc": "2026-03-13T11:48:25Z"
+  },
+  {
+   "market_id": "1458222",
+   "title": "Will Kenneth Walker III play for New York Giants in 2026-27?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-10T06:07:45Z",
+   "resolved_utc": "2026-03-13T13:12:13Z"
+  },
+  {
+   "market_id": "1458201",
+   "title": "Will Kenneth Walker III play for Kansas City Chiefs in 2026-27?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-10T06:08:19Z",
+   "resolved_utc": "2026-03-13T13:12:11Z"
+  },
+  {
+   "market_id": "1458196",
+   "title": "Will Kenneth Walker III play for Indianapolis Colts in 2026-27?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-10T06:08:55Z",
+   "resolved_utc": "2026-03-13T13:05:07Z"
+  },
+  {
+   "market_id": "1456409",
+   "title": "Will Mikes Evans play for Jacksonville Jaguars in 2026-27?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-10T06:12:05Z",
+   "resolved_utc": "2026-03-13T11:55:19Z"
+  },
+  {
+   "market_id": "1456135",
+   "title": "Spread: Chelsea FC (-1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-11T21:55:01Z",
+   "resolved_utc": "2026-03-12T00:05:39Z"
+  },
+  {
+   "market_id": "1400051",
+   "title": "Will Aitor Paredes record the most cards in 2025-26 UEFA Champions League?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-12T02:45:49Z",
+   "resolved_utc": "2026-03-12T10:22:19Z"
+  },
+  {
+   "market_id": "1559502",
+   "title": "Rainbow Six Siege: Young Generation vs Seventh Heaven - Game 2 Winner",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-12T15:35:59Z",
+   "resolved_utc": "2026-03-12T22:06:31Z"
+  },
+  {
+   "market_id": "1535970",
+   "title": "Iran leader ship change by March 13?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-03-14T05:06:09Z",
+   "resolved_utc": "2026-03-18T04:25:37Z"
+  },
+  {
+   "market_id": "1525118",
+   "title": "Will the price of Solana be above $130 on March 14?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-14T16:04:27Z",
+   "resolved_utc": "2026-03-14T18:43:17Z"
+  },
+  {
+   "market_id": "1525100",
+   "title": "Will the price of Solana be above $50 on March 14?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-14T16:06:09Z",
+   "resolved_utc": "2026-03-14T18:46:13Z"
+  },
+  {
+   "market_id": "1525156",
+   "title": "Will the price of XRP be above $1.60 on March 14?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-14T16:07:55Z",
+   "resolved_utc": "2026-03-14T18:45:11Z"
+  },
+  {
+   "market_id": "1525011",
+   "title": "Will the price of Ethereum be above $2,500 on March 14?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-14T16:09:35Z",
+   "resolved_utc": "2026-03-14T18:46:09Z"
+  },
+  {
+   "market_id": "1590842",
+   "title": "Spread: Arkansas Razorbacks (-10.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-14T21:53:07Z",
+   "resolved_utc": "2026-03-15T01:42:47Z"
+  },
+  {
+   "market_id": "1579583",
+   "title": "Will Missouri qualify for the NCAA Tournament?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-15T22:52:51Z",
+   "resolved_utc": "2026-03-16T02:17:53Z"
+  },
+  {
+   "market_id": "1594504",
+   "title": "HYPE Up or Down - March 17, 12AM ET",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-17T05:04:35Z",
+   "resolved_utc": "2026-03-17T06:29:29Z"
+  },
+  {
+   "market_id": "1627654",
+   "title": "HYPE Up or Down - March 19, 10AM ET",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-19T15:02:13Z",
+   "resolved_utc": "2026-03-19T16:43:09Z"
+  },
+  {
+   "market_id": "1542771",
+   "title": "Will Dow Jones (DJIA) close over 45,000 on Friday of the week of Mar 16 – Mar 20?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-20T20:58:01Z",
+   "resolved_utc": "2026-03-20T23:31:09Z"
+  },
+  {
+   "market_id": "1678226",
+   "title": "Overwatch: Milk Tea vs Naive Piggy - Game 1 Winner",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-22T08:48:30Z",
+   "resolved_utc": "2026-03-22T11:27:33Z"
+  },
+  {
+   "market_id": "1687079",
+   "title": "Game 1: Any Player Rampage?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-23T22:04:20Z",
+   "resolved_utc": "2026-03-24T07:40:29Z"
+  },
+  {
+   "market_id": "1707414",
+   "title": "Zidansek vs. Tormo: Set 1 Games O/U 8.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-25T13:47:47Z",
+   "resolved_utc": "2026-03-25T15:59:13Z"
+  },
+  {
+   "market_id": "1439033",
+   "title": "Will Claude go down 8-9 times in March?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-26T15:23:51Z",
+   "resolved_utc": "2026-03-27T10:11:59Z"
+  },
+  {
+   "market_id": "1729616",
+   "title": "Total Kills Over/Under 67.5 in Game 1?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-26T22:58:35Z",
+   "resolved_utc": "2026-03-27T01:36:51Z"
+  },
+  {
+   "market_id": "1665157",
+   "title": "Will Trump say \"Six Seven\" this week? (March 29)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-27T18:54:53Z",
+   "resolved_utc": "2026-03-27T20:58:33Z"
+  },
+  {
+   "market_id": "1704132",
+   "title": "Total Kills Over/Under 25.5 in Game 1?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-28T19:21:33Z",
+   "resolved_utc": "2026-03-28T23:40:36Z"
+  },
+  {
+   "market_id": "1772252",
+   "title": "Overwatch: Disguised vs Team Liquid - Game 2 Winner",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-03-29T23:35:14Z",
+   "resolved_utc": "2026-03-30T02:12:42Z"
+  },
+  {
+   "market_id": "1633174",
+   "title": "Will Israel take military action in Gaza on March 28, 2026?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-03-31T22:54:45Z",
+   "resolved_utc": "2026-04-05T02:00:37Z"
+  },
+  {
+   "market_id": "1455618",
+   "title": "Will Trump talk to Mark Rutte in March?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-04-01T05:42:13Z",
+   "resolved_utc": "2026-04-06T07:58:23Z"
+  },
+  {
+   "market_id": "693720",
+   "title": "Will Polymarket mindshare hit 90%?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-02T14:49:25Z",
+   "resolved_utc": "2026-04-03T16:56:23Z"
+  },
+  {
+   "market_id": "1748240",
+   "title": "Will NVIDIA (NVDA) close at $155-$160 on the final day of trading of the week of Mar 30 – Apr 3?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-03T20:14:51Z",
+   "resolved_utc": "2026-04-03T22:30:21Z"
+  },
+  {
+   "market_id": "1748249",
+   "title": "Will NVIDIA (NVDA) close at $190-$195 on the final day of trading of the week of Mar 30 – Apr 3?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-03T20:19:27Z",
+   "resolved_utc": "2026-04-03T22:30:29Z"
+  },
+  {
+   "market_id": "1771942",
+   "title": "FK Dynamo Kyiv vs. FK Karpaty Lviv: O/U 1.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-04T16:48:05Z",
+   "resolved_utc": "2026-04-04T22:10:15Z"
+  },
+  {
+   "market_id": "1872662",
+   "title": "Tyler Zink vs. Colton Smith: Total Sets O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-06T20:35:49Z",
+   "resolved_utc": "2026-04-06T23:29:31Z"
+  },
+  {
+   "market_id": "1871864",
+   "title": "Will the highest temperature in Shanghai be 28°C on April 9?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-09T07:07:01Z",
+   "resolved_utc": "2026-04-09T09:35:19Z"
+  },
+  {
+   "market_id": "1706399",
+   "title": "Military action against Iran ends on April 9, 2026?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-09T21:30:35Z",
+   "resolved_utc": "2026-04-12T23:00:57Z"
+  },
+  {
+   "market_id": "1942485",
+   "title": "Cody Williams: Assists O/U 4.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-11T04:36:13Z",
+   "resolved_utc": "2026-04-11T05:51:01Z"
+  },
+  {
+   "market_id": "1360751",
+   "title": "Will CA River Plate vs. CA Tucumán end in a draw?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-11T23:13:55Z",
+   "resolved_utc": "2026-05-04T01:49:26Z"
+  },
+  {
+   "market_id": "567562",
+   "title": "Will the next Prime Minister of Romania be Klára Dobrev?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-12T22:24:47Z",
+   "resolved_utc": "2026-05-09T16:29:14Z"
+  },
+  {
+   "market_id": "1924512",
+   "title": "Will the highest temperature in Tel Aviv be 22°C on April 13?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-13T22:16:53Z",
+   "resolved_utc": "2026-04-14T00:48:07Z"
+  },
+  {
+   "market_id": "1924517",
+   "title": "Will the highest temperature in Tel Aviv be 27°C or higher on April 13?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-13T22:28:07Z",
+   "resolved_utc": "2026-04-14T00:48:09Z"
+  },
+  {
+   "market_id": "1971969",
+   "title": "Set 1 Winner: Ostapenkov vs Fomin",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-15T08:02:45Z",
+   "resolved_utc": "2026-04-15T10:22:36Z"
+  },
+  {
+   "market_id": "1935277",
+   "title": "Game 1: Both Teams Slay a Dragon?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-16T00:30:02Z",
+   "resolved_utc": "2026-04-16T09:30:44Z"
+  },
+  {
+   "market_id": "1941218",
+   "title": "Will Rocket Lab USA, Inc. (RKLB) hit (HIGH) $76 Week of April 13 2026?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-16T13:35:06Z",
+   "resolved_utc": "2026-04-16T16:18:18Z"
+  },
+  {
+   "market_id": "1949798",
+   "title": "Game 2: Both Teams Slay a Dragon?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-16T23:49:06Z",
+   "resolved_utc": "2026-04-17T02:40:02Z"
+  },
+  {
+   "market_id": "1949888",
+   "title": "Game 2: Any Player Quadra Kill?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-17T22:07:08Z",
+   "resolved_utc": "2026-04-18T00:42:28Z"
+  },
+  {
+   "market_id": "1984639",
+   "title": "Will Marlon score a goal in the 2026 Sidemen Charity Match?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-18T16:20:28Z",
+   "resolved_utc": "2026-04-18T19:38:00Z"
+  },
+  {
+   "market_id": "2035526",
+   "title": "Set 1 Winner: Sweeny vs Wu",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-21T06:23:40Z",
+   "resolved_utc": "2026-04-21T08:44:52Z"
+  },
+  {
+   "market_id": "1484915",
+   "title": "Iran x Israel/US conflict ends by June 30?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-04-21T18:20:14Z",
+   "resolved_utc": "2026-04-25T00:30:22Z"
+  },
+  {
+   "market_id": "1734732",
+   "title": "Kerala Blasters FC vs. Odisha FC: O/U 3.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-23T15:59:52Z",
+   "resolved_utc": "2026-04-23T19:33:48Z"
+  },
+  {
+   "market_id": "1544809",
+   "title": "Will Edge rusher (EDGE) be the most drafted position in the 1st round of the 2026 NFL Draft?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-24T03:15:46Z",
+   "resolved_utc": "2026-04-24T06:54:26Z"
+  },
+  {
+   "market_id": "2007078",
+   "title": "Will the price of Bitcoin be above $78,000 on April 24?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-04-24T17:06:12Z",
+   "resolved_utc": "2026-04-27T00:37:56Z"
+  },
+  {
+   "market_id": "2047434",
+   "title": "Trump announces end of military operations against Iran by April 24th?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-25T02:01:20Z",
+   "resolved_utc": "2026-04-25T06:03:36Z"
+  },
+  {
+   "market_id": "2037907",
+   "title": "Clavicular pregnancy in 2026?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-04-25T23:31:46Z",
+   "resolved_utc": "2026-05-01T00:33:40Z"
+  },
+  {
+   "market_id": "1939294",
+   "title": "Will Donald Trump publicly insult someone on April 26, 2026?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-04-26T19:22:26Z",
+   "resolved_utc": "2026-05-01T00:48:44Z"
+  },
+  {
+   "market_id": "2107998",
+   "title": "Total Kills Over/Under 55.5 in Game 2?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-28T18:48:20Z",
+   "resolved_utc": "2026-04-29T23:10:28Z"
+  },
+  {
+   "market_id": "669662",
+   "title": "Will there be no change in Fed interest rates after the April 2026 meeting?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-29T18:02:04Z",
+   "resolved_utc": "2026-04-29T20:23:40Z"
+  },
+  {
+   "market_id": "2127307",
+   "title": "Arizona Diamondbacks vs. Milwaukee Brewers: O/U 14.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-04-30T20:27:24Z",
+   "resolved_utc": "2026-04-30T23:04:58Z"
+  },
+  {
+   "market_id": "2122383",
+   "title": "Will the highest temperature in Singapore be 28°C on May 2?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-01T07:03:30Z",
+   "resolved_utc": "2026-05-02T02:37:28Z"
+  },
+  {
+   "market_id": "2096914",
+   "title": "Will \"Doors - Noah Kahan\" be the #1 song on US Spotify this week?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-01T15:48:36Z",
+   "resolved_utc": "2026-05-01T18:37:52Z"
+  },
+  {
+   "market_id": "2083987",
+   "title": "Levanga Hokkaido vs. Alvark Tokyo",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-03T07:28:12Z",
+   "resolved_utc": "2026-05-03T10:24:00Z"
+  },
+  {
+   "market_id": "2072400",
+   "title": "Will Company E have the highest estimated revenue for Apr 27–May 3, 2026?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-04T08:13:42Z",
+   "resolved_utc": "2026-05-04T20:14:58Z"
+  },
+  {
+   "market_id": "2157940",
+   "title": "Pigossi vs. Llorca: Match O/U 21.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-05T15:47:14Z",
+   "resolved_utc": "2026-05-05T18:03:28Z"
+  },
+  {
+   "market_id": "2169319",
+   "title": "Map Handicap: DRIP (-1.5) vs m1x (+1.5)",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-05-06T18:03:06Z",
+   "resolved_utc": "2026-05-11T02:27:49Z"
+  },
+  {
+   "market_id": "2093561",
+   "title": "Bayer 04 Leverkusen leading at halftime?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-09T14:23:28Z",
+   "resolved_utc": "2026-05-09T16:59:19Z"
+  },
+  {
+   "market_id": "2210508",
+   "title": "Map 2: Odd/Even Total Rounds?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-10T13:04:46Z",
+   "resolved_utc": "2026-05-10T17:18:10Z"
+  },
+  {
+   "market_id": "2128040",
+   "title": "Will the NYT front-page headlines say \"Street\" this week?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-05-11T06:25:49Z",
+   "resolved_utc": "2026-05-15T09:55:30Z"
+  },
+  {
+   "market_id": "1991696",
+   "title": "Will Boston Legacy FC vs. Orlando Pride end in a draw?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-13T01:06:47Z",
+   "resolved_utc": "2026-05-13T03:21:47Z"
+  },
+  {
+   "market_id": "2212673",
+   "title": "Exact Score: Boston Legacy FC 0 - 0 Orlando Pride?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-13T01:10:28Z",
+   "resolved_utc": "2026-05-13T03:59:43Z"
+  },
+  {
+   "market_id": "2212684",
+   "title": "Exact Score: Boston Legacy FC 2 - 2 Orlando Pride?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-13T01:12:37Z",
+   "resolved_utc": "2026-05-13T04:31:52Z"
+  },
+  {
+   "market_id": "2231150",
+   "title": "Will \"Ghost\" be said during the next episode of the Lemonade Stand Podcast?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-13T19:22:54Z",
+   "resolved_utc": "2026-05-13T23:03:35Z"
+  },
+  {
+   "market_id": "2245751",
+   "title": "Charaeva vs. Korpatsch: Match O/U 23.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-14T11:58:09Z",
+   "resolved_utc": "2026-05-14T16:37:47Z"
+  },
+  {
+   "market_id": "2263893",
+   "title": "Valencia: Completed Match: Pablo Carreno Busta vs Jaume Munar",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-15T16:34:37Z",
+   "resolved_utc": "2026-05-15T19:59:38Z"
+  },
+  {
+   "market_id": "2250265",
+   "title": "Julian Champagnie: Rebounds O/U 1.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-16T03:16:55Z",
+   "resolved_utc": "2026-05-16T05:07:19Z"
+  },
+  {
+   "market_id": "2264082",
+   "title": "Will the Ornn H200 Index hit $6.00 (HIGH) by May 31, 2026?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-17T03:17:05Z",
+   "resolved_utc": "2026-05-17T05:48:40Z"
+  },
+  {
+   "market_id": "2279864",
+   "title": "First Blood in Game 2?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-17T18:45:01Z",
+   "resolved_utc": "2026-05-17T23:09:27Z"
+  },
+  {
+   "market_id": "2303582",
+   "title": "Will the highest temperature in Seoul be 23°C on May 19?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-20T03:54:23Z",
+   "resolved_utc": "2026-05-22T13:55:13Z"
+  },
+  {
+   "market_id": "2314422",
+   "title": "Will Trump say \"250\" or \"250th\" during events in Rockland County?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-05-22T22:35:09Z",
+   "resolved_utc": "2026-05-27T00:41:38Z"
+  },
+  {
+   "market_id": "1021153",
+   "title": "Will Goldman Sachs or any of its underwriting affiliates serve as the lead underwriter in SpaceX’s initial public offering?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-23T06:29:25Z",
+   "resolved_utc": "2026-05-23T22:18:43Z"
+  },
+  {
+   "market_id": "2347039",
+   "title": "Map 3: Odd/Even Total Rounds?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-24T16:03:24Z",
+   "resolved_utc": "2026-05-24T23:13:51Z"
+  },
+  {
+   "market_id": "2324362",
+   "title": "Will Scott McLaughlin win the 2026 Indianapolis 500?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-24T21:21:14Z",
+   "resolved_utc": "2026-05-25T20:17:39Z"
+  },
+  {
+   "market_id": "2324360",
+   "title": "Will Kyffin Simpson win the 2026 Indianapolis 500?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-24T21:22:21Z",
+   "resolved_utc": "2026-05-25T20:12:40Z"
+  },
+  {
+   "market_id": "2324354",
+   "title": "Will Alex Palou win the 2026 Indianapolis 500?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-24T21:23:39Z",
+   "resolved_utc": "2026-05-25T20:16:36Z"
+  },
+  {
+   "market_id": "2324384",
+   "title": "Will Sting Ray Robb win the 2026 Indianapolis 500?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-24T21:24:25Z",
+   "resolved_utc": "2026-05-25T20:15:33Z"
+  },
+  {
+   "market_id": "2324383",
+   "title": "Will Jacob Abel win the 2026 Indianapolis 500?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-24T21:25:44Z",
+   "resolved_utc": "2026-05-25T20:13:41Z"
+  },
+  {
+   "market_id": "2278164",
+   "title": "Will Trump post \"Dad\" or \"Daddy\" on Truth Social this week?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-25T16:00:19Z",
+   "resolved_utc": "2026-05-25T19:40:07Z"
+  },
+  {
+   "market_id": "2365988",
+   "title": "Map 1: Odd/Even Total Rounds?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-27T18:38:46Z",
+   "resolved_utc": "2026-05-28T01:07:07Z"
+  },
+  {
+   "market_id": "2060681",
+   "title": "Will Donald Trump publicly insult someone on May 28, 2026?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-05-29T05:45:59Z",
+   "resolved_utc": "2026-06-02T06:25:45Z"
+  },
+  {
+   "market_id": "1999694",
+   "title": "Will Broadcom be the second-largest company in the world by market cap on May 31?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-29T21:03:32Z",
+   "resolved_utc": "2026-05-30T06:37:33Z"
+  },
+  {
+   "market_id": "2074252",
+   "title": "Will Natural Gas (NG) hit (HIGH) $3.40 in May?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-05-29T23:19:45Z",
+   "resolved_utc": "2026-05-30T03:49:03Z"
+  },
+  {
+   "market_id": "2060635",
+   "title": "Will Donald Trump publicly insult Marjorie Taylor Greene by May 31, 2026?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-05-31T23:23:47Z",
+   "resolved_utc": "2026-06-04T00:33:07Z"
+  },
+  {
+   "market_id": "569343",
+   "title": "Will Candidate B win the 1st round of the 2026 Colombian presidential election?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-06-01T01:12:20Z",
+   "resolved_utc": "2026-06-08T04:28:24Z"
+  },
+  {
+   "market_id": "2117151",
+   "title": "Will Trump speak to Yoon Suk Yeol in May?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-01T05:31:08Z",
+   "resolved_utc": "2026-06-04T06:06:09Z"
+  },
+  {
+   "market_id": "2363854",
+   "title": "Will Donald Trump publicly insult Candace Owens by June 30, 2026?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-06-01T13:27:13Z",
+   "resolved_utc": "2026-06-04T00:36:12Z"
+  },
+  {
+   "market_id": "2358143",
+   "title": "Will Kim Jin-tae win the 2026 Gangwon Province gubernatorial election?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-04T02:11:28Z",
+   "resolved_utc": "2026-06-05T05:03:01Z"
+  },
+  {
+   "market_id": "2209931",
+   "title": "Will Alexander Albon get pole position at the 2026 F1 Monaco Grand Prix?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-06T15:26:16Z",
+   "resolved_utc": "2026-06-06T19:38:33Z"
+  },
+  {
+   "market_id": "2209938",
+   "title": "Will Max Verstappen get pole position at the 2026 F1 Monaco Grand Prix?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-06T15:27:03Z",
+   "resolved_utc": "2026-06-06T19:39:13Z"
+  },
+  {
+   "market_id": "2209946",
+   "title": "Will George Russell get pole position at the 2026 F1 Monaco Grand Prix?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-06T15:27:49Z",
+   "resolved_utc": "2026-06-06T19:39:19Z"
+  },
+  {
+   "market_id": "2209955",
+   "title": "Will Driver D get pole position at the 2026 F1 Monaco Grand Prix?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-06T15:28:42Z",
+   "resolved_utc": "2026-06-06T19:38:42Z"
+  },
+  {
+   "market_id": "2458454",
+   "title": "Klimovicova vs. Kraus: Set 1 Games O/U 8.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-08T16:35:08Z",
+   "resolved_utc": "2026-06-08T18:44:33Z"
+  },
+  {
+   "market_id": "2480481",
+   "title": "Will \"Lawmen: Bass Reeves\" be the top global Netflix show this week?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-09T19:19:41Z",
+   "resolved_utc": "2026-06-16T21:03:17Z"
+  },
+  {
+   "market_id": "2480478",
+   "title": "Will \"The Four Seasons: Season 2\" be the top global Netflix show this week?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-09T19:20:43Z",
+   "resolved_utc": "2026-06-16T21:08:41Z"
+  },
+  {
+   "market_id": "2480494",
+   "title": "Will Show I be the top global Netflix show this week?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-09T19:21:26Z",
+   "resolved_utc": "2026-06-16T21:03:44Z"
+  },
+  {
+   "market_id": "2111517",
+   "title": "Another Trump political opponent federally charged by May 31?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-06-10T16:20:49Z",
+   "resolved_utc": "2026-06-14T00:31:28Z"
+  },
+  {
+   "market_id": "2511451",
+   "title": "Set 2 Winner: Huergo/Radisic vs Gorgodze/Karamoko",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-12T16:10:55Z",
+   "resolved_utc": "2026-06-12T16:54:33Z"
+  },
+  {
+   "market_id": "2508837",
+   "title": "Brahim Díaz: 1+ goals + assists",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-14T01:32:18Z",
+   "resolved_utc": "2026-06-14T01:50:12Z"
+  },
+  {
+   "market_id": "2413571",
+   "title": "US x Iran permanent peace deal by August 31, 2026?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-06-14T23:16:52Z",
+   "resolved_utc": "2026-06-18T00:38:25Z"
+  },
+  {
+   "market_id": "2511144",
+   "title": "US x Iran diplomatic meeting by June 19, 2026?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-16T06:31:25Z",
+   "resolved_utc": "2026-06-20T06:05:16Z"
+  },
+  {
+   "market_id": "1986508",
+   "title": "Will Steve Witkoff attend the next US x Iran diplomatic meeting?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-16T09:25:23Z",
+   "resolved_utc": "2026-06-21T19:28:49Z"
+  },
+  {
+   "market_id": "2557367",
+   "title": "Will the text of the US-Iran agreement be released by June 17?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-06-17T06:01:20Z",
+   "resolved_utc": "2026-06-20T02:38:55Z"
+  },
+  {
+   "market_id": "2584946",
+   "title": "Game 5: Odd/Even Total Kills?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-18T12:08:59Z",
+   "resolved_utc": "2026-06-18T14:17:47Z"
+  },
+  {
+   "market_id": "2612271",
+   "title": "Navarro vs. Golubic: Set 1 Games O/U 10.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-20T12:59:39Z",
+   "resolved_utc": "2026-06-20T13:58:32Z"
+  },
+  {
+   "market_id": "2615304",
+   "title": "Will the highest temperature in Madrid be 40°C on June 22?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-22T22:21:21Z",
+   "resolved_utc": "2026-06-23T00:23:35Z"
+  },
+  {
+   "market_id": "2069653",
+   "title": "Will Depay Memphis be the top goalscorer at the 2026 FIFA World Cup?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-26T21:27:12Z",
+   "resolved_utc": "2026-06-26T23:37:37Z"
+  },
+  {
+   "market_id": "2693409",
+   "title": "Marco Pašalić: 1+ shots",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-27T23:16:02Z",
+   "resolved_utc": "2026-06-27T23:36:50Z"
+  },
+  {
+   "market_id": "2652456",
+   "title": "Will the price of Bitcoin be between $58,000 and $60,000 on June 30?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-30T13:22:10Z",
+   "resolved_utc": "2026-06-30T16:33:52Z"
+  },
+  {
+   "market_id": "2652579",
+   "title": "Will the price of Solana be between $40 and $50 on June 30?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-06-30T13:22:52Z",
+   "resolved_utc": "2026-06-30T16:29:11Z"
+  },
+  {
+   "market_id": "947272",
+   "title": "Will César Acuña win the 2026 Peruvian presidential election?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-01T02:05:58Z",
+   "resolved_utc": "2026-07-02T17:10:07Z"
+  },
+  {
+   "market_id": "2321467",
+   "title": "Will Trump agree to Iranian transit fees in the Strait of Hormuz by June 30?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-07-01T06:00:22Z",
+   "resolved_utc": "2026-07-04T00:31:05Z"
+  },
+  {
+   "market_id": "2760706",
+   "title": "Will the announcers say \"Nutmeg\" or \"Meg\" during the Spain vs Austria FIFA World Cup Match?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-07-02T22:45:41Z",
+   "resolved_utc": "2026-07-06T00:33:04Z"
+  },
+  {
+   "market_id": "2787283",
+   "title": "StarCraft II: Harstem vs Cellsidus (BO3) - HomeStory Cup XXIX Group C",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-04T11:39:27Z",
+   "resolved_utc": "2026-07-04T14:03:05Z"
+  },
+  {
+   "market_id": "2695535",
+   "title": "Will the White House call a full lid by 6:30PM on July 4?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-07-05T18:25:18Z",
+   "resolved_utc": "2026-07-10T00:33:02Z"
+  },
+  {
+   "market_id": "2802987",
+   "title": "Santamarta vs. Bailly: Match O/U 22.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-06T18:23:39Z",
+   "resolved_utc": "2026-07-06T20:04:11Z"
+  },
+  {
+   "market_id": "2808938",
+   "title": "Map 3 Rounds Handicap: G2 Esports (-2.5) vs Nongshim RedForce (+2.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-07T16:20:38Z",
+   "resolved_utc": "2026-07-07T19:40:17Z"
+  },
+  {
+   "market_id": "2749681",
+   "title": "Game 2: Ends in Daytime?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-07T17:19:45Z",
+   "resolved_utc": "2026-07-07T19:34:14Z"
+  },
+  {
+   "market_id": "2788774",
+   "title": "OG to win 2-0?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-07T21:52:47Z",
+   "resolved_utc": "2026-07-08T02:02:29Z"
+  },
+  {
+   "market_id": "2844603",
+   "title": "Set 1 Winner: Ahn vs Bernales",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-08T16:47:29Z",
+   "resolved_utc": "2026-07-08T19:16:14Z"
+  },
+  {
+   "market_id": "2837447",
+   "title": "Muchova vs. Gauff: Match O/U 21.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-09T15:27:42Z",
+   "resolved_utc": "2026-07-09T16:05:29Z"
+  },
+  {
+   "market_id": "2864891",
+   "title": "Miguel/Sesko vs. Ogunsakin/Raguin: Match O/U 23.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-10T16:01:51Z",
+   "resolved_utc": "2026-07-10T17:49:14Z"
+  },
+  {
+   "market_id": "2882761",
+   "title": "Counter-Strike: QUAZAR vs The Last Resort - Map 1 Winner",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-12T14:25:09Z",
+   "resolved_utc": "2026-07-12T17:48:11Z"
+  },
+  {
+   "market_id": "2892406",
+   "title": "Arseneault vs. Martin: Set 1 Games O/U 8.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-12T17:02:56Z",
+   "resolved_utc": "2026-07-14T01:05:56Z"
+  },
+  {
+   "market_id": "2898491",
+   "title": "Exact Score: Zhejiang Zhiye FC 3 - 3 Dalian Yingbo FC?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-14T15:12:00Z",
+   "resolved_utc": "2026-07-26T16:07:51Z"
+  },
+  {
+   "market_id": "2913513",
+   "title": "Set Handicap: Dilek (-1.5) vs Falkowska (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-14T15:34:42Z",
+   "resolved_utc": "2026-07-14T16:11:14Z"
+  },
+  {
+   "market_id": "2849806",
+   "title": "Will the third-place match be FRA vs ARG at the 2026 FIFA World Cup?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-14T21:02:15Z",
+   "resolved_utc": "2026-07-15T23:07:56Z"
+  },
+  {
+   "market_id": "2923461",
+   "title": "Natasha Cloud: Assists O/U 5.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-15T19:00:23Z",
+   "resolved_utc": "2026-07-15T23:09:58Z"
+  },
+  {
+   "market_id": "2937556",
+   "title": "Map 2 Total Rounds: Over/Under 22.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-17T12:01:38Z",
+   "resolved_utc": "2026-07-17T14:07:00Z"
+  },
+  {
+   "market_id": "2956273",
+   "title": "Set Handicap: Hurrion (-1.5) vs Ciric (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-17T18:44:26Z",
+   "resolved_utc": "2026-07-17T19:43:58Z"
+  },
+  {
+   "market_id": "2895367",
+   "title": "KBO: Doosan Bears vs. NC Dinos",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-18T12:04:40Z",
+   "resolved_utc": "2026-07-18T15:17:40Z"
+  },
+  {
+   "market_id": "3003288",
+   "title": "Domenc vs. Massellani: Match O/U 21.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-21T17:45:22Z",
+   "resolved_utc": "2026-07-21T19:58:15Z"
+  },
+  {
+   "market_id": "3028674",
+   "title": "Set 2 Winner: Herazo vs Martins",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-22T14:27:35Z",
+   "resolved_utc": "2026-07-22T15:06:18Z"
+  },
+  {
+   "market_id": "2954094",
+   "title": "Will U.S. viewership of the 2026 FIFA World Cup Final be between 46 million and 50 million?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-07-23T01:48:24Z",
+   "resolved_utc": "2026-07-26T00:45:27Z"
+  },
+  {
+   "market_id": "3039836",
+   "title": "CS Cristal vs. Red Bull Bragantino: CS Cristal O/U 5.5 Corners",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-23T15:50:28Z",
+   "resolved_utc": "2026-07-23T19:23:01Z"
+  },
+  {
+   "market_id": "3045248",
+   "title": "Winnipeg: Completed Match: Hsu/Watanabe vs Milavsky/Shick",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-23T17:48:19Z",
+   "resolved_utc": "2026-07-23T18:32:00Z"
+  },
+  {
+   "market_id": "2963740",
+   "title": "Counter-Strike: Gentle Mates vs paiN (BO3) - BLAST Bounty Qualifier",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-23T18:44:03Z",
+   "resolved_utc": "2026-07-23T21:33:15Z"
+  },
+  {
+   "market_id": "3018100",
+   "title": "Will LeBron sign his next NBA contract by July 24, 2026?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-25T06:56:13Z",
+   "resolved_utc": "2026-07-25T09:16:42Z"
+  },
+  {
+   "market_id": "3061426",
+   "title": "Busan IPark vs. Suwon Bluewings: O/U 7.5 Total Corners",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-25T14:37:55Z",
+   "resolved_utc": "2026-07-25T16:44:00Z"
+  },
+  {
+   "market_id": "3113438",
+   "title": "Ghimp Fiodor vs. Urechean Vadim: Total Games O/U 4.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-27T03:00:19Z",
+   "resolved_utc": "2026-07-27T05:05:45Z"
+  },
+  {
+   "market_id": "3061105",
+   "title": "Helsingborgs IF vs. Nordic United FC: O/U 8.5 Total Corners",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-28T19:22:31Z",
+   "resolved_utc": "2026-09-01T15:02:12Z"
+  },
+  {
+   "market_id": "3061118",
+   "title": "Helsingborgs IF vs. Nordic United FC: Helsingborgs IF O/U 3.5 Corners",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-28T19:23:43Z",
+   "resolved_utc": "2026-07-29T20:39:57Z"
+  },
+  {
+   "market_id": "3038022",
+   "title": "Shamrock Rovers FC vs. Ararat-Armenia FA: 2nd Half O/U 3.5 Total Corners",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-28T21:15:51Z",
+   "resolved_utc": "2026-08-02T21:26:21Z"
+  },
+  {
+   "market_id": "3119078",
+   "title": "Alkaya/Duran vs. Britto/Rodrigues: Set 1 Games O/U 8.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-29T13:22:38Z",
+   "resolved_utc": "2026-07-29T14:02:42Z"
+  },
+  {
+   "market_id": "3209278",
+   "title": "Bulat Alexandru vs. Mihalachi Igor: Total Games O/U 4.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-30T16:50:59Z",
+   "resolved_utc": "2026-07-30T17:25:42Z"
+  },
+  {
+   "market_id": "3128584",
+   "title": "Will WTI Crude Oil (WTI) hit (HIGH) $90 in July?",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-07-31T21:47:07Z",
+   "resolved_utc": "2026-08-05T00:30:48Z"
+  },
+  {
+   "market_id": "3115048",
+   "title": "Map 3 Total Rounds: Over/Under 20.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-07-31T23:03:54Z",
+   "resolved_utc": "2026-08-01T01:59:15Z"
+  },
+  {
+   "market_id": "3159362",
+   "title": "Exact Score: Chungbuk Cheongju FC 2 - 3 Suwon Bluewings?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-01T13:03:13Z",
+   "resolved_utc": "2026-08-01T18:55:18Z"
+  },
+  {
+   "market_id": "3115827",
+   "title": "Honor of Kings: JLY vs LT Gaming - Game 3 Winner",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-03T10:25:47Z",
+   "resolved_utc": "2026-08-03T12:39:41Z"
+  },
+  {
+   "market_id": "3328699",
+   "title": "First Blood in Game 2?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-04T13:41:07Z",
+   "resolved_utc": "2026-09-01T12:54:24Z"
+  },
+  {
+   "market_id": "3389482",
+   "title": "FC Gintra-Universitetas vs. Rīga FC: 2nd Half O/U 4.5 Total Corners",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-08T13:23:36Z",
+   "resolved_utc": "2026-09-01T14:55:18Z"
+  },
+  {
+   "market_id": "3412391",
+   "title": "Dolehide vs. Gorgodze: Set 2 Games O/U 10.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-08T14:44:12Z",
+   "resolved_utc": "2026-08-08T15:40:13Z"
+  },
+  {
+   "market_id": "3454843",
+   "title": "Will Sporting Khalsa FC win on 2026-08-11?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-10T05:09:47Z",
+   "resolved_utc": "2026-08-12T00:43:48Z"
+  },
+  {
+   "market_id": "3467348",
+   "title": "Nantwich Town FC vs. Sporting Khalsa FC: O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-10T05:10:37Z",
+   "resolved_utc": "2026-08-12T00:44:03Z"
+  },
+  {
+   "market_id": "3467344",
+   "title": "Nantwich Town FC vs. Sporting Khalsa FC: O/U 0.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-10T05:11:25Z",
+   "resolved_utc": "2026-08-12T00:44:03Z"
+  },
+  {
+   "market_id": "3456135",
+   "title": "Exact Score: Nantwich Town FC 3 - 3 Sporting Khalsa FC?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-10T05:12:14Z",
+   "resolved_utc": "2026-08-12T00:44:52Z"
+  },
+  {
+   "market_id": "3456124",
+   "title": "Exact Score: Nantwich Town FC 2 - 1 Sporting Khalsa FC?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-10T05:12:58Z",
+   "resolved_utc": "2026-08-12T00:45:04Z"
+  },
+  {
+   "market_id": "3438944",
+   "title": "Map 2 Total Rounds: Over/Under 21.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-10T12:12:52Z",
+   "resolved_utc": "2026-08-10T15:04:12Z"
+  },
+  {
+   "market_id": "3438921",
+   "title": "Map 2 Total Rounds: Over/Under 21.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-10T12:38:26Z",
+   "resolved_utc": "2026-08-10T15:03:00Z"
+  },
+  {
+   "market_id": "3207323",
+   "title": "Will FC Corvinul 1921 Hunedoara win on 2026-08-10?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-10T17:45:22Z",
+   "resolved_utc": "2026-08-10T23:15:16Z"
+  },
+  {
+   "market_id": "3489434",
+   "title": "Ogescu vs. Bruno: Set 1 Games O/U 8.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-11T07:04:06Z",
+   "resolved_utc": "2026-08-11T07:39:28Z"
+  },
+  {
+   "market_id": "3413204",
+   "title": "US Lecce vs. SS Monopoli: 1st Half O/U 4.5 Total Corners",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-11T17:19:21Z",
+   "resolved_utc": "2026-08-12T14:54:58Z"
+  },
+  {
+   "market_id": "907518",
+   "title": "Will Kelda Roys win the 2026 Wisconsin Governor Democratic primary election?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-12T03:36:17Z",
+   "resolved_utc": "2026-08-12T17:57:22Z"
+  },
+  {
+   "market_id": "3467038",
+   "title": "Broadfields United FC vs. Herne Bay FC: 1st Half O/U 0.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-12T13:35:38Z",
+   "resolved_utc": "2026-08-12T15:42:28Z"
+  },
+  {
+   "market_id": "3062525",
+   "title": "Forfar Athletic FC vs. Brechin City FC: Team to Take First Corner",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-13T15:05:53Z",
+   "resolved_utc": "2026-08-13T22:41:16Z"
+  },
+  {
+   "market_id": "3570501",
+   "title": "Game Handicap: Maksymkiv Oleh (-1.5) vs Dunas Mykhailo (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-14T10:18:21Z",
+   "resolved_utc": "2026-08-14T10:52:12Z"
+  },
+  {
+   "market_id": "3647052",
+   "title": "Map Handicap: GX GC (-1.5) vs SK Nebula (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-16T21:12:01Z",
+   "resolved_utc": "2026-08-17T01:35:57Z"
+  },
+  {
+   "market_id": "3651544",
+   "title": "Veldman vs. Mckenzie: Match O/U 23.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-17T11:16:31Z",
+   "resolved_utc": "2026-08-17T11:53:57Z"
+  },
+  {
+   "market_id": "3650647",
+   "title": "Fonseca vs. O'Connell: Match O/U 21.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-18T01:47:00Z",
+   "resolved_utc": "2026-08-18T06:53:13Z"
+  },
+  {
+   "market_id": "3673331",
+   "title": "Medvedeva vs. Figueras: Set 1 Games O/U 10.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-18T10:28:43Z",
+   "resolved_utc": "2026-08-18T11:15:57Z"
+  },
+  {
+   "market_id": "3673221",
+   "title": "Pieri vs. Sacco: Match O/U 23.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-18T17:54:19Z",
+   "resolved_utc": "2026-08-18T18:32:57Z"
+  },
+  {
+   "market_id": "3712843",
+   "title": "Majchrzak vs. Zeuch: Match O/U 22.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-19T10:27:58Z",
+   "resolved_utc": "2026-08-19T11:02:28Z"
+  },
+  {
+   "market_id": "3712447",
+   "title": "Alujas vs. Puerto: Set 2 Games O/U 8.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-19T18:26:28Z",
+   "resolved_utc": "2026-08-19T19:02:40Z"
+  },
+  {
+   "market_id": "3738083",
+   "title": "Set Handicap: Chung (-1.5) vs Shiraishi (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-20T09:21:15Z",
+   "resolved_utc": "2026-08-20T09:58:12Z"
+  },
+  {
+   "market_id": "3771481",
+   "title": "Saints vs. Rams: 1H O/U 19.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-22T21:34:19Z",
+   "resolved_utc": "2026-08-23T00:19:57Z"
+  },
+  {
+   "market_id": "3466940",
+   "title": "Glossop North End AFC vs. Tadcaster Albion AFC: 1st Half O/U 1.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-25T03:32:22Z",
+   "resolved_utc": "2026-09-01T12:56:27Z"
+  },
+  {
+   "market_id": "3855194",
+   "title": "Set Handicap: Chlodnicki (-1.5) vs Kokot (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-25T10:09:30Z",
+   "resolved_utc": "2026-08-25T10:45:12Z"
+  },
+  {
+   "market_id": "3826456",
+   "title": "Mochizuki vs. Milavsky: Set 1 Games O/U 8.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-25T16:06:31Z",
+   "resolved_utc": "2026-08-25T16:49:27Z"
+  },
+  {
+   "market_id": "3890608",
+   "title": "ITF WOMEN - SINGLES: W15 Torello (Spain), hard: Neus Torner Sensano vs Sayaka Ishii",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-26T09:54:39Z",
+   "resolved_utc": "2026-08-26T10:37:58Z"
+  },
+  {
+   "market_id": "3892290",
+   "title": "Sensano vs. Ishii: Match O/U 21.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-26T09:55:01Z",
+   "resolved_utc": "2026-08-26T10:33:33Z"
+  },
+  {
+   "market_id": "3893170",
+   "title": "Madaras vs. Ignatik: Set 2 Games O/U 10.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-26T12:44:41Z",
+   "resolved_utc": "2026-08-26T14:35:03Z"
+  },
+  {
+   "market_id": "3865032",
+   "title": "Game Spread: Gaubas (-4.5) vs Cecchinato (+4.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-26T18:00:08Z",
+   "resolved_utc": "2026-08-26T18:45:12Z"
+  },
+  {
+   "market_id": "3905357",
+   "title": "ITF MEN - SINGLES: M15 Cap d'Agde (France), clay: Completed Match: Liam Branger vs Axel Garcian",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-27T13:12:22Z",
+   "resolved_utc": "2026-08-27T15:26:51Z"
+  },
+  {
+   "market_id": "3915670",
+   "title": "Game Spread: Koevermans (-1.5) vs Bolkvadze (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-27T18:54:56Z",
+   "resolved_utc": "2026-08-28T20:49:15Z"
+  },
+  {
+   "market_id": "3929825",
+   "title": "Will it rain in Philadelphia, PA on August 27?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-28T09:40:46Z",
+   "resolved_utc": "2026-08-30T05:37:13Z"
+  },
+  {
+   "market_id": "3917952",
+   "title": "Spread: Northern Arizona (-7.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-30T00:41:49Z",
+   "resolved_utc": "2026-08-30T01:02:58Z"
+  },
+  {
+   "market_id": "3946433",
+   "title": "Exact Score: Jaime Faria 3-0?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-08-30T21:32:25Z",
+   "resolved_utc": "2026-08-30T22:10:52Z"
+  },
+  {
+   "market_id": "4014792",
+   "title": "Counter-Strike: LAG Gaming vs SportsBetExpert - Map 2 Winner",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-08-31T05:29:11Z",
+   "resolved_utc": "2026-09-04T00:42:16Z"
+  },
+  {
+   "market_id": "4033798",
+   "title": "Oh vs. Jang: Set 2 Games O/U 8.5",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-09-01T05:09:24Z",
+   "resolved_utc": "2026-09-04T00:33:27Z"
+  },
+  {
+   "market_id": "3141890",
+   "title": "Will Candidate A be the MA-04 Democratic nominee?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-02T02:10:26Z",
+   "resolved_utc": "2026-09-02T06:33:33Z"
+  },
+  {
+   "market_id": "4060609",
+   "title": "Tamm vs. Purcell: Set 1 Games O/U 9.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-02T05:00:13Z",
+   "resolved_utc": "2026-09-02T05:41:46Z"
+  },
+  {
+   "market_id": "4138597",
+   "title": "Grubor vs. Mihalka: Set 2 Games O/U 8.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-02T17:10:05Z",
+   "resolved_utc": "2026-09-03T10:03:31Z"
+  },
+  {
+   "market_id": "4108670",
+   "title": "Jared Jones: Strikeouts O/U 7.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-03T02:36:11Z",
+   "resolved_utc": "2026-09-03T03:20:15Z"
+  },
+  {
+   "market_id": "4034928",
+   "title": "Will Lululemon say \"Design\" during earnings call?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-03T20:44:53Z",
+   "resolved_utc": "2026-09-03T22:53:16Z"
+  },
+  {
+   "market_id": "3907682",
+   "title": "Prescot Cables FC vs. Horbury Town FC: Both Teams to Score in Second Half",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-06T01:23:32Z",
+   "resolved_utc": "2026-09-07T05:12:36Z"
+  },
+  {
+   "market_id": "4257329",
+   "title": "M25 Plaisir + H: Arsenii Myronov vs Alexander Page",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-06T10:41:02Z",
+   "resolved_utc": "2026-09-06T11:14:21Z"
+  },
+  {
+   "market_id": "4261782",
+   "title": "Chidekh vs. Kaiser: Set 1 Games O/U 10.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-06T15:34:50Z",
+   "resolved_utc": "2026-09-06T16:45:37Z"
+  },
+  {
+   "market_id": "4239335",
+   "title": "Will the highest temperature in Amsterdam be 19°C or below on September 7?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-07T21:57:56Z",
+   "resolved_utc": "2026-09-07T22:53:06Z"
+  },
+  {
+   "market_id": "4294995",
+   "title": "Bennemann vs. Kawa: Set 2 Games O/U 8.5",
+   "n_disputes": 2,
+   "first_dispute_utc": "2026-09-08T08:59:01Z",
+   "resolved_utc": "2026-09-15T02:46:21Z"
+  },
+  {
+   "market_id": "4347221",
+   "title": "Geerlings vs. Steur: Set 1 Games O/U 10.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-08T17:00:25Z",
+   "resolved_utc": "2026-09-08T17:47:03Z"
+  },
+  {
+   "market_id": "4370119",
+   "title": "Set 1 Winner: Escorihuela vs Bulgaru",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-09T13:34:59Z",
+   "resolved_utc": "2026-09-09T14:22:21Z"
+  },
+  {
+   "market_id": "4422949",
+   "title": "Set Handicap: Gentili (-1.5) vs Tomase (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-10T10:39:34Z",
+   "resolved_utc": "2026-09-10T11:40:24Z"
+  },
+  {
+   "market_id": "4423844",
+   "title": "Set Handicap: Vasilev (-1.5) vs Fomba (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-10T12:15:34Z",
+   "resolved_utc": "2026-09-10T12:56:25Z"
+  },
+  {
+   "market_id": "4459288",
+   "title": "Nunez vs. Schenekenberg: Match O/U 22.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-11T18:25:13Z",
+   "resolved_utc": "2026-09-11T19:05:24Z"
+  },
+  {
+   "market_id": "4441468",
+   "title": "Solana Up or Down on September 12?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-12T16:34:14Z",
+   "resolved_utc": "2026-09-12T23:29:55Z"
+  },
+  {
+   "market_id": "4499494",
+   "title": "Sueoka/Tajima vs. Kouzmine/Dev: Set 1 Games O/U 10.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-13T05:25:14Z",
+   "resolved_utc": "2026-09-16T07:03:06Z"
+  },
+  {
+   "market_id": "4505468",
+   "title": "Set Handicap: Manoly Rengeard (-1.5) vs Mathilde Lollia (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-13T14:26:41Z",
+   "resolved_utc": "2026-09-13T15:33:24Z"
+  },
+  {
+   "market_id": "4012285",
+   "title": "Packers vs. Vikings: 1Q O/U 9.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-13T21:05:05Z",
+   "resolved_utc": "2026-09-13T21:35:28Z"
+  },
+  {
+   "market_id": "4545357",
+   "title": "Junior vs. Bruno: Set 1 Games O/U 9.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-14T16:14:19Z",
+   "resolved_utc": "2026-09-14T18:53:40Z"
+  },
+  {
+   "market_id": "4545403",
+   "title": "Set Handicap: Eugenio Almeida Junior (-1.5) vs Bruno Vieira Alves Malacarne Bruno (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-14T16:14:19Z",
+   "resolved_utc": "2026-09-14T18:53:40Z"
+  },
+  {
+   "market_id": "4046474",
+   "title": "Torino FC vs. AS Roma: Draw at halftime?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-14T17:48:28Z",
+   "resolved_utc": "2026-09-14T18:46:42Z"
+  },
+  {
+   "market_id": "4553637",
+   "title": "Cocola vs. Wessels: Set 1 Games O/U 10.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-15T10:40:04Z",
+   "resolved_utc": "2026-09-15T11:23:07Z"
+  },
+  {
+   "market_id": "4572122",
+   "title": "Kozyreva/Lumsden vs. Guarachi/Ninomiya: Set 1 Games O/U 10.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-15T18:44:14Z",
+   "resolved_utc": "2026-09-15T22:53:13Z"
+  },
+  {
+   "market_id": "4586296",
+   "title": "Lin Hao-Yu vs. Maxim Shin: Total Sets O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-16T06:17:41Z",
+   "resolved_utc": "2026-09-16T06:58:09Z"
+  },
+  {
+   "market_id": "4582884",
+   "title": "Sobolieva vs. Zoldakova: Set 1 Games O/U 9.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-16T08:55:28Z",
+   "resolved_utc": "2026-09-16T09:29:37Z"
+  },
+  {
+   "market_id": "4597488",
+   "title": "Romane Longueville vs. Valentina Steiner: Total Sets O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-16T13:34:38Z",
+   "resolved_utc": "2026-09-16T14:07:54Z"
+  },
+  {
+   "market_id": "4596109",
+   "title": "W35 Santa Margherita di Pula, Main Draw: Completed Match: Romane Longueville vs Valentina Steiner",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-16T14:16:49Z",
+   "resolved_utc": "2026-09-16T15:01:54Z"
+  },
+  {
+   "market_id": "4598240",
+   "title": "Nunez vs. Bini: Match O/U 23.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-16T19:23:19Z",
+   "resolved_utc": "2026-09-16T19:55:43Z"
+  },
+  {
+   "market_id": "4625362",
+   "title": "Milovanovic vs. Vaissaud: Match O/U 23.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-17T10:51:14Z",
+   "resolved_utc": "2026-09-17T11:41:52Z"
+  },
+  {
+   "market_id": "4659512",
+   "title": "Tabata vs. Andreev: Match O/U 21.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-18T09:16:35Z",
+   "resolved_utc": "2026-09-18T09:51:39Z"
+  },
+  {
+   "market_id": "4705489",
+   "title": "Game Handicap: Melnykov Volodymyr (-1.5) vs Klymenko Kostiantyn (+1.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-19T05:54:58Z",
+   "resolved_utc": "2026-09-19T06:27:52Z"
+  },
+  {
+   "market_id": "3808555",
+   "title": "Maple Leafs vs. Canadiens: O/U 6.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-20T01:50:18Z",
+   "resolved_utc": "2026-09-20T07:45:31Z"
+  },
+  {
+   "market_id": "4547536",
+   "title": "Degerfors IF vs. Hammarby IF: 2nd Half O/U 0.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-20T16:46:24Z",
+   "resolved_utc": "2026-09-20T18:55:10Z"
+  },
+  {
+   "market_id": "789956",
+   "title": "Will FDP win the most seats in the 2026 Berlin state elections?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-20T16:58:47Z",
+   "resolved_utc": "2026-09-21T04:42:16Z"
+  },
+  {
+   "market_id": "4760087",
+   "title": "Trivunac vs. Bove: Set 1 Games O/U 8.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-21T10:24:38Z",
+   "resolved_utc": "2026-09-21T11:11:30Z"
+  },
+  {
+   "market_id": "4731590",
+   "title": "Map 1 Rounds Handicap: Saint Sinners (-3.5) vs KUUSAMO.gg (+3.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-22T09:34:09Z",
+   "resolved_utc": "2026-09-22T12:12:16Z"
+  },
+  {
+   "market_id": "4648422",
+   "title": "Will another show be the top global Netflix show this week?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-22T18:58:03Z",
+   "resolved_utc": "2026-09-22T21:13:52Z"
+  },
+  {
+   "market_id": "4545790",
+   "title": "Khamurda Vitalii vs. Derevynskyi Dmytro",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-23T16:12:21Z",
+   "resolved_utc": "2026-09-23T18:16:13Z"
+  },
+  {
+   "market_id": "4909553",
+   "title": "Map 1 Rounds Handicap: Eternal Fire (-6.5) vs Betclic Apogee Esports (+6.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-24T17:09:04Z",
+   "resolved_utc": "2026-09-24T18:14:47Z"
+  },
+  {
+   "market_id": "3940755",
+   "title": "Game 1: Any Player Quadra Kill?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-26T01:22:11Z",
+   "resolved_utc": "2026-09-26T03:26:05Z"
+  },
+  {
+   "market_id": "4790441",
+   "title": "LoL: FURIA Esports vs RED Canids - Game 3 Winner",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-26T21:00:38Z",
+   "resolved_utc": "2026-09-26T21:41:51Z"
+  },
+  {
+   "market_id": "4810020",
+   "title": "3Q Spread: West Virginia (-3.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-27T00:54:59Z",
+   "resolved_utc": "2026-09-27T04:09:03Z"
+  },
+  {
+   "market_id": "4810023",
+   "title": "3Q Spread: West Virginia (-5.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-27T00:56:29Z",
+   "resolved_utc": "2026-09-27T04:03:05Z"
+  },
+  {
+   "market_id": "4990809",
+   "title": "Games Total: O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-27T11:45:14Z",
+   "resolved_utc": "2026-09-27T12:20:18Z"
+  },
+  {
+   "market_id": "5033232",
+   "title": "Map 2 Total Rounds: Over/Under 21.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-27T21:13:02Z",
+   "resolved_utc": "2026-09-27T22:21:20Z"
+  },
+  {
+   "market_id": "4856081",
+   "title": "49ers Team Total: O/U 23.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-27T22:08:11Z",
+   "resolved_utc": "2026-09-27T23:48:47Z"
+  },
+  {
+   "market_id": "5061659",
+   "title": "Jan Klimas vs. Milos Mikovic: Total Sets O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-28T20:29:18Z",
+   "resolved_utc": "2026-09-29T06:21:47Z"
+  },
+  {
+   "market_id": "4868967",
+   "title": "Montevideo Wanderers vs. Albion FC: 2nd Half O/U 4.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-29T03:26:00Z",
+   "resolved_utc": "2026-09-29T06:25:48Z"
+  },
+  {
+   "market_id": "4868971",
+   "title": "Montevideo Wanderers vs. Albion FC: Montevideo Wanderers 2nd Half O/U 3.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-29T03:27:15Z",
+   "resolved_utc": "2026-09-29T06:25:48Z"
+  },
+  {
+   "market_id": "4868950",
+   "title": "Montevideo Wanderers vs. Albion FC: Albion FC O/U 2.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-29T03:31:14Z",
+   "resolved_utc": "2026-09-29T06:25:51Z"
+  },
+  {
+   "market_id": "4868197",
+   "title": "Exact Score: Montevideo Wanderers 3 - 1 Albion FC?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-29T03:37:20Z",
+   "resolved_utc": "2026-09-29T06:25:50Z"
+  },
+  {
+   "market_id": "4868922",
+   "title": "Spread: Montevideo Wanderers (-4.5)",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-29T03:53:20Z",
+   "resolved_utc": "2026-09-29T06:26:06Z"
+  },
+  {
+   "market_id": "4868945",
+   "title": "Montevideo Wanderers vs. Albion FC: Montevideo Wanderers O/U 3.5",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-29T04:00:08Z",
+   "resolved_utc": "2026-09-29T06:26:03Z"
+  },
+  {
+   "market_id": "4881727",
+   "title": "Fenerbahce vs. FC Bayern Munchen",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-29T23:31:21Z",
+   "resolved_utc": "2026-09-30T01:34:44Z"
+  },
+  {
+   "market_id": "5136899",
+   "title": "Efimenko Ivan vs. Habrelyan Daniil",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-09-30T17:47:51Z",
+   "resolved_utc": "2026-09-30T20:52:30Z"
+  },
+  {
+   "market_id": "3902338",
+   "title": "Will there be Houthi military action against Israel by September 30, 2026?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-10-01T10:02:48Z",
+   "resolved_utc": "2026-10-01T14:09:26Z"
+  },
+  {
+   "market_id": "4571194",
+   "title": "Will Trump meet with Sam Altman in September 2026?",
+   "n_disputes": 1,
+   "first_dispute_utc": "2026-10-01T16:06:18Z",
+   "resolved_utc": "2026-10-01T18:10:42Z"
+  }
+ ]
+}
