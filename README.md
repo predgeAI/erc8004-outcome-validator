@@ -93,6 +93,26 @@ slash
 [`0x96f861d0…`](https://testnet.monadvision.com/tx/0x96f861d0c7810e5687d6694899ce70994e90e86233c12362b19fad118b0184ab).
 Details and every tx: [`monad/slash/`](monad/slash/README.md).
 
+### Batch: 145 verdicts on real disputed markets
+
+2026-10-07: 145 Predge verdicts on an evenly spaced sample of disputed Polymarket markets, each bound
+to a signed Settlement Risk record from the production API (stored in `monad/batch/records/`).
+Agents claim "the final on-chain outcome equals the first disputed proposal"; Predge answers 100 if
+it did, 0 if the market settled differently. 290 transactions, 0 failed, 145 of 145 read back with
+`responseHash == keccak256(signed record)`. Requests from 6 agent keys landed in 11 blocks (3 s);
+the whole run took 83 blocks and 25 s of chain time, and cost 3.69 MON (0.0255 MON per verdict).
+Details, per-market tx hashes and the reproduction script: [`monad/batch/`](monad/batch/README.md).
+
+### x402 on Monad
+
+An agent pays 0.001 USDC on Monad testnet per call through Monad's x402 facilitator
+(`x402-facilitator.molandak.org`, x402 v2, scheme `exact`), receives the signed record plus Predge's
+on-chain verdict for the market, and checks both before acting. The agent holds no MON; the
+facilitator pays gas. Settlement txs:
+[`0xa41ba1f9…`](https://testnet.monadvision.com/tx/0xa41ba1f995eb229c322d5bc34c4d69550395356d94459c0706ba065b8da99cea),
+[`0x4e52243b…`](https://testnet.monadvision.com/tx/0x4e52243b505c28511dd6740102496afa062006f510d16e5fc09f144085d56a3e).
+Details: [`monad/x402/`](monad/x402/README.md).
+
 ## Architecture
 
 ```
@@ -133,16 +153,27 @@ reproducible build, Python 3 for the second verifier and the ERC-8404 profile ga
 ## Why Monad
 
 Agents make many small decisions, and each verdict is a write that has to land quickly and cheaply
-next to the decision it informs. Monad fits that loop:
+next to the decision it informs. What we measured on Monad testnet (2026-10-07):
 
-- **Fast blocks.** Monad documents ~0.4 s block times, so a verdict is readable on chain within
-  seconds of the decision it backs.
-- **No global mempool, nonces per sender.** Many agents can post requests in parallel from their
-  own keys without contending for one queue.
-- **Gas is charged on the gas limit, not gas used.** Our scripts set the limit to the estimate plus
-  a small margin for every transaction; this is a Monad-specific detail that matters for cost.
-- **Official x402 facilitator on Monad** with testnet USDC, so an agent can pay per call in USDC
-  without holding MON.
+| | Measured |
+|---|---|
+| 145 agent requests from 6 keys in parallel | on chain within 11 blocks, 3 s of chain time |
+| 145 verdicts + 145 requests (290 tx) | 83 blocks, 25 s of chain time, 28.3 s wall clock |
+| Cost per verdict (request + response) | 0.0255 MON at 100 gwei base fee |
+| x402 paid call, USDC on Monad, through Monad's facilitator | 6.7 s end to end, the agent holds no MON |
+| Dishonest bonded verdict to slash | 17 blocks, by a third party |
+
+What in Monad made that possible, and what we had to adapt to:
+
+- **No global mempool, nonces per sender.** Six agent keys submitted in parallel without contending
+  for one queue. A single key is limited by how fast one client submits (the 145 verdicts from one
+  key took 53 blocks, paced by our own submission loop).
+- **Fast blocks.** 83 blocks in 25 s, so a verdict is on chain seconds after the decision it backs.
+- **Gas is charged on the gas limit.** Every script sets the limit to the measured estimate plus
+  10%.
+- **Reserve balance.** Accounts under 10 MON can only move value in an "emptying" transaction; a
+  burst of funding transfers reverted until the batch script spaced them 4 blocks apart.
+- **Official x402 facilitator with testnet USDC**, so agents pay per call in USDC.
 - **ERC-8004 Identity and Reputation registries are canonical on Monad testnet**, so a Predge
   verdict can sit next to the agent identity other Monad apps already read.
 
@@ -161,6 +192,7 @@ node monad/contracts/check-bytecode.mjs   # sources == live code on Monad testne
 node monad/smoke.mjs                      # preflight: contracts live, evidence pack verifies offline
 npm run prove                             # offline proof of the attestation -> validationResponse mapping
 npm run verify-vectors                    # grounded-feedback test vectors (Node)
+node monad/batch/verify-batch.mjs         # re-check all 145 batch verdicts on Monad testnet
 ```
 
 To send transactions you need a Monad testnet key with some MON (faucet: https://faucet.monad.xyz).
@@ -203,7 +235,7 @@ Dates come from git history.
 | Monad testnet deployment of the four contracts, Sourcify verification, smoke run with ERC-8004 records (`monad/`) | 2026-10-05 |
 | Oracle outcome state and superseding, ERC-8404 oracle-outcome verification profile (`erc8404-profile/`) | 2026-10-05 to 2026-10-07 |
 | Contract sources in this repo, reproducible build check, deploy script (`monad/contracts/`) | 2026-10-07 |
-| Batch of verdicts on historical disputed markets, slash demo, x402 on Monad, verdict board | from 2026-10-07 |
+| Batch of 145 verdicts on historical disputed markets, slash demo, x402 on Monad (`monad/batch/`, `monad/slash/`, `monad/x402/`) | 2026-10-07 |
 
 ## Repository layout
 
@@ -212,6 +244,8 @@ Dates come from git history.
 | `monad/contracts/` | Solidity sources of the four deployed contracts, attribution, bytecode check, deploy script |
 | `monad/smoke.mjs`, `monad/deployment.json` | Monad testnet smoke run and deployment record |
 | `monad/slash/` | slash demo: dishonest bonded verdict challenged and slashed |
+| `monad/batch/` | 145 verdicts on real disputed markets: markets, signed records, runner, results, verifier |
+| `monad/x402/` | x402 pay-per-call on Monad testnet: resource server and paying agent |
 | `src/attest.mjs` | ed25519 and canonical JSON primitive |
 | `src/map-to-validation.mjs` | signed attestation to ERC-8004 request and response calldata |
 | `src/prove.mjs` | offline proof (`npm run prove`) |
