@@ -80,6 +80,19 @@ response read back with `responseHash == keccak256(signed bytes)`. Receipts:
 | 10 ValidationRegistry.validationRequest | [`0x44c62cb8…`](https://testnet.monadvision.com/tx/0x44c62cb86d999f32f5256848e77ecc433828755c0ba6ae3adf01c1c9f9797977) |
 | 11 ValidationRegistry.validationResponse | [`0x3bb93717…`](https://testnet.monadvision.com/tx/0x3bb937170050e5fc6eaa65e7213da5f6ad66c7d867a04f47ba7dd8a495f9c274) |
 
+### Slash demo
+
+2026-10-07, four separate keys: a dishonest validator bonds 0.01 MON behind the test "deliver
+Predge's signed record for market 2169995", the provider delivers a tampered copy, the validator
+records verdict 100 anyway, and a third party calls `challenge()`. The bond is slashed to the
+challenger in the same flow, within the dispute window counted from the verdict. Bond instance
+[`0x95652b86…9Bc2`](https://testnet.monadvision.com/address/0x95652b86c10Eb0E012b22E08dBC98481d4a19Bc2)
+(Sourcify exact match), dishonest verdict
+[`0xb46e399a…`](https://testnet.monadvision.com/tx/0xb46e399a74ebd9a9ed1d79a6d65dbedcdce885091ab5115f825836424be27faa),
+slash
+[`0x96f861d0…`](https://testnet.monadvision.com/tx/0x96f861d0c7810e5687d6694899ce70994e90e86233c12362b19fad118b0184ab).
+Details and every tx: [`monad/slash/`](monad/slash/README.md).
+
 ## Architecture
 
 ```
@@ -198,6 +211,7 @@ Dates come from git history.
 |---|---|
 | `monad/contracts/` | Solidity sources of the four deployed contracts, attribution, bytecode check, deploy script |
 | `monad/smoke.mjs`, `monad/deployment.json` | Monad testnet smoke run and deployment record |
+| `monad/slash/` | slash demo: dishonest bonded verdict challenged and slashed |
 | `src/attest.mjs` | ed25519 and canonical JSON primitive |
 | `src/map-to-validation.mjs` | signed attestation to ERC-8004 request and response calldata |
 | `src/prove.mjs` | offline proof (`npm run prove`) |
@@ -215,7 +229,9 @@ Dates come from git history.
 - The evidence pack in the smoke run is signed with a prototype key, not the production key.
 - Client and validator are one key in the smoke run; the provider is a separate key. A slash only
   happens when a bonded verdict contradicts what the provider committed on chain, so the honest
-  flow never slashes.
+  flow never slashes; the slash demo uses its own bond instance and four separate keys.
+- Demo bonds are 0.01 MON, about the gas cost of one challenge on Monad. A production validator
+  must size the bond well above challenge gas.
 - The validator checks ed25519 off chain (see the trust boundary above).
 
 ## AI tools disclosure

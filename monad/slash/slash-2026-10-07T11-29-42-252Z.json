@@ -1,0 +1,119 @@
+{
+  "chain": "monad-testnet",
+  "chainId": 10143,
+  "ranAt": "2026-10-07T11:29:42.252Z",
+  "market": "2169995",
+  "bond": "0x95652b86c10Eb0E012b22E08dBC98481d4a19Bc2",
+  "agentJob": "0x34F1ef2f39Bfdd6c10Fcaa02f5B257A5dB2e93E9",
+  "disputeWindowSeconds": 86400,
+  "parties": {
+    "owner": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+    "validator": "0xe85aE59Ed129e97943EEFBEcf4233C68DD77b696",
+    "provider": "0x7FE8d29Be8cA6d2F40472f9a8fa97F3DC0DdC55e",
+    "challenger": "0x2A9dDCDB5dE78F6bBBd9d33cB1B3Da55b1bb25A4"
+  },
+  "record": {
+    "url": "https://api.predge.io/v1/settlement-risk/2169995",
+    "public_key": "13fa3d18a369e6c71bf941563ba47822b30182273d5106a0e8fb61c5016352d9",
+    "signature": "c73d58e09afba28cc93e1cc84c9124913a00124b89cf40d2cd649f9094fc53db79c95b163b4ca1f01c941d2f078e828dc60ebac971a7a78a1ca11760d622720f",
+    "canonical": "{\"adapter\":\"0x65070be91477460d8a7aeeb94ef92fe056c2f2a7\",\"bulletin_board_count\":\"2\",\"chain\":\"polygon\",\"checked_at\":\"2026-10-07T11:29:31Z\",\"condition_id\":\"0x3733a1b647e7364095736ab0966465d896a84cf3b6bc1695ca1f26c3239b3868\",\"current_proposal\":null,\"dispute_count\":\"2\",\"disputes\":[{\"disputed_at\":\"2026-06-01T04:12:20Z\",\"disputed_proposal\":\"No\",\"tx\":\"0xc5e63a7828b193232c33cb93db44b2f1c05f017c4bfe16d54078be560ae25aab\"},{\"disputed_at\":\"2026-06-01T04:53:01Z\",\"disputed_proposal\":\"No\",\"tx\":\"0xbcbd0d858e43a073bd64b334577c088b72e6dde8b1a9184de658108b0d2a377e\"}],\"issued_at\":\"2026-10-07T11:29:42.180Z\",\"issuer\":\"predge.io\",\"kind\":\"settlement-risk\",\"latest_bulletin_board_update\":{\"kind\":\"clarification\",\"posted_at\":\"2026-06-01T17:00:16Z\",\"poster\":\"venue_operator\"},\"market_id\":\"2169995\",\"onchain_resolution\":{\"outcome\":\"No\"},\"open_dispute\":false,\"oracle\":\"0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1\",\"paused\":false,\"platform\":\"polymarket\",\"recommendation\":\"resolved: the on-chain resolution is final (No); nothing is left to settle.\",\"resolved_on_chain\":true,\"risk_level\":\"resolved\",\"sent_to_uma_vote\":false,\"uma_question_id\":\"0x0382b71b4df8e161d7947966fef8e5f6cc2d29b0285f87761e569b043e68f83d\",\"uma_state\":\"settled\",\"version\":\"predge-attest-v1\"}"
+  },
+  "tamperedOutcome": "Yes",
+  "requestHash": "0xf500794cf390aeedef8c2335ceaaae44b6abbaba7aa4002a7691d012359e9b5b",
+  "expected": "0x284f3b6961176b0edd9b9abb8690a893d36c5c8eb4045b7a94aef22187a37bf1",
+  "delivered": "0x43d167272a3b2d170002285da41268d91e709a6e7b8083d4df4005950c83825c",
+  "jobId": "3",
+  "result": {
+    "wouldSlashBeforeChallenge": true,
+    "slashedBond": "0.01",
+    "challenger": "0x2A9dDCDB5dE78F6bBBd9d33cB1B3Da55b1bb25A4",
+    "recordedScore": 100,
+    "deliveredHash": "0x43d167272a3b2d170002285da41268d91e709a6e7b8083d4df4005950c83825c",
+    "stakeClosed": true,
+    "slashCount": 1,
+    "reclaimSimulated": "Closed"
+  },
+  "receipts": [
+    {
+      "step": "0 deploy PredgeValidatorBond (demo instance, validator = SLASH_VALIDATOR)",
+      "from": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+      "tx": "0xd58cc5cdd582bea67ef33cf547e594fa72316f50b0215811454734d534574888",
+      "url": "https://testnet.monadvision.com/tx/0xd58cc5cdd582bea67ef33cf547e594fa72316f50b0215811454734d534574888",
+      "block": 68958546,
+      "status": 1,
+      "gasUsed": "1166586"
+    },
+    {
+      "step": "  fund validator gas",
+      "from": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+      "tx": "0x934d3855a903cda44a6d6813c57a1a032bcdfa03c5f01da4a94897dd5e4bcb3e",
+      "url": "https://testnet.monadvision.com/tx/0x934d3855a903cda44a6d6813c57a1a032bcdfa03c5f01da4a94897dd5e4bcb3e",
+      "block": 68958562,
+      "status": 1,
+      "gasUsed": "21000"
+    },
+    {
+      "step": "  fund provider gas",
+      "from": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+      "tx": "0x992e9f49a798fd2032fdd1a0843685d42b851c6be2f410980b941b35381b3729",
+      "url": "https://testnet.monadvision.com/tx/0x992e9f49a798fd2032fdd1a0843685d42b851c6be2f410980b941b35381b3729",
+      "block": 68958565,
+      "status": 1,
+      "gasUsed": "21000"
+    },
+    {
+      "step": "  fund challenger gas",
+      "from": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+      "tx": "0x80300fefd3fdfaf30db22c186dd8ec0325dc2a2321c66b416aec7c6c39bffc72",
+      "url": "https://testnet.monadvision.com/tx/0x80300fefd3fdfaf30db22c186dd8ec0325dc2a2321c66b416aec7c6c39bffc72",
+      "block": 68958568,
+      "status": 1,
+      "gasUsed": "21000"
+    },
+    {
+      "step": "1 createJob (client escrows, evaluator = validator)",
+      "from": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+      "tx": "0xec4c2fdde44328de0ab6a5ba5489cb9f253687b24f1eaf949bab5377202cd164",
+      "url": "https://testnet.monadvision.com/tx/0xec4c2fdde44328de0ab6a5ba5489cb9f253687b24f1eaf949bab5377202cd164",
+      "block": 68958573,
+      "status": 1,
+      "gasUsed": "162337"
+    },
+    {
+      "step": "2 stakeAndCommit (validator bonds behind the test)",
+      "from": "0xe85aE59Ed129e97943EEFBEcf4233C68DD77b696",
+      "tx": "0xe44b1d1e4537e7788834545c3616ec4715d262912296695017625d2f2274d66d",
+      "url": "https://testnet.monadvision.com/tx/0xe44b1d1e4537e7788834545c3616ec4715d262912296695017625d2f2274d66d",
+      "block": 68958576,
+      "status": 1,
+      "gasUsed": "165232"
+    },
+    {
+      "step": "3 submit (provider delivers the tampered record)",
+      "from": "0x7FE8d29Be8cA6d2F40472f9a8fa97F3DC0DdC55e",
+      "tx": "0x8ff4c2430a49c961c633aeed517a753382b0c32144836f9bff91e98a8828c2b5",
+      "url": "https://testnet.monadvision.com/tx/0x8ff4c2430a49c961c633aeed517a753382b0c32144836f9bff91e98a8828c2b5",
+      "block": 68958579,
+      "status": 1,
+      "gasUsed": "63822"
+    },
+    {
+      "step": "4 recordScore 100 (dishonest verdict)",
+      "from": "0xe85aE59Ed129e97943EEFBEcf4233C68DD77b696",
+      "tx": "0xb46e399a74ebd9a9ed1d79a6d65dbedcdce885091ab5115f825836424be27faa",
+      "url": "https://testnet.monadvision.com/tx/0xb46e399a74ebd9a9ed1d79a6d65dbedcdce885091ab5115f825836424be27faa",
+      "block": 68958582,
+      "status": 1,
+      "gasUsed": "73867"
+    },
+    {
+      "step": "5 challenge (third party, no arguments to forge)",
+      "from": "0x2A9dDCDB5dE78F6bBBd9d33cB1B3Da55b1bb25A4",
+      "tx": "0x96f861d0c7810e5687d6694899ce70994e90e86233c12362b19fad118b0184ab",
+      "url": "https://testnet.monadvision.com/tx/0x96f861d0c7810e5687d6694899ce70994e90e86233c12362b19fad118b0184ab",
+      "block": 68958599,
+      "status": 1,
+      "gasUsed": "94114"
+    }
+  ]
+}
