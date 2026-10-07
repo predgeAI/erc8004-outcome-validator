@@ -1,5 +1,5 @@
 // Monad TESTNET smoke run: one real accountability loop on the deployed Predge contracts, plus the
-// same verdict written into the canonical ERC-8004 ValidationRegistry on Monad testnet.
+// same verdict written into the ERC-8004 ValidationRegistry reference deployment on Monad testnet
 //
 //   node monad/smoke.mjs                                  read-only preflight, nothing is sent
 //   CONFIRM_TESTNET=yes node monad/smoke.mjs --send       broadcast
@@ -19,7 +19,7 @@
 //   7  AgentJob.complete                        escrow released, reason = responseHash
 //   8  PredgeSettlement.payForRoute             pay-per-call receipt
 //      read-only: wouldSlash == false, challenge() simulated -> reverts VerdictHonest()
-// Canonical ERC-8004 registries (CREATE2 singletons, live on Monad testnet):
+// ERC-8004 registries on Monad testnet (IdentityRegistry is canonical; the ValidationRegistry address is a reference deployment, not listed as canonical):
 //   9  IdentityRegistry.register -> agentId
 //  10  ValidationRegistry.validationRequest
 //  11  ValidationRegistry.validationResponse, read back, responseHash bound to the signed attestation
@@ -157,7 +157,7 @@ const st = await bond.stakes(requestHash);
 console.log(`\nbond: ${fmt(st.bond)} staked, score ${st.score}, wouldSlash ${would}, challenge() simulated -> ${challengeRevert}`);
 console.log(`reclaimable after ${new Date((Number(st.scoredAt) + 86400) * 1000).toISOString()} (window counted from the verdict)`);
 
-// Canonical ERC-8004 registries on Monad testnet
+// ERC-8004 registries on Monad testnet (canonical IdentityRegistry, reference ValidationRegistry)
 let agentId = null, m = { requestHash: null, responseHash: null }, bound = null;
 if (!SKIP_ERC8004) {
 const identity = new ethers.Contract(IDENTITY_REGISTRY, IDENTITY_ABI, signer);
