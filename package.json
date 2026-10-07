@@ -15,7 +15,13 @@
     "profile-check": "python3 erc8404-profile/oracle-outcome/adapter.py --check"
   },
   "dependencies": {
-    "ethers": "^6.13.4"
+    "@x402/core": "2.28.0",
+    "@x402/evm": "2.28.0",
+    "@x402/express": "2.28.0",
+    "@x402/fetch": "2.28.0",
+    "ethers": "^6.13.4",
+    "express": "5.2.1",
+    "viem": "2.57.3"
   },
   "devDependencies": {
     "solc": "0.8.26"
