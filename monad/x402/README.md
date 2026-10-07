@@ -30,3 +30,15 @@ settle; settlement tx
 (block 68959337, status 1, 0.001 USDC payer to payTo, gas paid by the facilitator signer
 `0x7f6a…Db86`). Record signature verified. Run file:
 [`runs/x402-2026-10-07T11-33-43-407Z.json`](runs/x402-2026-10-07T11-33-43-407Z.json).
+
+Second paid call, 2026-10-07, market 1137824 (one of the batch markets): paid in 6.7 s, settlement
+tx
+[`0x4e52243b…`](https://testnet.monadvision.com/tx/0x4e52243b505c28511dd6740102496afa062006f510d16e5fc09f144085d56a3e)
+(block 68961131). The response carried Predge's on-chain verdict 0 for this market (the disputed
+proposal was Under, the market settled Over; verdict tx
+[`0xf9cc82ee…`](https://testnet.monadvision.com/tx/0xf9cc82eee06ab10ea7cce11e0a800beb8f6a80a5785a1d7d4cba7d0844c3c016)),
+and the agent checked on Monad that its `responseHash` equals keccak256 of the signed record. Run
+file: [`runs/x402-2026-10-07T11-42-44-822Z.json`](runs/x402-2026-10-07T11-42-44-822Z.json).
+
+Not done: the production API at api.predge.io does not offer Monad as a payment network yet; this
+demo server is a separate process that serves the same signed records.

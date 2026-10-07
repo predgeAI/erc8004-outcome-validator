@@ -1,0 +1,32 @@
+{
+  "network": "eip155:10143",
+  "facilitator": "https://x402-facilitator.molandak.org",
+  "market": "1137824",
+  "payer": "0x67968e43b94a9F41ce0052A038172e6522C887f5",
+  "latencyMs": 6732,
+  "settlement": {
+    "success": true,
+    "payer": "0x67968e43b94a9F41ce0052A038172e6522C887f5",
+    "transaction": "0x4e52243b505c28511dd6740102496afa062006f510d16e5fc09f144085d56a3e",
+    "network": "eip155:10143"
+  },
+  "payment": {
+    "tx": "0x4e52243b505c28511dd6740102496afa062006f510d16e5fc09f144085d56a3e",
+    "block": 68961131,
+    "status": 1,
+    "from": "0x67968e43b94a9F41ce0052A038172e6522C887f5",
+    "to": "0xd171013f131c8a0524129F41E36011D550E6d25a",
+    "amountUSDC": "0.001",
+    "gasPaidBy": "0x7f6a2850669202519f0FE8aa912451238820Db86"
+  },
+  "recordSignatureOk": true,
+  "verdict": {
+    "response": 0,
+    "responseHash": "0x97384c345d38d7b318d8d4865d00a74bbcfb37589fa13b7e11fe4dbb07e0c751",
+    "responseTx": "0xf9cc82eee06ab10ea7cce11e0a800beb8f6a80a5785a1d7d4cba7d0844c3c016",
+    "boundToSignedRecord": true
+  },
+  "decision": "act: the outcome is final on chain",
+  "usdcBefore": "19.999",
+  "usdcAfter": "19.998"
+}
