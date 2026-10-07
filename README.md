@@ -20,6 +20,9 @@ two things it can check without trusting us:
 This repository is Predge's submission to the **Monad Metropolis hackathon, Track 4 (Trust,
 Identity and AI Infrastructure)**. Everything below runs on **Monad testnet (chain 10143)**.
 
+**Live verdict board:** https://predgeai.github.io/erc8004-outcome-validator/ reads every verdict
+from Monad testnet and verifies the signatures in your browser (source: [`docs/`](docs/index.html)).
+
 Target user: builders of agents, trading and signal bots, and protocols that act on or settle
 against prediction-market outcomes. Revenue today is $0; there are no paying customers yet.
 
@@ -235,7 +238,7 @@ Dates come from git history.
 | Monad testnet deployment of the four contracts, Sourcify verification, smoke run with ERC-8004 records (`monad/`) | 2026-10-05 |
 | Oracle outcome state and superseding, ERC-8404 oracle-outcome verification profile (`erc8404-profile/`) | 2026-10-05 to 2026-10-07 |
 | Contract sources in this repo, reproducible build check, deploy script (`monad/contracts/`) | 2026-10-07 |
-| Batch of 145 verdicts on historical disputed markets, slash demo, x402 on Monad (`monad/batch/`, `monad/slash/`, `monad/x402/`) | 2026-10-07 |
+| Batch of 145 verdicts on historical disputed markets, slash demo, x402 on Monad, verdict board (`monad/batch/`, `monad/slash/`, `monad/x402/`, `docs/`) | 2026-10-07 |
 
 ## Repository layout
 
@@ -246,6 +249,7 @@ Dates come from git history.
 | `monad/slash/` | slash demo: dishonest bonded verdict challenged and slashed |
 | `monad/batch/` | 145 verdicts on real disputed markets: markets, signed records, runner, results, verifier |
 | `monad/x402/` | x402 pay-per-call on Monad testnet: resource server and paying agent |
+| `docs/`, `monad/board/` | verdict board (GitHub Pages) and the script that builds its data file |
 | `src/attest.mjs` | ed25519 and canonical JSON primitive |
 | `src/map-to-validation.mjs` | signed attestation to ERC-8004 request and response calldata |
 | `src/prove.mjs` | offline proof (`npm run prove`) |
