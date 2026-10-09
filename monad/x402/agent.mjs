@@ -17,6 +17,7 @@ import { ethers } from "ethers";
 import { privateKeyToAccount } from "viem/accounts";
 import { wrapFetchWithPayment, x402Client } from "@x402/fetch";
 import { ExactEvmScheme } from "@x402/evm/exact/client";
+import { attestConsumption } from "./spend-semantics.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const MARKET = process.argv[2] || "2169995";
@@ -76,7 +77,16 @@ console.log(`agent USDC after ${ethers.formatUnits(after, 6)}`);
 const decision = sigOk && (!verdict || verdict.boundToSignedRecord) ? (rec.resolved_on_chain ? "act: the outcome is final on chain" : `wait: ${rec.risk_level}`) : "refuse: evidence did not verify";
 console.log(`agent decision: ${decision}`);
 
+// The buyer attests consumption; the seller cannot observe the buyer's runtime, so this
+// assertion is only meaningful when signed on this side.
+const consumption = attestConsumption({ decision, reference: `market:${MARKET}` });
+const spend = { ...(body.spend ?? null), ...consumption };
+console.log(`spend: ${JSON.stringify(spend)}`);
+if (body.spend?.redeem_count > 1) {
+  console.warn(`the same payment proof produced ${body.spend.redeem_count} completions — one payment, ${body.spend.redeem_count} deliveries`);
+}
+
 mkdirSync(path.join(HERE, "runs"), { recursive: true });
 const out = path.join(HERE, "runs", `x402-${new Date().toISOString().replace(/[:.]/g, "-")}.json`);
-writeFileSync(out, JSON.stringify({ network: "eip155:10143", facilitator: "https://x402-facilitator.molandak.org", market: MARKET, payer: account.address, latencyMs: ms, settlement: settle, payment, recordSignatureOk: sigOk, verdict, decision, usdcBefore: ethers.formatUnits(before, 6), usdcAfter: ethers.formatUnits(after, 6) }, null, 2) + "\n");
+writeFileSync(out, JSON.stringify({ network: "eip155:10143", facilitator: "https://x402-facilitator.molandak.org", market: MARKET, payer: account.address, latencyMs: ms, settlement: settle, payment, spend, recordSignatureOk: sigOk, verdict, decision, usdcBefore: ethers.formatUnits(before, 6), usdcAfter: ethers.formatUnits(after, 6) }, null, 2) + "\n");
 console.log(`run -> ${path.relative(process.cwd(), out)}`);
