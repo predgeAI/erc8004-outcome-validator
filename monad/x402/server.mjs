@@ -17,6 +17,7 @@ import { ethers } from "ethers";
 import { paymentMiddleware, x402ResourceServer } from "@x402/express";
 import { HTTPFacilitatorClient } from "@x402/core/server";
 import { ExactEvmScheme } from "@x402/evm/exact/server";
+import { sellerSpendBlock } from "./spend-semantics.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const MONAD_TESTNET = "eip155:10143";
@@ -49,6 +50,10 @@ function loadBatchIndex() {
 }
 const batch = loadBatchIndex();
 
+// Attempt counts per payment proof, keyed by sha256 of the raw `x-payment` header.
+// In-process only; a real deployment would back this with Redis.
+const redemptions = new Map();
+
 const scheme = new ExactEvmScheme();
 scheme.registerMoneyParser(async (amount, network) => network === MONAD_TESTNET
   ? { amount: Math.floor(amount * 1_000_000).toString(), asset: MONAD_USDC_TESTNET, extra: { name: "USDC", version: "2" } }
@@ -78,7 +83,15 @@ app.get("/v1/settlement-risk/:market", async (req, res) => {
       // the exact signed record the verdict was bound to when it was written
       boundRecord: JSON.parse(readFileSync(path.join(HERE, "..", "batch", "records", `${market}.json`), "utf8")).attestation };
   }
-  res.json({ market, record: body.attestation, onchainVerdict });
+  // counted BEFORE the response is written, so a replay or a refused retry is recorded
+  const spend = sellerSpendBlock(redemptions, req.headers["x-payment"]);
+  if (spend) {
+    res.setHeader("x-predge-redeem-count", String(spend.redeem_count));
+    if (spend.redeem_count > 1) {
+      console.warn(`proof ${spend.proof_hash} seen ${spend.redeem_count} times (first ${spend.first_seen})`);
+    }
+  }
+  res.json({ market, record: body.attestation, onchainVerdict, spend });
 });
 
 app.listen(PORT, () => console.log(`x402 on Monad testnet: http://localhost:${PORT}/v1/settlement-risk/<market>  price ${PRICE} USDC  payTo ${PAY_TO}  facilitator ${FACILITATOR}  verdicts indexed ${Object.keys(batch).length}`));
