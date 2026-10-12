@@ -1,0 +1,43 @@
+{
+  "chain": "monad",
+  "chainId": 143,
+  "ranAt": "2026-10-12T17:28:26.535Z",
+  "explorer": "https://monadvision.com",
+  "identityRegistry": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+  "validationRegistry": "0x8004Cc8439f36fd5F9F049D9fF86523Df6dAAB58",
+  "validator": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+  "market": "1112268",
+  "record": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/record-1112268.json",
+  "contentHash": "f2559ad32dbd3f2ed2657984be5f88fa15d0de17d5c02c81fab1d04745b2b3ff",
+  "agentId": "10386",
+  "requestHash": "0x602f611a1fa9d37865d5f0802698a02c89eb5befd88683f7ef465fd57923ac79",
+  "responseHash": "0xf3deec0f5569be197e31cc27f74edd4d2cfcc6c33f169f934a1886f82e8048b8",
+  "tag": "predge:resolved-outcome-vs-claim",
+  "bound": true,
+  "receipts": [
+    {
+      "step": "1 IdentityRegistry.register",
+      "tx": "0x9037e69ab6da12d84fb3dd22b61ec4a5a118eabb43ed0426cab08767650c8e36",
+      "url": "https://monadvision.com/tx/0x9037e69ab6da12d84fb3dd22b61ec4a5a118eabb43ed0426cab08767650c8e36",
+      "status": 1,
+      "block": 112814367,
+      "gasUsed": "146345"
+    },
+    {
+      "step": "2 ValidationRegistry.validationRequest",
+      "tx": "0xb67376ee79ad9fa2f0bccdc6417f13d8e092bee1a5abd95b74219f59431227e5",
+      "url": "https://monadvision.com/tx/0xb67376ee79ad9fa2f0bccdc6417f13d8e092bee1a5abd95b74219f59431227e5",
+      "status": 1,
+      "block": 112814384,
+      "gasUsed": "276036"
+    },
+    {
+      "step": "3 ValidationRegistry.validationResponse",
+      "tx": "0xbd6ff81a066d99be913bfcace9a743a3701e2802297cab86a290d0bef9ccae28",
+      "url": "https://monadvision.com/tx/0xbd6ff81a066d99be913bfcace9a743a3701e2802297cab86a290d0bef9ccae28",
+      "status": 1,
+      "block": 112814403,
+      "gasUsed": "160123"
+    }
+  ]
+}
