@@ -1,0 +1,1027 @@
+{
+ "kind": "live",
+ "ranAt": "2026-10-12T22:32:40.193Z",
+ "chainId": 143,
+ "explorer": "https://monadvision.com",
+ "contract": "0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9",
+ "contractUrl": "https://monadvision.com/address/0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9",
+ "validator": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+ "tag": "predge:settlement-risk-v1",
+ "plannedWorstCaseMON": "1.418626048",
+ "gasLimitCharged": "12666304",
+ "readBackBound": 22,
+ "verdicts": [
+  {
+   "market_id": "5592771",
+   "title": "Set Handicap: Evialina Laskevich (-1.5) vs Zoie Epps (+1.5)",
+   "state": "open",
+   "proposal": "Zoie Epps",
+   "outcome": null,
+   "score": null,
+   "requestHash": "0xc636811fc86534a9ee5f523e9b9c7490b211c56dfe487b0c7665b3e69bfef44f",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5592771.json",
+   "responseHash": null,
+   "responseURI": null,
+   "request": {
+    "tx": "0xdbde69675e5a8f1827de62f43070302d1e01689f84b3921797525be9974504f1",
+    "url": "https://monadvision.com/tx/0xdbde69675e5a8f1827de62f43070302d1e01689f84b3921797525be9974504f1",
+    "status": 1,
+    "block": 112874767,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": null,
+   "readBack": null
+  },
+  {
+   "market_id": "5592765",
+   "title": "Set Handicap: Zoie Epps (-1.5) vs Evialina Laskevich (+1.5)",
+   "state": "open",
+   "proposal": "Zoie Epps",
+   "outcome": null,
+   "score": null,
+   "requestHash": "0x134a66964d4d3666c8294aebe9552f926f1073a81001e4802cd35566ade6b533",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5592765.json",
+   "responseHash": null,
+   "responseURI": null,
+   "request": {
+    "tx": "0x468bb6fbcd21fce1b6558ccbf0bccc81e698ad566291fae6582787b8f13021be",
+    "url": "https://monadvision.com/tx/0x468bb6fbcd21fce1b6558ccbf0bccc81e698ad566291fae6582787b8f13021be",
+    "status": 1,
+    "block": 112874767,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": null,
+   "readBack": null
+  },
+  {
+   "market_id": "5219930",
+   "title": "Will Trump say \"Ammunition\" this week?",
+   "state": "open",
+   "proposal": "No",
+   "outcome": null,
+   "score": null,
+   "requestHash": "0x48c69bd02d7a2b777798db1a315ee72aa98d78a573bf276f9fc417a0cef14793",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5219930.json",
+   "responseHash": null,
+   "responseURI": null,
+   "request": {
+    "tx": "0x7bad42ecc810558321d8b27342637096b59f2e18941f29243318283592a1585a",
+    "url": "https://monadvision.com/tx/0x7bad42ecc810558321d8b27342637096b59f2e18941f29243318283592a1585a",
+    "status": 1,
+    "block": 112874768,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": null,
+   "readBack": null
+  },
+  {
+   "market_id": "5518151",
+   "title": "Stopin Oleh vs. Semenets Serhii: Total Games O/U 3.5",
+   "state": "open",
+   "proposal": "Over",
+   "outcome": null,
+   "score": null,
+   "requestHash": "0xa6b7d7096a9897d0bdaee08e1eaee97891f25cd3574ccd0884dfa686c26a5320",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5518151.json",
+   "responseHash": null,
+   "responseURI": null,
+   "request": {
+    "tx": "0xafb5f0e7cca8219159b2ab00f6ee21ae5560bf250a70f2d94251c8de2ff474a1",
+    "url": "https://monadvision.com/tx/0xafb5f0e7cca8219159b2ab00f6ee21ae5560bf250a70f2d94251c8de2ff474a1",
+    "status": 1,
+    "block": 112874769,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": null,
+   "readBack": null
+  },
+  {
+   "market_id": "5545588",
+   "title": "Pierluigi Gollini: 4+ saves",
+   "state": "open",
+   "proposal": "Yes",
+   "outcome": null,
+   "score": null,
+   "requestHash": "0x53cc1f16d932ff5452d3f68902a4303ab2b2435f191c6a9fa4f4f703a91e8f03",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5545588.json",
+   "responseHash": null,
+   "responseURI": null,
+   "request": {
+    "tx": "0x9c3bcde5705c79765cd1fa9638d320792aca893a8a154656fc301bef5efe2ecb",
+    "url": "https://monadvision.com/tx/0x9c3bcde5705c79765cd1fa9638d320792aca893a8a154656fc301bef5efe2ecb",
+    "status": 1,
+    "block": 112874769,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": null,
+   "readBack": null
+  },
+  {
+   "market_id": "5527590",
+   "title": "Albert Rusnák: 1+ goals + assists",
+   "state": "open",
+   "proposal": "No",
+   "outcome": null,
+   "score": null,
+   "requestHash": "0xc081f7dcfe63c298ec08f1e71ef078668f4949a3ecc7387dce3c672b0742c9f6",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5527590.json",
+   "responseHash": null,
+   "responseURI": null,
+   "request": {
+    "tx": "0x7d67f2b328c40c8ec46c1393619828cf659105504c11ff372a774d55ca336369",
+    "url": "https://monadvision.com/tx/0x7d67f2b328c40c8ec46c1393619828cf659105504c11ff372a774d55ca336369",
+    "status": 1,
+    "block": 112874770,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": null,
+   "readBack": null
+  },
+  {
+   "market_id": "5527470",
+   "title": "Albert Rusnák: 1+ assists",
+   "state": "open",
+   "proposal": "No",
+   "outcome": null,
+   "score": null,
+   "requestHash": "0x0acdbc0460bbfa7cfefa1b33b72f1242eda34362f4dfbbe8e3231bd0cc563940",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5527470.json",
+   "responseHash": null,
+   "responseURI": null,
+   "request": {
+    "tx": "0x02e7d2433a27db3bd23b878c3dcb7a3414a693961212fa841b62a68dce0dea07",
+    "url": "https://monadvision.com/tx/0x02e7d2433a27db3bd23b878c3dcb7a3414a693961212fa841b62a68dce0dea07",
+    "status": 1,
+    "block": 112874770,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": null,
+   "readBack": null
+  },
+  {
+   "market_id": "5531929",
+   "title": "Timo Werner: 1+ assists",
+   "state": "open",
+   "proposal": "No",
+   "outcome": null,
+   "score": null,
+   "requestHash": "0x47909d3b539873a21f4d230f05e94b97b063cc5aac6114a7e6b545dfbf10d984",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5531929.json",
+   "responseHash": null,
+   "responseURI": null,
+   "request": {
+    "tx": "0x56ced6f5cd9b482e0be054fc886e70a725a14cd4992ea33baa103be815a3ae98",
+    "url": "https://monadvision.com/tx/0x56ced6f5cd9b482e0be054fc886e70a725a14cd4992ea33baa103be815a3ae98",
+    "status": 1,
+    "block": 112874771,
+    "gasUsed": "227993",
+    "gasLimit": "227993"
+   },
+   "response": null,
+   "readBack": null
+  },
+  {
+   "market_id": "5532585",
+   "title": "Sergio Vasquez: 1+ assists",
+   "state": "open",
+   "proposal": "No",
+   "outcome": null,
+   "score": null,
+   "requestHash": "0x71037518f213765a322b32e675ba01271c151523cf3f90dfb5a09de860ab6791",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5532585.json",
+   "responseHash": null,
+   "responseURI": null,
+   "request": {
+    "tx": "0x739914ec785176b43554e91e8ad8b18166c34b768190cb7d1a83e10871e52eb9",
+    "url": "https://monadvision.com/tx/0x739914ec785176b43554e91e8ad8b18166c34b768190cb7d1a83e10871e52eb9",
+    "status": 1,
+    "block": 112874771,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": null,
+   "readBack": null
+  },
+  {
+   "market_id": "5532645",
+   "title": "Sergio Vasquez: 1+ goals + assists",
+   "state": "open",
+   "proposal": "No",
+   "outcome": null,
+   "score": null,
+   "requestHash": "0x7b21f9f8e48d748508dbb7c5411a2655a5597c9b62893baeb4f04c47bb2d4878",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5532645.json",
+   "responseHash": null,
+   "responseURI": null,
+   "request": {
+    "tx": "0xe769cb5333589f703923763445a270b4d68b1b68fc876154dd3a340ea279c52e",
+    "url": "https://monadvision.com/tx/0xe769cb5333589f703923763445a270b4d68b1b68fc876154dd3a340ea279c52e",
+    "status": 1,
+    "block": 112874772,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": null,
+   "readBack": null
+  },
+  {
+   "market_id": "5526858",
+   "title": "Tomás Jacob: 3+ shots",
+   "state": "open",
+   "proposal": "No",
+   "outcome": null,
+   "score": null,
+   "requestHash": "0x3de39fcb5759172bb76c8244460af3cf62bc05e50ba91258ce259ed6494fb009",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5526858.json",
+   "responseHash": null,
+   "responseURI": null,
+   "request": {
+    "tx": "0x424773ab2edb01c8f96d204d65755114d779d91cd0a64b633b0d333258bccaa2",
+    "url": "https://monadvision.com/tx/0x424773ab2edb01c8f96d204d65755114d779d91cd0a64b633b0d333258bccaa2",
+    "status": 1,
+    "block": 112874773,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": null,
+   "readBack": null
+  },
+  {
+   "market_id": "5508116",
+   "title": "Richie Laryea: 1+ goals + assists",
+   "state": "open",
+   "proposal": "No",
+   "outcome": null,
+   "score": null,
+   "requestHash": "0xa38c3d13c816feb75e26e6990f12a8f309a953f8783d8097df0f882f1a43f256",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5508116.json",
+   "responseHash": null,
+   "responseURI": null,
+   "request": {
+    "tx": "0x18b72da1664fa4cee1713f335604f6110be18a9985d7e8b30ab0ba900aa2f298",
+    "url": "https://monadvision.com/tx/0x18b72da1664fa4cee1713f335604f6110be18a9985d7e8b30ab0ba900aa2f298",
+    "status": 1,
+    "block": 112874773,
+    "gasUsed": "227993",
+    "gasLimit": "227993"
+   },
+   "response": null,
+   "readBack": null
+  },
+  {
+   "market_id": "5532382",
+   "title": "Will the announcers say \"Offside\" or \"Offsides\" during the Ravens vs Falcons game?",
+   "state": "settled",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0x53495b709d52fa70b8a9f18f06724800cdcf258def297377ea57ff69c09409a6",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5532382.json",
+   "responseHash": "0xb55a6f99e110b80ac9a9c8f951bfb429b59ef3c759852bfa6549cf8a16ef234e",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5532382.json",
+   "request": {
+    "tx": "0xee6f027b971c759a3c50169eb194c71a4272bc8da1f3af3b23b75832168d3379",
+    "url": "https://monadvision.com/tx/0xee6f027b971c759a3c50169eb194c71a4272bc8da1f3af3b23b75832168d3379",
+    "status": 1,
+    "block": 112874774,
+    "gasUsed": "216005",
+    "gasLimit": "216005"
+   },
+   "response": {
+    "tx": "0x807e6b1d175ab28e7cc52fa042d5a4469470dae684bfeec0475ef6fad3ca536d",
+    "url": "https://monadvision.com/tx/0x807e6b1d175ab28e7cc52fa042d5a4469470dae684bfeec0475ef6fad3ca536d",
+    "status": 1,
+    "block": 112874799,
+    "gasUsed": "238612",
+    "gasLimit": "238612"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0xb55a6f99e110b80ac9a9c8f951bfb429b59ef3c759852bfa6549cf8a16ef234e",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5377001",
+   "title": "Will David Autor win the Nobel Prize in Economics in 2026?",
+   "state": "settled",
+   "proposal": "No",
+   "outcome": "No",
+   "score": 100,
+   "requestHash": "0x500fcfc74bcee42d37af4bea80c3ba2462cae27946fe049d42a07a71cc59b4d3",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5377001.json",
+   "responseHash": "0x9c5899a8d9602b48b512fbc5199edda7e3cf3b55a3f49cd511d5957a80c494d6",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5377001.json",
+   "request": {
+    "tx": "0x573af7e1c59ecd3cf736249b7ca664cb34623d46a767b0bbcbb9b59571e6de50",
+    "url": "https://monadvision.com/tx/0x573af7e1c59ecd3cf736249b7ca664cb34623d46a767b0bbcbb9b59571e6de50",
+    "status": 1,
+    "block": 112874775,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0xee2d2760ef67598a72b2dfb627661cc7a0beeaa4fc42e64214768f97b8b43e0b",
+    "url": "https://monadvision.com/tx/0xee2d2760ef67598a72b2dfb627661cc7a0beeaa4fc42e64214768f97b8b43e0b",
+    "status": 1,
+    "block": 112874800,
+    "gasUsed": "238638",
+    "gasLimit": "238638"
+   },
+   "readBack": {
+    "response": 100,
+    "responseHash": "0x9c5899a8d9602b48b512fbc5199edda7e3cf3b55a3f49cd511d5957a80c494d6",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5530221",
+   "title": "Mateusz Bogusz: 1+ assists",
+   "state": "settled",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0xca91fae2684917344719cd824f78097d28090e245fc0fe52e9c16fe82966b794",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5530221.json",
+   "responseHash": "0x992791e199951714a560ba4730adce6fc080697e54351cdeca3e67e173ec490a",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5530221.json",
+   "request": {
+    "tx": "0x89773d9befc3791fac49d31150633178b7f64608a9fcb774faa4735e9e14d739",
+    "url": "https://monadvision.com/tx/0x89773d9befc3791fac49d31150633178b7f64608a9fcb774faa4735e9e14d739",
+    "status": 1,
+    "block": 112874775,
+    "gasUsed": "227993",
+    "gasLimit": "227993"
+   },
+   "response": {
+    "tx": "0xc81931a30dbfd31c9503d61a3d4797b3e91c1a6f242194aa23755ec3bb3093a7",
+    "url": "https://monadvision.com/tx/0xc81931a30dbfd31c9503d61a3d4797b3e91c1a6f242194aa23755ec3bb3093a7",
+    "status": 1,
+    "block": 112874801,
+    "gasUsed": "250599",
+    "gasLimit": "250599"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x992791e199951714a560ba4730adce6fc080697e54351cdeca3e67e173ec490a",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5581284",
+   "title": "André: 1+ shots",
+   "state": "settled",
+   "proposal": "Yes",
+   "outcome": "No",
+   "score": 0,
+   "requestHash": "0x02d2c3a0e9c6b77a218ca7eef7788e8046bb87cbadefb572d338dda33a0342a7",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5581284.json",
+   "responseHash": "0x4db142c4c7dc26b744f720128d31a8d9c1fb1997477742779a08c2661e253cf1",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5581284.json",
+   "request": {
+    "tx": "0x55c5bd057fdec74610c098c4e43c48e7575fb74c191dfebd79197854b6dc66d5",
+    "url": "https://monadvision.com/tx/0x55c5bd057fdec74610c098c4e43c48e7575fb74c191dfebd79197854b6dc66d5",
+    "status": 1,
+    "block": 112874776,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x22dd7d80e4bc371d6e307e4f3e473019bf6f3199cfe9245f33d15fa2eaa37191",
+    "url": "https://monadvision.com/tx/0x22dd7d80e4bc371d6e307e4f3e473019bf6f3199cfe9245f33d15fa2eaa37191",
+    "status": 1,
+    "block": 112874801,
+    "gasUsed": "238625",
+    "gasLimit": "238625"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x4db142c4c7dc26b744f720128d31a8d9c1fb1997477742779a08c2661e253cf1",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5369848",
+   "title": "Games Total: O/U 2.5",
+   "state": "settled",
+   "proposal": "50-50",
+   "outcome": "Under",
+   "score": 0,
+   "requestHash": "0x8d4d2ba8b02e34dc2ce36783a45c5d567c14c08e57666b0d43131556218e6abf",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5369848.json",
+   "responseHash": "0x6db7a207dc23c76706227a73ce441a8541c7ecd603d349345f6d3e2e02e6f677",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5369848.json",
+   "request": {
+    "tx": "0x83a849c4eb29476d589a8dace57b92b7627bf9985b3da12ccfcb1fa831acb23c",
+    "url": "https://monadvision.com/tx/0x83a849c4eb29476d589a8dace57b92b7627bf9985b3da12ccfcb1fa831acb23c",
+    "status": 1,
+    "block": 112874776,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x944fb9dd5b4c04a3208f6e408083bf6488377a0b6a760f6efec4585cbf69ba67",
+    "url": "https://monadvision.com/tx/0x944fb9dd5b4c04a3208f6e408083bf6488377a0b6a760f6efec4585cbf69ba67",
+    "status": 1,
+    "block": 112874802,
+    "gasUsed": "238625",
+    "gasLimit": "238625"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x6db7a207dc23c76706227a73ce441a8541c7ecd603d349345f6d3e2e02e6f677",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5392195",
+   "title": "Map Handicap: LDP (-1.5) vs METANOIA WOLVES (+1.5)",
+   "state": "settled",
+   "proposal": "50-50",
+   "outcome": "largadosypelados",
+   "score": 0,
+   "requestHash": "0x839eaec6e5d096707c3fc7e0953a7813557e610dc1fa7fd11fe7b18ce2fe1e1f",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5392195.json",
+   "responseHash": "0xb488c5a1704a0f1b8702acb09222fe6d30bfbfacc43b70df5beb663369f898b9",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5392195.json",
+   "request": {
+    "tx": "0xa4eb55b6560729352a957c94173ae75ecb0cb26d2e9038737390e5a60fcb1725",
+    "url": "https://monadvision.com/tx/0xa4eb55b6560729352a957c94173ae75ecb0cb26d2e9038737390e5a60fcb1725",
+    "status": 1,
+    "block": 112874777,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x76dc60b064a44de2a7e3de0bc133a932291f3e6b4e1dcfff24f818ce92e1beae",
+    "url": "https://monadvision.com/tx/0x76dc60b064a44de2a7e3de0bc133a932291f3e6b4e1dcfff24f818ce92e1beae",
+    "status": 1,
+    "block": 112874802,
+    "gasUsed": "238625",
+    "gasLimit": "238625"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0xb488c5a1704a0f1b8702acb09222fe6d30bfbfacc43b70df5beb663369f898b9",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5557868",
+   "title": "Dota 2: Team Yandex vs Team Spirit - Game 3 Winner",
+   "state": "settled",
+   "proposal": "Team Spirit",
+   "outcome": "Team Yandex",
+   "score": 0,
+   "requestHash": "0xb3d41d25116e49f39829bc83328dc5075f80b3b2ac0bb2671469ed496f0a86e9",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5557868.json",
+   "responseHash": "0xf03fd9a0d0ce6a195d0fd7548f7cbfae605f390a2627c61fbe192bc1e0e1599b",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5557868.json",
+   "request": {
+    "tx": "0x70b62c093dc38bf4f244fb355d0421a0a7c28fbd589cee14d4a1c7e15eeda88c",
+    "url": "https://monadvision.com/tx/0x70b62c093dc38bf4f244fb355d0421a0a7c28fbd589cee14d4a1c7e15eeda88c",
+    "status": 1,
+    "block": 112874777,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x9244ee50db64f84290c09961d804bfbcdfa8838830b4390ef6d90286f11cdc9e",
+    "url": "https://monadvision.com/tx/0x9244ee50db64f84290c09961d804bfbcdfa8838830b4390ef6d90286f11cdc9e",
+    "status": 1,
+    "block": 112874803,
+    "gasUsed": "238625",
+    "gasLimit": "238625"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0xf03fd9a0d0ce6a195d0fd7548f7cbfae605f390a2627c61fbe192bc1e0e1599b",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5557885",
+   "title": "Game 3: Ends in Daytime?",
+   "state": "settled",
+   "proposal": "Yes",
+   "outcome": "No",
+   "score": 0,
+   "requestHash": "0x7609e2a5dc1c390b4e642deb2afeb4d266a60eb71ccc5a85021d5a44950e5b2e",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5557885.json",
+   "responseHash": "0x91a2d4536541b716263e612617ebab13df3accc402056cdb315d670b38508baf",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5557885.json",
+   "request": {
+    "tx": "0x499fe3d714a493de487128ce9b54e39057c910570ddf7bdda84e44a4e2ae6904",
+    "url": "https://monadvision.com/tx/0x499fe3d714a493de487128ce9b54e39057c910570ddf7bdda84e44a4e2ae6904",
+    "status": 1,
+    "block": 112874778,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0xc38e81f8708634a7e92ecb4085509582e988b74e1618be7071a0d526e10e04f0",
+    "url": "https://monadvision.com/tx/0xc38e81f8708634a7e92ecb4085509582e988b74e1618be7071a0d526e10e04f0",
+    "status": 1,
+    "block": 112874803,
+    "gasUsed": "238625",
+    "gasLimit": "238625"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x91a2d4536541b716263e612617ebab13df3accc402056cdb315d670b38508baf",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5535434",
+   "title": "Takuya Yasui: Anytime Goalscorer",
+   "state": "settled",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0x72fa69873e211d479d40eb3ca789d5e385343173fed163d822ce3bd5936c0375",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5535434.json",
+   "responseHash": "0xdf742f06e21d832ab26dde026c0decd22db55a0191eb4ae7e0670211893072d3",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5535434.json",
+   "request": {
+    "tx": "0x30cea46e747b9fc9f084c3f10ebbf4a5b2fd96cace7ab2f1c0987fa3484114c4",
+    "url": "https://monadvision.com/tx/0x30cea46e747b9fc9f084c3f10ebbf4a5b2fd96cace7ab2f1c0987fa3484114c4",
+    "status": 1,
+    "block": 112874778,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x8bba18246900485896b9f8269a9957a70f169f99155394469e76638a70aa2cf2",
+    "url": "https://monadvision.com/tx/0x8bba18246900485896b9f8269a9957a70f169f99155394469e76638a70aa2cf2",
+    "status": 1,
+    "block": 112874804,
+    "gasUsed": "238625",
+    "gasLimit": "238625"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0xdf742f06e21d832ab26dde026c0decd22db55a0191eb4ae7e0670211893072d3",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5530168",
+   "title": "Wil Trapp: 1+ assists",
+   "state": "settled",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0x924f5003b5a861294ee355989cb074b24808d72a4d4973451e249676d37b3ca3",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5530168.json",
+   "responseHash": "0x2679548bfe3a772be3ddd6ad76c5711a4225c7d33a9a4e67b68baffb465c2ec0",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5530168.json",
+   "request": {
+    "tx": "0xa25338c570c04033725228ff13cd6d4aaf9eb5099bbebb84e82ed069f665b1b3",
+    "url": "https://monadvision.com/tx/0xa25338c570c04033725228ff13cd6d4aaf9eb5099bbebb84e82ed069f665b1b3",
+    "status": 1,
+    "block": 112874779,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x01da286200a58c5bfc4d8b067e9d097c4486a0bb51a2887c3f0268dccd11fe7e",
+    "url": "https://monadvision.com/tx/0x01da286200a58c5bfc4d8b067e9d097c4486a0bb51a2887c3f0268dccd11fe7e",
+    "status": 1,
+    "block": 112874804,
+    "gasUsed": "238625",
+    "gasLimit": "238625"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x2679548bfe3a772be3ddd6ad76c5711a4225c7d33a9a4e67b68baffb465c2ec0",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5490323",
+   "title": "Bohdan Popov: Anytime Goalscorer",
+   "state": "settled",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0x134f991d7f040fa595e97c48dde45cbd72a4885ec446e8b8ccc5371eba3105cc",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5490323.json",
+   "responseHash": "0xfb4ab6b94fae5532bc5fc4beedb92be0d093bfd46f74f61ebb47fcc966fd2f54",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5490323.json",
+   "request": {
+    "tx": "0x641ff257a574c8c5e5971156cdf162d847388521966a647a34ba8423d1a47de9",
+    "url": "https://monadvision.com/tx/0x641ff257a574c8c5e5971156cdf162d847388521966a647a34ba8423d1a47de9",
+    "status": 1,
+    "block": 112874779,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x2474854a907b4777a1ef9ef6d21168ff5bc88fea211b3b928dc8a3bd8467f046",
+    "url": "https://monadvision.com/tx/0x2474854a907b4777a1ef9ef6d21168ff5bc88fea211b3b928dc8a3bd8467f046",
+    "status": 1,
+    "block": 112874805,
+    "gasUsed": "238625",
+    "gasLimit": "238625"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0xfb4ab6b94fae5532bc5fc4beedb92be0d093bfd46f74f61ebb47fcc966fd2f54",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5344793",
+   "title": "3Q Spread: Missouri (-3.5)",
+   "state": "settled",
+   "proposal": "Texas A&M",
+   "outcome": "Missouri",
+   "score": 0,
+   "requestHash": "0xc94512d2025d0f2431386fe5458f0277fd1e1e8ea49dcf5b929fce5e7e6d6699",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5344793.json",
+   "responseHash": "0x124cda16541329884e6c7b8e377fc6885aa1c3d2bfa13233e0bb6cb54309c2b3",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5344793.json",
+   "request": {
+    "tx": "0xf3e6a62ddfade1c0d83ad0e58e3ae006f9c1b4e95948dadec769dec8a1058291",
+    "url": "https://monadvision.com/tx/0xf3e6a62ddfade1c0d83ad0e58e3ae006f9c1b4e95948dadec769dec8a1058291",
+    "status": 1,
+    "block": 112874780,
+    "gasUsed": "227993",
+    "gasLimit": "227993"
+   },
+   "response": {
+    "tx": "0x0f4fcd68eed37d08cfd57fde44473a621876cbbfcbb228414e28f7d8948ccb98",
+    "url": "https://monadvision.com/tx/0x0f4fcd68eed37d08cfd57fde44473a621876cbbfcbb228414e28f7d8948ccb98",
+    "status": 1,
+    "block": 112874806,
+    "gasUsed": "250599",
+    "gasLimit": "250599"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x124cda16541329884e6c7b8e377fc6885aa1c3d2bfa13233e0bb6cb54309c2b3",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5096739",
+   "title": "Texas A&M vs. Missouri: 4Q O/U 7.5",
+   "state": "settled",
+   "proposal": "Over",
+   "outcome": "Over",
+   "score": 100,
+   "requestHash": "0x72a931e72c6b82225f7ccf1d40a0acbb16e210c347b791038b6116872c2bd215",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5096739.json",
+   "responseHash": "0xd28c13855c48fb6e7dc4c93bddccb6073ee4dfb6140557dbbed8472f165de7bc",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5096739.json",
+   "request": {
+    "tx": "0x13a0621c0dabaaf6a0e1ca82421bb84c5f2dfb196b790f0d26757c0fd420d78e",
+    "url": "https://monadvision.com/tx/0x13a0621c0dabaaf6a0e1ca82421bb84c5f2dfb196b790f0d26757c0fd420d78e",
+    "status": 1,
+    "block": 112874781,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x8d0472f01497f36fcd81e914d5c3dadd8ca6a664ddbc62e6efc0ed0883c7c8db",
+    "url": "https://monadvision.com/tx/0x8d0472f01497f36fcd81e914d5c3dadd8ca6a664ddbc62e6efc0ed0883c7c8db",
+    "status": 1,
+    "block": 112874806,
+    "gasUsed": "238638",
+    "gasLimit": "238638"
+   },
+   "readBack": {
+    "response": 100,
+    "responseHash": "0xd28c13855c48fb6e7dc4c93bddccb6073ee4dfb6140557dbbed8472f165de7bc",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5344797",
+   "title": "3Q Spread: Missouri (-5.5)",
+   "state": "settled",
+   "proposal": "Texas A&M",
+   "outcome": "Missouri",
+   "score": 0,
+   "requestHash": "0xaf6958babb90317ff5053c526debbf4753f44939242e08413c211a8e490cae88",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5344797.json",
+   "responseHash": "0xd35a7f1a3b9ebe787c81de2b25ecc9681cf8e4ffdd24e0153686b00ace650810",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5344797.json",
+   "request": {
+    "tx": "0xf34225c2837bd8c2e14fcde8552d85ccdf7a0603023208fa1c2183a03677e5a1",
+    "url": "https://monadvision.com/tx/0xf34225c2837bd8c2e14fcde8552d85ccdf7a0603023208fa1c2183a03677e5a1",
+    "status": 1,
+    "block": 112874781,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x39beef0e7509d177249db81517ec65140c9276d76cd9140deeef89073e1a2684",
+    "url": "https://monadvision.com/tx/0x39beef0e7509d177249db81517ec65140c9276d76cd9140deeef89073e1a2684",
+    "status": 1,
+    "block": 112874807,
+    "gasUsed": "238625",
+    "gasLimit": "238625"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0xd35a7f1a3b9ebe787c81de2b25ecc9681cf8e4ffdd24e0153686b00ace650810",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5096734",
+   "title": "Texas A&M vs. Missouri: 3Q O/U 7.5",
+   "state": "settled",
+   "proposal": "Under",
+   "outcome": "Over",
+   "score": 0,
+   "requestHash": "0xe6818090909a76c5b17d20eefb92b6fe8b9de4ddbdd049c9ceb3d62bc61b1f49",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5096734.json",
+   "responseHash": "0x2c06b4f4a3fc780638651da089db5f21220f5bc86ae720bb6ef2cecfd159b571",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5096734.json",
+   "request": {
+    "tx": "0xa9cf9c561a99eb7a3bd9922b188ebb4c1653134187081a2bd7d2907020bd4b77",
+    "url": "https://monadvision.com/tx/0xa9cf9c561a99eb7a3bd9922b188ebb4c1653134187081a2bd7d2907020bd4b77",
+    "status": 1,
+    "block": 112874782,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x9f80f239a6d202308fdedec9666fa169ed23c7fc9f4024a70f77c1071eb4b4ed",
+    "url": "https://monadvision.com/tx/0x9f80f239a6d202308fdedec9666fa169ed23c7fc9f4024a70f77c1071eb4b4ed",
+    "status": 1,
+    "block": 112874807,
+    "gasUsed": "238625",
+    "gasLimit": "238625"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x2c06b4f4a3fc780638651da089db5f21220f5bc86ae720bb6ef2cecfd159b571",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5491095",
+   "title": "Bitcoin above 84,800 on October 10, 10AM ET?",
+   "state": "settled",
+   "proposal": "No",
+   "outcome": "No",
+   "score": 100,
+   "requestHash": "0xa92a89189e2507e6ce1fa535c6a8e365541a3b5b8a306a5297d5c026772abab2",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491095.json",
+   "responseHash": "0xe355bcf3013ff45be562858b64268a8ea55a9d6110e74aa184cf4ae2f4432d1b",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491095.json",
+   "request": {
+    "tx": "0x9bd1b008eb593a5dc766e669f1b05525be1b309a04542bc31ae74a51d185d63f",
+    "url": "https://monadvision.com/tx/0x9bd1b008eb593a5dc766e669f1b05525be1b309a04542bc31ae74a51d185d63f",
+    "status": 1,
+    "block": 112874783,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0xba726639c96f51d69e60148625c01fe781ec0746eb22cc59520ec350edc3209a",
+    "url": "https://monadvision.com/tx/0xba726639c96f51d69e60148625c01fe781ec0746eb22cc59520ec350edc3209a",
+    "status": 1,
+    "block": 112874808,
+    "gasUsed": "238638",
+    "gasLimit": "238638"
+   },
+   "readBack": {
+    "response": 100,
+    "responseHash": "0xe355bcf3013ff45be562858b64268a8ea55a9d6110e74aa184cf4ae2f4432d1b",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5491113",
+   "title": "Bitcoin above 81,000 on October 10, 10AM ET?",
+   "state": "settled",
+   "proposal": "Yes",
+   "outcome": "Yes",
+   "score": 100,
+   "requestHash": "0x3373f8575d18aab5d0b478278f378c6e938820afe812d2944f7317f67668a984",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491113.json",
+   "responseHash": "0x05dba73a46c3cd23f65694fd0c226f5d97f405c8b1df8e7b0e46af0fe0d63d31",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491113.json",
+   "request": {
+    "tx": "0x25a3ef792d21e51bba0931cfb26bd25dfa52629a8e6220117ec548c2aedc7ad3",
+    "url": "https://monadvision.com/tx/0x25a3ef792d21e51bba0931cfb26bd25dfa52629a8e6220117ec548c2aedc7ad3",
+    "status": 1,
+    "block": 112874783,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0xa36091175d4d697a365b5bda90d1f9bc3c38920dd1876720acef68bd9e5ea6ba",
+    "url": "https://monadvision.com/tx/0xa36091175d4d697a365b5bda90d1f9bc3c38920dd1876720acef68bd9e5ea6ba",
+    "status": 1,
+    "block": 112874809,
+    "gasUsed": "238638",
+    "gasLimit": "238638"
+   },
+   "readBack": {
+    "response": 100,
+    "responseHash": "0x05dba73a46c3cd23f65694fd0c226f5d97f405c8b1df8e7b0e46af0fe0d63d31",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5491114",
+   "title": "Bitcoin above 80,800 on October 10, 10AM ET?",
+   "state": "settled",
+   "proposal": "Yes",
+   "outcome": "Yes",
+   "score": 100,
+   "requestHash": "0x5215ac3f8f3a96d1df9ddacd4f40052af1ce356905dca26d1708bfd23d2c0ef5",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491114.json",
+   "responseHash": "0xe7635e4b6e3a8a6f8934f21c7dd461e9f44d9d829d70fcb7769e56e2247edd7d",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491114.json",
+   "request": {
+    "tx": "0xe7d063dc36e01e68961622622397dbe1a878094b2856dee30c44545d48c36d96",
+    "url": "https://monadvision.com/tx/0xe7d063dc36e01e68961622622397dbe1a878094b2856dee30c44545d48c36d96",
+    "status": 1,
+    "block": 112874784,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0xbfa9bbed96ac08a48c8ef6450f31014f85a70d559842477591e18b9b69070a6e",
+    "url": "https://monadvision.com/tx/0xbfa9bbed96ac08a48c8ef6450f31014f85a70d559842477591e18b9b69070a6e",
+    "status": 1,
+    "block": 112874809,
+    "gasUsed": "238638",
+    "gasLimit": "238638"
+   },
+   "readBack": {
+    "response": 100,
+    "responseHash": "0xe7635e4b6e3a8a6f8934f21c7dd461e9f44d9d829d70fcb7769e56e2247edd7d",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5491112",
+   "title": "Bitcoin above 81,200 on October 10, 10AM ET?",
+   "state": "settled",
+   "proposal": "Yes",
+   "outcome": "Yes",
+   "score": 100,
+   "requestHash": "0x178fd8a6099668d14f2d3f8213d318b4bf08a1bb9e4159208950de969f0bd2a1",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491112.json",
+   "responseHash": "0xc3965da3f47095e89026eab0207e918fd6606718dda5310db400d00d7a791c6d",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491112.json",
+   "request": {
+    "tx": "0x58f9590b2ede4858ef47df1a14e2e2953b6930216201c5b0cc638a6a92f7114a",
+    "url": "https://monadvision.com/tx/0x58f9590b2ede4858ef47df1a14e2e2953b6930216201c5b0cc638a6a92f7114a",
+    "status": 1,
+    "block": 112874784,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x4643dcf23a06b32584c6eca08f4f6f41a7c6d0b1cf247d544d469d404a76056a",
+    "url": "https://monadvision.com/tx/0x4643dcf23a06b32584c6eca08f4f6f41a7c6d0b1cf247d544d469d404a76056a",
+    "status": 1,
+    "block": 112874810,
+    "gasUsed": "238625",
+    "gasLimit": "238625"
+   },
+   "readBack": {
+    "response": 100,
+    "responseHash": "0xc3965da3f47095e89026eab0207e918fd6606718dda5310db400d00d7a791c6d",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5491096",
+   "title": "Bitcoin above 84,600 on October 10, 10AM ET?",
+   "state": "settled",
+   "proposal": "No",
+   "outcome": "No",
+   "score": 100,
+   "requestHash": "0x43e98c9550f50f3daec9cf54415fb4cbf1bcf805ffbe016fa411fcfcfa173f88",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491096.json",
+   "responseHash": "0xd90e9665fac48c2d4f957a31904e50ec27ff4cc1665674dcb389292b2bca095d",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491096.json",
+   "request": {
+    "tx": "0x77278042839f3abbc9d04afa3bac7196bf4e1948eba58d6601f18e03a3ac1c24",
+    "url": "https://monadvision.com/tx/0x77278042839f3abbc9d04afa3bac7196bf4e1948eba58d6601f18e03a3ac1c24",
+    "status": 1,
+    "block": 112874785,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0xb00d657a5034410dfd4c0a7ac318d273d4bfeef19e52d621b58abde0d63b7206",
+    "url": "https://monadvision.com/tx/0xb00d657a5034410dfd4c0a7ac318d273d4bfeef19e52d621b58abde0d63b7206",
+    "status": 1,
+    "block": 112874810,
+    "gasUsed": "238638",
+    "gasLimit": "238638"
+   },
+   "readBack": {
+    "response": 100,
+    "responseHash": "0xd90e9665fac48c2d4f957a31904e50ec27ff4cc1665674dcb389292b2bca095d",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "4838803",
+   "title": "Will the next Google Gemini Pro model be released by October 9, 2026?",
+   "state": "settled",
+   "proposal": "No",
+   "outcome": "No",
+   "score": 100,
+   "requestHash": "0x723a50aff20714a8a1661330ed2a52ce3d705ef7df76672d51435071337620fc",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/4838803.json",
+   "responseHash": "0xe507e42c2b461311e564517a50089c9fd6977eb980743b8670f87bc051f7714f",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/4838803.json",
+   "request": {
+    "tx": "0xccfe75b4a22eca6410ce799c79c1835f2615d2b8eb2db241601992835f970d34",
+    "url": "https://monadvision.com/tx/0xccfe75b4a22eca6410ce799c79c1835f2615d2b8eb2db241601992835f970d34",
+    "status": 1,
+    "block": 112874785,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0xdb02b163695239c146b5a568dd770e3302c7e77165aa251a748e941648452ac8",
+    "url": "https://monadvision.com/tx/0xdb02b163695239c146b5a568dd770e3302c7e77165aa251a748e941648452ac8",
+    "status": 1,
+    "block": 112874811,
+    "gasUsed": "238638",
+    "gasLimit": "238638"
+   },
+   "readBack": {
+    "response": 100,
+    "responseHash": "0xe507e42c2b461311e564517a50089c9fd6977eb980743b8670f87bc051f7714f",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5455876",
+   "title": "Will Chicago, IL face tornado risk on October 9?",
+   "state": "settled",
+   "proposal": "Yes",
+   "outcome": "No",
+   "score": 0,
+   "requestHash": "0xd438d202b59181b3e39310e36fa7871b94b7a07686a7755d4e101ed8a7f5e24d",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5455876.json",
+   "responseHash": "0xe79085a36aff092a0a36f02ba58bc94d7cf1e98fdb30491f2daa759d6a9c63fa",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5455876.json",
+   "request": {
+    "tx": "0x8f24cda2a85ed3ff8bff7e99cdcb46c1a7680652ebca159c01c84313bb1dd3d5",
+    "url": "https://monadvision.com/tx/0x8f24cda2a85ed3ff8bff7e99cdcb46c1a7680652ebca159c01c84313bb1dd3d5",
+    "status": 1,
+    "block": 112874786,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x380c484f0aec34dad3348cccbd325e9a669e9ac7ec81600f0a87bbf1d795d20c",
+    "url": "https://monadvision.com/tx/0x380c484f0aec34dad3348cccbd325e9a669e9ac7ec81600f0a87bbf1d795d20c",
+    "status": 1,
+    "block": 112874811,
+    "gasUsed": "238625",
+    "gasLimit": "238625"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0xe79085a36aff092a0a36f02ba58bc94d7cf1e98fdb30491f2daa759d6a9c63fa",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  }
+ ]
+}
