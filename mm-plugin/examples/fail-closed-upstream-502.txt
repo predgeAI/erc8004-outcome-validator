@@ -1,0 +1,4 @@
+$ mm predge check 1137824 --format text
+Error [PREDGE_CHECK_FAILED]: GET https://api.predge.io/v1/settlement-risk/1137824: HTTP 502 ({"error":"upstream_unavailable","message":"Polygon RPC or the Polymarket market index did not answer; retry shortly."})
+Hint: Unknown is not safe: do not trade this market until the check succeeds.
+[exit 1]

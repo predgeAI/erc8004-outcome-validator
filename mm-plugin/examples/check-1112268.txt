@@ -1,0 +1,94 @@
+$ mm predge check 1112268 --format text
+input:             1112268
+market:
+  id: 1112268
+  slug: sea-tor-rom-2026-01-18-total-2pt5
+  question: Torino FC vs. AS Roma: O/U 2.5
+  conditionId: 0xddff7251af9c56b2048edd2513019e55ae104143faa97d5799978f926bfcf1e0
+  outcomes:
+    - Over
+    - Under
+  closed: true
+  endDate: 2026-01-18T17:00:00Z
+riskLevel:         resolved
+recommendation:    resolved: the on-chain resolution is final (Under); nothing is left to settle.
+umaState:          settled
+settlement:        final: Under
+disputeCount:      1
+openDispute:       false
+sentToUmaVote:     false
+paused:            false
+disputedProposal:  Over
+currentProposal:   —
+proposal:          —
+finalOutcome:      Under
+proposalVsOutcome: disputed proposal Over was overturned: final outcome Under
+timeline:
+  - at: 2026-01-13T21:12:12Z
+    event: dispute 1 of proposal Over
+    tx: 0x7e59d684ba06456639386a8ec25d04ef02a2769d2cf1435887188b91ea664540
+    url: https://polygonscan.com/tx/0x7e59d684ba06456639386a8ec25d04ef02a2769d2cf1435887188b91ea664540
+  - at: 2026-10-12T21:24:37Z
+    event: state at check time: resolved on chain, outcome Under
+    tx: null
+    url: null
+record:
+  url: https://api.predge.io/v1/settlement-risk/1112268
+  kid: 13fa3d18a369e6c7
+  checkedAt: 2026-10-12T21:24:37Z
+  issuedAt: 2026-10-12T21:25:01.144Z
+  signature: true
+  pinnedKey: true
+  contentHash: true
+  conditionIdMatches: true
+verdicts:
+  - chainId: 10143
+    network: Monad testnet
+    contract: 0x884764736dBe1FD36291bDd3Afd50A75465F6e8A
+    requestHash: 0x9ccefa67ebdc1f3f4ee31d17616a37be2546deca5dd2847523942f1e7e396e4a
+    found: true
+    score: 0
+    validator: 0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9
+    validatorMatches: true
+    responseHash: 0xc762be90c1831cf043a2f11bbc1ab1e6913cd465496a8138d87dc5897fc41220
+    tag: predge:settlement-risk-v1
+    lastUpdate: 2026-10-07T11:39:23.000Z
+    bound: true
+    scoreConsistent: true
+    explorerUrl: https://testnet.monadvision.com/tx/0x64a9cc8fc9caa13be5200965498d7219dffbc1c0eea7da5f3bd4d8bc0644fee5
+    via: https://testnet-rpc.monad.xyz (ctx.publicClient(10143) failed: A project id is required to resolve the default EVM gateway RPC URL.)
+    problems: []
+  - chainId: 143
+    network: Monad mainnet
+    contract: 0x8004Cc8439f36fd5F9F049D9fF86523Df6dAAB58
+    requestHash: 0x602f611a1fa9d37865d5f0802698a02c89eb5befd88683f7ef465fd57923ac79
+    found: true
+    score: 100
+    validator: 0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9
+    validatorMatches: true
+    responseHash: 0xf3deec0f5569be197e31cc27f74edd4d2cfcc6c33f169f934a1886f82e8048b8
+    tag: predge:resolved-outcome-vs-claim
+    lastUpdate: 2026-10-12T17:28:22.000Z
+    bound: true
+    scoreConsistent: null
+    explorerUrl: https://monadvision.com/tx/0xbd6ff81a066d99be913bfcace9a743a3701e2802297cab86a290d0bef9ccae28
+    via: https://rpc.monad.xyz (ctx.publicClient(143) failed: A project id is required to resolve the default EVM gateway RPC URL.)
+    problems: []
+verdictNote:       —
+safeToAct:         true
+maxRisk:           ok
+reason:            the on-chain resolution is final (Under); nothing is left to settle (risk resolved, within the ok limit); the Monad testnet verdict is bound to the signed record
+
+Hint: Torino FC vs. AS Roma: O/U 2.5 (market 1112268, sea-tor-rom-2026-01-18-total-2pt5)
+Risk:      RESOLVED  (UMA state settled; final: Under)
+Disputes:  1
+  2026-01-13T21:12:12Z  dispute 1 of proposal Over  https://polygonscan.com/tx/0x7e59d684ba06456639386a8ec25d04ef02a2769d2cf1435887188b91ea664540
+  2026-10-12T21:24:37Z  state at check time: resolved on chain, outcome Under
+Outcome:   disputed proposal Over was overturned: final outcome Under
+Record:    signed by Predge key 13fa3d18a369e6c7, signature ok, pinned key ok, content hash ok, condition id matches; checked 2026-10-12T21:24:37Z
+Verdict:   Monad testnet: score 0, disputed proposal Over did not stand (tag predge:settlement-risk-v1), bound to the signed record, validator is Predge
+           https://testnet.monadvision.com/tx/0x64a9cc8fc9caa13be5200965498d7219dffbc1c0eea7da5f3bd4d8bc0644fee5
+Verdict:   Monad mainnet: score 100 (tag predge:resolved-outcome-vs-claim), bound to the signed record, validator is Predge
+           https://monadvision.com/tx/0xbd6ff81a066d99be913bfcace9a743a3701e2802297cab86a290d0bef9ccae28
+Safe to act: yes, because the on-chain resolution is final (Under); nothing is left to settle (risk resolved, within the ok limit); the Monad testnet verdict is bound to the signed record
+[exit 0]

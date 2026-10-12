@@ -1,0 +1,4 @@
+$ mm predge guard 1112268 --side Under --size 10 --format text
+Error [PREDGE_GUARD_REFUSED]: Refused: the market is closed for trading (final outcome Under); settlement risk is resolved
+Hint: Do not run mm predict place for market 1112268. Re-run mm predge check 1112268 later.
+[exit 1]

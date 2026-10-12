@@ -1,0 +1,270 @@
+$ mm predge scan --address 0x88b21efc4aa4e08cdc125300ad6b3a520811e1d1 --format text
+address:          0x88b21efc4aa4e08cdc125300ad6b3a520811e1d1
+source:           https://data-api.polymarket.com/v2/positions
+positionsFetched: 13
+checked:          13
+flagged:
+  - conditionId: 0x5c7e32e5ff31d197362b279a0443a511a7007bd1993ef8a655b3a99a222aafa8
+    slug: will-the-social-reckoning-opening-weekend-box-office-be-between-5m-and-7m
+    title: Will "The Social Reckoning" Opening Weekend Box Office be between 5m and 7m?
+    outcome: Yes
+    size: 2243.39
+    value: 2234.4164
+    status: OPEN
+    redeemable: false
+    endDate: 2026-10-11
+    marketId: 5105582
+    riskLevel: watch
+    settlement: proposed Yes, not final
+    disputeCount: 0
+    flagged: true
+    flag: proposed-not-final
+    recommendation: watch: "Yes" proposed, challenge window ends 2026-10-12T22:37:51Z; no dispute yet.
+    error: null
+  - conditionId: 0xac42f1436a4f532b4c5f2aff3a7b689ea397196966d3d7d57c63933464ec8622
+    slug: will-the-social-reckoning-opening-weekend-box-office-be-less-than-5m
+    title: Will "The Social Reckoning" Opening Weekend Box Office be less than 5m?
+    outcome: No
+    size: 1865.22
+    value: 1864.2873
+    status: OPEN
+    redeemable: false
+    endDate: 2026-10-11
+    marketId: 5105581
+    riskLevel: watch
+    settlement: proposed No, not final
+    disputeCount: 0
+    flagged: true
+    flag: proposed-not-final
+    recommendation: watch: "No" proposed, challenge window ends 2026-10-12T22:37:35Z; no dispute yet.
+    error: null
+  - conditionId: 0x9cda33dff46f30372b7cd829497bef58a09f92ec7ceb96bb2c3288f29bc1048e
+    slug: will-verity-2nd-weekend-box-office-be-between-12m-and-13m
+    title: Will "Verity" 2nd Weekend Box Office be between 12m and 13m?
+    outcome: Yes
+    size: 1331.66
+    value: 1315.0142
+    status: OPEN
+    redeemable: false
+    endDate: 2026-10-11
+    marketId: 5394256
+    riskLevel: watch
+    settlement: proposed Yes, not final
+    disputeCount: 0
+    flagged: true
+    flag: proposed-not-final
+    recommendation: watch: "Yes" proposed, challenge window ends 2026-10-12T21:50:45Z; no dispute yet.
+    error: null
+  - conditionId: 0x92156c87e7f6665ede903c1a3bc3a358509c4cb340657a6ddeada22fb40de51f
+    slug: will-resident-evil-4th-weekend-box-office-be-at-least-7m
+    title: Will "Resident Evil" 4th Weekend Box Office be at least 7m?
+    outcome: Yes
+    size: 658.48
+    value: 658.1507
+    status: OPEN
+    redeemable: false
+    endDate: 2026-10-11
+    marketId: 5420233
+    riskLevel: watch
+    settlement: proposed Yes, not final
+    disputeCount: 0
+    flagged: true
+    flag: proposed-not-final
+    recommendation: watch: "Yes" proposed, challenge window ends 2026-10-12T22:39:21Z; no dispute yet.
+    error: null
+  - conditionId: 0x0477b4ad516642f7dd9f14a5b296d1d7d8b5b8836975e9c60ad54293a0797624
+    slug: will-digger-2nd-weekend-box-office-be-between-2m-and-3m
+    title: Will "Digger" 2nd Weekend Box Office be between 2m and 3m?
+    outcome: No
+    size: 282.44
+    value: 282.2987
+    status: OPEN
+    redeemable: false
+    endDate: 2026-10-11
+    marketId: 5394264
+    riskLevel: watch
+    settlement: proposed No, not final
+    disputeCount: 0
+    flagged: true
+    flag: proposed-not-final
+    recommendation: watch: "No" proposed, challenge window ends 2026-10-12T23:01:44Z; no dispute yet.
+    error: null
+  - conditionId: 0xf3cda5a29c79c53c6e15d9b7df115e2e2680a96f09cc077df4c9969f34c7e1d0
+    slug: will-verity-2nd-weekend-box-office-be-between-11m-and-12m
+    title: Will "Verity" 2nd Weekend Box Office be between 11m and 12m?
+    outcome: No
+    size: 123.47
+    value: 122.4822
+    status: OPEN
+    redeemable: false
+    endDate: 2026-10-11
+    marketId: 5394255
+    riskLevel: watch
+    settlement: proposed No, not final
+    disputeCount: 0
+    flagged: true
+    flag: proposed-not-final
+    recommendation: watch: "No" proposed, challenge window ends 2026-10-12T21:50:44Z; no dispute yet.
+    error: null
+  - conditionId: 0xc4142ec06f2982c8eb00a42f3a0071128eba00f3e15b69c4e41aded990c3ba85
+    slug: 2026-nlcs-series-spread-dodgers-3pt5
+    title: 2026 NLCS Series Spread: Dodgers (-3.5)
+    outcome: Brewers +3.5
+    size: 78.4
+    value: 43.904
+    status: OPEN
+    redeemable: false
+    endDate: 2026-10-21
+    marketId: 5635483
+    riskLevel: watch
+    settlement: proposed Brewers +3.5, not final
+    disputeCount: 0
+    flagged: true
+    flag: proposed-not-final
+    recommendation: watch: "Brewers +3.5" proposed, challenge window ends 2026-10-12T23:10:57Z; no dispute yet.
+    error: null
+  - conditionId: 0xd3aed94f56bb0f40e917bdf92433dcea9c81f2cdd17994d59de9db4e0b686fb0
+    slug: will-brice-turang-hit-a-home-run-in-the-2026-nlcs
+    title: Will Brice Turang hit a home run in the 2026 NLCS?
+    outcome: Yes
+    size: 61.26
+    value: 39.2064
+    status: OPEN
+    redeemable: false
+    endDate: 2026-10-21
+    marketId: 5635498
+    riskLevel: watch
+    settlement: proposed Yes, not final
+    disputeCount: 0
+    flagged: true
+    flag: proposed-not-final
+    recommendation: watch: "Yes" proposed, challenge window ends 2026-10-12T23:18:02Z; no dispute yet.
+    error: null
+  - conditionId: 0x69f72dc5d92fcc0ea8bed7c7e5739a4bb31ce0feeb50e4d7398692801e634a0a
+    slug: will-verity-2nd-weekend-box-office-be-between-14m-and-15m
+    title: Will "Verity" 2nd Weekend Box Office be between 14m and 15m?
+    outcome: Yes
+    size: 478.8
+    value: 0.2394
+    status: OPEN
+    redeemable: false
+    endDate: 2026-10-11
+    marketId: 5394258
+    riskLevel: watch
+    settlement: proposed No, not final
+    disputeCount: 0
+    flagged: true
+    flag: proposed-not-final
+    recommendation: watch: "No" proposed, challenge window ends 2026-10-12T21:50:41Z; no dispute yet.
+    error: null
+  - conditionId: 0x17eafbe8621522e4ec549ede028ad683db49e75c4ca95693927d973abe02d23b
+    slug: will-verity-2nd-weekend-box-office-be-less-than-11m
+    title: Will "Verity" 2nd Weekend Box Office be less than 11m?
+    outcome: Yes
+    size: 478.8
+    value: 0.2394
+    status: OPEN
+    redeemable: false
+    endDate: 2026-10-11
+    marketId: 5394254
+    riskLevel: watch
+    settlement: proposed No, not final
+    disputeCount: 0
+    flagged: true
+    flag: proposed-not-final
+    recommendation: watch: "No" proposed, challenge window ends 2026-10-12T21:50:44Z; no dispute yet.
+    error: null
+  - conditionId: 0x6906d3d5d1e68c1607d63447d7b204367def971fb38fd651a64ae35639ca3839
+    slug: will-verity-2nd-weekend-box-office-be-at-least-15m
+    title: Will "Verity" 2nd Weekend Box Office be at least 15m?
+    outcome: Yes
+    size: 478.8
+    value: 0.2394
+    status: OPEN
+    redeemable: false
+    endDate: 2026-10-11
+    marketId: 5394259
+    riskLevel: watch
+    settlement: proposed No, not final
+    disputeCount: 0
+    flagged: true
+    flag: proposed-not-final
+    recommendation: watch: "No" proposed, challenge window ends 2026-10-12T21:50:41Z; no dispute yet.
+    error: null
+unchecked:
+  []
+clear:
+  - conditionId: 0x7ad403c3508f8e3912940fd1a913f227591145ca0614074208e0b962d5fcc422
+    slug: will-jd-vance-win-the-2028-us-presidential-election
+    title: Will JD Vance win the 2028 US Presidential Election?
+    outcome: No
+    size: 1180000
+    value: 917450
+    status: OPEN
+    redeemable: false
+    endDate: 2028-11-08
+    marketId: 561229
+    riskLevel: ok
+    settlement: no proposal yet
+    disputeCount: 0
+    flagged: false
+    flag: null
+    recommendation: ok: no proposal, dispute or recent bulletin-board update on chain.
+    error: null
+  - conditionId: 0x7ad403c3508f8e3912940fd1a913f227591145ca0614074208e0b962d5fcc422
+    slug: will-jd-vance-win-the-2028-us-presidential-election
+    title: Will JD Vance win the 2028 US Presidential Election?
+    outcome: Yes
+    size: 1180000
+    value: 262550
+    status: OPEN
+    redeemable: false
+    endDate: 2028-11-08
+    marketId: 561229
+    riskLevel: ok
+    settlement: no proposal yet
+    disputeCount: 0
+    flagged: false
+    flag: null
+    recommendation: ok: no proposal, dispute or recent bulletin-board update on chain.
+    error: null
+truncated:        false
+scannedAt:        2026-10-12T21:29:48.355Z
+
+Hint: Wallet 0x88b21efc4aa4e08cdc125300ad6b3a520811e1d1: 13 positions, 13 checked against signed Predge records
+Flagged: 11  (disputed or proposed but not final)
+  [proposed-not-final] WATCH  Will "The Social Reckoning" Opening Weekend Box Office be between 5m and 7m?  holds Yes 2243.39 ($2,234)
+      market 5105582 will-the-social-reckoning-opening-weekend-box-office-be-between-5m-and-7m: proposed Yes, not final; disputes 0
+      watch: "Yes" proposed, challenge window ends 2026-10-12T22:37:51Z; no dispute yet.
+  [proposed-not-final] WATCH  Will "The Social Reckoning" Opening Weekend Box Office be less than 5m?  holds No 1865.22 ($1,864)
+      market 5105581 will-the-social-reckoning-opening-weekend-box-office-be-less-than-5m: proposed No, not final; disputes 0
+      watch: "No" proposed, challenge window ends 2026-10-12T22:37:35Z; no dispute yet.
+  [proposed-not-final] WATCH  Will "Verity" 2nd Weekend Box Office be between 12m and 13m?  holds Yes 1331.66 ($1,315)
+      market 5394256 will-verity-2nd-weekend-box-office-be-between-12m-and-13m: proposed Yes, not final; disputes 0
+      watch: "Yes" proposed, challenge window ends 2026-10-12T21:50:45Z; no dispute yet.
+  [proposed-not-final] WATCH  Will "Resident Evil" 4th Weekend Box Office be at least 7m?  holds Yes 658.48 ($658)
+      market 5420233 will-resident-evil-4th-weekend-box-office-be-at-least-7m: proposed Yes, not final; disputes 0
+      watch: "Yes" proposed, challenge window ends 2026-10-12T22:39:21Z; no dispute yet.
+  [proposed-not-final] WATCH  Will "Digger" 2nd Weekend Box Office be between 2m and 3m?  holds No 282.44 ($282)
+      market 5394264 will-digger-2nd-weekend-box-office-be-between-2m-and-3m: proposed No, not final; disputes 0
+      watch: "No" proposed, challenge window ends 2026-10-12T23:01:44Z; no dispute yet.
+  [proposed-not-final] WATCH  Will "Verity" 2nd Weekend Box Office be between 11m and 12m?  holds No 123.47 ($122)
+      market 5394255 will-verity-2nd-weekend-box-office-be-between-11m-and-12m: proposed No, not final; disputes 0
+      watch: "No" proposed, challenge window ends 2026-10-12T21:50:44Z; no dispute yet.
+  [proposed-not-final] WATCH  2026 NLCS Series Spread: Dodgers (-3.5)  holds Brewers +3.5 78.40 ($44)
+      market 5635483 2026-nlcs-series-spread-dodgers-3pt5: proposed Brewers +3.5, not final; disputes 0
+      watch: "Brewers +3.5" proposed, challenge window ends 2026-10-12T23:10:57Z; no dispute yet.
+  [proposed-not-final] WATCH  Will Brice Turang hit a home run in the 2026 NLCS?  holds Yes 61.26 ($39)
+      market 5635498 will-brice-turang-hit-a-home-run-in-the-2026-nlcs: proposed Yes, not final; disputes 0
+      watch: "Yes" proposed, challenge window ends 2026-10-12T23:18:02Z; no dispute yet.
+  [proposed-not-final] WATCH  Will "Verity" 2nd Weekend Box Office be between 14m and 15m?  holds Yes 478.80 ($0)
+      market 5394258 will-verity-2nd-weekend-box-office-be-between-14m-and-15m: proposed No, not final; disputes 0
+      watch: "No" proposed, challenge window ends 2026-10-12T21:50:41Z; no dispute yet.
+  [proposed-not-final] WATCH  Will "Verity" 2nd Weekend Box Office be less than 11m?  holds Yes 478.80 ($0)
+      market 5394254 will-verity-2nd-weekend-box-office-be-less-than-11m: proposed No, not final; disputes 0
+      watch: "No" proposed, challenge window ends 2026-10-12T21:50:44Z; no dispute yet.
+  [proposed-not-final] WATCH  Will "Verity" 2nd Weekend Box Office be at least 15m?  holds Yes 478.80 ($0)
+      market 5394259 will-verity-2nd-weekend-box-office-be-at-least-15m: proposed No, not final; disputes 0
+      watch: "No" proposed, challenge window ends 2026-10-12T21:50:41Z; no dispute yet.
+Clear: 2 (no dispute and no pending proposal, or final)
+[exit 0]

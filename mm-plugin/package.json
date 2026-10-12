@@ -1,0 +1,82 @@
+{
+  "name": "mm-plugin-predge",
+  "version": "0.1.0",
+  "description": "Settlement-risk guard for MetaMask Agent Wallet prediction trading: check Polymarket UMA disputes, scan a wallet, and gate mm predict orders on Predge signed records and Monad verdicts",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "keywords": [
+    "oclif-plugin",
+    "metamask",
+    "agent-wallet",
+    "polymarket",
+    "uma",
+    "monad"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/predgeAI/erc8004-outcome-validator",
+    "directory": "mm-plugin"
+  },
+  "files": [
+    "dist",
+    "oclif.manifest.json",
+    "skills",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs && oclif manifest",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "link-host": "node scripts/link-host.mjs",
+    "test": "node --test test/*.test.mjs",
+    "harness": "node scripts/harness.mjs"
+  },
+  "oclif": {
+    "bin": "mm",
+    "commands": "./dist/commands",
+    "topicSeparator": " ",
+    "topics": {
+      "predge": {
+        "description": "Settlement risk for prediction-market trades: UMA disputes, signed Predge records, Monad verdicts"
+      }
+    }
+  },
+  "mm": {
+    "schemaVersion": 1,
+    "minCliVersion": ">=6.2.0 <8",
+    "capabilities": [],
+    "commands": [
+      {
+        "id": "predge:check",
+        "capabilities": ["wallet-read"],
+        "dataAccess": [],
+        "targetChains": [10143, 143]
+      },
+      {
+        "id": "predge:scan",
+        "capabilities": [],
+        "dataAccess": []
+      },
+      {
+        "id": "predge:guard",
+        "capabilities": ["wallet-read"],
+        "dataAccess": [],
+        "targetChains": [10143, 143]
+      }
+    ]
+  },
+  "peerDependencies": {
+    "@metamask/agent-wallet": ">=6.2.0 <8"
+  },
+  "devDependencies": {
+    "@metamask/agent-wallet": "7.1.0",
+    "esbuild": "0.25.10",
+    "ethers": "6.17.0",
+    "oclif": "^4",
+    "typescript": "^5.9.3",
+    "viem": "2.57.3"
+  },
+  "engines": {
+    "node": ">=22.18"
+  }
+}

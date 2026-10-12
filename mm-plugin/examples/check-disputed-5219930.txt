@@ -1,0 +1,76 @@
+$ mm predge check will-trump-say-ammunition-this-week-20261011 --format text
+input:             will-trump-say-ammunition-this-week-20261011
+market:
+  id: 5219930
+  slug: will-trump-say-ammunition-this-week-20261011
+  question: Will Trump say "Ammunition" this week?
+  conditionId: 0x50d446794ad4e7b16e27e248ed841c76ca7edbb084907f61cd5a9d1f83cf96a8
+  outcomes:
+    - Yes
+    - No
+  closed: false
+  endDate: 2026-10-11T23:59:00Z
+riskLevel:         caution
+recommendation:    caution: disputed twice, the outcome goes to a UMA token-holder vote, second dispute 12.2 h ago; median 88.5 h from a second dispute to on-chain resolution (Polymarket, 2026-01-01 to 2026-10-02). Latest bulletin-board update (clarification) 1.2 h ago.
+umaState:          disputed
+settlement:        disputed twice, at UMA vote
+disputeCount:      2
+openDispute:       true
+sentToUmaVote:     true
+paused:            false
+disputedProposal:  No
+currentProposal:   —
+proposal:          —
+finalOutcome:      —
+proposalVsOutcome: disputed proposal No, no final outcome yet
+timeline:
+  - at: 2026-10-12T08:18:58Z
+    event: dispute 1 of proposal No
+    tx: 0x7a19f69e9d4c2e1b128b9a994b3367a957ef431af0380a364d840fa656fa3b74
+    url: https://polygonscan.com/tx/0x7a19f69e9d4c2e1b128b9a994b3367a957ef431af0380a364d840fa656fa3b74
+  - at: 2026-10-12T09:12:26Z
+    event: dispute 2 of proposal No (sends the outcome to a UMA vote)
+    tx: 0x7c371b3029539f6dc060fb75a3c91b5036f05a1ad85efab8552acfe492daf590
+    url: https://polygonscan.com/tx/0x7c371b3029539f6dc060fb75a3c91b5036f05a1ad85efab8552acfe492daf590
+record:
+  url: https://api.predge.io/v1/settlement-risk/5219930
+  kid: 13fa3d18a369e6c7
+  checkedAt: 2026-10-12T21:26:13Z
+  issuedAt: 2026-10-12T21:26:16.366Z
+  signature: true
+  pinnedKey: true
+  contentHash: true
+  conditionIdMatches: true
+verdicts:
+  - chainId: 10143
+    network: Monad testnet
+    contract: 0x884764736dBe1FD36291bDd3Afd50A75465F6e8A
+    requestHash: 0x48c69bd02d7a2b777798db1a315ee72aa98d78a573bf276f9fc417a0cef14793
+    found: false
+    score: null
+    validator: null
+    validatorMatches: false
+    responseHash: null
+    tag: null
+    lastUpdate: null
+    bound: false
+    scoreConsistent: null
+    explorerUrl: https://testnet.monadvision.com/address/0x884764736dBe1FD36291bDd3Afd50A75465F6e8A
+    via: https://testnet-rpc.monad.xyz (ctx.publicClient(10143) failed: A project id is required to resolve the default EVM gateway RPC URL.)
+    problems:
+      - no verdict on chain for this requestHash
+verdictNote:       no verdict on chain yet for this market's claim
+safeToAct:         false
+maxRisk:           ok
+reason:            disputed twice, the outcome goes to a UMA token-holder vote, second dispute 12.2 h ago; median 88.5 h from a second dispute to on-chain resolution (Polymarket, 2026-01-01 to 2026-10-02). Latest bulletin-board update (clarification) 1.2 h ago (risk caution, above the ok limit)
+
+Hint: Will Trump say "Ammunition" this week? (market 5219930, will-trump-say-ammunition-this-week-20261011)
+Risk:      CAUTION  (UMA state disputed; disputed twice, at UMA vote)
+Disputes:  2, sent to UMA token-holder vote, open
+  2026-10-12T08:18:58Z  dispute 1 of proposal No  https://polygonscan.com/tx/0x7a19f69e9d4c2e1b128b9a994b3367a957ef431af0380a364d840fa656fa3b74
+  2026-10-12T09:12:26Z  dispute 2 of proposal No (sends the outcome to a UMA vote)  https://polygonscan.com/tx/0x7c371b3029539f6dc060fb75a3c91b5036f05a1ad85efab8552acfe492daf590
+Outcome:   disputed proposal No, no final outcome yet
+Record:    signed by Predge key 13fa3d18a369e6c7, signature ok, pinned key ok, content hash ok, condition id matches; checked 2026-10-12T21:26:13Z
+Verdict:   Monad testnet: none yet for requestHash 0x48c69bd0...4793 (https://testnet.monadvision.com/address/0x884764736dBe1FD36291bDd3Afd50A75465F6e8A)
+Safe to act: no, because disputed twice, the outcome goes to a UMA token-holder vote, second dispute 12.2 h ago; median 88.5 h from a second dispute to on-chain resolution (Polymarket, 2026-01-01 to 2026-10-02). Latest bulletin-board update (clarification) 1.2 h ago (risk caution, above the ok limit)
+[exit 0]

@@ -1,0 +1,72 @@
+$ mm plugins inspect mm-plugin-predge
+└─ mm-plugin-predge
+   ├─ version 0.1.0
+   ├─ location ~/.local/share/mm/node_modules/mm-plugin-predge
+   ├─ commands
+   │  ├─ predge:check
+   │  ├─ predge:guard
+   │  └─ predge:scan
+   └─ dependencies
+[exit 0]
+
+$ mm predge --help
+{
+  "ok": true,
+  "data": {
+    "kind": "topic",
+    "topic": {
+      "name": "predge",
+      "description": "Settlement risk for prediction-market trades: UMA disputes, signed Predge records, Monad verdicts"
+    },
+    "usage": "mm predge <command> [flags]",
+    "commands": [
+      {
+        "id": "predge check",
+        "invocation": "mm predge check",
+        "summary": "Check a Polymarket market's UMA settlement risk before trading: signed Predge record (ed25519, pinned key), dispute timeline, disputed proposal vs outcome, and Predge's verdict on Monad.",
+        "description": "Check a Polymarket market's UMA settlement risk before trading: signed Predge record (ed25519, pinned key), dispute timeline, disputed proposal vs outcome, and Predge's verdict on Monad.",
+        "flags": []
+      },
+      {
+        "id": "predge guard",
+        "invocation": "mm predge guard",
+        "summary": "Gate a Polymarket order on settlement risk: runs predge check and, only if safe, prints the exact mm predict quote and place commands. Refuses (non-zero exit) otherwise. Never places an order.",
+        "description": "Gate a Polymarket order on settlement risk: runs predge check and, only if safe, prints the exact mm predict quote and place commands. Refuses (non-zero exit) otherwise. Never places an order.",
+        "flags": []
+      },
+      {
+        "id": "predge scan",
+        "invocation": "mm predge scan",
+        "summary": "Scan a Polymarket wallet's open positions and flag every one whose market is disputed or proposed but not final, from signed Predge records.",
+        "description": "Scan a Polymarket wallet's open positions and flag every one whose market is disputed or proposed but not final, from signed Predge records.",
+        "flags": []
+      }
+    ],
+    "globalFlags": [
+      {
+        "long": "--format",
+        "short": "-f",
+        "description": "Output format: text | json | toon (defaults to text in TTY, json when piped)"
+      },
+      {
+        "long": "--json",
+        "description": "Shorthand for --format=json"
+      },
+      {
+        "long": "--toon",
+        "description": "Shorthand for --format=toon"
+      },
+      {
+        "long": "--verbose",
+        "short": "-v",
+        "description": "Show debug logs on stderr. Use this for troubleshooting"
+      },
+      {
+        "long": "--help",
+        "short": "-h",
+        "description": "Show help for a command"
+      },
+      {
+        "long": "--version",
+        "description": "Show CLI version"
+      }

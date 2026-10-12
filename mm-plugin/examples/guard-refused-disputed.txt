@@ -1,0 +1,4 @@
+$ mm predge guard 5219930 --side YES --size 10 --format text
+Error [PREDGE_GUARD_REFUSED]: Refused: disputed twice, the outcome goes to a UMA token-holder vote, second dispute 12.3 h ago; median 88.5 h from a second dispute to on-chain resolution (Polymarket, 2026-01-01 to 2026-10-02). Latest bulletin-board update (clarification) 1.2 h ago (risk caution, above the ok limit)
+Hint: Do not run mm predict place for market 5219930. Re-run mm predge check 5219930 later.
+[exit 1]
