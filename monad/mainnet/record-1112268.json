@@ -1,0 +1,65 @@
+{
+  "version": "predge-attest-v1",
+  "issuer": "predge.io",
+  "algorithm": "ed25519",
+  "kind": "settlement-risk",
+  "data_basis": "Live read of UMA's Optimistic Oracle and Polymarket's UMA CTF adapter on Polygon (eth_call and eth_getLogs on public RPC) at checked_at. uma_question_id, dispute times and txs, bulletin-board updates and the on-chain resolution are chain facts, re-checkable on any Polygon RPC. The market lookup (condition id, market id, slug to UMA question id) uses Polymarket's public gamma API and is re-checked on chain: keccak256(ancillaryData) equals uma_question_id. Only the question creator's and the venue operator accounts' bulletin-board posts are counted. risk_level and recommendation are Predge's reading of those facts, not advice. settlement_estimate and segment_dispute_rate are statistics computed from 2026 Polymarket disputes (docs/settlement-estimate.md): the estimate uses the market price before the first dispute from Polymarket's public CLOB price history and the market's type; the segment rate is how often markets of this kind were disputed in 2026. Neither is advice. The signature proves Predge published this record.",
+  "public_key": "13fa3d18a369e6c71bf941563ba47822b30182273d5106a0e8fb61c5016352d9",
+  "canonical": "{\"adapter\":\"0x65070be91477460d8a7aeeb94ef92fe056c2f2a7\",\"bulletin_board_count\":\"0\",\"chain\":\"polygon\",\"checked_at\":\"2026-10-12T17:22:54Z\",\"condition_id\":\"0xddff7251af9c56b2048edd2513019e55ae104143faa97d5799978f926bfcf1e0\",\"current_proposal\":null,\"dispute_count\":\"1\",\"disputes\":[{\"disputed_at\":\"2026-01-13T21:12:12Z\",\"disputed_proposal\":\"Over\",\"tx\":\"0x7e59d684ba06456639386a8ec25d04ef02a2769d2cf1435887188b91ea664540\"}],\"issued_at\":\"2026-10-12T17:23:42.934Z\",\"issuer\":\"predge.io\",\"kind\":\"settlement-risk\",\"latest_bulletin_board_update\":null,\"market_id\":\"1112268\",\"onchain_resolution\":{\"outcome\":\"Under\"},\"open_dispute\":false,\"oracle\":\"0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1\",\"paused\":false,\"platform\":\"polymarket\",\"recommendation\":\"resolved: the on-chain resolution is final (Under); nothing is left to settle.\",\"resolved_on_chain\":true,\"risk_level\":\"resolved\",\"segment_dispute_rate\":{\"category\":\"sports\",\"ci95\":[\"0.000511\",\"0.000781\"],\"disputed\":\"85\",\"markets\":\"134492\",\"note\":\"Share of 2026 markets in this segment whose UMA resolution was disputed at least once. A segment statistic with a 95% Wilson interval, not a prediction for this market.\",\"rate\":\"0.000632\",\"segment\":\"sports/totals\",\"sports_market_type\":\"totals\",\"table\":\"segment-dispute-rate-2026-v1\",\"window\":\"Polymarket v1 UMA CTF adapter markets with scheduled end date 2026-01-01 to 2026-09-30, closed and resolved by 2026-10-02\"},\"sent_to_uma_vote\":false,\"settlement_estimate\":null,\"uma_question_id\":\"0x1d75094d935f5aaa7b31bef860244787a3abb7b01598ff1662659bcbede9bcb6\",\"uma_state\":\"settled\",\"version\":\"predge-attest-v1\"}",
+  "signature": "6acf12fe18a4b0a86fa9dfc47724ffa1d230cfd5d2ee206d666399560ce2dd58b4378628d41c3e30f3e96284b04af7d932964cd72cb267d8b1b07e9eb40dcd0c",
+  "payload": {
+    "version": "predge-attest-v1",
+    "issuer": "predge.io",
+    "kind": "settlement-risk",
+    "platform": "polymarket",
+    "chain": "polygon",
+    "market_id": "1112268",
+    "condition_id": "0xddff7251af9c56b2048edd2513019e55ae104143faa97d5799978f926bfcf1e0",
+    "uma_question_id": "0x1d75094d935f5aaa7b31bef860244787a3abb7b01598ff1662659bcbede9bcb6",
+    "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+    "oracle": "0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1",
+    "uma_state": "settled",
+    "resolved_on_chain": true,
+    "paused": false,
+    "dispute_count": "1",
+    "open_dispute": false,
+    "sent_to_uma_vote": false,
+    "current_proposal": null,
+    "disputes": [
+      {
+        "disputed_at": "2026-01-13T21:12:12Z",
+        "tx": "0x7e59d684ba06456639386a8ec25d04ef02a2769d2cf1435887188b91ea664540",
+        "disputed_proposal": "Over"
+      }
+    ],
+    "bulletin_board_count": "0",
+    "latest_bulletin_board_update": null,
+    "onchain_resolution": {
+      "outcome": "Under"
+    },
+    "risk_level": "resolved",
+    "recommendation": "resolved: the on-chain resolution is final (Under); nothing is left to settle.",
+    "settlement_estimate": null,
+    "segment_dispute_rate": {
+      "table": "segment-dispute-rate-2026-v1",
+      "segment": "sports/totals",
+      "category": "sports",
+      "sports_market_type": "totals",
+      "markets": "134492",
+      "disputed": "85",
+      "rate": "0.000632",
+      "ci95": [
+        "0.000511",
+        "0.000781"
+      ],
+      "window": "Polymarket v1 UMA CTF adapter markets with scheduled end date 2026-01-01 to 2026-09-30, closed and resolved by 2026-10-02",
+      "note": "Share of 2026 markets in this segment whose UMA resolution was disputed at least once. A segment statistic with a 95% Wilson interval, not a prediction for this market."
+    },
+    "checked_at": "2026-10-12T17:22:54Z",
+    "issued_at": "2026-10-12T17:23:42.934Z"
+  },
+  "verify": "ed25519: verify `signature` (hex, 64 bytes) over the UTF-8 bytes of `canonical` using `public_key` (hex, raw 32-byte ed25519 point). `canonical` is the exact byte string that was signed — JSON with keys sorted lexicographically at every level and no insignificant whitespace (a subset of RFC 8785 / JCS). `payload` is the same object parsed; re-canonicalise it and you MUST reproduce `canonical`. If `payload.payment` is present it names the x402 payment that bought this response. On `payment.network`, find the `AuthorizationUsed(payer, nonce)` log emitted by `payment.asset`; in that same transaction receipt (not just the same block) require status 1 and a `Transfer(payer, payTo, amount)` log from `payment.asset`. Those arguments are the fields of `payment` with the same names. envelope_signature: remove the `envelope_signature` field from the envelope, canonicalise what is left with the same rule as `canonical` (keys sorted at every level, no whitespace), and verify `envelope_signature` (hex, 64 bytes) over its UTF-8 bytes with `public_key`.",
+  "kid": "13fa3d18a369e6c7",
+  "content_hash": "f2559ad32dbd3f2ed2657984be5f88fa15d0de17d5c02c81fab1d04745b2b3ff",
+  "envelope_signature": "37798cf8c9d3755aabd023a8d239ed29261a1c898ac9385ea3ffa9e511f1844b8daaadd78cf3b477633b240629f48858599383524033908fd29f7563b997b807"
+}
