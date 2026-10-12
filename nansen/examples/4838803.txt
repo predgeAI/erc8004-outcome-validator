@@ -1,0 +1,8 @@
+Will the next Google Gemini Pro model be released by October 9, 2026? (Polymarket 4838803)
+Predge: resolved, UMA settled, disputes 1, disputed proposal No, resolved No; signature verified true
+Nansen, as of 2026-10-12T21:13:39.049Z:
+  contested (No) 21 top holders, 14,470.53 shares, cost $11,741, unrealized value $14,471, price 1
+  other side 29 top holders, 14,618.84 shares, cost $3,198, unrealized value $0, price 0
+  top 3 hold 68.6% of top-50 shares: 0x2110ba2a No 9,749.97 sh, win rate 67.9% of 302; 0x3c241752 Yes 6,530.96 sh, win rate 75.2% of 1129; 0x4c2c10a7 Yes 3,673.71 sh, win rate 0% of 6
+DECISION: FINE: resolved on chain (No); nothing left to settle. The disputed proposal was No and the market settled as proposed. Retrospective (Nansen position-detail, first 50 positions, as of 2026-10-12T21:13:39.049Z): buy cost $11,741 on No vs $3,198 on the other side.
+Nansen data for this market cost 0.13 USDC on Monad (5 x402 payments, 0.0 paid this run, rest from cache); lifetime 0.65 / 2.0 USDC

@@ -1,0 +1,589 @@
+{
+  "endpoint": "top-holders",
+  "request": {
+    "market_id": "1112268",
+    "pagination": {
+      "page": 1,
+      "per_page": 50
+    },
+    "order_by": [
+      {
+        "field": "position_size",
+        "direction": "DESC"
+      }
+    ]
+  },
+  "fetchedAt": "2026-10-12T21:12:38.387Z",
+  "data": {
+    "pagination": {
+      "page": 1,
+      "per_page": 50,
+      "is_last_page": false
+    },
+    "data": [
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0xb7fd12461807f553eaf19b3a1bb6354f767c6c23",
+        "owner_address": "0x91d111e95211b15921ec10e1bfc568567dc62393",
+        "side": "Over",
+        "position_size": 350,
+        "avg_entry_price": 0.43,
+        "current_price": 0,
+        "unrealized_pnl_usd": -150.5
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x9c34b35feabe17802f9eaea74bf7d28db9b21d5b",
+        "owner_address": "0x26c1c31935d3add4da28a4e190f309218531ea45",
+        "side": "Over",
+        "position_size": 229.995381,
+        "avg_entry_price": 0.219544,
+        "current_price": 0,
+        "unrealized_pnl_usd": -50.494105926264
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x1d36b39fa8773b4871769a77a3266aefd1ef920d",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 125,
+        "avg_entry_price": 0.44,
+        "current_price": 0,
+        "unrealized_pnl_usd": -55
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0xca6dc23f230d35ab304e768b058a04a2c4c5492b",
+        "owner_address": "0x910a7a3854c42577f19ef4a6d5c3d76f34d12c59",
+        "side": "Over",
+        "position_size": 100,
+        "avg_entry_price": 0.48,
+        "current_price": 0,
+        "unrealized_pnl_usd": -48
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x7f835f18fb1835190429b3cf328d46c026a1a491",
+        "owner_address": "0x7c50accd5125d846bc49a71d77e366de2efbd222",
+        "side": "Over",
+        "position_size": 100,
+        "avg_entry_price": 0.46,
+        "current_price": 0,
+        "unrealized_pnl_usd": -46
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x9a5867362c20a2b83245ca00801aa4fb986b149d",
+        "owner_address": "0xcb94510cb40c488dd446739524b1033f766de09f",
+        "side": "Over",
+        "position_size": 97.989079,
+        "avg_entry_price": 0.30789,
+        "current_price": 0,
+        "unrealized_pnl_usd": -30.16985753331
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x13faff6b4dbabaaf9fd780befcd13dcb027a3fac",
+        "owner_address": "0x5446021ff557dd9abe2845647afa251aec147811",
+        "side": "Over",
+        "position_size": 86.245713,
+        "avg_entry_price": 0.44,
+        "current_price": 0,
+        "unrealized_pnl_usd": -37.948113719999995
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x418bfab40ec0248d23ca7a6a55e7ac58ee4da741",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 69.375,
+        "avg_entry_price": 0.475676,
+        "current_price": 0,
+        "unrealized_pnl_usd": -33.0000225
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x81047ed2b55bb8740c3d903049335a853f083128",
+        "owner_address": "0xf6e3c622b7f85e6d21126b06c32435f36e113efa",
+        "side": "Over",
+        "position_size": 62.6,
+        "avg_entry_price": 0.41,
+        "current_price": 0,
+        "unrealized_pnl_usd": -25.666
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x62cce172b02777ef5b7680bc0949ea8a0bb8f56f",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 54.347825,
+        "avg_entry_price": 0.46,
+        "current_price": 0,
+        "unrealized_pnl_usd": -24.9999995
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0xfc871170734b177c3e6790e60ec163e6f060d938",
+        "owner_address": "0x77013ac0d668967030f99eb82964f851ef7c5b22",
+        "side": "Over",
+        "position_size": 52.631577,
+        "avg_entry_price": 0.38,
+        "current_price": 0,
+        "unrealized_pnl_usd": -19.99999926
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x5305d875c801bda1fe0c8e9bfd74a625715b57e8",
+        "owner_address": "0x50ed5f29f834f2816811af69a15da33694e83fdd",
+        "side": "Over",
+        "position_size": 52,
+        "avg_entry_price": 0.46,
+        "current_price": 0,
+        "unrealized_pnl_usd": -23.92
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x9f7e4104f5c325ff2929f042b3f487492887c230",
+        "owner_address": "0x2444baadaabb4d642397948f9d1c17d93b2f89d5",
+        "side": "Over",
+        "position_size": 43.478259,
+        "avg_entry_price": 0.46,
+        "current_price": 0,
+        "unrealized_pnl_usd": -19.99999914
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0xb166d62d434da6e187be173b2bf6e9867d6b3105",
+        "owner_address": "0xe84e9de1bafcffd167dc434cd3f806e69762118a",
+        "side": "Over",
+        "position_size": 43.478259,
+        "avg_entry_price": 0.46,
+        "current_price": 0,
+        "unrealized_pnl_usd": -19.99999914
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x33345bc4e38be5e910034ed8c077ebe37e9ca65d",
+        "owner_address": "0x3387b866cbcc25b6664badc88638fbf5e1a3be41",
+        "side": "Over",
+        "position_size": 26.315788,
+        "avg_entry_price": 0.38,
+        "current_price": 0,
+        "unrealized_pnl_usd": -9.99999944
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x06559152333953ad80ac34128da6911a80a3faf8",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 25,
+        "avg_entry_price": 0.4,
+        "current_price": 0,
+        "unrealized_pnl_usd": -10
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x03d2a2072ca1967f29b5b64c7f0cc4ba1c22e29d",
+        "owner_address": "0xecb63af46a184b015b4033ce97199101280798fe",
+        "side": "Over",
+        "position_size": 13.366053,
+        "avg_entry_price": 0.566358,
+        "current_price": 0,
+        "unrealized_pnl_usd": -7.569971044974001
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x0553b2c6ac7a84bbdbc5801683f6b2b45b986026",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 11.11111,
+        "avg_entry_price": 0.45,
+        "current_price": 0,
+        "unrealized_pnl_usd": -4.9999995
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x97b8994f07394229c7d8b7fcc019de1428ef0f5d",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 10,
+        "avg_entry_price": 0.46,
+        "current_price": 0,
+        "unrealized_pnl_usd": -4.6000000000000005
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x646cfedd656bdf7a5ed8d34c61e91c751c1e3210",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 10,
+        "avg_entry_price": 0.001,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.01
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x079acd324f35a35ef8b9e53eb30550fd461a8fba",
+        "owner_address": "0x1e0c60887f4c80598a2ea61168bc3d61f4b20603",
+        "side": "Over",
+        "position_size": 6.488029,
+        "avg_entry_price": 0.39,
+        "current_price": 0,
+        "unrealized_pnl_usd": -2.5303313100000002
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x27b13269afc60075a551791ecfc326cd5e3eed2b",
+        "owner_address": "0x007f2a313d86ec27a88d56e347e7beef47eb8666",
+        "side": "Over",
+        "position_size": 5.045713,
+        "avg_entry_price": 0.44,
+        "current_price": 0,
+        "unrealized_pnl_usd": -2.22011372
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x304ab9416385e9f8c842d1c3f835b595434b5793",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 2.173912,
+        "avg_entry_price": 0.46,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.99999952
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x624702af248c27a43c71dbbb1da1cdbdd273d277",
+        "owner_address": "0xad515044f205dd882719fab23110827055cb2e26",
+        "side": "Over",
+        "position_size": 2.173912,
+        "avg_entry_price": 0.46,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.99999952
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0xb891303703221c89df5831ffede512d311f592b5",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 1.724135,
+        "avg_entry_price": 0.58,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.9999982999999999
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x20a14870b5a5a7acaa9717522eb343d7b165d123",
+        "owner_address": "0x47f6d86cf2dd782603cb533fc1e5480da587da43",
+        "side": "Over",
+        "position_size": 0.92,
+        "avg_entry_price": 0.37,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.34040000000000004
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x7b2c123bceec0c3d0fd206a19c283af65932af48",
+        "owner_address": "0x23a529937cd5b8cff56c976344419c363670bef2",
+        "side": "Over",
+        "position_size": 0.57,
+        "avg_entry_price": 0.43,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.24509999999999998
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x90a50adc202d068ea74d3dbd9c23fcd300219dcc",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 0.073296,
+        "avg_entry_price": 0.230026,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.016859985696
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0x064a11fc5830cb1741a543f5be48068e46f0245d",
+        "owner_address": "0xff24ad590fbbba98510c7b4c9eea547157e69f8f",
+        "side": "Under",
+        "position_size": 0.023127,
+        "avg_entry_price": 0.59,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.009482070000000002
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0xa4bd8f49695cf5d55924aca4cc2694952874e8a2",
+        "owner_address": "0x",
+        "side": "Under",
+        "position_size": 0.009868,
+        "avg_entry_price": 0.77999,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.0021710586800000003
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0x969d9d6524bc1e30b1339424e833168a87796309",
+        "owner_address": "0x",
+        "side": "Under",
+        "position_size": 0.009829,
+        "avg_entry_price": 0.59,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.00402989
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x1e7d96653a7c95e6df9a2f36f1518a38216a4a9b",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 0.009766,
+        "avg_entry_price": 0.423228,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.004133244648
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0xe9e232ffc435f34a18683b1cc5b84a147c143000",
+        "owner_address": "0x",
+        "side": "Under",
+        "position_size": 0.009557,
+        "avg_entry_price": 0.749855,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.0023906357649999994
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0xd3cfd44e9920b111f14e0f8c4f54ed3e5a68493b",
+        "owner_address": "0x",
+        "side": "Under",
+        "position_size": 0.009289,
+        "avg_entry_price": 0.583207,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.003871590177
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0x9ac1fe58e55fe9f1c7950ae231825ba95249fe20",
+        "owner_address": "0x",
+        "side": "Under",
+        "position_size": 0.008982,
+        "avg_entry_price": 0.71,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.0026047800000000005
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0xefeff392c085c592f10edd6b676e602effb8cd06",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 0.008812,
+        "avg_entry_price": 0.37,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.0032604400000000003
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0x9371566f4b338d1995e1072c89f2baa369b23aec",
+        "owner_address": "0x90692821811dc619bb0be8e1a60dc6d09550165c",
+        "side": "Under",
+        "position_size": 0.008318,
+        "avg_entry_price": 0.698305,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.0025094990100000005
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0x1a5184b5692dc6ead09163af607a40f56a669e71",
+        "owner_address": "0x",
+        "side": "Under",
+        "position_size": 0.007776,
+        "avg_entry_price": 0.9,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.0007775999999999998
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0xa4bd8f49695cf5d55924aca4cc2694952874e8a2",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 0.007492,
+        "avg_entry_price": 0.228892,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.0017148588640000001
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0xefe4cbeedbbffd13d27861ea8dc22f57be368f49",
+        "owner_address": "0x",
+        "side": "Under",
+        "position_size": 0.007212,
+        "avg_entry_price": 0.61,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.00281268
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0x9a5867362c20a2b83245ca00801aa4fb986b149d",
+        "owner_address": "0xcb94510cb40c488dd446739524b1033f766de09f",
+        "side": "Under",
+        "position_size": 0.00721,
+        "avg_entry_price": 0.573887,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.00307227473
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0x5d4c2eec37189101707431e4b2b12b4e706b57ac",
+        "owner_address": "0x",
+        "side": "Under",
+        "position_size": 0.007036,
+        "avg_entry_price": 0.809829,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.0013380431559999997
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0x13464aabec792c36b062316f474713e681330448",
+        "owner_address": "0x",
+        "side": "Under",
+        "position_size": 0.006595,
+        "avg_entry_price": 0.564483,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.0028722346150000006
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0x47863df0c8ac16e46841d6326ffadcf3b53bff95",
+        "owner_address": "0x",
+        "side": "Under",
+        "position_size": 0.006029,
+        "avg_entry_price": 0.63,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.0022307299999999998
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0x85a06be099b53f03b7894000997e5e1cae2a511e",
+        "owner_address": "0x",
+        "side": "Under",
+        "position_size": 0.00576,
+        "avg_entry_price": 0.59,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.0023616
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0xfde2d21882dd94ffbd6bed5091e2a2ad3f07609e",
+        "owner_address": "0x7cee528a44a3dc20b0d6785c65ada525cb72f673",
+        "side": "Under",
+        "position_size": 0.005695,
+        "avg_entry_price": 0.79,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.0011959499999999999
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 2,
+        "address": "0xc581cea9dab382771dfa57361d62b0dbaea6ade5",
+        "owner_address": "0x",
+        "side": "Under",
+        "position_size": 0.005381,
+        "avg_entry_price": 0.78,
+        "current_price": 1,
+        "unrealized_pnl_usd": 0.00118382
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x4df4dbac55d9d2ee3bffbbb5cbdbffd564fb34d5",
+        "owner_address": "0x322a1814600e4c656d9afd5dc4d029e69aeacbcb",
+        "side": "Over",
+        "position_size": 0.005,
+        "avg_entry_price": 0.4,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.002
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x84fca6671968d1277ecd64a76200d83c16f34bc8",
+        "owner_address": "0x",
+        "side": "Over",
+        "position_size": 0.00476,
+        "avg_entry_price": 0.42,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.0019992
+      },
+      {
+        "market_id": "1112268",
+        "outcome_index": 1,
+        "address": "0x1ee5f610fb84e426c33f92ea16cc9c9029078227",
+        "owner_address": "0x24306b1fb8b4d133f7da2727c2d4ccea129c2092",
+        "side": "Over",
+        "position_size": 0.003912,
+        "avg_entry_price": 0.46,
+        "current_price": 0,
+        "unrealized_pnl_usd": -0.00179952
+      }
+    ]
+  },
+  "payment": {
+    "amountUSDC": "0.05",
+    "network": "eip155:143",
+    "tx": "0xa1b762093f5b55d0a350f4860c23a0f6bcc020074ce5c0d8f4e5434d76cbf80c",
+    "explorer": "https://monadvision.com/tx/0xa1b762093f5b55d0a350f4860c23a0f6bcc020074ce5c0d8f4e5434d76cbf80c",
+    "onchain": {
+      "block": 112858964,
+      "status": 1,
+      "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
+      "transferUSDC": "0.05",
+      "matches": true
+    }
+  }
+}

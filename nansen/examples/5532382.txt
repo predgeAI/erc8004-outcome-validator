@@ -1,0 +1,8 @@
+Will the announcers say "Offside" or "Offsides" during the Ravens vs Falcons game? (Polymarket 5532382)
+Predge: resolved, UMA settled, disputes 1, disputed proposal No, resolved Yes; signature verified true
+Nansen, as of 2026-10-12T21:13:18.266Z:
+  contested (No) 5 top holders, 436.99 shares, cost $302, unrealized value $0, price 0
+  other side 6 top holders, 556.09 shares, cost $266, unrealized value $556, price 1
+  top 3 hold 70.3% of top-50 shares: 0x6510c97e No 260 sh, win rate 98.8% of 678; 0x5415c298 Yes 255 sh, win rate 76.3% of 1462; 0xf9efef8e Yes 183.49 sh, win rate 52.4% of 12201
+DECISION: FINE: resolved on chain (Yes); nothing left to settle. The disputed proposal was No and the market settled differently from it. Retrospective (Nansen position-detail, first 50 positions, as of 2026-10-12T21:13:18.266Z): buy cost $302 on No vs $266 on the other side.
+Nansen data for this market cost 0.13 USDC on Monad (5 x402 payments, 0.0 paid this run, rest from cache); lifetime 0.65 / 2.0 USDC

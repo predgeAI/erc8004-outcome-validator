@@ -1,0 +1,8 @@
+Will Trump say "Ammunition" this week? (Polymarket 5219930)
+Predge: caution, UMA disputed, disputes 2, disputed proposal No; signature verified true
+Nansen, as of 2026-10-12T21:10:06.489Z:
+  contested (No) 26 top holders, 118,085.06 shares, cost $91,170, unrealized value $116,491, price 0.9865
+  other side 24 top holders, 124,308.41 shares, cost $36,208, unrealized value $1,678, price 0.0135
+  top 3 hold 23.9% of top-50 shares: 0x134a63b7 No 27,118.03 sh, win rate 76.2% of 3882; 0x44c1dfe4 Yes 17,802.83 sh, win rate 63.6% of 3252; 0xafde461f Yes 13,058.83 sh, win rate 22.8% of 2792
+DECISION: HEDGE: No is disputed and in a UMA vote. Nansen as of 2026-10-12T21:10:06.489Z: the other side trades at 0.0135 while Predge's signed reference rate that it settles differently from No is 21.7%, so the hedge is cheap relative to the risk. High-win-rate money against No: 0x44c1df (win rate 63.6% over 3252 markets, cost $4,175 on Yes); for it: 0x134a63 (win rate 76.2% over 3882 markets, cost $19,419 on No).
+Nansen data for this market cost 0.13 USDC on Monad (5 x402 payments, 0.0 paid this run, rest from cache); lifetime 0.65 / 2.0 USDC

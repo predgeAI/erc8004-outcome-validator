@@ -1,0 +1,313 @@
+{
+  "kind": "predge-nansen-dispute-exposure",
+  "version": 1,
+  "generatedAt": "2026-10-12T21:15:44.949Z",
+  "market": {
+    "marketId": "5219930",
+    "conditionId": "0x50d446794ad4e7b16e27e248ed841c76ca7edbb084907f61cd5a9d1f83cf96a8",
+    "question": "Will Trump say \"Ammunition\" this week?"
+  },
+  "decision": "hedge",
+  "reason": "No is disputed and in a UMA vote. Nansen as of 2026-10-12T21:10:06.489Z: the other side trades at 0.0135 while Predge's signed reference rate that it settles differently from No is 21.7%, so the hedge is cheap relative to the risk. High-win-rate money against No: 0x44c1df (win rate 63.6% over 3252 markets, cost $4,175 on Yes); for it: 0x134a63 (win rate 76.2% over 3882 markets, cost $19,419 on No).",
+  "predge": {
+    "marketId": "5219930",
+    "conditionId": "0x50d446794ad4e7b16e27e248ed841c76ca7edbb084907f61cd5a9d1f83cf96a8",
+    "umaQuestionId": "0xe783aa7b45699f150009dd4dbfbce8dfec4b19ca86215ba4e0a76121f37a6dc3",
+    "riskLevel": "caution",
+    "umaState": "disputed",
+    "resolvedOnChain": false,
+    "outcome": null,
+    "openDispute": true,
+    "sentToUmaVote": true,
+    "disputeCount": 2,
+    "disputes": [
+      {
+        "disputed_at": "2026-10-12T08:18:58Z",
+        "disputed_proposal": "No",
+        "tx": "0x7a19f69e9d4c2e1b128b9a994b3367a957ef431af0380a364d840fa656fa3b74"
+      },
+      {
+        "disputed_at": "2026-10-12T09:12:26Z",
+        "disputed_proposal": "No",
+        "tx": "0x7c371b3029539f6dc060fb75a3c91b5036f05a1ad85efab8552acfe492daf590"
+      }
+    ],
+    "currentProposal": null,
+    "settlesDifferentlyProbability": "0.2166",
+    "recommendation": "caution: disputed twice, the outcome goes to a UMA token-holder vote, second dispute 12.0 h ago; median 88.5 h from a second dispute to on-chain resolution (Polymarket, 2026-01-01 to 2026-10-02). Latest bulletin-board update (clarification) 0.9 h ago.",
+    "checkedAt": "2026-10-12T21:10:54Z",
+    "signatureVerified": {
+      "signature": true,
+      "pinnedKey": true,
+      "contentHash": true,
+      "payloadMatchesCanonical": true
+    }
+  },
+  "exposure": {
+    "contestedOutcome": "No",
+    "asOf": "2026-10-12T21:10:06.489Z",
+    "source": "Nansen prediction-market top-holders (top 50 by shares) and position-detail (first 50 positions), fetched 2026-10-12T21:10:06.489Z",
+    "contestedSide": {
+      "holders": 26,
+      "shares": 118085.06,
+      "unrealizedPnlUsd": 30407.87,
+      "currentPrice": 0.9865,
+      "positions": 26,
+      "buyCostUsd": 91169.5,
+      "unrealizedValueUsd": 116490.91,
+      "redemptionValueUsd": 0
+    },
+    "otherSide": {
+      "holders": 24,
+      "shares": 124308.41,
+      "unrealizedPnlUsd": -33056.19,
+      "currentPrice": 0.0135,
+      "positions": 24,
+      "buyCostUsd": 36208.47,
+      "unrealizedValueUsd": 1678.16,
+      "redemptionValueUsd": 0
+    },
+    "top3ShareOfTopHolders": 0.239,
+    "highWinRateRule": "win_rate >= 0.6 and markets_traded >= 20 (Nansen address-summary)",
+    "signals": {
+      "settlesDifferentlyProbability": 0.2166,
+      "hedgePrice": 0.0135,
+      "hedgeCheapBy": 0.2031,
+      "highWinRateCostOnUsd": 19418.62,
+      "highWinRateCostAgainstUsd": 4175.37,
+      "top3Share": 0.23919655145372304
+    },
+    "highWinRateOnContestedSide": [
+      "0x134a63b764ac7b008356e8db1857db94e6b09e42"
+    ],
+    "highWinRateAgainstContestedSide": [
+      "0x44c1dfe43260c94ed4f1d00de2e1f80fb113ebc1"
+    ],
+    "top3": [
+      {
+        "rank": 1,
+        "address": "0x134a63b764ac7b008356e8db1857db94e6b09e42",
+        "owner": "0x",
+        "side": "No",
+        "onContestedSide": true,
+        "shares": 27118.03,
+        "avgEntryPrice": 0.716076,
+        "currentPrice": 0.9865,
+        "unrealizedPnlUsd": 7333.37,
+        "buyCostUsd": 19418.62,
+        "unrealizedValueUsd": 26751.93,
+        "winRate": 0.7619783616692427,
+        "marketsTraded": 3882,
+        "marketsWon": 2958,
+        "totalPnlUsd": 304442.31,
+        "walletAgeDays": 708,
+        "highWinRate": true
+      },
+      {
+        "rank": 2,
+        "address": "0x44c1dfe43260c94ed4f1d00de2e1f80fb113ebc1",
+        "owner": "0x",
+        "side": "Yes",
+        "onContestedSide": false,
+        "shares": 17802.83,
+        "avgEntryPrice": 0.234533,
+        "currentPrice": 0.0135,
+        "unrealizedPnlUsd": -3935.01,
+        "buyCostUsd": 4175.37,
+        "unrealizedValueUsd": 240.34,
+        "winRate": 0.6362238622386224,
+        "marketsTraded": 3252,
+        "marketsWon": 2069,
+        "totalPnlUsd": 2486703.37,
+        "walletAgeDays": 1003,
+        "highWinRate": true
+      },
+      {
+        "rank": 3,
+        "address": "0xafde461fce5aa0fabdb7711c59db93b65e343e1d",
+        "owner": "0x",
+        "side": "Yes",
+        "onContestedSide": false,
+        "shares": 13058.83,
+        "avgEntryPrice": 0.357299,
+        "currentPrice": 0.0135,
+        "unrealizedPnlUsd": -4489.61,
+        "buyCostUsd": 4705.33,
+        "unrealizedValueUsd": 176.29,
+        "winRate": 0.22779369627507162,
+        "marketsTraded": 2792,
+        "marketsWon": 636,
+        "totalPnlUsd": 60462.56,
+        "walletAgeDays": 145,
+        "highWinRate": false
+      }
+    ],
+    "holdersReturned": 50,
+    "positionsReturned": 50
+  },
+  "nansen": {
+    "calls": [
+      {
+        "endpoint": "top-holders",
+        "request": {
+          "market_id": "5219930",
+          "pagination": {
+            "page": 1,
+            "per_page": 50
+          },
+          "order_by": [
+            {
+              "field": "position_size",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "fetchedAt": "2026-10-12T21:09:52.070Z",
+        "fromCache": true,
+        "payment": {
+          "amountUSDC": "0.05",
+          "network": "eip155:143",
+          "tx": "0x54ec0ceac648569729a55af3785f52ed71362b1bcadd37ab17f868a89501d42e",
+          "explorer": "https://monadvision.com/tx/0x54ec0ceac648569729a55af3785f52ed71362b1bcadd37ab17f868a89501d42e",
+          "onchain": {
+            "block": 112858417,
+            "status": 1,
+            "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
+            "transferUSDC": "0.05",
+            "matches": true
+          }
+        }
+      },
+      {
+        "endpoint": "position-detail",
+        "request": {
+          "market_id": "5219930",
+          "pagination": {
+            "page": 1,
+            "per_page": 50
+          }
+        },
+        "fetchedAt": "2026-10-12T21:09:55.040Z",
+        "fromCache": true,
+        "payment": {
+          "amountUSDC": "0.05",
+          "network": "eip155:143",
+          "tx": "0xd00620a331b54844d2cb012d590f981680d7691b3c914bd946d9471a7f6a26af",
+          "explorer": "https://monadvision.com/tx/0xd00620a331b54844d2cb012d590f981680d7691b3c914bd946d9471a7f6a26af",
+          "onchain": {
+            "block": 112858429,
+            "status": 1,
+            "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
+            "transferUSDC": "0.05",
+            "matches": true
+          }
+        }
+      },
+      {
+        "endpoint": "address-summary",
+        "request": {
+          "address": "0x134a63b764ac7b008356e8db1857db94e6b09e42"
+        },
+        "fetchedAt": "2026-10-12T21:09:58.696Z",
+        "fromCache": true,
+        "payment": {
+          "amountUSDC": "0.01",
+          "network": "eip155:143",
+          "tx": "0x274555e2d5bfbb71a8f260ecf5118481a15339567ce3aa14c82da1b33d72e6e9",
+          "explorer": "https://monadvision.com/tx/0x274555e2d5bfbb71a8f260ecf5118481a15339567ce3aa14c82da1b33d72e6e9",
+          "onchain": {
+            "block": 112858441,
+            "status": 1,
+            "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
+            "transferUSDC": "0.01",
+            "matches": true
+          }
+        }
+      },
+      {
+        "endpoint": "address-summary",
+        "request": {
+          "address": "0x44c1dfe43260c94ed4f1d00de2e1f80fb113ebc1"
+        },
+        "fetchedAt": "2026-10-12T21:10:03.230Z",
+        "fromCache": true,
+        "payment": {
+          "amountUSDC": "0.01",
+          "network": "eip155:143",
+          "tx": "0x7c286df2af324a6a935778baba32bce11c2e4077b6216c0ed5bf4f9a32b277b2",
+          "explorer": "https://monadvision.com/tx/0x7c286df2af324a6a935778baba32bce11c2e4077b6216c0ed5bf4f9a32b277b2",
+          "onchain": {
+            "block": 112858456,
+            "status": 1,
+            "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
+            "transferUSDC": "0.01",
+            "matches": true
+          }
+        }
+      },
+      {
+        "endpoint": "address-summary",
+        "request": {
+          "address": "0xafde461fce5aa0fabdb7711c59db93b65e343e1d"
+        },
+        "fetchedAt": "2026-10-12T21:10:06.489Z",
+        "fromCache": true,
+        "payment": {
+          "amountUSDC": "0.01",
+          "network": "eip155:143",
+          "tx": "0xab8e91462d11f7209222d456c8fe383734bd5ee1a25baf64bd207430b4346c2d",
+          "explorer": "https://monadvision.com/tx/0xab8e91462d11f7209222d456c8fe383734bd5ee1a25baf64bd207430b4346c2d",
+          "onchain": {
+            "block": 112858467,
+            "status": 1,
+            "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
+            "transferUSDC": "0.01",
+            "matches": true
+          }
+        }
+      }
+    ],
+    "paidThisRunUSDC": "0.0",
+    "costUSDC": "0.13",
+    "payments": [
+      {
+        "endpoint": "top-holders",
+        "amountUSDC": "0.05",
+        "tx": "0x54ec0ceac648569729a55af3785f52ed71362b1bcadd37ab17f868a89501d42e",
+        "explorer": "https://monadvision.com/tx/0x54ec0ceac648569729a55af3785f52ed71362b1bcadd37ab17f868a89501d42e"
+      },
+      {
+        "endpoint": "position-detail",
+        "amountUSDC": "0.05",
+        "tx": "0xd00620a331b54844d2cb012d590f981680d7691b3c914bd946d9471a7f6a26af",
+        "explorer": "https://monadvision.com/tx/0xd00620a331b54844d2cb012d590f981680d7691b3c914bd946d9471a7f6a26af"
+      },
+      {
+        "endpoint": "address-summary",
+        "amountUSDC": "0.01",
+        "tx": "0x274555e2d5bfbb71a8f260ecf5118481a15339567ce3aa14c82da1b33d72e6e9",
+        "explorer": "https://monadvision.com/tx/0x274555e2d5bfbb71a8f260ecf5118481a15339567ce3aa14c82da1b33d72e6e9"
+      },
+      {
+        "endpoint": "address-summary",
+        "amountUSDC": "0.01",
+        "tx": "0x7c286df2af324a6a935778baba32bce11c2e4077b6216c0ed5bf4f9a32b277b2",
+        "explorer": "https://monadvision.com/tx/0x7c286df2af324a6a935778baba32bce11c2e4077b6216c0ed5bf4f9a32b277b2"
+      },
+      {
+        "endpoint": "address-summary",
+        "amountUSDC": "0.01",
+        "tx": "0xab8e91462d11f7209222d456c8fe383734bd5ee1a25baf64bd207430b4346c2d",
+        "explorer": "https://monadvision.com/tx/0xab8e91462d11f7209222d456c8fe383734bd5ee1a25baf64bd207430b4346c2d"
+      }
+    ]
+  },
+  "spend": {
+    "lifetimeUSDC": "0.65",
+    "capUSDC": "2.0",
+    "maxPerCallUSDC": "0.1",
+    "asset": "USDC 0x754704Bc059F8C67012fEd69BC8A327a5aafb603",
+    "network": "eip155:143"
+  },
+  "summary": "Will Trump say \"Ammunition\" this week? (Polymarket 5219930)\nPredge: caution, UMA disputed, disputes 2, disputed proposal No; signature verified true\nNansen, as of 2026-10-12T21:10:06.489Z:\n  contested (No) 26 top holders, 118,085.06 shares, cost $91,170, unrealized value $116,491, price 0.9865\n  other side 24 top holders, 124,308.41 shares, cost $36,208, unrealized value $1,678, price 0.0135\n  top 3 hold 23.9% of top-50 shares: 0x134a63b7 No 27,118.03 sh, win rate 76.2% of 3882; 0x44c1dfe4 Yes 17,802.83 sh, win rate 63.6% of 3252; 0xafde461f Yes 13,058.83 sh, win rate 22.8% of 2792\nDECISION: HEDGE: No is disputed and in a UMA vote. Nansen as of 2026-10-12T21:10:06.489Z: the other side trades at 0.0135 while Predge's signed reference rate that it settles differently from No is 21.7%, so the hedge is cheap relative to the risk. High-win-rate money against No: 0x44c1df (win rate 63.6% over 3252 markets, cost $4,175 on Yes); for it: 0x134a63 (win rate 76.2% over 3882 markets, cost $19,419 on No).\nNansen data for this market cost 0.13 USDC on Monad (5 x402 payments, 0.0 paid this run, rest from cache); lifetime 0.65 / 2.0 USDC"
+}
