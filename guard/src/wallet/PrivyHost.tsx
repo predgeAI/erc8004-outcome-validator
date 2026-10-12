@@ -32,6 +32,10 @@ function Bridge({ onChange, autoLogin }: HostProps) {
   return null;
 }
 
+// Solana login is on for the shared Privy app (predge.io uses it). Guard is EVM only, so it passes an
+// empty Solana connector list; without one Privy warns on every render.
+const NO_SOLANA_WALLETS = { onMount: () => {}, onUnmount: () => {}, get: () => [] };
+
 export default function PrivyHost(props: HostProps) {
   return (
     <PrivyProvider
@@ -42,6 +46,7 @@ export default function PrivyHost(props: HostProps) {
         embeddedWallets: { ethereum: { createOnLogin: "users-without-wallets" } },
         defaultChain: monadTestnet,
         supportedChains: [monadTestnet],
+        externalWallets: { solana: { connectors: NO_SOLANA_WALLETS } },
       }}
     >
       <Bridge {...props} />
