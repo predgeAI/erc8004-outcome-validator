@@ -125,7 +125,7 @@ export function Result({ lookup, wallet, watch }: { lookup: Lookup; wallet: Wall
         </div>
       </div>
 
-      <WalletActions wallet={wallet} payload={p} oc={oc ?? null} watch={watch} />
+      <WalletActions wallet={wallet} payload={p} oc={oc ?? null} watch={watch} evidence={{ ok: evidenceDone && evidenceOk, sha: ev.sha }} title={title} />
     </section>
   );
 }

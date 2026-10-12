@@ -1,9 +1,11 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { encodeFunctionData, formatEther, type Hex } from "viem";
 import { AVAILABLE, type WalletApi, type WalletKind } from "../wallet/config";
 import type { SignedPayload } from "../lib/api";
 import { client, VALIDATOR_ABI, type OnchainResult } from "../lib/chain";
 import { addr, MONAD, tx } from "../lib/constants";
-import { Ext, Hash } from "./ui";
+import { buildReceipt, loadAcks, removeAck, saveAck, signReceipt, verifyReceipt, type AckRecord } from "../wallet/receipt";
+import { Copy, Ext, fmtDate, Hash } from "./ui";
 
 const PrivyHost = lazy(() => import("../wallet/PrivyHost"));
 const DynamicHost = lazy(() => import("../wallet/DynamicHost"));
@@ -58,17 +60,21 @@ export function ConnectButton({ state }: { state: ReturnType<typeof useWalletSta
     return (
       <div className="connect" ref={ref}>
         <button className="btn-ghost addr-btn" onClick={() => setOpen((o) => !o)} data-testid="wallet-address">
-          <span className="dot ok" /> <span className="mono">{api.address.slice(0, 6)}…{api.address.slice(-4)}</span>
+          <span className="dot ok" /> <ProviderTag kind={api.kind} /> <span className="mono">{api.address.slice(0, 6)}…{api.address.slice(-4)}</span>
         </button>
         {open && (
           <div className="menu">
-            <div className="menu-head">Signed in with {NAMES[api.kind].name}</div>
+            <div className="menu-head">Signed in with <ProviderTag kind={api.kind} /></div>
             <div className="menu-addr mono">{api.address}</div>
             <div className="menu-sub">{api.walletLabel} · Monad testnet (chain {MONAD.chainId})</div>
+            <div className="menu-sub">Balance: <BalanceText api={api} /></div>
             <div className="menu-row">
               <Ext href={addr(api.address)} className="btn-ghost sm">MonadVision ↗</Ext>
               <Ext href={MONAD.faucet} className="btn-ghost sm">Testnet faucet ↗</Ext>
             </div>
+            {api.extras.map((x) => (
+              <button key={x.id} className="btn-ghost sm full" data-testid={x.id} onClick={() => { setOpen(false); Promise.resolve(x.run()).catch(() => {}); }}>{x.label}</button>
+            ))}
             <button className="btn-ghost sm full" onClick={() => { setOpen(false); state.disconnect(); }}>Sign out</button>
           </div>
         )}
@@ -102,8 +108,34 @@ export function useWatchlist() {
 
 export type Watch = ReturnType<typeof useWatchlist>;
 
-export function WalletActions({ wallet, payload, oc, watch }: { wallet: WalletApi | null; payload: SignedPayload; oc: OnchainResult | null; watch: Watch }) {
+export function ProviderTag({ kind }: { kind: WalletKind }) {
+  return <span className={`ptag ptag-${kind}`} data-testid="provider-tag">{NAMES[kind].name}</span>;
+}
+
+const fmtMon = (wei: bigint) => {
+  const s = formatEther(wei);
+  const [i, d = ""] = s.split(".");
+  return d ? `${i}.${d.slice(0, 4).replace(/0+$/, "") || "0"}` : i;
+};
+
+function BalanceText({ api }: { api: WalletApi }) {
+  if (api.balance === null) return <span className="muted">reading…</span>;
+  return <span className={api.balance === 0n ? "err" : "okc"}>{fmtMon(api.balance)} MON</span>;
+}
+
+const ACKS_EVENT = "guard-acks";
+const errText = (e: unknown) => {
+  const m = (e as { shortMessage?: string; message?: string }).shortMessage ?? (e as Error).message ?? "failed";
+  if (/rejected|denied|cancel|closed/i.test(m)) return "Cancelled in the wallet.";
+  if (/insufficient funds|exceeds the balance/i.test(m)) return "Your wallet needs testnet MON for gas. Use the faucet, then try again.";
+  return m.split("\n")[0];
+};
+
+export interface Evidence { ok: boolean; sha?: string }
+
+export function WalletActions({ wallet, payload, oc, watch, evidence, title }: { wallet: WalletApi | null; payload: SignedPayload; oc: OnchainResult | null; watch: Watch; evidence: Evidence; title: string }) {
   const [status, setStatus] = useState<{ kind: "idle" | "busy" | "ok" | "err"; msg?: string; hash?: string }>({ kind: "idle" });
+  const [ack, setAck] = useState<{ kind: "idle" | "busy" | "ok" | "err"; msg?: string; rec?: AckRecord }>({ kind: "idle" });
   if (!AVAILABLE.length) return null;
   const id = String(payload.market_id);
   const watching = watch.list.includes(id);
@@ -111,35 +143,58 @@ export function WalletActions({ wallet, payload, oc, watch }: { wallet: WalletAp
   if (!wallet?.authenticated || !wallet.address) {
     return (
       <div className="actions-bar muted-bar">
-        <span>Sign in to watch this market or record a validation request on Monad testnet from your own wallet.</span>
+        <span>Sign in with Privy or Dynamic to sign a risk receipt for this check, watch this market, or record a validation request on Monad testnet from your own wallet.</span>
       </div>
     );
   }
+  const account = wallet.address;
   const canRequest = Boolean(oc && oc.claim && !oc.requested);
+  const noGas = wallet.balance === 0n;
+
   const request = async () => {
     if (!oc?.claim) return;
-    setStatus({ kind: "busy", msg: "Confirm in your wallet…" });
+    setStatus({ kind: "busy", msg: `Confirm in your wallet (${wallet.sendVia})…` });
     try {
-      const wc = await wallet.getWalletClient();
-      const account = wallet.address!;
       const args = [MONAD.validator, 0n, `pm:${id}`, oc.requestHash] as const;
       await client.simulateContract({ address: MONAD.contracts.PredgeAgentValidator, abi: VALIDATOR_ABI, functionName: "validationRequest", args, account });
-      const hash = await wc.writeContract({ address: MONAD.contracts.PredgeAgentValidator, abi: VALIDATOR_ABI, functionName: "validationRequest", args, account, chain: wc.chain });
+      const data = encodeFunctionData({ abi: VALIDATOR_ABI, functionName: "validationRequest", args });
+      const hash = await wallet.sendTx({ to: MONAD.contracts.PredgeAgentValidator, data });
       setStatus({ kind: "busy", msg: "Waiting for Monad…", hash });
       await client.waitForTransactionReceipt({ hash });
-      setStatus({ kind: "ok", msg: "Request recorded on Monad testnet.", hash });
+      setStatus({ kind: "ok", msg: `Request recorded on Monad testnet via ${wallet.sendVia}.`, hash });
+      wallet.refreshBalance();
     } catch (e) {
-      const m = (e as { shortMessage?: string; message?: string }).shortMessage ?? (e as Error).message ?? "failed";
-      setStatus({ kind: "err", msg: /insufficient funds|exceeds the balance/i.test(m) ? "Your wallet needs testnet MON for gas. Use the faucet, then try again." : m.split("\n")[0] });
+      setStatus({ kind: "err", msg: errText(e) });
+    }
+  };
+
+  const acknowledge = async () => {
+    if (!evidence.ok || !evidence.sha) return;
+    setAck({ kind: "busy", msg: `Confirm in your wallet (${wallet.signVia})…` });
+    try {
+      const message = buildReceipt({ marketId: id, riskLevel: String(payload.risk_level), contentSha256: evidence.sha, onchain: oc, checkedAt: payload.checked_at });
+      const { signature, check } = await signReceipt(wallet.signTypedData, message, account);
+      const rec: AckRecord = { message, signature, signer: account, recovered: check.recovered!, provider: wallet.kind, via: wallet.signVia, signedAt: new Date().toISOString(), title };
+      saveAck(rec);
+      window.dispatchEvent(new Event(ACKS_EVENT));
+      setAck({ kind: "ok", rec });
+    } catch (e) {
+      setAck({ kind: "err", msg: errText(e) });
     }
   };
 
   return (
     <div className="actions-bar" data-testid="wallet-actions">
       <div className="actions-left">
-        <span className="sm muted">Signed in · <span className="mono">{wallet.address.slice(0, 6)}…{wallet.address.slice(-4)}</span> on Monad testnet</span>
+        <span className="sm muted">
+          <ProviderTag kind={wallet.kind} /> {wallet.walletLabel} · <span className="mono">{account.slice(0, 6)}…{account.slice(-4)}</span> · <BalanceText api={wallet} /> on Monad testnet
+          {" "}<button className="linkish" onClick={wallet.refreshBalance} title="Read the balance again">refresh</button>
+        </span>
       </div>
       <div className="actions-right">
+        <button className="btn-primary sm" disabled={!evidence.ok || !evidence.sha || ack.kind === "busy"} onClick={acknowledge} data-testid="ack" title={evidence.ok ? "" : "Available once the evidence has verified"}>
+          {ack.kind === "busy" ? "Signing…" : "Acknowledge risk"}
+        </button>
         <button className={`btn-ghost ${watching ? "on" : ""}`} onClick={() => watch.toggle(id)} data-testid="watch">{watching ? "Watching" : "Watch this market"}</button>
         {oc?.claim && (
           <button className="btn-ghost" disabled={!canRequest || status.kind === "busy"} onClick={request} title={canRequest ? "" : "A request for this market already exists on chain"} data-testid="request">
@@ -147,14 +202,101 @@ export function WalletActions({ wallet, payload, oc, watch }: { wallet: WalletAp
           </button>
         )}
       </div>
+      {noGas && (
+        <p className="sm full-row gas-note" data-testid="no-gas">
+          This wallet has 0 testnet MON. Signing a receipt is free; a validation request needs gas. Get testnet MON at the <Ext href={MONAD.faucet}>Monad faucet</Ext> for <span className="mono">{account}</span> <Copy text={account} label="Copy address" />
+        </p>
+      )}
+      {ack.kind === "idle" && evidence.ok && (
+        <p className="sm muted full-row">Acknowledge risk signs an EIP-712 receipt (Predge Guard v1, chain {MONAD.chainId}) over this market, its risk level, the SHA-256 of the record verified above, the on-chain verdict and the requestHash. No gas, no transaction. Signed with {wallet.signVia}.</p>
+      )}
+      {ack.kind === "busy" && <p className="sm muted full-row">{ack.msg}</p>}
+      {ack.kind === "err" && <p className="sm err full-row">{ack.msg}</p>}
+      {ack.kind === "ok" && ack.rec && <ReceiptView rec={ack.rec} fresh />}
       {canRequest && status.kind === "idle" && (
-        <p className="sm muted full-row">Sends validationRequest to PredgeAgentValidator on Monad testnet from your wallet, with the same claim the batch uses (requestHash <Hash value={oc!.requestHash} />). Gas is paid in testnet MON (<Ext href={MONAD.faucet}>faucet</Ext>). Predge's validator answers requests in batches; this page does not promise when.</p>
+        <p className="sm muted full-row">Request validation sends validationRequest to PredgeAgentValidator on Monad testnet from your wallet with {wallet.sendVia}, using the same claim the batch uses (requestHash <Hash value={oc!.requestHash} />). Gas is paid in testnet MON (<Ext href={MONAD.faucet}>faucet</Ext>). Predge's validator answers requests in batches; this page does not promise when.</p>
       )}
       {status.kind !== "idle" && (
-        <p className={`sm full-row ${status.kind === "err" ? "err" : status.kind === "ok" ? "okc" : "muted"}`}>
+        <p className={`sm full-row ${status.kind === "err" ? "err" : status.kind === "ok" ? "okc" : "muted"}`} data-testid="request-status">
           {status.msg} {status.hash && <Ext href={tx(status.hash)} className="mono">{status.hash.slice(0, 12)}… ↗</Ext>}
         </p>
       )}
     </div>
   );
+}
+
+function ReceiptView({ rec, fresh }: { rec: AckRecord; fresh?: boolean }) {
+  const json = JSON.stringify({ domain: { name: "Predge Guard", version: "1", chainId: MONAD.chainId }, primaryType: "RiskAcknowledgement", message: rec.message, signature: rec.signature, signer: rec.signer }, null, 2);
+  return (
+    <div className={`receipt full-row ${fresh ? "receipt-fresh" : ""}`} data-testid="receipt">
+      <div className="receipt-head">
+        <span className="badge badge-ok">Signature verified in this browser</span>
+        <span className="sm muted">signed with <ProviderTag kind={rec.provider} /> {rec.via}</span>
+      </div>
+      <div className="receipt-grid">
+        <span>Recovered signer</span><span className="mono break" data-testid="receipt-recovered">{rec.recovered}</span>
+        <span>Market</span><span>{rec.message.marketId}{rec.title ? ` · ${rec.title}` : ""}</span>
+        <span>Risk level</span><span>{rec.message.riskLevel}</span>
+        <span>On-chain verdict</span><span>{rec.message.onchainVerdict}</span>
+        <span>contentHash</span><span className="mono break">{rec.message.contentHash}</span>
+        <span>requestHash</span><span className="mono break">{rec.message.requestHash}</span>
+        <span>checkedAt</span><span>{rec.message.checkedAt}</span>
+        <span>Signature</span><span className="mono break sig" data-testid="receipt-signature">{rec.signature}</span>
+      </div>
+      <div className="menu-row">
+        <Copy text={rec.signature} label="Copy signature" />
+        <Copy text={json} label="Copy receipt JSON" />
+      </div>
+    </div>
+  );
+}
+
+/** "My acknowledged checks": receipts kept in this browser only (localStorage). */
+export function AckList({ onOpen }: { onOpen: (id: string) => void }) {
+  const [list, setList] = useState<AckRecord[]>(loadAcks);
+  const [open, setOpen] = useState<string | null>(null);
+  useEffect(() => {
+    const h = () => setList(loadAcks());
+    window.addEventListener(ACKS_EVENT, h);
+    window.addEventListener("storage", h);
+    return () => { window.removeEventListener(ACKS_EVENT, h); window.removeEventListener("storage", h); };
+  }, []);
+  if (!list.length) return null;
+  return (
+    <section className="section" id="acks" data-testid="ack-list">
+      <div className="section-head"><span className="eyebrow">My acknowledged checks</span><h2>Receipts you signed</h2>
+        <p className="lede">EIP-712 receipts signed with your Privy or Dynamic wallet after a check. Stored in this browser only. Each one re-verifies when you open it.</p>
+      </div>
+      <div className="ack-list">
+        {list.map((a) => (
+          <div className="card ack-row" key={a.signature}>
+            <div className="ack-top">
+              <div>
+                <b>Market {a.message.marketId}</b>{a.title ? <span className="muted"> · {a.title}</span> : null}
+                <div className="sm muted">risk {a.message.riskLevel} · verdict {a.message.onchainVerdict} · signed {fmtDate(a.signedAt)} with <ProviderTag kind={a.provider} /> by <span className="mono">{a.signer.slice(0, 6)}…{a.signer.slice(-4)}</span></div>
+              </div>
+              <div className="menu-row">
+                <button className="btn-ghost sm" onClick={() => setOpen(open === a.signature ? null : a.signature)}>{open === a.signature ? "Hide" : "Show"}</button>
+                <button className="btn-ghost sm" onClick={() => onOpen(a.message.marketId)}>Check again</button>
+                <button className="btn-ghost sm" onClick={() => setList(removeAck(a.signature as Hex))}>Remove</button>
+              </div>
+            </div>
+            {open === a.signature && <StoredReceipt rec={a} />}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function StoredReceipt({ rec }: { rec: AckRecord }) {
+  const [ok, setOk] = useState<boolean | null>(null);
+  useEffect(() => {
+    let live = true;
+    verifyReceipt(rec.message, rec.signature, rec.signer).then((c) => { if (live) setOk(c.ok); });
+    return () => { live = false; };
+  }, [rec]);
+  if (ok === false) return <p className="sm err">This stored receipt no longer verifies against its signer.</p>;
+  if (ok === null) return <p className="sm muted">Verifying…</p>;
+  return <ReceiptView rec={rec} />;
 }

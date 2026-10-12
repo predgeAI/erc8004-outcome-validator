@@ -9,7 +9,8 @@
     "data": "node scripts/gen-data.mjs",
     "dev": "npm run data && vite",
     "build": "npm run data && tsc -b && node scripts/clean-assets.mjs && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:receipt": "esbuild scripts/test-receipt.ts --bundle --platform=node --format=esm --log-level=warning --outfile=node_modules/.cache/test-receipt.mjs && node node_modules/.cache/test-receipt.mjs"
   },
   "dependencies": {
     "@dynamic-labs/ethereum": "^4.20.0",
