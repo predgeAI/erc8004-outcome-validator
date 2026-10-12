@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.wasm
+.cre_build_tmp.js
+.env
+.env.*
+!.env.example
+bun.lockb
+contracts/build/
