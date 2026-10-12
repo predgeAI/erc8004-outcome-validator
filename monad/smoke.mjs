@@ -99,7 +99,9 @@ if (!SKIP_ERC8004) for (const [n, a] of [["ERC-8004 IdentityRegistry", IDENTITY_
 }
 
 // 0. signed evidence pack, verified offline
-const pack = await (await fetch(PACK_URL)).json();
+const packFile = await (await fetch(PACK_URL)).json();
+// Evidence packs carry the signed record under "attestation" (pack_format 2); a bare record also works.
+const pack = packFile.attestation ?? packFile;
 const spki = Buffer.concat([Buffer.from("302a300506032b6570032100", "hex"), Buffer.from(pack.public_key, "hex")]);
 const sigOk = crypto.verify(null, Buffer.from(pack.canonical, "utf8"), crypto.createPublicKey({ key: spki, format: "der", type: "spki" }), Buffer.from(pack.signature, "hex"));
 const sha = crypto.createHash("sha256").update(pack.canonical).digest("hex");
