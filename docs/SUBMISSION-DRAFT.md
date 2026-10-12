@@ -23,6 +23,12 @@ in Mexico by January 31?" ($30M). The median time from the first dispute to the 
 is 3.3 hours. Anyone holding a position, quoting a market, lending against it or letting an agent
 trade it is exposed in exactly that window, and today nothing tells them how exposed.
 
+The risk is predictable. Using only what is known at the first dispute (market type, timing,
+the disputer's and proposer's track record), a model trained on January to June ranks July to
+October markets with AUC 0.65: the riskiest fifth settled differently 55% of the time against 42%
+overall. Half of all disputes come from 23 of 478 addresses, and when the proposer disputes its own
+answer, the outcome changed in 74% of cases since July.
+
 **What we built.** Predge turns that history into a pre-trade input.
 
 1. *Signed evidence.* `api.predge.io/v1/settlement-risk/<market>` returns the market's dispute
