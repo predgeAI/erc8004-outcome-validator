@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Predge Verdict Board</title>
+<meta name="description" content="Predge verdicts on disputed Polymarket markets, read live from Monad testnet and verified in your browser.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
+<style>
+:root {
+  --bg: #f7f7f5; --panel: #ffffff; --ink: #17171a; --muted: #5d5d66; --line: #e3e3e0;
+  --accent: #6e3df5; --ok: #157347; --ok-bg: #e5f4ec; --bad: #b42318; --bad-bg: #fbe9e7; --warn: #8a5a00; --warn-bg: #fdf3dc;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e0e12; --panel: #17171d; --ink: #ececf1; --muted: #9a9aa6; --line: #2a2a33;
+    --accent: #9d7bff; --ok: #5fd39a; --ok-bg: #12291f; --bad: #ff8a7a; --bad-bg: #331714; --warn: #f2c063; --warn-bg: #2e2412;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e0e12; --panel: #17171d; --ink: #ececf1; --muted: #9a9aa6; --line: #2a2a33;
+  --accent: #9d7bff; --ok: #5fd39a; --ok-bg: #12291f; --bad: #ff8a7a; --bad-bg: #331714; --warn: #f2c063; --warn-bg: #2e2412;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1100px; margin: 0 auto; padding: 28px 16px 64px; }
+h1 { font-size: 26px; margin: 0 0 6px; letter-spacing: -0.01em; }
+h2 { font-size: 18px; margin: 0 0 10px; }
+p { margin: 0 0 10px; }
+.sub { color: var(--muted); max-width: 760px; }
+a { color: var(--accent); text-decoration: none; } a:hover { text-decoration: underline; }
+.mono { font-family: var(--mono); font-size: 12.5px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-top: 16px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 16px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.stat b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: 12.5px; }
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+button, select { font: inherit; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.table-wrap { overflow-x: auto; margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th, td { text-align: left; padding: 8px 6px; border-top: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 12px; border-top: 0; }
+td.q { max-width: 340px; }
+.pill { display: inline-block; border-radius: 999px; padding: 1px 9px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.s100 { background: var(--ok-bg); color: var(--ok); } .s0 { background: var(--bad-bg); color: var(--bad); }
+.chk { font-family: var(--mono); font-size: 12px; white-space: nowrap; }
+.yes { color: var(--ok); } .no { color: var(--bad); } .wait { color: var(--muted); }
+.note { color: var(--muted); font-size: 13px; }
+.warnbox { background: var(--warn-bg); color: var(--warn); border-radius: 8px; padding: 8px 12px; font-size: 13px; margin-top: 10px; display: none; }
+ol.steps { margin: 6px 0 0; padding-left: 20px; } ol.steps li { margin: 3px 0; }
+footer { margin-top: 28px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Predge Verdict Board</h1>
+  <p class="sub">Settlement risk for agents that act on prediction-market outcomes. Each row is a real disputed Polymarket market. An agent claimed the first disputed proposal would be the final outcome; Predge answered on Monad testnet with 100 (it was) or 0 (the market settled differently), bound to a signed evidence record. This page reads every verdict straight from Monad testnet and checks every signature in your browser. No backend.</p>
+  <div class="stats" id="stats"></div>
+
+  <section class="panel">
+    <div class="row">
+      <h2 style="margin:0">Verdicts</h2>
+      <button class="primary" id="verifyAll">Verify all on Monad</button>
+      <select id="filter" aria-label="Filter verdicts">
+        <option value="all">All markets</option>
+        <option value="0">Settled differently from the disputed proposal (0)</option>
+        <option value="100">Settled as proposed (100)</option>
+      </select>
+      <span class="note" id="progress"></span>
+    </div>
+    <div class="warnbox" id="warn"></div>
+    <p class="note" style="margin-top:8px">Checks per row: <b>sig</b> = ed25519 signature of the record by Predge's key; <b>hash</b> = keccak256(signed bytes) equals the on-chain <span class="mono">responseHash</span>; <b>score</b> = on-chain response equals what the signed record implies.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Market</th><th>Disputed proposal / on-chain outcome</th><th>Verdict</th><th>On chain</th><th>Checks</th><th>Tx</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <section class="panel">
+    <h2>Slash demo: a dishonest bonded verdict loses its bond</h2>
+    <p class="note">A separate validator key bonded behind the test "deliver Predge's signed record for market 2169995", the provider delivered a tampered copy, the validator recorded 100 anyway, and a third party challenged. The bond goes to the challenger, within the dispute window counted from the verdict.</p>
+    <p id="slashLive" class="chk wait">reading the bond on Monad...</p>
+    <ol class="steps" id="slashSteps"></ol>
+  </section>
+
+  <section class="panel">
+    <h2>x402 on Monad: agents pay per call in USDC</h2>
+    <p class="note">Paid through Monad's x402 facilitator (x402 v2, scheme exact, USDC on eip155:10143). The agent holds no MON; the facilitator pays gas.</p>
+    <ol class="steps" id="x402"></ol>
+  </section>
+
+  <footer>
+    <p>Contracts and scripts: <a href="https://github.com/predgeAI/erc8004-outcome-validator">github.com/predgeAI/erc8004-outcome-validator</a>. Testnet only; testnet MON has no value. Records are Predge's reading of public chain facts, not advice.</p>
+  </footer>
+</main>
+<script>
+(async () => {
+  const $ = (id) => document.getElementById(id);
+  const short = (h) => h.slice(0, 10) + "…";
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const data = await (await fetch("board-data.json")).json();
+  const X = data.explorer;
+  const provider = new ethers.JsonRpcProvider(data.rpc, undefined, { staticNetwork: ethers.Network.from(data.chainId), batchMaxCount: 1 });
+  const validator = new ethers.Contract(data.contracts.PredgeAgentValidator, ["function getValidationStatus(bytes32) view returns (address validatorAddress, uint256 agentId, uint8 response, bytes32 responseHash, string tag, uint256 lastUpdate)", "function responseCount() view returns (uint64)"], provider);
+
+  const b = data.batch;
+  const diff = data.verdicts.filter((v) => v.score === 0).length;
+  $("stats").innerHTML = [
+    [b.verdicts, "verdicts on Monad testnet"],
+    [b.transactions + " tx", `in ${b.blocks.span} blocks, ${b.chainSeconds} s`],
+    [Number(b.costMON.perVerdict).toFixed(4) + " MON", "per verdict (request + response)"],
+    [`<span id="liveCount">…</span>`, "responses on the validator contract (live)"],
+  ].map(([v, l]) => `<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
+  validator.responseCount().then((n) => { $("liveCount").textContent = n.toString(); }).catch(() => { $("liveCount").textContent = "?"; });
+
+  let ed25519 = true;
+  async function verifySig(r) {
+    try {
+      const key = await crypto.subtle.importKey("raw", ethers.getBytes("0x" + r.public_key), { name: "Ed25519" }, false, ["verify"]);
+      return await crypto.subtle.verify({ name: "Ed25519" }, key, ethers.getBytes("0x" + r.signature), new TextEncoder().encode(r.canonical));
+    } catch (e) { ed25519 = false; return null; }
+  }
+
+  const rows = $("rows");
+  rows.innerHTML = data.verdicts.map((v, i) => `<tr data-score="${v.score}">
+    <td class="q">${esc(v.title || "market " + v.market_id)}<br><span class="note mono">market ${esc(v.market_id)}</span></td>
+    <td>${esc(v.proposal)} / ${esc(v.outcome)}</td>
+    <td><span class="pill s${v.score}">${v.score}</span></td>
+    <td class="chk wait" id="oc${i}">not read</td>
+    <td class="chk wait" id="ck${i}">not checked</td>
+    <td class="mono"><a href="${X}/tx/${v.responseTx}" target="_blank" rel="noopener">${short(v.responseTx)}</a></td></tr>`).join("");
+  $("filter").onchange = (e) => { for (const tr of rows.children) tr.style.display = e.target.value === "all" || tr.dataset.score === e.target.value ? "" : "none"; };
+
+  const mark = (ok) => ok === null ? '<span class="wait">n/a</span>' : ok ? '<span class="yes">ok</span>' : '<span class="no">FAIL</span>';
+  async function check(i) {
+    const v = data.verdicts[i];
+    const s = await validator.getValidationStatus(v.requestHash);
+    $("oc" + i).innerHTML = `response <b>${s.response}</b><br>${short(s.responseHash)}`;
+    const sig = await verifySig(v.record);
+    const rec = JSON.parse(v.record.canonical);
+    const hash = ethers.keccak256(ethers.toUtf8Bytes(v.record.canonical)) === s.responseHash;
+    const implied = rec.onchain_resolution.outcome === rec.disputes[0].disputed_proposal ? 100 : 0;
+    const score = Number(s.response) === implied && s.validatorAddress === data.validator;
+    $("ck" + i).innerHTML = `sig ${mark(sig)} · hash ${mark(hash)} · score ${mark(score)}`;
+    return sig !== false && hash && score;
+  }
+  async function verifyAll() {
+    $("verifyAll").disabled = true;
+    let done = 0, ok = 0, next = 0;
+    const n = data.verdicts.length;
+    const worker = async () => { while (next < n) { const i = next++; try { if (await check(i)) ok++; } catch (e) { $("ck" + i).innerHTML = '<span class="no">read failed</span>'; } done++; $("progress").textContent = `${done}/${n} read from Monad, ${ok} verified`; } };
+    await Promise.all(Array.from({ length: 6 }, worker));
+    if (!ed25519) { $("warn").style.display = "block"; $("warn").textContent = "This browser has no Ed25519 in WebCrypto, so signatures were not checked here (hash and score were). Recent Chrome, Safari and Firefox support it."; }
+    $("verifyAll").disabled = false;
+  }
+  $("verifyAll").onclick = verifyAll;
+  verifyAll();
+
+  // slash demo, read live
+  const s = data.slash;
+  $("slashSteps").innerHTML = s.receipts.filter((r) => !r.step.startsWith("fund")).map((r) => `<li>${esc(r.step)} <a class="mono" href="${X}/tx/${r.tx}" target="_blank" rel="noopener">${short(r.tx)}</a> <span class="note">block ${r.block}</span></li>`).join("");
+  try {
+    const bond = new ethers.Contract(s.bond, ["function slashCount() view returns (uint64)", "function stakes(bytes32) view returns (bytes32 expected, uint96 bond, uint64 stakedAt, uint8 score, bool scored, bool closed, uint256 jobId, uint64 scoredAt)", "function validator() view returns (address)"], provider);
+    const [count, st, val] = await Promise.all([bond.slashCount(), bond.stakes(s.requestHash), bond.validator()]);
+    $("slashLive").className = "chk";
+    $("slashLive").innerHTML = `live: bond <a href="${X}/address/${s.bond}" target="_blank" rel="noopener">${short(s.bond)}</a>, validator ${short(val)}, slashCount <b>${count}</b>, stake closed <b>${st.closed}</b>, bond left <b>${ethers.formatEther(st.bond)} MON</b>, recorded score ${st.score}`;
+  } catch (e) { $("slashLive").textContent = "could not read the bond from Monad right now"; }
+
+  $("x402").innerHTML = data.x402.map((r) => `<li>market ${esc(r.market)}: ${esc(r.amountUSDC)} USDC, ${(r.latencyMs / 1000).toFixed(1)} s end to end${r.verdict !== null ? `, response carried on-chain verdict ${r.verdict}` : ""}, settlement <a class="mono" href="${X}/tx/${r.tx}" target="_blank" rel="noopener">${short(r.tx)}</a> <span class="note">block ${r.block}</span></li>`).join("");
+})();
+</script>
+</body>
+</html>

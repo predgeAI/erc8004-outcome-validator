@@ -20,8 +20,14 @@ two things it can check without trusting us:
 This repository is Predge's submission to the **Monad Metropolis hackathon, Track 4 (Trust,
 Identity and AI Infrastructure)**. Everything below runs on **Monad testnet (chain 10143)**.
 
-**Live verdict board:** https://predgeai.github.io/erc8004-outcome-validator/ reads every verdict
-from Monad testnet and verifies the signatures in your browser (source: [`docs/`](docs/index.html)).
+**Predge Guard:** https://predgeai.github.io/erc8004-outcome-validator/ checks one market end to end:
+paste a Polymarket link, slug or market id, and it fetches the signed record, verifies the ed25519
+signature and SHA-256 content hash in your browser, reads Predge's verdict from Monad testnet, confirms
+`responseHash == keccak256(signed record)`, and answers "is it safe to act?". Wallet login with Privy
+or Dynamic lets you watch markets and send a validationRequest on Monad testnet from your own wallet
+(source: [`guard/`](guard/), built into `docs/` with `cd guard && npm install && npm run build`).
+The verdict board that re-verifies all 145 verdicts at once is at
+[`board.html`](https://predgeai.github.io/erc8004-outcome-validator/board.html) (source: [`docs/board.html`](docs/board.html)).
 
 Target user: builders of agents, trading and signal bots, and protocols that act on or settle
 against prediction-market outcomes. Revenue today is $0; there are no paying customers yet.
@@ -250,7 +256,8 @@ Dates come from git history.
 | `monad/slash/` | slash demo: dishonest bonded verdict challenged and slashed |
 | `monad/batch/` | 145 verdicts on real disputed markets: markets, signed records, runner, results, verifier |
 | `monad/x402/` | x402 pay-per-call on Monad testnet: resource server and paying agent |
-| `docs/`, `monad/board/` | verdict board (GitHub Pages) and the script that builds its data file |
+| `guard/` | Predge Guard web app (Vite, React, TypeScript); its static build is `docs/index.html` and `docs/assets/` |
+| `docs/board.html`, `monad/board/` | verdict board (GitHub Pages) and the script that builds its data file |
 | `src/attest.mjs` | ed25519 and canonical JSON primitive |
 | `src/map-to-validation.mjs` | signed attestation to ERC-8004 request and response calldata |
 | `src/prove.mjs` | offline proof (`npm run prove`) |
