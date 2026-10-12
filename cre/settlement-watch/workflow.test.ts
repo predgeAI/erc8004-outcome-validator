@@ -7,7 +7,9 @@ import { decodeAbiParameters, decodeFunctionData, encodeFunctionResult, hexToByt
 import { type Config, initWorkflow, onHttp, REPORT_PARAMS, watchMarket } from './workflow'
 
 const here = (p: string) => path.join(import.meta.dir, p)
-const config = JSON.parse(readFileSync(here('config.staging.json'), 'utf8')) as Config
+const staging = JSON.parse(readFileSync(here('config.staging.json'), 'utf8')) as Config
+// tests start with no receiver; the write path sets one explicitly
+const config = { ...staging, write: { ...staging.write, receiverAddress: '0x0000000000000000000000000000000000000000' } } as Config
 const fixture = (m: string) => readFileSync(here(`fixtures/settlement-risk-${m}.json`))
 const results = JSON.parse(readFileSync(here('../../monad/batch/results-2026-10-07T11-39-11-867Z.json'), 'utf8'))
 const row = (m: string) => results.verdicts.find((v: { market_id: string }) => v.market_id === m)

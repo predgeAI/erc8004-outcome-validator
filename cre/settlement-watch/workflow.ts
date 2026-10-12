@@ -45,7 +45,7 @@ import {
 // ─── Config ────────────────────────────────────────────────────────────────────────────────────
 export const configSchema = z.object({
 	schedule: z.string(),
-	apiBase: z.string().url(),
+	apiBase: z.string().regex(/^https:\/\/[^\s/]+$/), // no URL global in the WASM runtime, so no .url()
 	marketIds: z.array(z.string().regex(/^\d+$/)).min(1), // the cron trigger watches these
 	predgePublicKey: z.string().regex(/^(0x)?[0-9a-fA-F]{64}$/), // pinned ed25519 key of predge.io
 	read: z.object({

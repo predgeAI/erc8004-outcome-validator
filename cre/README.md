@@ -111,50 +111,55 @@ run because Predge signs a fresh record (new `issued_at`, `checked_at`) for each
 `node cre/contracts/deploy.mjs` compiles it (solc 0.8.26, 3,605 bytes) and stops (dry run). It was
 also checked with `eth_call` and a code override on Monad testnet: `onReport` from the
 MockKeystoneForwarder with a report encoded like the workflow's succeeds, from any other sender it
-reverts with `NotForwarder`, and `supportsInterface(0x805f2132)` (IReceiver) is true. It is **not
-deployed**.
+reverts with `NotForwarder`, and `supportsInterface(0x805f2132)` (IReceiver) is true. It is deployed; see the on-chain report below.
 
-## Not run yet: needs the owner
+### `cre workflow simulate` (CRE CLI 1.30.0, 12 Oct 2026)
 
-### 1. `cre workflow simulate`
+Cron trigger over both markets:
 
-The CRE CLI requires an authenticated account even for `simulate`. The stored CLI session on this
-machine is from August and token refresh fails (`token refresh failed: auth response: 500`). After
-logging in:
-
-```bash
-cre login                               # browser login to the existing Chainlink CRE account
-cd cre/settlement-watch && bun install && cd ..
-echo 'CRE_ETH_PRIVATE_KEY=0000000000000000000000000000000000000000000000000000000000000001' > .env   # any value works without --broadcast
-cre workflow supported-chains           # confirm monad-testnet and its mock forwarder for this tenant
-
-# cron trigger: watches config.marketIds (1004831, 1112268)
-cre workflow simulate ./settlement-watch --target staging-settings --non-interactive --trigger-index 0
-
-# HTTP trigger with a market id
-cre workflow simulate ./settlement-watch --target staging-settings --non-interactive --trigger-index 1 \
-  --http-payload '{"market_id":"1112268"}'
+```
+$ cre workflow simulate ./settlement-watch --target staging-settings --non-interactive --trigger-index 0
+[USER LOG] [1004831] signed record verified (ed25519 + sha256), consensus reached: risk_level=resolved open_dispute=false outcome=No proposal=No
+[USER LOG] [1004831] Monad testnet getValidationStatus(0xf678c0cc…2018): validator=0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9 response=100 tag=predge:settlement-risk-v1
+[USER LOG] [1004831] result {"market_id":"1004831","risk_level":"resolved","onchain_verdict":100,"expected_verdict":100,"status":"consistent",…}
+[USER LOG] [1112268] signed record verified (ed25519 + sha256), consensus reached: risk_level=resolved open_dispute=false outcome=Under proposal=Over
+[USER LOG] [1112268] Monad testnet getValidationStatus(0x9ccefa67…6e4a): validator=0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9 response=0 tag=predge:settlement-risk-v1
+[USER LOG] [1112268] result {"market_id":"1112268","risk_level":"resolved","onchain_verdict":0,"expected_verdict":0,"status":"consistent",…}
+✓ Workflow Simulation Result
 ```
 
-Expected: the same log lines and results as the live run above.
+HTTP trigger with `{"market_id":"1112268"}` gives the same result for that market.
 
-### 2. On-chain report on Monad testnet
+### On-chain report on Monad testnet
 
-Monad testnet is a CRE-supported chain (docs: CLI 1.30+, TS SDK 1.19+), with MockKeystoneForwarder
-`0xB9F79d863261869B234c481D1f9A7af84AeAd192` for simulation and KeystoneForwarder
-`0xF8344CFd5c43616a4366C34E3EEE75af79a74482` for deployed workflows
-([forwarder directory](https://docs.chain.link/cre/guides/workflow/using-evm-client/forwarder-directory-ts)).
-To write a real report on testnet, with a throwaway key that holds a little testnet MON:
+The consumer `PredgeSettlementWatch` is deployed at
+[`0x1518ad21cF96Ed0429D022b038263e68fD50A90c`](https://testnet.monadvision.com/address/0x1518ad21cF96Ed0429D022b038263e68fD50A90c)
+(tx `0x69b4e66a…7eef`, forwarder = MockKeystoneForwarder `0xB9F7…D192`). With the HTTP trigger and
+`--broadcast`, the simulator wrote the DON-signed report through the forwarder:
+
+```
+[USER LOG] [1112268] report written to 0x1518ad21cF96Ed0429D022b038263e68fD50A90c on monad-testnet, tx 0xfc7af2fc6b0b9ad0f21e55bb0182df3a48f5379183f1f743c32ff466993e7d2a
+```
+
+[Tx 0xfc7a…7d2a](https://testnet.monadvision.com/tx/0xfc7af2fc6b0b9ad0f21e55bb0182df3a48f5379183f1f743c32ff466993e7d2a):
+status 1, block 70482662, `Watched` emitted by the consumer. `safeToAct(0x9ccefa67…6e4a)` now returns
+`true` on chain.
+
+To repeat it:
 
 ```bash
-PRIVATE_KEY=0x<throwaway testnet key> CONFIRM_TESTNET=yes node cre/contracts/deploy.mjs --send
-# put the printed address in settlement-watch/config.staging.json -> write.receiverAddress
-# put the same throwaway key in cre/.env as CRE_ETH_PRIVATE_KEY (the simulator pays gas with it)
-cd cre && cre workflow simulate ./settlement-watch --target staging-settings --non-interactive \
+cre login
+cd cre/settlement-watch && bun install && cd ..
+cre workflow simulate ./settlement-watch --target staging-settings --non-interactive --trigger-index 0
+# --broadcast needs CRE_ETH_PRIVATE_KEY with a little testnet MON (gasLimit 300000 in the config)
+cre workflow simulate ./settlement-watch --target staging-settings --non-interactive \
   --trigger-index 1 --http-payload '{"market_id":"1112268"}' --broadcast
 ```
 
-Then `watches(0x9cce…6e4a)` and `safeToAct(0x9cce…6e4a)` on the consumer show the result.
+The CLI's WASM runtime has no `URL` global, so `apiBase` is validated with a regex instead of
+`z.string().url()`.
+
+## Not run yet: needs deploy access
 
 ### 3. Deployment to a DON
 

@@ -10,7 +10,7 @@
   },
   "write": {
     "chainSelectorName": "monad-testnet",
-    "receiverAddress": "0x0000000000000000000000000000000000000000",
-    "gasLimit": "400000"
+    "receiverAddress": "0x1518ad21cF96Ed0429D022b038263e68fD50A90c",
+    "gasLimit": "300000"
   }
 }
