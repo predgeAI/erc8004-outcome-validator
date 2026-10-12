@@ -345,8 +345,13 @@ later):
 
 ## Honest limits
 
-- Testnet only. The same contracts are deployed on Arbitrum One, Robinhood Chain and Arc; Monad
-  mainnet is not deployed.
+- The Predge contracts run on Monad testnet only. The same contracts are deployed on Arbitrum One,
+  Robinhood Chain and Arc; on Monad mainnet they are not deployed. On Monad mainnet there is one
+  verdict in the canonical ERC-8004 v2.0.0 registries: agentId 10386, market 1112268, response 100,
+  responseHash bound to the signed record
+  ([request](https://monadvision.com/tx/0xb67376ee79ad9fa2f0bccdc6417f13d8e092bee1a5abd95b74219f59431227e5),
+  [response](https://monadvision.com/tx/0xbd6ff81a066d99be913bfcace9a743a3701e2802297cab86a290d0bef9ccae28),
+  script and receipts in `monad/mainnet/`).
 - Revenue is $0 and there are no paying customers yet.
 - The evidence pack in the 2026-10-05 smoke run is signed with a prototype key, not the production
   key; the 2026-10-12 run uses the production-signed pack.

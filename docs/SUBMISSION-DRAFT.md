@@ -136,6 +136,7 @@ curl -s https://api.predge.io/.well-known/predge-keys.json
 ```
 
 - Verdict board: https://predgeai.github.io/erc8004-outcome-validator/
+- Monad mainnet, canonical ERC-8004 v2.0.0 ValidationRegistry: agentId 10386, market 1112268, response 100, responseHash bound to the signed record: https://monadvision.com/tx/0xbd6ff81a066d99be913bfcace9a743a3701e2802297cab86a290d0bef9ccae28 (request https://monadvision.com/tx/0xb67376ee79ad9fa2f0bccdc6417f13d8e092bee1a5abd95b74219f59431227e5)
 - `PredgeAgentValidator`: https://testnet.monadvision.com/address/0x884764736dBe1FD36291bDd3Afd50A75465F6e8A
 - `PredgeValidatorBond`: https://testnet.monadvision.com/address/0x0fE4D5fF3f4392bEC36c8003079E31102a403E84
 - `AgentJob`: https://testnet.monadvision.com/address/0x34F1ef2f39Bfdd6c10Fcaa02f5B257A5dB2e93E9
