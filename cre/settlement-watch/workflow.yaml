@@ -1,0 +1,16 @@
+# CRE workflow settings for the Predge settlement watch.
+staging-settings:
+  user-workflow:
+    workflow-name: "predge-settlement-watch-staging"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.staging.json"
+    secrets-path: ""
+
+production-settings:
+  user-workflow:
+    workflow-name: "predge-settlement-watch"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.staging.json"
+    secrets-path: ""

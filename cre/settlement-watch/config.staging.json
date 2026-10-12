@@ -1,0 +1,16 @@
+{
+  "schedule": "0 */10 * * * *",
+  "apiBase": "https://api.predge.io",
+  "marketIds": ["1004831", "1112268"],
+  "predgePublicKey": "13fa3d18a369e6c71bf941563ba47822b30182273d5106a0e8fb61c5016352d9",
+  "read": {
+    "chainSelectorName": "monad-testnet",
+    "validatorContract": "0x884764736dBe1FD36291bDd3Afd50A75465F6e8A",
+    "trustedValidator": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9"
+  },
+  "write": {
+    "chainSelectorName": "monad-testnet",
+    "receiverAddress": "0x0000000000000000000000000000000000000000",
+    "gasLimit": "400000"
+  }
+}

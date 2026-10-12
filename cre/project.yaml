@@ -1,0 +1,11 @@
+# CRE project settings. RPCs for the chains the workflow reads from and writes to.
+# Monad testnet is a CRE-supported chain (CLI >= 1.30, TS SDK >= 1.19).
+staging-settings:
+  rpcs:
+    - chain-name: monad-testnet
+      url: https://testnet-rpc.monad.xyz
+
+production-settings:
+  rpcs:
+    - chain-name: monad-testnet
+      url: https://testnet-rpc.monad.xyz
