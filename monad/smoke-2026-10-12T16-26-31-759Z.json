@@ -1,0 +1,112 @@
+{
+  "chain": "monad-testnet",
+  "chainId": 10143,
+  "ranAt": "2026-10-12T16:26:31.759Z",
+  "explorer": "https://testnet.monadvision.com",
+  "pack": "https://data.predge.io/samples/pm-2169995-microstrategy-may31.pack.json",
+  "requestHash": "0x48c9f4a5e909c3c881db493caee24749cac6f672a660d9f3bf2047477a5fe998",
+  "expectedSha256": "0x77b90fd7536e1224f458b699ab1dc60111bbd92b9a6bfcb95016d9068521b3ea",
+  "responseHash": "0xa51a70570410b985c6bf706218f79277889d95b847f35b4164350ebf2ae6de26",
+  "jobId": "4",
+  "parties": {
+    "client": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+    "validator": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+    "provider": "0x41c31248B5187635f0c639605E53D43792c900ad"
+  },
+  "values": {
+    "bond": "0.01",
+    "escrow": "0.005",
+    "pay": "0.001",
+    "providerGas": "0.05"
+  },
+  "bond": {
+    "wouldSlash": false,
+    "challengeSimulated": "VerdictHonest",
+    "scoredAt": 1791822372
+  },
+  "erc8004": {
+    "agentId": "2220",
+    "requestHash": "0x2d3cbcb0489d3f202274615db7f1aad5e55929321afee64422f5b71aef5318c1",
+    "responseHash": "0xf440450e6ec986502282270b1a7e58ec0d0a85f6afb20f641b4e48d07f004f72",
+    "bound": true
+  },
+  "receipts": [
+    {
+      "step": "1 validationRequest (Predge)",
+      "tx": "0x3debb9e602555d608418314750c1bdb120c4b87787b3559df65483a9a65255e1",
+      "url": "https://testnet.monadvision.com/tx/0x3debb9e602555d608418314750c1bdb120c4b87787b3559df65483a9a65255e1",
+      "status": 1,
+      "block": 70444717
+    },
+    {
+      "step": "2 createJob (escrow)",
+      "tx": "0x2fb9fc58bed67cc00783c4b96be39720aaa4af36b577b3eb51e89df2d1ab9653",
+      "url": "https://testnet.monadvision.com/tx/0x2fb9fc58bed67cc00783c4b96be39720aaa4af36b577b3eb51e89df2d1ab9653",
+      "status": 1,
+      "block": 70444734
+    },
+    {
+      "step": "3 stakeAndCommit (bond)",
+      "tx": "0xb99296e504975db885f9b80ba51930d6c4030cdece799bf732eb0119ccdd982a",
+      "url": "https://testnet.monadvision.com/tx/0xb99296e504975db885f9b80ba51930d6c4030cdece799bf732eb0119ccdd982a",
+      "status": 1,
+      "block": 70444737
+    },
+    {
+      "step": "4 submit (provider key)",
+      "tx": "0xf57eabbcb77d2968c0f4e87a9eaf38aa3cb37aaca257091d7091e3760471d8be",
+      "url": "https://testnet.monadvision.com/tx/0xf57eabbcb77d2968c0f4e87a9eaf38aa3cb37aaca257091d7091e3760471d8be",
+      "status": 1,
+      "block": 70444741
+    },
+    {
+      "step": "5 validationResponse (verdict 100)",
+      "tx": "0xba6a5e52c72c618953885eb889e86103dcde4d3f306572fe62464d2201f57872",
+      "url": "https://testnet.monadvision.com/tx/0xba6a5e52c72c618953885eb889e86103dcde4d3f306572fe62464d2201f57872",
+      "status": 1,
+      "block": 70444744
+    },
+    {
+      "step": "6 recordScore (verdict behind bond)",
+      "tx": "0xf598c86a7ebbc8b1fad3e91dda698255b9647a05cf9e387af7b6eb6d3251d585",
+      "url": "https://testnet.monadvision.com/tx/0xf598c86a7ebbc8b1fad3e91dda698255b9647a05cf9e387af7b6eb6d3251d585",
+      "status": 1,
+      "block": 70444750
+    },
+    {
+      "step": "7 complete (escrow released)",
+      "tx": "0x946407b9e1999ceebecc0ecc2f6043d1500013ca16ea1dad940038fa77fd5129",
+      "url": "https://testnet.monadvision.com/tx/0x946407b9e1999ceebecc0ecc2f6043d1500013ca16ea1dad940038fa77fd5129",
+      "status": 1,
+      "block": 70444767
+    },
+    {
+      "step": "8 payForRoute (pay-per-call)",
+      "tx": "0x7d2835dad852fb594afc48c88878992b1db11c5a7fd7e718333012b8356d60e5",
+      "url": "https://testnet.monadvision.com/tx/0x7d2835dad852fb594afc48c88878992b1db11c5a7fd7e718333012b8356d60e5",
+      "status": 1,
+      "block": 70444774
+    },
+    {
+      "step": "9 ERC-8004 IdentityRegistry.register",
+      "tx": "0x9da862a0ab206fcd4862985d64ea78a7b3799b1b01e700e596a22ebd4c3adc26",
+      "url": "https://testnet.monadvision.com/tx/0x9da862a0ab206fcd4862985d64ea78a7b3799b1b01e700e596a22ebd4c3adc26",
+      "status": 1,
+      "block": 70444779
+    },
+    {
+      "step": "10 ERC-8004 validationRequest",
+      "tx": "0xc99a476c123e779c7375936b25daa11c5f68724edaa5295b4edab098e16dca64",
+      "url": "https://testnet.monadvision.com/tx/0xc99a476c123e779c7375936b25daa11c5f68724edaa5295b4edab098e16dca64",
+      "status": 1,
+      "block": 70444795
+    },
+    {
+      "step": "11 ERC-8004 validationResponse",
+      "tx": "0xbd42a21921d4d8024e50eead1d96e268c10973970f778ae324867bf52598d631",
+      "url": "https://testnet.monadvision.com/tx/0xbd42a21921d4d8024e50eead1d96e268c10973970f778ae324867bf52598d631",
+      "status": 1,
+      "block": 70444799
+    }
+  ]
+}
