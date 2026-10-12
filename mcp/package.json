@@ -1,0 +1,19 @@
+{
+  "name": "@predge/settlement-risk-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MCP server (stdio): settlement_risk, onchain_verdict and is_safe_to_act, so an agent can check Predge before it acts.",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "predge-settlement-risk-mcp": "server.mjs" },
+  "scripts": {
+    "start": "node server.mjs",
+    "test:live": "node --test test/live.test.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "@predge/settlement-risk": "0.1.0",
+    "zod": "^3.25.76"
+  },
+  "engines": { "node": ">=20" }
+}
