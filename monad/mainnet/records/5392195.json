@@ -1,0 +1,86 @@
+{
+  "source_url": "https://api.predge.io/v1/settlement-risk/5392195",
+  "fetched_at": "2026-10-12T22:23:06.721Z",
+  "claim": {
+    "kind": "predge-settlement-claim-v1",
+    "platform": "polymarket",
+    "market_id": "5392195",
+    "uma_question_id": "0xa869b0bb1b9de3cf3f4452cf8d8e1d552bad250630a710eb3260804666be3fbf",
+    "claim": "final on-chain outcome equals the first disputed proposal",
+    "proposal": "50-50"
+  },
+  "attestation": {
+    "version": "predge-attest-v1",
+    "issuer": "predge.io",
+    "algorithm": "ed25519",
+    "kind": "settlement-risk",
+    "data_basis": "Live read of UMA's Optimistic Oracle and Polymarket's UMA CTF adapter on Polygon (eth_call and eth_getLogs on public RPC) at checked_at. uma_question_id, dispute times and txs, bulletin-board updates and the on-chain resolution are chain facts, re-checkable on any Polygon RPC. The market lookup (condition id, market id, slug to UMA question id) uses Polymarket's public gamma API and is re-checked on chain: keccak256(ancillaryData) equals uma_question_id. Only the question creator's and the venue operator accounts' bulletin-board posts are counted. risk_level and recommendation are Predge's reading of those facts, not advice. settlement_estimate and segment_dispute_rate are statistics computed from 2026 Polymarket disputes (docs/settlement-estimate.md): the estimate uses the market price before the first dispute from Polymarket's public CLOB price history and the market's type; the segment rate is how often markets of this kind were disputed in 2026. Neither is advice. The signature proves Predge published this record.",
+    "public_key": "13fa3d18a369e6c71bf941563ba47822b30182273d5106a0e8fb61c5016352d9",
+    "canonical": "{\"adapter\":\"0x65070be91477460d8a7aeeb94ef92fe056c2f2a7\",\"bulletin_board_count\":\"2\",\"chain\":\"polygon\",\"checked_at\":\"2026-10-12T22:23:02Z\",\"condition_id\":\"0x51641034bc581d5162e21a1037fb7f8e7562707b5cf04724f109c09b0e8ac8ee\",\"current_proposal\":null,\"dispute_count\":\"2\",\"disputes\":[{\"disputed_at\":\"2026-10-07T23:20:08Z\",\"disputed_proposal\":\"50-50\",\"tx\":\"0xc5375ed0b125c989a4f5f1a105e69020b72f554ddd32b6d20bc07ea8bc472a75\"},{\"disputed_at\":\"2026-10-07T23:36:52Z\",\"disputed_proposal\":\"largadosypelados\",\"tx\":\"0x659e4880b73bdae6fef381c56d67d256b26a757a9078de2233b1fcfd5a6d8a02\"}],\"issued_at\":\"2026-10-12T22:23:04.986Z\",\"issuer\":\"predge.io\",\"kind\":\"settlement-risk\",\"latest_bulletin_board_update\":{\"kind\":\"clarification\",\"posted_at\":\"2026-10-08T23:45:03Z\",\"poster\":\"question_creator\"},\"market_id\":\"5392195\",\"onchain_resolution\":{\"outcome\":\"largadosypelados\"},\"open_dispute\":false,\"oracle\":\"0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1\",\"paused\":false,\"platform\":\"polymarket\",\"recommendation\":\"resolved: the on-chain resolution is final (largadosypelados); nothing is left to settle.\",\"resolved_on_chain\":true,\"risk_level\":\"resolved\",\"segment_dispute_rate\":{\"category\":\"esports\",\"ci95\":[\"0.000578\",\"0.001325\"],\"disputed\":\"22\",\"markets\":\"25141\",\"note\":\"Share of 2026 markets in this segment whose UMA resolution was disputed at least once. A segment statistic with a 95% Wilson interval, not a prediction for this market.\",\"rate\":\"0.000875\",\"segment\":\"esports/map_handicap\",\"sports_market_type\":\"map_handicap\",\"table\":\"segment-dispute-rate-2026-v1\",\"window\":\"Polymarket v1 UMA CTF adapter markets with scheduled end date 2026-01-01 to 2026-09-30, closed and resolved by 2026-10-02\"},\"sent_to_uma_vote\":true,\"settlement_estimate\":null,\"uma_question_id\":\"0xa869b0bb1b9de3cf3f4452cf8d8e1d552bad250630a710eb3260804666be3fbf\",\"uma_state\":\"settled\",\"version\":\"predge-attest-v1\"}",
+    "signature": "68c83e9b5b2bb4ef6402265d36848d8dc96be1fe93da6a86a9a15debff47e6b19a76faa111c29ac67accbcc8d2c3040c18b1964128f438d992873c2ac2354508",
+    "payload": {
+      "version": "predge-attest-v1",
+      "issuer": "predge.io",
+      "kind": "settlement-risk",
+      "platform": "polymarket",
+      "chain": "polygon",
+      "market_id": "5392195",
+      "condition_id": "0x51641034bc581d5162e21a1037fb7f8e7562707b5cf04724f109c09b0e8ac8ee",
+      "uma_question_id": "0xa869b0bb1b9de3cf3f4452cf8d8e1d552bad250630a710eb3260804666be3fbf",
+      "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+      "oracle": "0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1",
+      "uma_state": "settled",
+      "resolved_on_chain": true,
+      "paused": false,
+      "dispute_count": "2",
+      "open_dispute": false,
+      "sent_to_uma_vote": true,
+      "current_proposal": null,
+      "disputes": [
+        {
+          "disputed_at": "2026-10-07T23:20:08Z",
+          "tx": "0xc5375ed0b125c989a4f5f1a105e69020b72f554ddd32b6d20bc07ea8bc472a75",
+          "disputed_proposal": "50-50"
+        },
+        {
+          "disputed_at": "2026-10-07T23:36:52Z",
+          "tx": "0x659e4880b73bdae6fef381c56d67d256b26a757a9078de2233b1fcfd5a6d8a02",
+          "disputed_proposal": "largadosypelados"
+        }
+      ],
+      "bulletin_board_count": "2",
+      "latest_bulletin_board_update": {
+        "posted_at": "2026-10-08T23:45:03Z",
+        "poster": "question_creator",
+        "kind": "clarification"
+      },
+      "onchain_resolution": {
+        "outcome": "largadosypelados"
+      },
+      "risk_level": "resolved",
+      "recommendation": "resolved: the on-chain resolution is final (largadosypelados); nothing is left to settle.",
+      "settlement_estimate": null,
+      "segment_dispute_rate": {
+        "table": "segment-dispute-rate-2026-v1",
+        "segment": "esports/map_handicap",
+        "category": "esports",
+        "sports_market_type": "map_handicap",
+        "markets": "25141",
+        "disputed": "22",
+        "rate": "0.000875",
+        "ci95": [
+          "0.000578",
+          "0.001325"
+        ],
+        "window": "Polymarket v1 UMA CTF adapter markets with scheduled end date 2026-01-01 to 2026-09-30, closed and resolved by 2026-10-02",
+        "note": "Share of 2026 markets in this segment whose UMA resolution was disputed at least once. A segment statistic with a 95% Wilson interval, not a prediction for this market."
+      },
+      "checked_at": "2026-10-12T22:23:02Z",
+      "issued_at": "2026-10-12T22:23:04.986Z"
+    },
+    "verify": "ed25519: verify `signature` (hex, 64 bytes) over the UTF-8 bytes of `canonical` using `public_key` (hex, raw 32-byte ed25519 point). `canonical` is the exact byte string that was signed — JSON with keys sorted lexicographically at every level and no insignificant whitespace (a subset of RFC 8785 / JCS). `payload` is the same object parsed; re-canonicalise it and you MUST reproduce `canonical`. If `payload.payment` is present it names the x402 payment that bought this response. On `payment.network`, find the `AuthorizationUsed(payer, nonce)` log emitted by `payment.asset`; in that same transaction receipt (not just the same block) require status 1 and a `Transfer(payer, payTo, amount)` log from `payment.asset`. Those arguments are the fields of `payment` with the same names. envelope_signature: remove the `envelope_signature` field from the envelope, canonicalise what is left with the same rule as `canonical` (keys sorted at every level, no whitespace), and verify `envelope_signature` (hex, 64 bytes) over its UTF-8 bytes with `public_key`.",
+    "kid": "13fa3d18a369e6c7",
+    "content_hash": "65ff52a126fa6a3ddce29e8d3235c78385e914a2d4a31db26e0ae70747a4175b",
+    "envelope_signature": "04729ec1fca5799ade924acf0269eeffe1af5fcf6f74f4b0ee8746bad07c50984948c29bb686fb14ec51172c48479724b007f4824a347813f85f37998e60210c"
+  }
+}

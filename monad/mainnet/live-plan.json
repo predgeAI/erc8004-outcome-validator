@@ -1,0 +1,1226 @@
+{
+ "plannedAt": "2026-10-12T22:30:12.402Z",
+ "chainId": 143,
+ "contract": "0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9",
+ "validator": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+ "tag": "predge:settlement-risk-v1",
+ "maxFeeGwei": "112.0",
+ "worstCaseMON": {
+  "now": "1.418626048",
+  "deferred": "0.3222128",
+  "total": "1.740838848"
+ },
+ "markets": [
+  {
+   "market_id": "5592771",
+   "title": "Set Handicap: Evialina Laskevich (-1.5) vs Zoie Epps (+1.5)",
+   "state": "open",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x4a300b1045eb8a2a873f69088cf4a9fad58858855920248650f74d79a6c393fb",
+   "outcomes": [
+    "Evialina Laskevich",
+    "Zoie Epps"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-12T20:39:57Z",
+   "dispute_count": 1,
+   "proposal": "Zoie Epps",
+   "uma_state": "requested",
+   "open_dispute": false,
+   "outcome": null,
+   "resolved_utc": null,
+   "requestHash": "0xc636811fc86534a9ee5f523e9b9c7490b211c56dfe487b0c7665b3e69bfef44f",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5592771.json",
+   "reqLimit": "216019",
+   "deferredResLimit": "238745"
+  },
+  {
+   "market_id": "5592765",
+   "title": "Set Handicap: Zoie Epps (-1.5) vs Evialina Laskevich (+1.5)",
+   "state": "open",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xe24233327c1fc9bdaddf0354aab8464ee5d61169b2f49a42a790c7d0644ffb9b",
+   "outcomes": [
+    "Zoie Epps",
+    "Evialina Laskevich"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-12T20:39:53Z",
+   "dispute_count": 1,
+   "proposal": "Zoie Epps",
+   "uma_state": "requested",
+   "open_dispute": false,
+   "outcome": null,
+   "resolved_utc": null,
+   "requestHash": "0x134a66964d4d3666c8294aebe9552f926f1073a81001e4802cd35566ade6b533",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5592765.json",
+   "reqLimit": "216019",
+   "deferredResLimit": "238745"
+  },
+  {
+   "market_id": "5219930",
+   "title": "Will Trump say \"Ammunition\" this week?",
+   "state": "open",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xe783aa7b45699f150009dd4dbfbce8dfec4b19ca86215ba4e0a76121f37a6dc3",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-12T08:18:58Z",
+   "dispute_count": 2,
+   "proposal": "No",
+   "uma_state": "disputed",
+   "open_dispute": true,
+   "outcome": null,
+   "resolved_utc": null,
+   "requestHash": "0x48c69bd02d7a2b777798db1a315ee72aa98d78a573bf276f9fc417a0cef14793",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5219930.json",
+   "reqLimit": "216019",
+   "deferredResLimit": "238745"
+  },
+  {
+   "market_id": "5518151",
+   "title": "Stopin Oleh vs. Semenets Serhii: Total Games O/U 3.5",
+   "state": "open",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xfaf57eaf9995f5b061a687449b60d5bf23a75d8783d383499e79e71eb1bde2a9",
+   "outcomes": [
+    "Over",
+    "Under"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T22:38:42Z",
+   "dispute_count": 1,
+   "proposal": "Over",
+   "uma_state": "requested",
+   "open_dispute": false,
+   "outcome": null,
+   "resolved_utc": null,
+   "requestHash": "0xa6b7d7096a9897d0bdaee08e1eaee97891f25cd3574ccd0884dfa686c26a5320",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5518151.json",
+   "reqLimit": "216019",
+   "deferredResLimit": "238745"
+  },
+  {
+   "market_id": "5545588",
+   "title": "Pierluigi Gollini: 4+ saves",
+   "state": "open",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xa9877f0bbd7882ec81273ddd3e592361f67071c6e61ec0b5abaada6d149b620e",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T16:23:25Z",
+   "dispute_count": 1,
+   "proposal": "Yes",
+   "uma_state": "requested",
+   "open_dispute": false,
+   "outcome": null,
+   "resolved_utc": null,
+   "requestHash": "0x53cc1f16d932ff5452d3f68902a4303ab2b2435f191c6a9fa4f4f703a91e8f03",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5545588.json",
+   "reqLimit": "216019",
+   "deferredResLimit": "238745"
+  },
+  {
+   "market_id": "5527590",
+   "title": "Albert Rusnák: 1+ goals + assists",
+   "state": "open",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x5714b53e191e1065284b28da7e888bd2ca37b977fcc1904ee92e0f20a03a4c4c",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T08:29:55Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "requested",
+   "open_dispute": false,
+   "outcome": null,
+   "resolved_utc": null,
+   "requestHash": "0xc081f7dcfe63c298ec08f1e71ef078668f4949a3ecc7387dce3c672b0742c9f6",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5527590.json",
+   "reqLimit": "216019",
+   "deferredResLimit": "238745"
+  },
+  {
+   "market_id": "5527470",
+   "title": "Albert Rusnák: 1+ assists",
+   "state": "open",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x0858fb8b10f92c3474f3fd07ad263907f6aff6c7cd340d790a7d6e6a8482a991",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T08:29:51Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "requested",
+   "open_dispute": false,
+   "outcome": null,
+   "resolved_utc": null,
+   "requestHash": "0x0acdbc0460bbfa7cfefa1b33b72f1242eda34362f4dfbbe8e3231bd0cc563940",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5527470.json",
+   "reqLimit": "216019",
+   "deferredResLimit": "238745"
+  },
+  {
+   "market_id": "5531929",
+   "title": "Timo Werner: 1+ assists",
+   "state": "open",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xe153f390ce689411adbf183072ae4d57c0e117fd9b717af4daec051ceb898064",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T08:26:31Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "requested",
+   "open_dispute": false,
+   "outcome": null,
+   "resolved_utc": null,
+   "requestHash": "0x47909d3b539873a21f4d230f05e94b97b063cc5aac6114a7e6b545dfbf10d984",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5531929.json",
+   "reqLimit": "227993",
+   "deferredResLimit": "250719"
+  },
+  {
+   "market_id": "5532585",
+   "title": "Sergio Vasquez: 1+ assists",
+   "state": "open",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x15e97820ffefc653c87dbf517567b7c8b01e1e9aacaaffe888d2522b57a131a9",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T08:25:30Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "requested",
+   "open_dispute": false,
+   "outcome": null,
+   "resolved_utc": null,
+   "requestHash": "0x71037518f213765a322b32e675ba01271c151523cf3f90dfb5a09de860ab6791",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5532585.json",
+   "reqLimit": "216019",
+   "deferredResLimit": "238731"
+  },
+  {
+   "market_id": "5532645",
+   "title": "Sergio Vasquez: 1+ goals + assists",
+   "state": "open",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x5ac13dc2fe0a3257b38a795ee72d02173e9801a30b8966bffe5e8208fa5c0433",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T08:25:21Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "requested",
+   "open_dispute": false,
+   "outcome": null,
+   "resolved_utc": null,
+   "requestHash": "0x7b21f9f8e48d748508dbb7c5411a2655a5597c9b62893baeb4f04c47bb2d4878",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5532645.json",
+   "reqLimit": "216019",
+   "deferredResLimit": "238745"
+  },
+  {
+   "market_id": "5526858",
+   "title": "Tomás Jacob: 3+ shots",
+   "state": "open",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x2993ba555cde5f0bfe3bdbbdd2049fee3034fd040653e3eb7103a53c2c4b7bea",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T07:46:03Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "requested",
+   "open_dispute": false,
+   "outcome": null,
+   "resolved_utc": null,
+   "requestHash": "0x3de39fcb5759172bb76c8244460af3cf62bc05e50ba91258ce259ed6494fb009",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5526858.json",
+   "reqLimit": "216019",
+   "deferredResLimit": "238745"
+  },
+  {
+   "market_id": "5508116",
+   "title": "Richie Laryea: 1+ goals + assists",
+   "state": "open",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x0e883b46a8eac827ab8cd0c84f168a4b8cfec30dd2e7e54e880f79c2bbeadd7e",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T07:30:55Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "requested",
+   "open_dispute": false,
+   "outcome": null,
+   "resolved_utc": null,
+   "requestHash": "0xa38c3d13c816feb75e26e6990f12a8f309a953f8783d8097df0f882f1a43f256",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5508116.json",
+   "reqLimit": "227993",
+   "deferredResLimit": "238745"
+  },
+  {
+   "market_id": "5532382",
+   "title": "Will the announcers say \"Offside\" or \"Offsides\" during the Ravens vs Falcons game?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xa808646bff3ce2b0d871f939564901322a52c24837ccb20b966e358f3d7d1f2f",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-12T08:35:27Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Yes",
+   "resolved_utc": "2026-10-12T13:12:56Z",
+   "requestHash": "0x53495b709d52fa70b8a9f18f06724800cdcf258def297377ea57ff69c09409a6",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5532382.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5532382.json",
+   "responseHash": "0xb55a6f99e110b80ac9a9c8f951bfb429b59ef3c759852bfa6549cf8a16ef234e",
+   "reqLimit": "216005",
+   "resLimit": "238612"
+  },
+  {
+   "market_id": "5377001",
+   "title": "Will David Autor win the Nobel Prize in Economics in 2026?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x1804b0faf9b713ee1d446f7d4e37fb36d49352a189e53520ae76c07900858f2d",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-09T09:06:45Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "No",
+   "resolved_utc": "2026-10-12T11:51:29Z",
+   "requestHash": "0x500fcfc74bcee42d37af4bea80c3ba2462cae27946fe049d42a07a71cc59b4d3",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5377001.json",
+   "score": 100,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5377001.json",
+   "responseHash": "0x9c5899a8d9602b48b512fbc5199edda7e3cf3b55a3f49cd511d5957a80c494d6",
+   "reqLimit": "216019",
+   "resLimit": "238638"
+  },
+  {
+   "market_id": "5530221",
+   "title": "Mateusz Bogusz: 1+ assists",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x0b6367302de9c191ef3d1e64dcf96edeb68663a3cf1ac0e75faf3f7a78c5dfaf",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T08:29:01Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Yes",
+   "resolved_utc": "2026-10-12T10:40:54Z",
+   "requestHash": "0xca91fae2684917344719cd824f78097d28090e245fc0fe52e9c16fe82966b794",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5530221.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5530221.json",
+   "responseHash": "0x992791e199951714a560ba4730adce6fc080697e54351cdeca3e67e173ec490a",
+   "reqLimit": "227993",
+   "resLimit": "250599"
+  },
+  {
+   "market_id": "5581284",
+   "title": "André: 1+ shots",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xe140979d19fa58c629e03b55f8073e67e9c696c25e8bb447eb9202667a68bfd6",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-12T06:39:53Z",
+   "dispute_count": 1,
+   "proposal": "Yes",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "No",
+   "resolved_utc": "2026-10-12T08:45:55Z",
+   "requestHash": "0x02d2c3a0e9c6b77a218ca7eef7788e8046bb87cbadefb572d338dda33a0342a7",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5581284.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5581284.json",
+   "responseHash": "0x4db142c4c7dc26b744f720128d31a8d9c1fb1997477742779a08c2661e253cf1",
+   "reqLimit": "216019",
+   "resLimit": "238625"
+  },
+  {
+   "market_id": "5369848",
+   "title": "Games Total: O/U 2.5",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x8c379b1299db46733f13507f73cfffb657bedc094fa9e1e392305f979fa97cf4",
+   "outcomes": [
+    "Over",
+    "Under"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-07T23:19:49Z",
+   "dispute_count": 2,
+   "proposal": "50-50",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Under",
+   "resolved_utc": "2026-10-12T00:41:57Z",
+   "requestHash": "0x8d4d2ba8b02e34dc2ce36783a45c5d567c14c08e57666b0d43131556218e6abf",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5369848.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5369848.json",
+   "responseHash": "0x6db7a207dc23c76706227a73ce441a8541c7ecd603d349345f6d3e2e02e6f677",
+   "reqLimit": "216019",
+   "resLimit": "238625"
+  },
+  {
+   "market_id": "5392195",
+   "title": "Map Handicap: LDP (-1.5) vs METANOIA WOLVES (+1.5)",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xa869b0bb1b9de3cf3f4452cf8d8e1d552bad250630a710eb3260804666be3fbf",
+   "outcomes": [
+    "largadosypelados",
+    "METANOIA WOLVES"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-07T23:20:08Z",
+   "dispute_count": 2,
+   "proposal": "50-50",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "largadosypelados",
+   "resolved_utc": "2026-10-12T00:41:57Z",
+   "requestHash": "0x839eaec6e5d096707c3fc7e0953a7813557e610dc1fa7fd11fe7b18ce2fe1e1f",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5392195.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5392195.json",
+   "responseHash": "0xb488c5a1704a0f1b8702acb09222fe6d30bfbfacc43b70df5beb663369f898b9",
+   "reqLimit": "216019",
+   "resLimit": "238625"
+  },
+  {
+   "market_id": "5557868",
+   "title": "Dota 2: Team Yandex vs Team Spirit - Game 3 Winner",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x46684a0e69ee9900b9f0250bb8aaa2c0e9bab016e07c72e6f31f3418d66b7dce",
+   "outcomes": [
+    "Team Yandex",
+    "Team Spirit"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T18:06:21Z",
+   "dispute_count": 1,
+   "proposal": "Team Spirit",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Team Yandex",
+   "resolved_utc": "2026-10-11T18:47:42Z",
+   "requestHash": "0xb3d41d25116e49f39829bc83328dc5075f80b3b2ac0bb2671469ed496f0a86e9",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5557868.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5557868.json",
+   "responseHash": "0xf03fd9a0d0ce6a195d0fd7548f7cbfae605f390a2627c61fbe192bc1e0e1599b",
+   "reqLimit": "216019",
+   "resLimit": "238625"
+  },
+  {
+   "market_id": "5557885",
+   "title": "Game 3: Ends in Daytime?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xe08ad19218a788dd36cf280402be14720c6f6645ca4f2900df93debcd83090b9",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T18:10:52Z",
+   "dispute_count": 1,
+   "proposal": "Yes",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "No",
+   "resolved_utc": "2026-10-11T18:47:42Z",
+   "requestHash": "0x7609e2a5dc1c390b4e642deb2afeb4d266a60eb71ccc5a85021d5a44950e5b2e",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5557885.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5557885.json",
+   "responseHash": "0x91a2d4536541b716263e612617ebab13df3accc402056cdb315d670b38508baf",
+   "reqLimit": "216019",
+   "resLimit": "238625"
+  },
+  {
+   "market_id": "5535434",
+   "title": "Takuya Yasui: Anytime Goalscorer",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xb6977a07d7f5ca4d0cd0071909e57b3e3850a526a6eb39beaec30d7c8111fe49",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T12:23:10Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Yes",
+   "resolved_utc": "2026-10-11T12:45:27Z",
+   "requestHash": "0x72fa69873e211d479d40eb3ca789d5e385343173fed163d822ce3bd5936c0375",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5535434.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5535434.json",
+   "responseHash": "0xdf742f06e21d832ab26dde026c0decd22db55a0191eb4ae7e0670211893072d3",
+   "reqLimit": "216019",
+   "resLimit": "238625"
+  },
+  {
+   "market_id": "5530168",
+   "title": "Wil Trapp: 1+ assists",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x18e426091120c3a784e24e92c5746a11e4856e276a934706a17a4d520b3cd4d3",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T08:28:45Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Yes",
+   "resolved_utc": "2026-10-11T12:25:31Z",
+   "requestHash": "0x924f5003b5a861294ee355989cb074b24808d72a4d4973451e249676d37b3ca3",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5530168.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5530168.json",
+   "responseHash": "0x2679548bfe3a772be3ddd6ad76c5711a4225c7d33a9a4e67b68baffb465c2ec0",
+   "reqLimit": "216019",
+   "resLimit": "238625"
+  },
+  {
+   "market_id": "5490323",
+   "title": "Bohdan Popov: Anytime Goalscorer",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x7e7f3bac27150a31b4761ee3d120df8a19f38537415089e7fe4832a3ecad867e",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-11T04:13:47Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Yes",
+   "resolved_utc": "2026-10-11T06:25:45Z",
+   "requestHash": "0x134f991d7f040fa595e97c48dde45cbd72a4885ec446e8b8ccc5371eba3105cc",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5490323.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5490323.json",
+   "responseHash": "0xfb4ab6b94fae5532bc5fc4beedb92be0d093bfd46f74f61ebb47fcc966fd2f54",
+   "reqLimit": "216019",
+   "resLimit": "238625"
+  },
+  {
+   "market_id": "5344793",
+   "title": "3Q Spread: Missouri (-3.5)",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xcb3186b9f62bfae839a1c3ffa6a303878353c8392b6b10c92de3639c83c31547",
+   "outcomes": [
+    "Missouri",
+    "Texas A&M"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-10T18:41:52Z",
+   "dispute_count": 1,
+   "proposal": "Texas A&M",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Missouri",
+   "resolved_utc": "2026-10-10T19:52:57Z",
+   "requestHash": "0xc94512d2025d0f2431386fe5458f0277fd1e1e8ea49dcf5b929fce5e7e6d6699",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5344793.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5344793.json",
+   "responseHash": "0x124cda16541329884e6c7b8e377fc6885aa1c3d2bfa13233e0bb6cb54309c2b3",
+   "reqLimit": "227993",
+   "resLimit": "250599"
+  },
+  {
+   "market_id": "5096739",
+   "title": "Texas A&M vs. Missouri: 4Q O/U 7.5",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x4223d52403edfa2a8d0922a0eac96ab8748dc404ac2b5c74605f09c69fb2c1e6",
+   "outcomes": [
+    "Over",
+    "Under"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-10T19:05:58Z",
+   "dispute_count": 1,
+   "proposal": "Over",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Over",
+   "resolved_utc": "2026-10-10T19:47:13Z",
+   "requestHash": "0x72a931e72c6b82225f7ccf1d40a0acbb16e210c347b791038b6116872c2bd215",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5096739.json",
+   "score": 100,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5096739.json",
+   "responseHash": "0xd28c13855c48fb6e7dc4c93bddccb6073ee4dfb6140557dbbed8472f165de7bc",
+   "reqLimit": "216019",
+   "resLimit": "238638"
+  },
+  {
+   "market_id": "5344797",
+   "title": "3Q Spread: Missouri (-5.5)",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xa36fbda5656f33fcab87aaeccfbd2c4e9246b1628a6465ec00a82f635e2b8170",
+   "outcomes": [
+    "Missouri",
+    "Texas A&M"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-10T18:41:58Z",
+   "dispute_count": 1,
+   "proposal": "Texas A&M",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Missouri",
+   "resolved_utc": "2026-10-10T19:33:48Z",
+   "requestHash": "0xaf6958babb90317ff5053c526debbf4753f44939242e08413c211a8e490cae88",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5344797.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5344797.json",
+   "responseHash": "0xd35a7f1a3b9ebe787c81de2b25ecc9681cf8e4ffdd24e0153686b00ace650810",
+   "reqLimit": "216019",
+   "resLimit": "238625"
+  },
+  {
+   "market_id": "5096734",
+   "title": "Texas A&M vs. Missouri: 3Q O/U 7.5",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x85c06ee0e60eb443cea2540847e50f223b8e88176e7d55b124d13fea684d7a8c",
+   "outcomes": [
+    "Over",
+    "Under"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-10T18:41:46Z",
+   "dispute_count": 1,
+   "proposal": "Under",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Over",
+   "resolved_utc": "2026-10-10T19:28:51Z",
+   "requestHash": "0xe6818090909a76c5b17d20eefb92b6fe8b9de4ddbdd049c9ceb3d62bc61b1f49",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5096734.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5096734.json",
+   "responseHash": "0x2c06b4f4a3fc780638651da089db5f21220f5bc86ae720bb6ef2cecfd159b571",
+   "reqLimit": "216019",
+   "resLimit": "238625"
+  },
+  {
+   "market_id": "5491095",
+   "title": "Bitcoin above 84,800 on October 10, 10AM ET?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x60582e006c0e807314a6a29e3eae5471ef684e50e4caaff2fba99c4182f75438",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-10T14:14:30Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "No",
+   "resolved_utc": "2026-10-10T14:34:42Z",
+   "requestHash": "0xa92a89189e2507e6ce1fa535c6a8e365541a3b5b8a306a5297d5c026772abab2",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491095.json",
+   "score": 100,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491095.json",
+   "responseHash": "0xe355bcf3013ff45be562858b64268a8ea55a9d6110e74aa184cf4ae2f4432d1b",
+   "reqLimit": "216019",
+   "resLimit": "238638"
+  },
+  {
+   "market_id": "5491113",
+   "title": "Bitcoin above 81,000 on October 10, 10AM ET?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x625890479cf8d8a2a2fbd25db237af76400ce432fbfc4015567e07022f63faba",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-10T14:14:33Z",
+   "dispute_count": 1,
+   "proposal": "Yes",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Yes",
+   "resolved_utc": "2026-10-10T14:34:42Z",
+   "requestHash": "0x3373f8575d18aab5d0b478278f378c6e938820afe812d2944f7317f67668a984",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491113.json",
+   "score": 100,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491113.json",
+   "responseHash": "0x05dba73a46c3cd23f65694fd0c226f5d97f405c8b1df8e7b0e46af0fe0d63d31",
+   "reqLimit": "216019",
+   "resLimit": "238638"
+  },
+  {
+   "market_id": "5491114",
+   "title": "Bitcoin above 80,800 on October 10, 10AM ET?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xe7190889ad5c9585e0cf20d976f63fb7c21739655be039e96ac91be4139228ed",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-10T14:14:36Z",
+   "dispute_count": 1,
+   "proposal": "Yes",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Yes",
+   "resolved_utc": "2026-10-10T14:34:42Z",
+   "requestHash": "0x5215ac3f8f3a96d1df9ddacd4f40052af1ce356905dca26d1708bfd23d2c0ef5",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491114.json",
+   "score": 100,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491114.json",
+   "responseHash": "0xe7635e4b6e3a8a6f8934f21c7dd461e9f44d9d829d70fcb7769e56e2247edd7d",
+   "reqLimit": "216019",
+   "resLimit": "238638"
+  },
+  {
+   "market_id": "5491112",
+   "title": "Bitcoin above 81,200 on October 10, 10AM ET?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x41e44827051605b9c32051cdee3cace33179b10227e6e0248e9a4d48bcf2fe7b",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-10T14:14:39Z",
+   "dispute_count": 1,
+   "proposal": "Yes",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Yes",
+   "resolved_utc": "2026-10-10T14:34:42Z",
+   "requestHash": "0x178fd8a6099668d14f2d3f8213d318b4bf08a1bb9e4159208950de969f0bd2a1",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491112.json",
+   "score": 100,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491112.json",
+   "responseHash": "0xc3965da3f47095e89026eab0207e918fd6606718dda5310db400d00d7a791c6d",
+   "reqLimit": "216019",
+   "resLimit": "238625"
+  },
+  {
+   "market_id": "5491096",
+   "title": "Bitcoin above 84,600 on October 10, 10AM ET?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xed1cbbad973e8099790fcac6a724f7d51ed673d3e4811e092e407dd5377dc509",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-10T14:14:40Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "No",
+   "resolved_utc": "2026-10-10T14:34:42Z",
+   "requestHash": "0x43e98c9550f50f3daec9cf54415fb4cbf1bcf805ffbe016fa411fcfcfa173f88",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491096.json",
+   "score": 100,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5491096.json",
+   "responseHash": "0xd90e9665fac48c2d4f957a31904e50ec27ff4cc1665674dcb389292b2bca095d",
+   "reqLimit": "216019",
+   "resLimit": "238638"
+  },
+  {
+   "market_id": "4838803",
+   "title": "Will the next Google Gemini Pro model be released by October 9, 2026?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x78abde9f4b0196ced2bcecd6e2139b96d683455c26b5160661fc80def0bbe81a",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-10T04:15:33Z",
+   "dispute_count": 1,
+   "proposal": "No",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "No",
+   "resolved_utc": "2026-10-10T14:33:45Z",
+   "requestHash": "0x723a50aff20714a8a1661330ed2a52ce3d705ef7df76672d51435071337620fc",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/4838803.json",
+   "score": 100,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/4838803.json",
+   "responseHash": "0xe507e42c2b461311e564517a50089c9fd6977eb980743b8670f87bc051f7714f",
+   "reqLimit": "216019",
+   "resLimit": "238638"
+  },
+  {
+   "market_id": "5455876",
+   "title": "Will Chicago, IL face tornado risk on October 9?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x411fee937829ef3d796d98718ba23cd2722f4a40991a9d0af9e3673fff8011b0",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 93410258,
+   "first_dispute_utc": "2026-10-10T01:13:28Z",
+   "dispute_count": 1,
+   "proposal": "Yes",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "No",
+   "resolved_utc": "2026-10-10T12:41:28Z",
+   "requestHash": "0xd438d202b59181b3e39310e36fa7871b94b7a07686a7755d4e101ed8a7f5e24d",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5455876.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5455876.json",
+   "responseHash": "0xe79085a36aff092a0a36f02ba58bc94d7cf1e98fdb30491f2daa759d6a9c63fa",
+   "reqLimit": "216019",
+   "resLimit": "238625"
+  }
+ ],
+ "skipped": [
+  {
+   "market_id": null,
+   "uma_question_id": "0x6d76b6cce9c73eea7fbd0b4f2c3b7167226655f518204bb4e46dc7c749e57887",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x94a3b5474ba6c6a83e97664108036d760939903561327c160355d42d107d7353",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x669cd34f556eedfb4780110c18fd16b12ef3d885df99228cb632d23b080ba527",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x7ab5ff5b1edec7053dde2b84163a642ee021e7c36234fb2ea1842be4a3782607",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x00249b465f2f2adf20dde07c2072583a8eb8a4e22dfe3644f2c96e5348381fd1",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x676d50a661826ab9dfee51a739297a77d6c0df5310e014c9cf6a7d5d49ad864d",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xa9ca826cc03924462405edb5021fd1605cc38ddea6e943ebb499a191e621c2a0",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xf529701c8f904bda72c92fc720d05ec83fdd72b0a344d83f4b706592d0a2afe5",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x9d837e9ea867e297428773389d59d7e1254c913ec226eedd064f245873df32b5",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xa0aa082a333d2746fb719c1808cd6cb276540a989a2e6398e559d48eec48a109",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x09eba9fe7e59685a1e2f3bfe0ec1b4abe99cd7cbf4b718fb520e9d29b6ea9468",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x1e8cc022c552da86bb0c6514529604fc676be6602db1563a419acb4b55f9daaf",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xd02e175cec5f7beb83bfa8988cd09511ace774204e12772dceaafd79efcded1a",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x787eb95cb4d69a03167a06cfe818fae68cca599b6ff439d352099c777f4b697e",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x8ab0eb6028ad6d6157bd44e2fb2469d738bb4996c7f2f79ce621376f76ea1cc3",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xcee8ec640b29ff66984e1b07a6ca12b027ad346fbefa63530983f9e23f6746b2",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x798081f48011f26b1f02c2a523fb73b550eaa01285f5baa84a2f6249cecbc4ee",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xb667f7c4d1ecfec9a091420ba7009e6e7d6b606eb6c2b6e9a268b474cc66aa68",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xac7ad5745c29a807e2f3eb1df0d7750da49c43ec0eb7f520c5247837767e33eb",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x246214826c92d048c3a5979deb5994951e2709cbdac9e6cd7a46aec62009169a",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x593a1b4afb35f1243025f086bb5a206bb98e16d934907ea177f6c696c9c9e6a3",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x2ad72ecdaaac2a249b8d4d29b394c2ff51295ca39f0abc5a6eb39c165ae3c1cd",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xfe4363ff241de405c88fcb1de51c4c344717d2aef36919403be5642d9c315ab2",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x9dcf8fa7b0f166ca411d35441f4b6ac8603a1844c548b90569b10001179cdcf2",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xc2b2db75a97650d468f92d347e9251574ce2c534396ffed9823074716adbae82",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x55aaea7743b05788b4b343f58b5684d9ba227fa01945a58c18f3b25b4d211ddf",
+   "title": null,
+   "reason": "open on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x45333e04a1f3fcf03c4634d36d0e7924c69bd5374b3c68298f48b015b38ab811",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x327bc8d082f2f6c5ff1bcc9be72c0c4a95aeff0abb0059779009e0060ccd5e7c",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xb9f22f3e13dfebd847e2f0691e94ea1d08232c091cebbcd5fbc1e915b23799f3",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x10e6890b2328e7c67f86186a2c9e91c889f5f0bf3708962544db4b19f5328911",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x05847e1882996abb02788ea62d7314548ad14d1526db34aaf57875d3c6619e88",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xfa389930b53b9607b36f597a4920bbc04eb27d415fc742c23983594094d54e6c",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x44f00f39026d7880252403735163141f1cc516da5b037f228d2cfe916eff8840",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xa590baf953c590ffab4416980f63e5da974b6c4a3836b331f95730fa883e1990",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xc0ad1709950f5b3f94ffb670966552970448896ba14675c7158081c4e7355600",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x2523e8fafd8a2970846a418c9049c69a9a38b85537831c7aaa87ad8103fb40fb",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x01d1087f08ba88122c8a796dc73572b59296e719b91d5d7d51dfa465a4382107",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x5ecc41ddf02e37271121528eff23b3434582cf9b5b3ef9afeb68c3d912473050",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xb89995f6b6d01e083f26f6326579b530c58ddacc31a2603bbb8911fe08c7d8ca",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xbc5acca77726bc450a1ff09c42f209f170eb297330ffccaeb4f08cd915d19280",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x50ad05ebabb7540fb148140fb2cab4641d0ed899d5f7189383d914066515b1e9",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xce450e07cc991451f771e85b34bcc5f4d5e27c520cdedbd676be539ba20707f3",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x2a0afbe101f14ce3c34a9d7269189c9f2dfc9a6659aa38ea95f699d974eab298",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x36c55e41744e8476d1d0e1c5020bca390607197f329da39c7635caa8f463336e",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x68e107c6c36a2d04c0daca45788af4e3b86fda17c794862c2db708653537c6e1",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xe14ce9cdd25938417e0b6c68c5c72317f9759f97366241156c32885257ec9fea",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x0d39c4320708433bdad9445f46a108968347261cb67cadb16204d3f0a713cbce",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xd55578e559f1b21a8e329d058f71f4fd3c6e4324a892a827347853dbf5c7a060",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x3c6ca74855bf00eb979ffa7643d0181777b504dea5b30504e2d4712e8c31fc3a",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xa99bee94920f2e87db1954c20c0772266d3cdd5a6c4e8767ab97b58891fcf419",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x49aabf6ced8a64b4a92b8bd4f28e97a177aea2d02732a5f788d3ce6d65d8e2a7",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xd2f8d8119a215ee6b2ab363e4c6acedb5e0ea956422a777e84d1ff074002e760",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x68a26e29a3312648839b82d09d45c5a7f1cf8b71f808427d294bbae45b9d7193",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x90205a2481066f76784068ddb7da2164f5031b1822ea7e74f9cdabada8542818",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xe00586e288b293a1fa34cd730b8b2cb2963b616472f57739646f24457a70515f",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x85fd74a84f31dea999568c74646eaf3cc8da7fb8812f842994a67439d973d4c9",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x37fba1b7fc30d34f6169670b03f81d2a9c77f1270e194f6211cbf7a01daa7e76",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xefa310b32301cb27657c6f642564d2c2cfd4a30d26895625f39ca1d4c3a6c548",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0x5dd8383e815df9b2003d1c43f6b6ac465c285d63812ad9ededcca30fc8457f1f",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  },
+  {
+   "market_id": null,
+   "uma_question_id": "0xa9b092f25622236db90deb4a21ffcbc03e89690bf84603ee7d92588881d73d24",
+   "title": null,
+   "reason": "settled on chain but not found in Gamma"
+  }
+ ],
+ "alreadyOnChain": []
+}

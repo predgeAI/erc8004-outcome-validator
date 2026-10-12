@@ -1,0 +1,77 @@
+{
+  "source_url": "https://api.predge.io/v1/settlement-risk/5377001",
+  "fetched_at": "2026-10-12T22:22:43.146Z",
+  "claim": {
+    "kind": "predge-settlement-claim-v1",
+    "platform": "polymarket",
+    "market_id": "5377001",
+    "uma_question_id": "0x1804b0faf9b713ee1d446f7d4e37fb36d49352a189e53520ae76c07900858f2d",
+    "claim": "final on-chain outcome equals the first disputed proposal",
+    "proposal": "No"
+  },
+  "attestation": {
+    "version": "predge-attest-v1",
+    "issuer": "predge.io",
+    "algorithm": "ed25519",
+    "kind": "settlement-risk",
+    "data_basis": "Live read of UMA's Optimistic Oracle and Polymarket's UMA CTF adapter on Polygon (eth_call and eth_getLogs on public RPC) at checked_at. uma_question_id, dispute times and txs, bulletin-board updates and the on-chain resolution are chain facts, re-checkable on any Polygon RPC. The market lookup (condition id, market id, slug to UMA question id) uses Polymarket's public gamma API and is re-checked on chain: keccak256(ancillaryData) equals uma_question_id. Only the question creator's and the venue operator accounts' bulletin-board posts are counted. risk_level and recommendation are Predge's reading of those facts, not advice. settlement_estimate and segment_dispute_rate are statistics computed from 2026 Polymarket disputes (docs/settlement-estimate.md): the estimate uses the market price before the first dispute from Polymarket's public CLOB price history and the market's type; the segment rate is how often markets of this kind were disputed in 2026. Neither is advice. The signature proves Predge published this record.",
+    "public_key": "13fa3d18a369e6c71bf941563ba47822b30182273d5106a0e8fb61c5016352d9",
+    "canonical": "{\"adapter\":\"0x65070be91477460d8a7aeeb94ef92fe056c2f2a7\",\"bulletin_board_count\":\"0\",\"chain\":\"polygon\",\"checked_at\":\"2026-10-12T22:22:39Z\",\"condition_id\":\"0x632774690a85be1be49301b8cfa9cfdd4cee3582da8dd09c1cc9f52d172de30f\",\"current_proposal\":null,\"dispute_count\":\"1\",\"disputes\":[{\"disputed_at\":\"2026-10-09T09:06:45Z\",\"disputed_proposal\":\"No\",\"tx\":\"0xb4b4e65b80b630296c0310246d6f8d5001c44b1f99abedabbe0317d3a2d22675\"}],\"issued_at\":\"2026-10-12T22:22:41.747Z\",\"issuer\":\"predge.io\",\"kind\":\"settlement-risk\",\"latest_bulletin_board_update\":null,\"market_id\":\"5377001\",\"onchain_resolution\":{\"outcome\":\"No\"},\"open_dispute\":false,\"oracle\":\"0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1\",\"paused\":false,\"platform\":\"polymarket\",\"recommendation\":\"resolved: the on-chain resolution is final (No); nothing is left to settle.\",\"resolved_on_chain\":true,\"risk_level\":\"resolved\",\"segment_dispute_rate\":{\"category\":\"culture\",\"ci95\":[\"0.003096\",\"0.004728\"],\"disputed\":\"85\",\"markets\":\"22216\",\"note\":\"Share of 2026 markets in this segment whose UMA resolution was disputed at least once. A segment statistic with a 95% Wilson interval, not a prediction for this market.\",\"rate\":\"0.003826\",\"segment\":\"culture\",\"sports_market_type\":\"none\",\"table\":\"segment-dispute-rate-2026-v1\",\"window\":\"Polymarket v1 UMA CTF adapter markets with scheduled end date 2026-01-01 to 2026-09-30, closed and resolved by 2026-10-02\"},\"sent_to_uma_vote\":false,\"settlement_estimate\":null,\"uma_question_id\":\"0x1804b0faf9b713ee1d446f7d4e37fb36d49352a189e53520ae76c07900858f2d\",\"uma_state\":\"settled\",\"version\":\"predge-attest-v1\"}",
+    "signature": "eca57fd4b0e7a6a0a705c4a0fdce07f551770d015a5c7d5abbe875f2fcace4504da5dde1725006ef14b73fef30b2fce1f6bb8288aae85d2f3b38b5531f662309",
+    "payload": {
+      "version": "predge-attest-v1",
+      "issuer": "predge.io",
+      "kind": "settlement-risk",
+      "platform": "polymarket",
+      "chain": "polygon",
+      "market_id": "5377001",
+      "condition_id": "0x632774690a85be1be49301b8cfa9cfdd4cee3582da8dd09c1cc9f52d172de30f",
+      "uma_question_id": "0x1804b0faf9b713ee1d446f7d4e37fb36d49352a189e53520ae76c07900858f2d",
+      "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+      "oracle": "0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1",
+      "uma_state": "settled",
+      "resolved_on_chain": true,
+      "paused": false,
+      "dispute_count": "1",
+      "open_dispute": false,
+      "sent_to_uma_vote": false,
+      "current_proposal": null,
+      "disputes": [
+        {
+          "disputed_at": "2026-10-09T09:06:45Z",
+          "tx": "0xb4b4e65b80b630296c0310246d6f8d5001c44b1f99abedabbe0317d3a2d22675",
+          "disputed_proposal": "No"
+        }
+      ],
+      "bulletin_board_count": "0",
+      "latest_bulletin_board_update": null,
+      "onchain_resolution": {
+        "outcome": "No"
+      },
+      "risk_level": "resolved",
+      "recommendation": "resolved: the on-chain resolution is final (No); nothing is left to settle.",
+      "settlement_estimate": null,
+      "segment_dispute_rate": {
+        "table": "segment-dispute-rate-2026-v1",
+        "segment": "culture",
+        "category": "culture",
+        "sports_market_type": "none",
+        "markets": "22216",
+        "disputed": "85",
+        "rate": "0.003826",
+        "ci95": [
+          "0.003096",
+          "0.004728"
+        ],
+        "window": "Polymarket v1 UMA CTF adapter markets with scheduled end date 2026-01-01 to 2026-09-30, closed and resolved by 2026-10-02",
+        "note": "Share of 2026 markets in this segment whose UMA resolution was disputed at least once. A segment statistic with a 95% Wilson interval, not a prediction for this market."
+      },
+      "checked_at": "2026-10-12T22:22:39Z",
+      "issued_at": "2026-10-12T22:22:41.747Z"
+    },
+    "verify": "ed25519: verify `signature` (hex, 64 bytes) over the UTF-8 bytes of `canonical` using `public_key` (hex, raw 32-byte ed25519 point). `canonical` is the exact byte string that was signed — JSON with keys sorted lexicographically at every level and no insignificant whitespace (a subset of RFC 8785 / JCS). `payload` is the same object parsed; re-canonicalise it and you MUST reproduce `canonical`. If `payload.payment` is present it names the x402 payment that bought this response. On `payment.network`, find the `AuthorizationUsed(payer, nonce)` log emitted by `payment.asset`; in that same transaction receipt (not just the same block) require status 1 and a `Transfer(payer, payTo, amount)` log from `payment.asset`. Those arguments are the fields of `payment` with the same names. envelope_signature: remove the `envelope_signature` field from the envelope, canonicalise what is left with the same rule as `canonical` (keys sorted at every level, no whitespace), and verify `envelope_signature` (hex, 64 bytes) over its UTF-8 bytes with `public_key`.",
+    "kid": "13fa3d18a369e6c7",
+    "content_hash": "5ec75aa71b9b76c8e05ea5521adadb38bb3c01f499e6404960b15d84b5d84f16",
+    "envelope_signature": "be6d7dbcaf3a2b1642bbc243580089062f64cdb16049df79151ad8c09188e573bfc144603b325c1372dafd0456bcce77a663bc8d8ff929c1221e4c6243effb0b"
+  }
+}

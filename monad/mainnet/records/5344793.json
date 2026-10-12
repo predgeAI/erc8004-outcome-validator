@@ -1,0 +1,77 @@
+{
+  "source_url": "https://api.predge.io/v1/settlement-risk/5344793",
+  "fetched_at": "2026-10-12T22:23:40.430Z",
+  "claim": {
+    "kind": "predge-settlement-claim-v1",
+    "platform": "polymarket",
+    "market_id": "5344793",
+    "uma_question_id": "0xcb3186b9f62bfae839a1c3ffa6a303878353c8392b6b10c92de3639c83c31547",
+    "claim": "final on-chain outcome equals the first disputed proposal",
+    "proposal": "Texas A&M"
+  },
+  "attestation": {
+    "version": "predge-attest-v1",
+    "issuer": "predge.io",
+    "algorithm": "ed25519",
+    "kind": "settlement-risk",
+    "data_basis": "Live read of UMA's Optimistic Oracle and Polymarket's UMA CTF adapter on Polygon (eth_call and eth_getLogs on public RPC) at checked_at. uma_question_id, dispute times and txs, bulletin-board updates and the on-chain resolution are chain facts, re-checkable on any Polygon RPC. The market lookup (condition id, market id, slug to UMA question id) uses Polymarket's public gamma API and is re-checked on chain: keccak256(ancillaryData) equals uma_question_id. Only the question creator's and the venue operator accounts' bulletin-board posts are counted. risk_level and recommendation are Predge's reading of those facts, not advice. settlement_estimate and segment_dispute_rate are statistics computed from 2026 Polymarket disputes (docs/settlement-estimate.md): the estimate uses the market price before the first dispute from Polymarket's public CLOB price history and the market's type; the segment rate is how often markets of this kind were disputed in 2026. Neither is advice. The signature proves Predge published this record.",
+    "public_key": "13fa3d18a369e6c71bf941563ba47822b30182273d5106a0e8fb61c5016352d9",
+    "canonical": "{\"adapter\":\"0x65070be91477460d8a7aeeb94ef92fe056c2f2a7\",\"bulletin_board_count\":\"0\",\"chain\":\"polygon\",\"checked_at\":\"2026-10-12T22:23:36Z\",\"condition_id\":\"0xc3d284cc84556f51ddbe4cead8606b442c3af4777fda55b1b0555cf5685a581e\",\"current_proposal\":null,\"dispute_count\":\"1\",\"disputes\":[{\"disputed_at\":\"2026-10-10T18:41:52Z\",\"disputed_proposal\":\"Texas A&M\",\"tx\":\"0xcafb3e0b7168c522c41f50996b284cf5f747b7576f3eb0575edc2b1bf3b063f7\"}],\"issued_at\":\"2026-10-12T22:23:39.020Z\",\"issuer\":\"predge.io\",\"kind\":\"settlement-risk\",\"latest_bulletin_board_update\":null,\"market_id\":\"5344793\",\"onchain_resolution\":{\"outcome\":\"Missouri\"},\"open_dispute\":false,\"oracle\":\"0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1\",\"paused\":false,\"platform\":\"polymarket\",\"recommendation\":\"resolved: the on-chain resolution is final (Missouri); nothing is left to settle.\",\"resolved_on_chain\":true,\"risk_level\":\"resolved\",\"segment_dispute_rate\":{\"category\":\"sports\",\"ci95\":[\"0.001001\",\"0.004757\"],\"disputed\":\"6\",\"markets\":\"2747\",\"note\":\"Share of 2026 markets in this segment whose UMA resolution was disputed at least once. A segment statistic with a 95% Wilson interval, not a prediction for this market.\",\"rate\":\"0.002184\",\"segment\":\"sports/q3_spreads\",\"sports_market_type\":\"q3_spreads\",\"table\":\"segment-dispute-rate-2026-v1\",\"window\":\"Polymarket v1 UMA CTF adapter markets with scheduled end date 2026-01-01 to 2026-09-30, closed and resolved by 2026-10-02\"},\"sent_to_uma_vote\":false,\"settlement_estimate\":null,\"uma_question_id\":\"0xcb3186b9f62bfae839a1c3ffa6a303878353c8392b6b10c92de3639c83c31547\",\"uma_state\":\"settled\",\"version\":\"predge-attest-v1\"}",
+    "signature": "61f5544e29e6ef2b663343b0ba10b2056551ef8c36191814f577c74d0eae0e239ae6da2e2eabb5b012360f3dbe646e986e430e726c6b204da71ae0ac68374a0f",
+    "payload": {
+      "version": "predge-attest-v1",
+      "issuer": "predge.io",
+      "kind": "settlement-risk",
+      "platform": "polymarket",
+      "chain": "polygon",
+      "market_id": "5344793",
+      "condition_id": "0xc3d284cc84556f51ddbe4cead8606b442c3af4777fda55b1b0555cf5685a581e",
+      "uma_question_id": "0xcb3186b9f62bfae839a1c3ffa6a303878353c8392b6b10c92de3639c83c31547",
+      "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+      "oracle": "0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1",
+      "uma_state": "settled",
+      "resolved_on_chain": true,
+      "paused": false,
+      "dispute_count": "1",
+      "open_dispute": false,
+      "sent_to_uma_vote": false,
+      "current_proposal": null,
+      "disputes": [
+        {
+          "disputed_at": "2026-10-10T18:41:52Z",
+          "tx": "0xcafb3e0b7168c522c41f50996b284cf5f747b7576f3eb0575edc2b1bf3b063f7",
+          "disputed_proposal": "Texas A&M"
+        }
+      ],
+      "bulletin_board_count": "0",
+      "latest_bulletin_board_update": null,
+      "onchain_resolution": {
+        "outcome": "Missouri"
+      },
+      "risk_level": "resolved",
+      "recommendation": "resolved: the on-chain resolution is final (Missouri); nothing is left to settle.",
+      "settlement_estimate": null,
+      "segment_dispute_rate": {
+        "table": "segment-dispute-rate-2026-v1",
+        "segment": "sports/q3_spreads",
+        "category": "sports",
+        "sports_market_type": "q3_spreads",
+        "markets": "2747",
+        "disputed": "6",
+        "rate": "0.002184",
+        "ci95": [
+          "0.001001",
+          "0.004757"
+        ],
+        "window": "Polymarket v1 UMA CTF adapter markets with scheduled end date 2026-01-01 to 2026-09-30, closed and resolved by 2026-10-02",
+        "note": "Share of 2026 markets in this segment whose UMA resolution was disputed at least once. A segment statistic with a 95% Wilson interval, not a prediction for this market."
+      },
+      "checked_at": "2026-10-12T22:23:36Z",
+      "issued_at": "2026-10-12T22:23:39.020Z"
+    },
+    "verify": "ed25519: verify `signature` (hex, 64 bytes) over the UTF-8 bytes of `canonical` using `public_key` (hex, raw 32-byte ed25519 point). `canonical` is the exact byte string that was signed — JSON with keys sorted lexicographically at every level and no insignificant whitespace (a subset of RFC 8785 / JCS). `payload` is the same object parsed; re-canonicalise it and you MUST reproduce `canonical`. If `payload.payment` is present it names the x402 payment that bought this response. On `payment.network`, find the `AuthorizationUsed(payer, nonce)` log emitted by `payment.asset`; in that same transaction receipt (not just the same block) require status 1 and a `Transfer(payer, payTo, amount)` log from `payment.asset`. Those arguments are the fields of `payment` with the same names. envelope_signature: remove the `envelope_signature` field from the envelope, canonicalise what is left with the same rule as `canonical` (keys sorted at every level, no whitespace), and verify `envelope_signature` (hex, 64 bytes) over its UTF-8 bytes with `public_key`.",
+    "kid": "13fa3d18a369e6c7",
+    "content_hash": "888b1fc2d9c6038c5139864b5df4d5ed89ef166e003dbde94b6759024d7365fc",
+    "envelope_signature": "002384229430a81d7cd2f8d87b4aa719c0a63d800919191f320a7340cc4a3974b106cd643c0f721e5485d04b8177408f00807e21897d7a1c14a4617e3698680c"
+  }
+}
