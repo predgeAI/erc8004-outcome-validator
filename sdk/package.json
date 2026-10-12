@@ -1,0 +1,44 @@
+{
+  "name": "@predge/settlement-risk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Check Predge's signed Settlement Risk record and its on-chain verdict on Monad before an agent acts on a prediction-market outcome.",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./x402": {
+      "types": "./dist/x402.d.ts",
+      "default": "./dist/x402.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "prepare": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/offline.test.mjs",
+    "test:live": "npm run build && node --test test/live.test.mjs"
+  },
+  "dependencies": {
+    "ethers": "^6.13.4"
+  },
+  "optionalDependencies": {
+    "@x402/evm": "2.28.0",
+    "@x402/fetch": "2.28.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
