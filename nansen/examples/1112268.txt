@@ -1,0 +1,8 @@
+Torino FC vs. AS Roma: O/U 2.5 (Polymarket 1112268)
+Predge: resolved, UMA settled, disputes 1, disputed proposal Over, resolved Under; signature verified true
+Nansen, as of 2026-10-12T21:12:52.820Z:
+  contested (Over) 34 top holders, 1,582.14 shares, cost $1,023, unrealized value $0, price 0
+  other side 16 top holders, 0.14 shares, cost $2,138, unrealized value $0, price 1
+  top 3 hold 44.6% of top-50 shares: 0xb7fd1246 Over 350 sh, win rate 37.7% of 69; 0x9c34b35f Over 230 sh, win rate 39.1% of 238; 0x1d36b39f Over 125 sh, win rate 32% of 25
+DECISION: FINE: resolved on chain (Under); nothing left to settle. The disputed proposal was Over and the market settled differently from it. Retrospective (Nansen position-detail, first 50 positions, as of 2026-10-12T21:12:52.820Z): buy cost $1,023 on Over vs $2,138 on the other side.
+Nansen data for this market cost 0.13 USDC on Monad (5 x402 payments, 0.0 paid this run, rest from cache); lifetime 0.65 / 2.0 USDC

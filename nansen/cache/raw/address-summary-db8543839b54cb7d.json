@@ -1,0 +1,42 @@
+{
+  "endpoint": "address-summary",
+  "request": {
+    "address": "0x134a63b764ac7b008356e8db1857db94e6b09e42"
+  },
+  "fetchedAt": "2026-10-12T21:09:58.696Z",
+  "data": {
+    "pagination": {
+      "page": 1,
+      "per_page": 10,
+      "is_last_page": true
+    },
+    "data": [
+      {
+        "address": "0x134a63b764ac7b008356e8db1857db94e6b09e42",
+        "first_seen": "2024-11-03",
+        "wallet_age_days": 708,
+        "realized_pnl_usd": 457438.7976780001,
+        "unrealized_pnl_usd": -152996.49117587056,
+        "total_pnl_usd": 304442.3065021292,
+        "markets_won": 2958,
+        "markets_traded": 3882,
+        "win_rate": 0.7619783616692427,
+        "p2p_tokens_sent": 13446757.395445999,
+        "p2p_tokens_received": 2591000
+      }
+    ]
+  },
+  "payment": {
+    "amountUSDC": "0.01",
+    "network": "eip155:143",
+    "tx": "0x274555e2d5bfbb71a8f260ecf5118481a15339567ce3aa14c82da1b33d72e6e9",
+    "explorer": "https://monadvision.com/tx/0x274555e2d5bfbb71a8f260ecf5118481a15339567ce3aa14c82da1b33d72e6e9",
+    "onchain": {
+      "block": 112858441,
+      "status": 1,
+      "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
+      "transferUSDC": "0.01",
+      "matches": true
+    }
+  }
+}

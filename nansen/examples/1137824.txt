@@ -1,0 +1,8 @@
+Montana Grizzlies vs. Idaho Vandals: O/U 151.5 (Polymarket 1137824)
+Predge: resolved, UMA settled, disputes 1, disputed proposal Under, resolved Over; signature verified true
+Nansen, as of 2026-10-12T21:12:26.029Z:
+  contested (Under) 6 top holders, 1,835 shares, cost $6,625, unrealized value $0, price 0
+  other side 0 top holders, 0 shares, cost $6,141, unrealized value $0, price 1
+  top 3 hold 99.2% of top-50 shares: 0x2652dd11 Under 1,780 sh, win rate 51.5% of 44310; 0x711da0ef Under 35 sh, win rate 1.6% of 71345; 0x19a60862 Under 5 sh, win rate 97.4% of 2361
+DECISION: FINE: resolved on chain (Over); nothing left to settle. The disputed proposal was Under and the market settled differently from it. Retrospective (Nansen position-detail, first 50 positions, as of 2026-10-12T21:12:26.029Z): buy cost $6,625 on Under vs $6,141 on the other side.
+Nansen data for this market cost 0.13 USDC on Monad (5 x402 payments, 0.0 paid this run, rest from cache); lifetime 0.65 / 2.0 USDC

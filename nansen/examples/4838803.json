@@ -1,0 +1,308 @@
+{
+  "kind": "predge-nansen-dispute-exposure",
+  "version": 1,
+  "generatedAt": "2026-10-12T21:15:46.540Z",
+  "market": {
+    "marketId": "4838803",
+    "conditionId": "0x16d45b2ab5298789f42cfa541629526f1717fa3da2f29b9d5c472728f52ff38d",
+    "question": "Will the next Google Gemini Pro model be released by October 9, 2026?"
+  },
+  "decision": "fine",
+  "reason": "resolved on chain (No); nothing left to settle. The disputed proposal was No and the market settled as proposed. Retrospective (Nansen position-detail, first 50 positions, as of 2026-10-12T21:13:39.049Z): buy cost $11,741 on No vs $3,198 on the other side.",
+  "predge": {
+    "marketId": "4838803",
+    "conditionId": "0x16d45b2ab5298789f42cfa541629526f1717fa3da2f29b9d5c472728f52ff38d",
+    "umaQuestionId": "0x78abde9f4b0196ced2bcecd6e2139b96d683455c26b5160661fc80def0bbe81a",
+    "riskLevel": "resolved",
+    "umaState": "settled",
+    "resolvedOnChain": true,
+    "outcome": "No",
+    "openDispute": false,
+    "sentToUmaVote": false,
+    "disputeCount": 1,
+    "disputes": [
+      {
+        "disputed_at": "2026-10-10T04:15:33Z",
+        "disputed_proposal": "No",
+        "tx": "0xf441470e507c4c20973e7f18ba70367c40acbcc5734dd2ab09e01a90f4d07657"
+      }
+    ],
+    "currentProposal": null,
+    "settlesDifferentlyProbability": null,
+    "recommendation": "resolved: the on-chain resolution is final (No); nothing is left to settle.",
+    "checkedAt": "2026-10-12T21:13:20Z",
+    "signatureVerified": {
+      "signature": true,
+      "pinnedKey": true,
+      "contentHash": true,
+      "payloadMatchesCanonical": true
+    }
+  },
+  "exposure": {
+    "contestedOutcome": "No",
+    "asOf": "2026-10-12T21:13:39.049Z",
+    "source": "Nansen prediction-market top-holders (top 50 by shares) and position-detail (first 50 positions), fetched 2026-10-12T21:13:39.049Z",
+    "contestedSide": {
+      "holders": 21,
+      "shares": 14470.53,
+      "unrealizedPnlUsd": 2919.69,
+      "currentPrice": 1,
+      "positions": 21,
+      "buyCostUsd": 11741.27,
+      "unrealizedValueUsd": 14470.53,
+      "redemptionValueUsd": 0
+    },
+    "otherSide": {
+      "holders": 29,
+      "shares": 14618.84,
+      "unrealizedPnlUsd": -3092.87,
+      "currentPrice": 0,
+      "positions": 29,
+      "buyCostUsd": 3198.38,
+      "unrealizedValueUsd": 0,
+      "redemptionValueUsd": 0
+    },
+    "top3ShareOfTopHolders": 0.686,
+    "highWinRateRule": "win_rate >= 0.6 and markets_traded >= 20 (Nansen address-summary)",
+    "signals": {
+      "settlesDifferentlyProbability": null,
+      "hedgePrice": 0,
+      "hedgeCheapBy": null,
+      "highWinRateCostOnUsd": 8309.98,
+      "highWinRateCostAgainstUsd": 1300,
+      "top3Share": 0.6859771019574854
+    },
+    "highWinRateOnContestedSide": [
+      "0x2110ba2a1e18840109482ff4ddc547baeff45850"
+    ],
+    "highWinRateAgainstContestedSide": [
+      "0x3c241752f99076c933ab3d144ada1dcdfd981678"
+    ],
+    "top3": [
+      {
+        "rank": 1,
+        "address": "0x2110ba2a1e18840109482ff4ddc547baeff45850",
+        "owner": "0x",
+        "side": "No",
+        "onContestedSide": true,
+        "shares": 9749.97,
+        "avgEntryPrice": 0.852305,
+        "currentPrice": 1,
+        "unrealizedPnlUsd": 1440.02,
+        "buyCostUsd": 8309.98,
+        "unrealizedValueUsd": 9749.97,
+        "winRate": 0.6788079470198676,
+        "marketsTraded": 302,
+        "marketsWon": 205,
+        "totalPnlUsd": 77758.41,
+        "walletAgeDays": 398,
+        "highWinRate": true
+      },
+      {
+        "rank": 2,
+        "address": "0x3c241752f99076c933ab3d144ada1dcdfd981678",
+        "owner": "0xf7d51e849de7cf06eab361428bbceb9162f5bef9",
+        "side": "Yes",
+        "onContestedSide": false,
+        "shares": 6530.96,
+        "avgEntryPrice": 0.199052,
+        "currentPrice": 0,
+        "unrealizedPnlUsd": -1300,
+        "buyCostUsd": 1300,
+        "unrealizedValueUsd": 0,
+        "winRate": 0.7519929140832595,
+        "marketsTraded": 1129,
+        "marketsWon": 849,
+        "totalPnlUsd": -3069.94,
+        "walletAgeDays": 326,
+        "highWinRate": true
+      },
+      {
+        "rank": 3,
+        "address": "0x4c2c10a735fc7bc650d14f9e72f2147a7f2d9fd2",
+        "owner": "0x",
+        "side": "Yes",
+        "onContestedSide": false,
+        "shares": 3673.71,
+        "avgEntryPrice": 0.300496,
+        "currentPrice": 0,
+        "unrealizedPnlUsd": -1103.94,
+        "buyCostUsd": 1103.94,
+        "unrealizedValueUsd": 0,
+        "winRate": 0,
+        "marketsTraded": 6,
+        "marketsWon": 0,
+        "totalPnlUsd": -4743.72,
+        "walletAgeDays": 13,
+        "highWinRate": false
+      }
+    ],
+    "holdersReturned": 50,
+    "positionsReturned": 50
+  },
+  "nansen": {
+    "calls": [
+      {
+        "endpoint": "top-holders",
+        "request": {
+          "market_id": "4838803",
+          "pagination": {
+            "page": 1,
+            "per_page": 50
+          },
+          "order_by": [
+            {
+              "field": "position_size",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "fetchedAt": "2026-10-12T21:13:27.182Z",
+        "fromCache": true,
+        "payment": {
+          "amountUSDC": "0.05",
+          "network": "eip155:143",
+          "tx": "0xa011be60df8ef71bf0e386f4dc9a48461d1863f5250fd0fbb29f385ecfe2a823",
+          "explorer": "https://monadvision.com/tx/0xa011be60df8ef71bf0e386f4dc9a48461d1863f5250fd0fbb29f385ecfe2a823",
+          "onchain": {
+            "block": 112859126,
+            "status": 1,
+            "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
+            "transferUSDC": "0.05",
+            "matches": true
+          }
+        }
+      },
+      {
+        "endpoint": "position-detail",
+        "request": {
+          "market_id": "4838803",
+          "pagination": {
+            "page": 1,
+            "per_page": 50
+          }
+        },
+        "fetchedAt": "2026-10-12T21:13:29.705Z",
+        "fromCache": true,
+        "payment": {
+          "amountUSDC": "0.05",
+          "network": "eip155:143",
+          "tx": "0x932c657ab3cb1d547905c877b3d646a6c4a856b35801c65dd43d6810ab426e5d",
+          "explorer": "https://monadvision.com/tx/0x932c657ab3cb1d547905c877b3d646a6c4a856b35801c65dd43d6810ab426e5d",
+          "onchain": {
+            "block": 112859136,
+            "status": 1,
+            "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
+            "transferUSDC": "0.05",
+            "matches": true
+          }
+        }
+      },
+      {
+        "endpoint": "address-summary",
+        "request": {
+          "address": "0x2110ba2a1e18840109482ff4ddc547baeff45850"
+        },
+        "fetchedAt": "2026-10-12T21:13:32.717Z",
+        "fromCache": true,
+        "payment": {
+          "amountUSDC": "0.01",
+          "network": "eip155:143",
+          "tx": "0x2d84a5dc47967e917259d83e7bc3bcfdc70e7d8d364e044c0a33f445f3806925",
+          "explorer": "https://monadvision.com/tx/0x2d84a5dc47967e917259d83e7bc3bcfdc70e7d8d364e044c0a33f445f3806925",
+          "onchain": {
+            "block": 112859146,
+            "status": 1,
+            "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
+            "transferUSDC": "0.01",
+            "matches": true
+          }
+        }
+      },
+      {
+        "endpoint": "address-summary",
+        "request": {
+          "address": "0x3c241752f99076c933ab3d144ada1dcdfd981678"
+        },
+        "fetchedAt": "2026-10-12T21:13:36.012Z",
+        "fromCache": true,
+        "payment": {
+          "amountUSDC": "0.01",
+          "network": "eip155:143",
+          "tx": "0x180ee6b3e03fee41da2c22c8e07694a9f525131335a8cd9bdf19eee2cef1d54c",
+          "explorer": "https://monadvision.com/tx/0x180ee6b3e03fee41da2c22c8e07694a9f525131335a8cd9bdf19eee2cef1d54c",
+          "onchain": {
+            "block": 112859157,
+            "status": 1,
+            "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
+            "transferUSDC": "0.01",
+            "matches": true
+          }
+        }
+      },
+      {
+        "endpoint": "address-summary",
+        "request": {
+          "address": "0x4c2c10a735fc7bc650d14f9e72f2147a7f2d9fd2"
+        },
+        "fetchedAt": "2026-10-12T21:13:39.049Z",
+        "fromCache": true,
+        "payment": {
+          "amountUSDC": "0.01",
+          "network": "eip155:143",
+          "tx": "0x55e144e70958adbfdaa59ac1c4c9cb19d3a747f14c577dc40e13b0900ce2637c",
+          "explorer": "https://monadvision.com/tx/0x55e144e70958adbfdaa59ac1c4c9cb19d3a747f14c577dc40e13b0900ce2637c",
+          "onchain": {
+            "block": 112859167,
+            "status": 1,
+            "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
+            "transferUSDC": "0.01",
+            "matches": true
+          }
+        }
+      }
+    ],
+    "paidThisRunUSDC": "0.0",
+    "costUSDC": "0.13",
+    "payments": [
+      {
+        "endpoint": "top-holders",
+        "amountUSDC": "0.05",
+        "tx": "0xa011be60df8ef71bf0e386f4dc9a48461d1863f5250fd0fbb29f385ecfe2a823",
+        "explorer": "https://monadvision.com/tx/0xa011be60df8ef71bf0e386f4dc9a48461d1863f5250fd0fbb29f385ecfe2a823"
+      },
+      {
+        "endpoint": "position-detail",
+        "amountUSDC": "0.05",
+        "tx": "0x932c657ab3cb1d547905c877b3d646a6c4a856b35801c65dd43d6810ab426e5d",
+        "explorer": "https://monadvision.com/tx/0x932c657ab3cb1d547905c877b3d646a6c4a856b35801c65dd43d6810ab426e5d"
+      },
+      {
+        "endpoint": "address-summary",
+        "amountUSDC": "0.01",
+        "tx": "0x2d84a5dc47967e917259d83e7bc3bcfdc70e7d8d364e044c0a33f445f3806925",
+        "explorer": "https://monadvision.com/tx/0x2d84a5dc47967e917259d83e7bc3bcfdc70e7d8d364e044c0a33f445f3806925"
+      },
+      {
+        "endpoint": "address-summary",
+        "amountUSDC": "0.01",
+        "tx": "0x180ee6b3e03fee41da2c22c8e07694a9f525131335a8cd9bdf19eee2cef1d54c",
+        "explorer": "https://monadvision.com/tx/0x180ee6b3e03fee41da2c22c8e07694a9f525131335a8cd9bdf19eee2cef1d54c"
+      },
+      {
+        "endpoint": "address-summary",
+        "amountUSDC": "0.01",
+        "tx": "0x55e144e70958adbfdaa59ac1c4c9cb19d3a747f14c577dc40e13b0900ce2637c",
+        "explorer": "https://monadvision.com/tx/0x55e144e70958adbfdaa59ac1c4c9cb19d3a747f14c577dc40e13b0900ce2637c"
+      }
+    ]
+  },
+  "spend": {
+    "lifetimeUSDC": "0.65",
+    "capUSDC": "2.0",
+    "maxPerCallUSDC": "0.1",
+    "asset": "USDC 0x754704Bc059F8C67012fEd69BC8A327a5aafb603",
+    "network": "eip155:143"
+  },
+  "summary": "Will the next Google Gemini Pro model be released by October 9, 2026? (Polymarket 4838803)\nPredge: resolved, UMA settled, disputes 1, disputed proposal No, resolved No; signature verified true\nNansen, as of 2026-10-12T21:13:39.049Z:\n  contested (No) 21 top holders, 14,470.53 shares, cost $11,741, unrealized value $14,471, price 1\n  other side 29 top holders, 14,618.84 shares, cost $3,198, unrealized value $0, price 0\n  top 3 hold 68.6% of top-50 shares: 0x2110ba2a No 9,749.97 sh, win rate 67.9% of 302; 0x3c241752 Yes 6,530.96 sh, win rate 75.2% of 1129; 0x4c2c10a7 Yes 3,673.71 sh, win rate 0% of 6\nDECISION: FINE: resolved on chain (No); nothing left to settle. The disputed proposal was No and the market settled as proposed. Retrospective (Nansen position-detail, first 50 positions, as of 2026-10-12T21:13:39.049Z): buy cost $11,741 on No vs $3,198 on the other side.\nNansen data for this market cost 0.13 USDC on Monad (5 x402 payments, 0.0 paid this run, rest from cache); lifetime 0.65 / 2.0 USDC"
+}
