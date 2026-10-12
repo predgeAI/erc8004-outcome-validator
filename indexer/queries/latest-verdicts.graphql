@@ -1,0 +1,13 @@
+# Latest verdicts with their request (what the verdict board would poll).
+query LatestVerdicts {
+  Verdict(order_by: { block: desc }, limit: 5) {
+    registry
+    marketId
+    score
+    agent
+    tag
+    block
+    tx
+    request { requestURI requester block }
+  }
+}

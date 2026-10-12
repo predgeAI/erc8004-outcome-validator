@@ -1,0 +1,490 @@
+### agents-ranked.graphql
+{
+  "data": {
+    "AgentStats": [
+      {
+        "id": "0x4cc40abe24a1bc14eb4987e9e8b72e73b018dc0d",
+        "requests": 25,
+        "verdictsReceived": 25,
+        "score100": 19,
+        "score0": 6,
+        "avgScoreX100": 7600,
+        "lastVerdictBlock": 68960512
+      },
+      {
+        "id": "0x6bc8f5ab6617ecdc002d264893c627a769147680",
+        "requests": 24,
+        "verdictsReceived": 24,
+        "score100": 15,
+        "score0": 9,
+        "avgScoreX100": 6250,
+        "lastVerdictBlock": 68960511
+      },
+      {
+        "id": "0x758e63d8790c495b97f74a08195ba256031acf23",
+        "requests": 24,
+        "verdictsReceived": 24,
+        "score100": 18,
+        "score0": 6,
+        "avgScoreX100": 7500,
+        "lastVerdictBlock": 68960512
+      },
+      {
+        "id": "0x5403f12c167f6a111efd5aecd01b347211d38fed",
+        "requests": 24,
+        "verdictsReceived": 24,
+        "score100": 18,
+        "score0": 6,
+        "avgScoreX100": 7500,
+        "lastVerdictBlock": 68960511
+      },
+      {
+        "id": "0xdc0caa8689f78a1cb63d7b12e0d80e79680aad5a",
+        "requests": 24,
+        "verdictsReceived": 24,
+        "score100": 14,
+        "score0": 10,
+        "avgScoreX100": 5833,
+        "lastVerdictBlock": 68960512
+      },
+      {
+        "id": "0x3985247a21c7cc17de3aa7c8b17031184ee95612",
+        "requests": 24,
+        "verdictsReceived": 24,
+        "score100": 18,
+        "score0": 6,
+        "avgScoreX100": 7500,
+        "lastVerdictBlock": 68960511
+      },
+      {
+        "id": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "requests": 6,
+        "verdictsReceived": 6,
+        "score100": 6,
+        "score0": 0,
+        "avgScoreX100": 10000,
+        "lastVerdictBlock": 70444799
+      }
+    ]
+  }
+}
+
+### counts.graphql
+{
+  "data": {
+    "_meta": [
+      {
+        "chainId": 10143,
+        "startBlock": 68349040,
+        "progressBlock": 70463772,
+        "sourceBlock": 70463772,
+        "eventsProcessed": 328,
+        "isReady": true
+      }
+    ],
+    "predge": {
+      "aggregate": {
+        "count": 148
+      }
+    },
+    "erc8004": {
+      "aggregate": {
+        "count": 3
+      }
+    },
+    "requests": {
+      "aggregate": {
+        "count": 151
+      }
+    },
+    "bonds": {
+      "aggregate": {
+        "count": 4
+      }
+    },
+    "jobs": {
+      "aggregate": {
+        "count": 4
+      }
+    },
+    "receipts": {
+      "aggregate": {
+        "count": 3
+      }
+    },
+    "identities": {
+      "aggregate": {
+        "count": 3
+      }
+    }
+  }
+}
+
+### jobs-and-receipts.graphql
+{
+  "data": {
+    "Job": [
+      {
+        "jobId": "1",
+        "status": "completed",
+        "client": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "provider": "0x41c31248b5187635f0c639605e53d43792c900ad",
+        "evaluator": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "escrowWei": "5000000000000000",
+        "paidWei": "5000000000000000",
+        "specHash": "0x80b502a5ab222406784e43395b76c4da86525a55f43da21555fb77c9de79bbd0",
+        "bonds": [
+          {
+            "status": "scored",
+            "score": 100,
+            "stakeWei": "10000000000000000"
+          }
+        ]
+      },
+      {
+        "jobId": "2",
+        "status": "completed",
+        "client": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "provider": "0x41c31248b5187635f0c639605e53d43792c900ad",
+        "evaluator": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "escrowWei": "5000000000000000",
+        "paidWei": "5000000000000000",
+        "specHash": "0x0d9134108b63c6803a904c9c566e5952b51bd5b5af3bcf94a0bd0ac6616e656e",
+        "bonds": [
+          {
+            "status": "scored",
+            "score": 100,
+            "stakeWei": "10000000000000000"
+          }
+        ]
+      },
+      {
+        "jobId": "3",
+        "status": "submitted",
+        "client": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "provider": "0x7fe8d29be8ca6d2f40472f9a8fa97f3dc0ddc55e",
+        "evaluator": "0xe85ae59ed129e97943eefbecf4233c68dd77b696",
+        "escrowWei": "2000000000000000",
+        "paidWei": null,
+        "specHash": "0xf500794cf390aeedef8c2335ceaaae44b6abbaba7aa4002a7691d012359e9b5b",
+        "bonds": [
+          {
+            "status": "slashed",
+            "score": 100,
+            "stakeWei": "10000000000000000"
+          }
+        ]
+      },
+      {
+        "jobId": "4",
+        "status": "completed",
+        "client": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "provider": "0x41c31248b5187635f0c639605e53d43792c900ad",
+        "evaluator": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "escrowWei": "5000000000000000",
+        "paidWei": "5000000000000000",
+        "specHash": "0x48c9f4a5e909c3c881db493caee24749cac6f672a660d9f3bf2047477a5fe998",
+        "bonds": [
+          {
+            "status": "scored",
+            "score": 100,
+            "stakeWei": "10000000000000000"
+          }
+        ]
+      }
+    ],
+    "Receipt": [
+      {
+        "payer": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "routeText": "/v1/settlement-risk",
+        "amountWei": "1000000000000000",
+        "meta": "0x80b502a5ab222406784e43395b76c4da86525a55f43da21555fb77c9de79bbd0",
+        "block": 68349161,
+        "tx": "0x9cd46a446a185349b0d3977ee58446b14d5da6a639654c9c82b0a9b09772a63a"
+      },
+      {
+        "payer": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "routeText": "/v1/settlement-risk",
+        "amountWei": "1000000000000000",
+        "meta": "0x0d9134108b63c6803a904c9c566e5952b51bd5b5af3bcf94a0bd0ac6616e656e",
+        "block": 68351558,
+        "tx": "0xf8c23165440bf391cf5045a40c647be48f33e5934ce4df35a4645fbf25d27690"
+      },
+      {
+        "payer": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "routeText": "/v1/settlement-risk",
+        "amountWei": "1000000000000000",
+        "meta": "0x48c9f4a5e909c3c881db493caee24749cac6f672a660d9f3bf2047477a5fe998",
+        "block": 70444774,
+        "tx": "0x7d2835dad852fb594afc48c88878992b1db11c5a7fd7e718333012b8356d60e5"
+      }
+    ]
+  }
+}
+
+### latest-verdicts.graphql
+{
+  "data": {
+    "Verdict": [
+      {
+        "registry": "ERC8004ValidationRegistry",
+        "marketId": "2169995",
+        "score": 100,
+        "agent": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "tag": "predge:resolved-outcome-vs-claim",
+        "block": 70444799,
+        "tx": "0xbd42a21921d4d8024e50eead1d96e268c10973970f778ae324867bf52598d631",
+        "request": {
+          "requestURI": "https://data.predge.io/samples/pm-2169995-microstrategy-may31.pack.json",
+          "requester": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+          "block": 70444795
+        }
+      },
+      {
+        "registry": "PredgeAgentValidator",
+        "marketId": "2169995",
+        "score": 100,
+        "agent": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "tag": "predge:settlement-evidence-verified",
+        "block": 70444744,
+        "tx": "0xba6a5e52c72c618953885eb889e86103dcde4d3f306572fe62464d2201f57872",
+        "request": {
+          "requestURI": "https://data.predge.io/samples/pm-2169995-microstrategy-may31.pack.json",
+          "requester": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+          "block": 70444717
+        }
+      },
+      {
+        "registry": "PredgeAgentValidator",
+        "marketId": "2250265",
+        "score": 0,
+        "agent": "0x758e63d8790c495b97f74a08195ba256031acf23",
+        "tag": "predge:settlement-risk-v1",
+        "block": 68960512,
+        "tx": "0x587595b964466797c4960742d26ca90a69a6af875a2eb00cdbfbc6a46df362b4",
+        "request": {
+          "requestURI": "pm:2250265",
+          "requester": "0x758e63d8790c495b97f74a08195ba256031acf23",
+          "block": 68960440
+        }
+      },
+      {
+        "registry": "PredgeAgentValidator",
+        "marketId": "2264082",
+        "score": 100,
+        "agent": "0xdc0caa8689f78a1cb63d7b12e0d80e79680aad5a",
+        "tag": "predge:settlement-risk-v1",
+        "block": 68960512,
+        "tx": "0x772d08f20bb71f64f8b63f011c3efc27fc634cde45be4b99697bf1e9478227d4",
+        "request": {
+          "requestURI": "pm:2264082",
+          "requester": "0xdc0caa8689f78a1cb63d7b12e0d80e79680aad5a",
+          "block": 68960440
+        }
+      },
+      {
+        "registry": "PredgeAgentValidator",
+        "marketId": "2279864",
+        "score": 0,
+        "agent": "0x4cc40abe24a1bc14eb4987e9e8b72e73b018dc0d",
+        "tag": "predge:settlement-risk-v1",
+        "block": 68960512,
+        "tx": "0x8a73fbe5efc778e80785093485415b5eb7712f51ee1e8ac2304cac8c3bb7f7fd",
+        "request": {
+          "requestURI": "pm:2279864",
+          "requester": "0x4cc40abe24a1bc14eb4987e9e8b72e73b018dc0d",
+          "block": 68960440
+        }
+      }
+    ]
+  }
+}
+
+### slashed-bonds.graphql
+{
+  "data": {
+    "Bond": [
+      {
+        "bondContract": "0x95652b86c10eb0e012b22e08dbc98481d4a19bc2",
+        "requestHash": "0xf500794cf390aeedef8c2335ceaaae44b6abbaba7aa4002a7691d012359e9b5b",
+        "stakeWei": "10000000000000000",
+        "expected": "0x284f3b6961176b0edd9b9abb8690a893d36c5c8eb4045b7a94aef22187a37bf1",
+        "deliveredHash": "0x43d167272a3b2d170002285da41268d91e709a6e7b8083d4df4005950c83825c",
+        "recordedScoreAtSlash": 100,
+        "challenger": "0x2a9ddcdb5de78f6bbbd9d33cb1b3da55b1bb25a4",
+        "slashedWei": "10000000000000000",
+        "closeTx": "0x96f861d0c7810e5687d6694899ce70994e90e86233c12362b19fad118b0184ab",
+        "closeBlock": 68958599,
+        "job": {
+          "jobId": "3",
+          "client": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+          "provider": "0x7fe8d29be8ca6d2f40472f9a8fa97f3dc0ddc55e",
+          "evaluator": "0xe85ae59ed129e97943eefbecf4233c68dd77b696",
+          "status": "submitted",
+          "deliverable": "0x43d167272a3b2d170002285da41268d91e709a6e7b8083d4df4005950c83825c"
+        }
+      }
+    ]
+  }
+}
+
+### stats.graphql
+{
+  "data": {
+    "VerdictStats": [
+      {
+        "id": "ERC8004ValidationRegistry",
+        "totalRequests": 3,
+        "totalVerdicts": 3,
+        "score0": 0,
+        "score1to49": 0,
+        "score50to99": 0,
+        "score100": 3,
+        "bondsCommitted": 0,
+        "bondsScored": 0,
+        "slashedCount": 0,
+        "reclaimedCount": 0,
+        "totalStakedWei": "0",
+        "totalSlashedWei": "0",
+        "jobsCreated": 0,
+        "jobsCompleted": 0,
+        "jobsRejected": 0,
+        "totalEscrowWei": "0",
+        "receipts": 0,
+        "totalPaidWei": "0",
+        "lastBlock": 70444799
+      },
+      {
+        "id": "global",
+        "totalRequests": 151,
+        "totalVerdicts": 151,
+        "score0": 43,
+        "score1to49": 0,
+        "score50to99": 0,
+        "score100": 108,
+        "bondsCommitted": 4,
+        "bondsScored": 4,
+        "slashedCount": 1,
+        "reclaimedCount": 0,
+        "totalStakedWei": "40000000000000000",
+        "totalSlashedWei": "10000000000000000",
+        "jobsCreated": 4,
+        "jobsCompleted": 3,
+        "jobsRejected": 0,
+        "totalEscrowWei": "17000000000000000",
+        "receipts": 3,
+        "totalPaidWei": "3000000000000000",
+        "lastBlock": 70444799
+      },
+      {
+        "id": "PredgeAgentValidator",
+        "totalRequests": 148,
+        "totalVerdicts": 148,
+        "score0": 43,
+        "score1to49": 0,
+        "score50to99": 0,
+        "score100": 105,
+        "bondsCommitted": 0,
+        "bondsScored": 0,
+        "slashedCount": 0,
+        "reclaimedCount": 0,
+        "totalStakedWei": "0",
+        "totalSlashedWei": "0",
+        "jobsCreated": 0,
+        "jobsCompleted": 0,
+        "jobsRejected": 0,
+        "totalEscrowWei": "0",
+        "receipts": 0,
+        "totalPaidWei": "0",
+        "lastBlock": 70444744
+      }
+    ]
+  }
+}
+
+### verdicts-for-market.graphql
+{
+  "data": {
+    "Verdict": [
+      {
+        "registry": "PredgeAgentValidator",
+        "score": 100,
+        "agent": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "agentId": "0",
+        "validator": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "tag": "predge:settlement-evidence-verified",
+        "requestHash": "0x80b502a5ab222406784e43395b76c4da86525a55f43da21555fb77c9de79bbd0",
+        "responseHash": "0x325f13d6cf34fae6dc2e6eaf3aa9055ceb5d864dbf13e1e42118236af4a0e796",
+        "leadTimeSeconds": 5,
+        "block": 68349140,
+        "tx": "0x80aea2ea52ddb0583052d12ad6e93e727f874c3987701d39484b8e6f9a9229a0"
+      },
+      {
+        "registry": "ERC8004ValidationRegistry",
+        "score": 100,
+        "agent": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "agentId": "2003",
+        "validator": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "tag": "predge:resolved-outcome-vs-claim",
+        "requestHash": "0x9bfb85500f04a193fc6a2ef282a2a183d19587925c544df91ea5820b07208882",
+        "responseHash": "0x80b502a5ab222406784e43395b76c4da86525a55f43da21555fb77c9de79bbd0",
+        "leadTimeSeconds": 1,
+        "block": 68349171,
+        "tx": "0x3bb937170050e5fc6eaa65e7213da5f6ad66c7d867a04f47ba7dd8a495f9c274"
+      },
+      {
+        "registry": "PredgeAgentValidator",
+        "score": 100,
+        "agent": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "agentId": "0",
+        "validator": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "tag": "predge:settlement-evidence-verified",
+        "requestHash": "0x0d9134108b63c6803a904c9c566e5952b51bd5b5af3bcf94a0bd0ac6616e656e",
+        "responseHash": "0xe18f1dec5432c17fb3a69aedc5c1702158a4e75f112df379729edfc8fcac613f",
+        "leadTimeSeconds": 6,
+        "block": 68351529,
+        "tx": "0x34fc6a818e70c913f33c6cda81d58fc9fdfffe51eb040c4a3b918e6001b4975c"
+      },
+      {
+        "registry": "ERC8004ValidationRegistry",
+        "score": 100,
+        "agent": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "agentId": "2004",
+        "validator": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "tag": "predge:resolved-outcome-vs-claim",
+        "requestHash": "0xaa31ff820cc3ed0c1c084fa4bef84dcc6ce601fdde0093b2c7a0b34e46ac0195",
+        "responseHash": "0x80b502a5ab222406784e43395b76c4da86525a55f43da21555fb77c9de79bbd0",
+        "leadTimeSeconds": 1,
+        "block": 68351578,
+        "tx": "0x1fc4ea6b9b167b126aa721c131395fb33484597f999316208b616ef88dca9cc5"
+      },
+      {
+        "registry": "PredgeAgentValidator",
+        "score": 100,
+        "agent": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "agentId": "0",
+        "validator": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "tag": "predge:settlement-evidence-verified",
+        "requestHash": "0x48c9f4a5e909c3c881db493caee24749cac6f672a660d9f3bf2047477a5fe998",
+        "responseHash": "0xa51a70570410b985c6bf706218f79277889d95b847f35b4164350ebf2ae6de26",
+        "leadTimeSeconds": 8,
+        "block": 70444744,
+        "tx": "0xba6a5e52c72c618953885eb889e86103dcde4d3f306572fe62464d2201f57872"
+      },
+      {
+        "registry": "ERC8004ValidationRegistry",
+        "score": 100,
+        "agent": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "agentId": "2220",
+        "validator": "0x9f0af03c5695b72903c03852f7dd4fe5a0d49fc9",
+        "tag": "predge:resolved-outcome-vs-claim",
+        "requestHash": "0x2d3cbcb0489d3f202274615db7f1aad5e55929321afee64422f5b71aef5318c1",
+        "responseHash": "0xf440450e6ec986502282270b1a7e58ec0d0a85f6afb20f641b4e48d07f004f72",
+        "leadTimeSeconds": 2,
+        "block": 70444799,
+        "tx": "0xbd42a21921d4d8024e50eead1d96e268c10973970f778ae324867bf52598d631"
+      }
+    ]
+  }
+}
+

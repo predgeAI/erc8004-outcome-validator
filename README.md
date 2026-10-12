@@ -251,6 +251,7 @@ Dates come from git history.
 | `monad/batch/` | 145 verdicts on real disputed markets: markets, signed records, runner, results, verifier |
 | `monad/x402/` | x402 pay-per-call on Monad testnet: resource server and paying agent |
 | `docs/`, `monad/board/` | verdict board (GitHub Pages) and the script that builds its data file |
+| `indexer/` | Envio HyperIndex indexer for all of the above: verdicts, bonds and slashes, jobs, receipts, per-agent and per-market stats over GraphQL ([README](indexer/README.md)) |
 | `src/attest.mjs` | ed25519 and canonical JSON primitive |
 | `src/map-to-validation.mjs` | signed attestation to ERC-8004 request and response calldata |
 | `src/prove.mjs` | offline proof (`npm run prove`) |

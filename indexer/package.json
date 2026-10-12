@@ -1,0 +1,23 @@
+{
+  "name": "predge-monad-envio-indexer",
+  "version": "1.0.0",
+  "description": "Envio HyperIndex indexer for Predge contracts on Monad testnet",
+  "scripts": {
+    "codegen": "envio codegen",
+    "dev": "envio dev",
+    "start": "envio start",
+    "stop": "envio stop",
+    "typecheck": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "envio": "3.14.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

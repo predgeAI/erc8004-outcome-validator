@@ -1,0 +1,195 @@
+# Predge on Monad testnet (chain 10143).
+# Ids: registry-scoped entities use "<registryName>-<requestHash>"; event-scoped entities use
+# "<chainId>_<block>_<logIndex>". Addresses are lowercase.
+
+"""An ERC-8004 validationRequest: the commitment an agent makes before the outcome is known."""
+type ValidationRequest {
+  id: ID!
+  "PredgeAgentValidator or ERC8004ValidationRegistry"
+  registry: String!
+  registryAddress: String!
+  requestHash: String! @index
+  validator: String!
+  agentId: BigInt!
+  "Sender of the request transaction (the agent key)."
+  requester: String! @index
+  requestURI: String!
+  "Polymarket market id parsed from requestURI (pm:<id>), if present."
+  marketId: String @index
+  block: Int!
+  tx: String!
+  timestamp: Int!
+  verdicts: [Verdict!]! @derivedFrom(field: "request")
+}
+
+"""An ERC-8004 validationResponse: the validator's score for a request."""
+type Verdict {
+  id: ID!
+  registry: String! @index
+  registryAddress: String!
+  requestHash: String! @index
+  request: ValidationRequest
+  agentId: BigInt!
+  "The requesting agent's address (from the matching request), if the request was indexed."
+  agent: String @index
+  validator: String! @index
+  score: Int! @index
+  responseURI: String!
+  responseHash: String!
+  tag: String!
+  marketId: String @index
+  "Seconds between the request and the verdict (commit lead time)."
+  leadTimeSeconds: Int
+  block: Int!
+  tx: String!
+  timestamp: Int!
+}
+
+"""A bonded verdict in PredgeValidatorBond: stake, committed expected hash, score, outcome."""
+type Bond {
+  id: ID!
+  bondContract: String! @index
+  requestHash: String! @index
+  "Committed sha256 of the deliverable the validator expects."
+  expected: String!
+  stakeWei: BigInt!
+  stakedAt: Int!
+  "Job the bond is bound to (AgentJob.specHash == requestHash)."
+  job: Job
+  scored: Boolean!
+  score: Int
+  scoredAt: Int
+  "open | scored | slashed | reclaimed"
+  status: String! @index
+  slashed: Boolean! @index
+  challenger: String
+  slashedWei: BigInt
+  "What the provider actually delivered, as read by the bond contract at challenge time."
+  deliveredHash: String
+  recordedScoreAtSlash: Int
+  reclaimed: Boolean!
+  commitTx: String!
+  scoreTx: String
+  closeTx: String
+  commitBlock: Int!
+  closeBlock: Int
+}
+
+"""An AgentJob escrow: create -> submit -> complete | reject."""
+type Job {
+  id: ID!
+  jobContract: String!
+  jobId: BigInt! @index
+  client: String! @index
+  evaluator: String! @index
+  provider: String! @index
+  escrowWei: BigInt!
+  specHash: String! @index
+  deliverable: String
+  "open | submitted | completed | rejected"
+  status: String! @index
+  reason: String
+  paidWei: BigInt
+  refundedWei: BigInt
+  createdAt: Int!
+  submittedAt: Int
+  closedAt: Int
+  createTx: String!
+  submitTx: String
+  closeTx: String
+  bonds: [Bond!]! @derivedFrom(field: "job")
+}
+
+"""A pay-per-call settlement receipt (PredgeSettlement.payForRoute)."""
+type Receipt {
+  id: ID!
+  payer: String! @index
+  "bytes32 route as hex"
+  route: String! @index
+  "route decoded as a right-padded ASCII string, if printable"
+  routeText: String
+  amountWei: BigInt!
+  paidAt: Int!
+  meta: String!
+  block: Int!
+  tx: String!
+}
+
+type SettlementWithdrawal {
+  id: ID!
+  to: String!
+  amountWei: BigInt!
+  block: Int!
+  tx: String!
+  timestamp: Int!
+}
+
+"""ERC-8004 IdentityRegistry registration by Predge's owner key."""
+type AgentIdentity {
+  id: ID!
+  agentId: BigInt!
+  owner: String!
+  agentURI: String!
+  block: Int!
+  tx: String!
+  timestamp: Int!
+}
+
+"""
+Aggregates. id "global" covers everything; ids "PredgeAgentValidator" and
+"ERC8004ValidationRegistry" carry the request/verdict counters for that registry only.
+"""
+type VerdictStats {
+  id: ID!
+  totalRequests: Int!
+  totalVerdicts: Int!
+  "score buckets"
+  score0: Int!
+  score1to49: Int!
+  score50to99: Int!
+  score100: Int!
+  sumScores: BigInt!
+  bondsCommitted: Int!
+  bondsScored: Int!
+  slashedCount: Int!
+  reclaimedCount: Int!
+  "total MON ever staked behind verdicts (wei)"
+  totalStakedWei: BigInt!
+  totalSlashedWei: BigInt!
+  totalReclaimedWei: BigInt!
+  jobsCreated: Int!
+  jobsSubmitted: Int!
+  jobsCompleted: Int!
+  jobsRejected: Int!
+  totalEscrowWei: BigInt!
+  receipts: Int!
+  totalPaidWei: BigInt!
+  lastBlock: Int!
+  lastTimestamp: Int!
+}
+
+"""Per-agent stats, keyed by the agent's address (the key that sent the requests)."""
+type AgentStats {
+  id: ID!
+  requests: Int!
+  verdictsReceived: Int! @index
+  score0: Int!
+  score100: Int!
+  scoreOther: Int!
+  sumScores: BigInt!
+  "average score x100 (integer), e.g. 7034 = 70.34"
+  avgScoreX100: Int!
+  firstSeenBlock: Int!
+  lastVerdictBlock: Int
+  lastVerdictAt: Int
+}
+
+"""Per-market stats for Polymarket markets referenced by pm:<id> request URIs."""
+type MarketStats {
+  id: ID!
+  requests: Int!
+  verdicts: Int!
+  latestScore: Int
+  latestVerdictTx: String
+  latestVerdictAt: Int
+}

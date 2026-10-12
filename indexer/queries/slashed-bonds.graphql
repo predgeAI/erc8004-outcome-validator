@@ -1,0 +1,16 @@
+# Bonds that were slashed, with the job they were bound to.
+query SlashedBonds {
+  Bond(where: { slashed: { _eq: true } }) {
+    bondContract
+    requestHash
+    stakeWei
+    expected
+    deliveredHash
+    recordedScoreAtSlash
+    challenger
+    slashedWei
+    closeTx
+    closeBlock
+    job { jobId client provider evaluator status deliverable }
+  }
+}
