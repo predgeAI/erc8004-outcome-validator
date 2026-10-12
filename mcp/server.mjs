@@ -4,9 +4,13 @@
 //   settlement_risk   signed Settlement Risk record from api.predge.io, verified against the pinned key
 //   onchain_verdict   Predge's verdict on Monad testnet, checked: responseHash == keccak256(signed bytes)
 //   is_safe_to_act    both combined into one yes or no with a reason
-// Holds no key and sends no transaction. Env: PREDGE_API, MONAD_RPC_URL.
+//   dispute_exposure  who holds the contested side of a disputed market (Nansen data), cached results only
+// Holds no key and sends no transaction. Env: PREDGE_API, MONAD_RPC_URL, NANSEN_EXPOSURE_DIR.
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { z } from "zod";
 import { getSettlementRisk, getOnchainVerdict, isSafeToAct } from "@predge/settlement-risk";
 
@@ -59,6 +63,23 @@ server.registerTool("is_safe_to_act", {
   try {
     const d = await isSafeToAct(marketId, { ...base, ...o });
     return reply({ safe: d.safe, reason: d.reason, marketId: d.marketId, riskLevel: d.riskLevel, maxRisk: d.maxRisk, outcome: d.outcome, checks: d.checks, recommendation: d.risk?.recommendation ?? null, checkedAt: d.risk?.checkedAt ?? null, verdict: verdictView(d.verdict) });
+  } catch (e) { return fail(e); }
+});
+
+// Served from nansen/cache (written by `node nansen/exposure.mjs <market_id>`, which pays Nansen over x402).
+// This tool never pays: a market that has not been computed yet returns how to compute it.
+const exposureDirs = [process.env.NANSEN_EXPOSURE_DIR, path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "nansen", "cache")].filter(Boolean);
+server.registerTool("dispute_exposure", {
+  title: "Dispute exposure (Predge + Nansen)",
+  description: "For a disputed Polymarket market: dollars positioned on the disputed proposal's outcome vs the other side, the share held by the top 3 holders, whether high-win-rate wallets sit on the contested side (Nansen prediction-market top-holders, position-detail, address-summary), combined with Predge's signed dispute record, and one decision for a holder of the contested outcome: hedge, size down, wait or fine. Serves cached results only and never pays; every Nansen figure carries its fetch time.",
+  inputSchema: { marketId },
+  annotations: { readOnlyHint: true, openWorldHint: false },
+}, async ({ marketId }) => {
+  try {
+    const f = exposureDirs.map((d) => path.join(d, `exposure-${marketId}.json`)).find((p) => existsSync(p));
+    if (!f) return reply({ marketId, cached: false, message: `no cached exposure for ${marketId}; compute it with: node nansen/exposure.mjs ${marketId} (pays Nansen about 0.13 USDC on Monad, capped)` });
+    const x = JSON.parse(readFileSync(f, "utf8"));
+    return reply({ marketId, cached: true, generatedAt: x.generatedAt, question: x.market.question, decision: x.decision, reason: x.reason, predge: x.predge, exposure: x.exposure, nansenPayments: x.nansen.payments, summary: x.summary });
   } catch (e) { return fail(e); }
 });
 

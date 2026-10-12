@@ -36,6 +36,7 @@ against prediction-market outcomes. Revenue today is $0; there are no paying cus
 
 - [Use it from your agent](#use-it-from-your-agent)
 - [What is live on Monad testnet](#what-is-live-on-monad-testnet)
+- [Nansen dispute exposure](#nansen-dispute-exposure)
 - [Architecture](#architecture)
 - [Why Monad](#why-monad)
 - [Setup and reproduction](#setup-and-reproduction)
@@ -69,8 +70,9 @@ checks `responseHash == keccak256(signed bytes)`). `@predge/settlement-risk/x402
 USDC on Monad through Monad's x402 facilitator with an account your code already holds; it never
 reads a key itself.
 
-**MCP server** ([`mcp/`](mcp/server.mjs), stdio) with three tools: `settlement_risk`,
-`onchain_verdict`, `is_safe_to_act`. Add it to any MCP client or agent framework with MCP
+**MCP server** ([`mcp/`](mcp/server.mjs), stdio) with four tools: `settlement_risk`,
+`onchain_verdict`, `is_safe_to_act`, and `dispute_exposure` (cached Nansen results, see
+[below](#nansen-dispute-exposure)). Add it to any MCP client or agent framework with MCP
 support:
 
 ```json
@@ -187,6 +189,26 @@ facilitator pays gas. Settlement txs:
 [`0xa41ba1f9…`](https://testnet.monadvision.com/tx/0xa41ba1f995eb229c322d5bc34c4d69550395356d94459c0706ba065b8da99cea),
 [`0x4e52243b…`](https://testnet.monadvision.com/tx/0x4e52243b505c28511dd6740102496afa062006f510d16e5fc09f144085d56a3e).
 Details: [`monad/x402/`](monad/x402/README.md).
+
+## Nansen dispute exposure
+
+Predge knows that a market is disputed and which proposed outcome was disputed; Nansen knows who
+holds each side. [`nansen/exposure.mjs`](nansen/README.md) joins them: it verifies the signed Predge
+record with the SDK, pays Nansen per call over x402 in USDC on Monad mainnet (top-holders,
+position-detail, address-summary for the top 3 holders, about 0.13 USDC per market), and returns the
+dollars on the contested outcome vs the other side, the top-3 share, whether high-win-rate wallets sit
+on the contested side, and one decision: hedge, size down, wait or fine.
+
+```
+node nansen/exposure.mjs 5219930 --no-pay   # cached, free
+```
+
+On the live dispute in "Will Trump say Ammunition this week?" (5219930, in a UMA vote) it says
+hedge: Nansen (2026-10-12T21:10Z) prices Yes at 0.0135 while Predge's signed reference rate that the
+market settles differently from the disputed No is 21.66%. Spend is capped in code at 2.00 USDC
+lifetime with a ledger; 0.65 USDC spent across 5 markets, every payment's Monad settlement tx is in
+[`nansen/README.md`](nansen/README.md). The MCP tool `dispute_exposure` serves the cached results and
+never pays.
 
 ## Architecture
 
@@ -339,13 +361,14 @@ later):
 | Path | What |
 |---|---|
 | `sdk/` | `@predge/settlement-risk`: `getSettlementRisk`, `getOnchainVerdict`, `isSafeToAct`, x402 helper, offline and live tests |
-| `mcp/` | MCP server (stdio): `settlement_risk`, `onchain_verdict`, `is_safe_to_act` |
+| `mcp/` | MCP server (stdio): `settlement_risk`, `onchain_verdict`, `is_safe_to_act`, `dispute_exposure` |
 | `mm-plugin/` | MetaMask Agent Wallet plugin: `mm predge check`, `scan`, `guard`, agent skill, captured outputs |
 | `monad/contracts/` | Solidity sources of the four deployed contracts, attribution, bytecode check, deploy script |
 | `monad/smoke.mjs`, `monad/deployment.json` | Monad testnet smoke run and deployment record |
 | `monad/slash/` | slash demo: dishonest bonded verdict challenged and slashed |
 | `monad/batch/` | 145 verdicts on real disputed markets: markets, signed records, runner, results, verifier |
 | `monad/x402/` | x402 pay-per-call on Monad testnet: resource server and paying agent |
+| `nansen/` | dispute exposure: Predge dispute record + Nansen holders (x402, USDC on Monad mainnet, capped), examples, spend ledger |
 | `guard/` | Predge Guard web app (Vite, React, TypeScript); its static build is `docs/index.html` and `docs/assets/` |
 | `docs/board.html`, `monad/board/` | verdict board (GitHub Pages) and the script that builds its data file |
 | `indexer/` | Envio HyperIndex indexer for all of the above: verdicts, bonds and slashes, jobs, receipts, per-agent and per-market stats over GraphQL ([README](indexer/README.md)) |

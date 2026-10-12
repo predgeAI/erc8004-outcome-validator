@@ -5,7 +5,7 @@ import { addr, EXAMPLES, MONAD, REPO } from "./lib/constants";
 import { DATA, byMarket } from "./lib/data";
 import { Result } from "./components/Result";
 import { Explore } from "./components/Explore";
-import { ConnectButton, useWalletState, useWatchlist, WalletHost } from "./components/Wallet";
+import { AckList, ConnectButton, useWalletState, useWatchlist, WalletHost } from "./components/Wallet";
 import { Ext, Shield } from "./components/ui";
 
 const initialMarket = () => { try { return new URLSearchParams(location.search).get("m") ?? ""; } catch { return ""; } };
@@ -94,6 +94,7 @@ export default function App() {
           {state.kind === "ok" && <Result key={state.lookup.payload.market_id + state.lookup.payload.issued_at} lookup={state.lookup} wallet={wallet.api} watch={watch} />}
         </div>
 
+        <AckList onOpen={open} />
         <HowItWorks />
         <Explore onOpen={open} />
 
