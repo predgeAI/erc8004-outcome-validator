@@ -150,7 +150,11 @@ export function renderCheck(c: CheckReport): string {
   L.push(`Record:    signed by Predge key ${c.record.kid}, signature ${c.record.signature ? "ok" : "BAD"}, pinned key ${c.record.pinnedKey ? "ok" : "BAD"}, content hash ${c.record.contentHash === null ? "n/a" : c.record.contentHash ? "ok" : "BAD"}, condition id ${c.record.conditionIdMatches ? "matches" : "MISMATCH"}; checked ${c.record.checkedAt}`);
   for (const v of c.verdicts) {
     if (!v.found) { L.push(`Verdict:   ${v.network}: none yet for requestHash ${short(v.requestHash)} (${v.explorerUrl})`); continue; }
-    const meaning = v.chainId === 10143 && c.disputedProposal ? (v.score === 100 ? `, disputed proposal ${c.disputedProposal} stood` : v.score === 0 ? `, disputed proposal ${c.disputedProposal} did not stand` : "") : "";
+    // Two claims are validated: settlement-risk-v1 asks "did the disputed proposal stand" (100 yes, 0 no);
+    // resolved-outcome-vs-claim asks "does the signed record match the claim it was requested for" (100 yes).
+    const meaning = v.tag === "predge:resolved-outcome-vs-claim"
+      ? (v.score === 100 ? ", signed record verified (claim: record matches the request)" : "")
+      : c.disputedProposal ? (v.score === 100 ? `, disputed proposal ${c.disputedProposal} stood` : v.score === 0 ? `, disputed proposal ${c.disputedProposal} did not stand` : "") : "";
     L.push(`Verdict:   ${v.network}: score ${v.score}${meaning} (tag ${v.tag}), ${v.bound ? "bound to the signed record" : "NOT bound"}, validator ${v.validatorMatches ? "is Predge" : "UNEXPECTED"}${v.scoreConsistent === false ? ", score INCONSISTENT" : ""}`);
     L.push(`           ${v.explorerUrl}`);
   }
