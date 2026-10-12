@@ -1,0 +1,48 @@
+{
+  "chainId": 143,
+  "deployer": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+  "validator": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+  "disputeWindow": "86400",
+  "contracts": {
+    "PredgeAgentValidator": {
+      "address": "0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9",
+      "args": [
+        "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9"
+      ],
+      "deployTx": "0x4aca5fff48e1dd3ab3d3d54fe2df81f1aa64419d6f6c8d68937495c5e9d5499c",
+      "block": 112858595,
+      "gasUsed": "1017588",
+      "url": "https://monadvision.com/address/0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9"
+    },
+    "AgentJob": {
+      "address": "0x64668df7917A84a26d53Fff7883DD998258D6987",
+      "args": [],
+      "deployTx": "0x57f0e7c1d42599a73bdc23b69338a129d2be3598083faef38ee1796881cb420a",
+      "block": 112858620,
+      "gasUsed": "632483",
+      "url": "https://monadvision.com/address/0x64668df7917A84a26d53Fff7883DD998258D6987"
+    },
+    "PredgeValidatorBond": {
+      "address": "0xd7bC19f836a92561b368eFf34667c32cAe4E7111",
+      "args": [
+        "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+        "0x64668df7917A84a26d53Fff7883DD998258D6987",
+        "86400"
+      ],
+      "deployTx": "0x858824f319d4cbb6302a40134353466d70f83ef1f0457b15eac44c9c172a0132",
+      "block": 112858637,
+      "gasUsed": "1166586",
+      "url": "https://monadvision.com/address/0xd7bC19f836a92561b368eFf34667c32cAe4E7111"
+    },
+    "PredgeSettlement": {
+      "address": "0xb4540AD38FE0bCd08578664151689d4E9dd67F35",
+      "args": [],
+      "deployTx": "0x53240170bdb0d58238d0659c5fb87bdb8aa4356563fe94c7fd8846f41fc4a0af",
+      "block": 112858654,
+      "gasUsed": "312489",
+      "url": "https://monadvision.com/address/0xb4540AD38FE0bCd08578664151689d4E9dd67F35"
+    }
+  },
+  "chain": "monad-mainnet",
+  "explorer": "https://monadvision.com"
+}
