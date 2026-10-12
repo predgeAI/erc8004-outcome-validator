@@ -28,16 +28,72 @@ against prediction-market outcomes. Revenue today is $0; there are no paying cus
 
 ## Contents
 
+- [Use it from your agent](#use-it-from-your-agent)
 - [What is live on Monad testnet](#what-is-live-on-monad-testnet)
 - [Architecture](#architecture)
 - [Why Monad](#why-monad)
 - [Setup and reproduction](#setup-and-reproduction)
-- [Pre-existing vs built during the hackathon (1 Sep to 13 Oct)](#pre-existing-vs-built-during-the-hackathon-1-sep-to-13-oct)
+- [Built during Metropolis (1 Sep–13 Oct)](#built-during-metropolis-1-sep13-oct)
 - [Repository layout](#repository-layout)
 - [Honest limits](#honest-limits)
 - [AI tools disclosure](#ai-tools-disclosure)
 - [Support development](#support-development)
 - [License](#license)
+
+## Use it from your agent
+
+Two packages in this repo let any agent check Predge before it acts. Neither is published to npm
+yet; `npm ci` at the repo root installs and builds both (npm workspaces). Both are read-only: no key,
+no transaction.
+
+**SDK** ([`sdk/`](sdk/README.md), `@predge/settlement-risk`, TypeScript):
+
+```ts
+import { isSafeToAct } from "@predge/settlement-risk";
+
+const d = await isSafeToAct("1102588", { maxRisk: "resolved", outcome: "Under" });
+if (!d.safe) throw new Error(d.reason); // "wait: risk caution is above resolved. ..." or "refuse: ..."
+console.log(d.reason, d.verdict?.bound); // the signed record verified; the Monad verdict is bound to it
+```
+
+`isSafeToAct` combines `getSettlementRisk(marketId)` (fetches the signed record, checks ed25519
+against the pinned key `13fa3d18a369e6c7` and the sha256 content hash) and
+`getOnchainVerdict(marketId | requestHash)` (reads `PredgeAgentValidator` on Monad testnet and
+checks `responseHash == keccak256(signed bytes)`). `@predge/settlement-risk/x402` pays per call in
+USDC on Monad through Monad's x402 facilitator with an account your code already holds; it never
+reads a key itself.
+
+**MCP server** ([`mcp/`](mcp/server.mjs), stdio) with three tools: `settlement_risk`,
+`onchain_verdict`, `is_safe_to_act`. Add it to any MCP client or agent framework with MCP
+support:
+
+```json
+{
+  "mcpServers": {
+    "predge-settlement-risk": {
+      "command": "node",
+      "args": ["/absolute/path/to/erc8004-outcome-validator/mcp/server.mjs"]
+    }
+  }
+}
+```
+
+Tests: `npm run sdk:test` (13 offline tests on the batch fixtures in `monad/batch/records/`),
+`npm run test:live -w @predge/settlement-risk` and `npm run test:live -w @predge/settlement-risk-mcp`
+(read-only against api.predge.io and Monad testnet).
+
+### How this differs from a generic ERC-8004 validator
+
+Generic ERC-8004 validators check the agent did what it said; Predge checks the outcome it acts on
+will hold.
+
+| | Generic ERC-8004 validator | Predge |
+|---|---|---|
+| Question answered | did the agent do the task it claimed (re-execution, TEE or zk proof of its own work) | is the external outcome the agent acts on final, or still open to dispute |
+| Evidence | the agent's inputs, outputs and execution trace | UMA and Polymarket facts read on Polygon, as an ed25519-signed record anyone can re-verify offline |
+| On-chain link | a response score for the agent's work | a 0..100 verdict whose `responseHash` is keccak256 of the signed record |
+| If the validator is wrong | depends on the validator design; often nothing on chain | a bonded verdict that contradicts the provider's on-chain commitment can be slashed by anyone, within the dispute window |
+| When it is called | after the agent acted | before the agent acts (`isSafeToAct`, `is_safe_to_act`) |
 
 ## What is live on Monad testnet
 
@@ -69,6 +125,10 @@ submit with a separate key, verdict 100, verdict recorded behind the bond, job c
 pay-per-call receipt, then an ERC-8004 agent registration (agentId `2003`) and a request and
 response read back with `responseHash == keccak256(signed bytes)`. Receipts:
 [`monad/smoke-2026-10-05T08-05-41-255Z.json`](monad/smoke-2026-10-05T08-05-41-255Z.json).
+
+Repeated on 2026-10-12 (11 of 11 tx ok, ERC-8004 agentId `2220`) on the evidence pack in
+pack_format 2, whose record is signed with the production key `13fa3d18a369e6c7`. Receipts:
+[`monad/smoke-2026-10-12T16-26-31-759Z.json`](monad/smoke-2026-10-12T16-26-31-759Z.json).
 
 | Step | Tx |
 |---|---|
@@ -213,38 +273,61 @@ CONFIRM_TESTNET=yes node monad/contracts/deploy.mjs --send
 RUN_TAG=mytest CONFIRM_TESTNET=yes node monad/smoke.mjs --send
 ```
 
-## Pre-existing vs built during the hackathon (1 Sep to 13 Oct)
+## Built during Metropolis (1 Sep–13 Oct)
 
 Metropolis allows pre-existing code if it is listed and the submission adds substantial new work.
-Dates come from git history.
+Everything below can be checked: commit dates with `git log --date=short`, chain dates from the block
+numbers on [MonadVision](https://testnet.monadvision.com) and the receipt files in `monad/`.
 
-**Pre-existing (before 1 Sep 2026):**
+**Pre-existing (before 1 Sep 2026), reused here:**
 
 | Component | Where | Date |
 |---|---|---|
+| Predge API and data stack: api.predge.io, the x402 pay-per-call API on Base (whale data routes), the ed25519 signing key and canonical JSON format | predge-x402-api, not part of this repo | before September |
+| This repo's first version: ed25519 attestation to ERC-8004 `validationResponse` mapping (`src/`) | this repo, 2 commits | 2026-07-31 and 2026-08-01 |
 | `PredgeSettlement` contract | predgeAI/predge-arc | 2026-08-03 |
 | `PredgeAgentValidator`, `AgentJob`, `PredgeValidatorBond` v1 | predgeAI/predge-arc | 2026-08-14 |
 | Port of those contracts to Robinhood Chain | predgeAI/predge-robinhood | 2026-08-17 |
-| This repo's first version: ed25519 attestation to ERC-8004 `validationResponse` mapping (`src/`) | this repo | 2026-07-31 and 2026-08-01 |
-| x402 pay-per-call API on Base (whale data routes) | predge-x402-api, not part of this repo | before September |
 
-**Built during the hackathon window:**
+**Built during the window, outside this repo** (dates from those repos' history, not reproducible
+from this one):
 
 | Component | Date |
 |---|---|
 | `PredgeValidatorBond` v2: the challenge reads the deliverable from the job contract, so a challenger cannot supply bytes | 2026-09-18 |
+| Settlement Risk dataset (3,005 disputes on 2,666 markets) and the signed `/v1/settlement-risk/<market>` route in the Predge API | September to October |
 | `PredgeValidatorBond` v2.1: dispute window counted from the verdict, not from the stake | 2026-10-03 |
-| Settlement Risk dataset (3,005 disputes on 2,666 markets) and the signed `/v1/settlement-risk/<market>` route | September to October |
+
+**Built during the window, in this repo** (every commit after 2026-08-01 is dated 2026-10-03 or
+later):
+
+| Component | Commit dates |
+|---|---|
 | x402-grounded-feedback-v0 schema, test vectors, Node and Python verifiers (`grounded-feedback/`) | 2026-10-03 |
 | Monad testnet deployment of the four contracts, Sourcify verification, smoke run with ERC-8004 records (`monad/`) | 2026-10-05 |
 | Oracle outcome state and superseding, ERC-8404 oracle-outcome verification profile (`erc8404-profile/`) | 2026-10-05 to 2026-10-07 |
 | Contract sources in this repo, reproducible build check, deploy script (`monad/contracts/`) | 2026-10-07 |
-| Batch of 145 verdicts on historical disputed markets, slash demo, x402 on Monad, verdict board (`monad/batch/`, `monad/slash/`, `monad/x402/`, `docs/`) | 2026-10-07 |
+| Batch of 145 verdicts, slash demo, x402 on Monad, verdict board (`monad/batch/`, `monad/slash/`, `monad/x402/`, `docs/`) | 2026-10-07 |
+| Smoke run on the production-signed evidence pack (pack_format 2), receipts | 2026-10-12 |
+| SDK `@predge/settlement-risk` (`sdk/`) and MCP server (`mcp/`) | 2026-10-12 |
+
+**On chain, Monad testnet (chain 10143):**
+
+| What | Date (UTC) | Blocks | Receipts |
+|---|---|---|---|
+| Deploy of the four contracts | 2026-10-05 08:04:57 to 08:05:10 | 68349040 to 68349085 | [`monad/deployment.json`](monad/deployment.json) |
+| Smoke run, 11 tx | 2026-10-05 | 68349122 to 68349171 | [`monad/smoke-2026-10-05T08-05-41-255Z.json`](monad/smoke-2026-10-05T08-05-41-255Z.json) |
+| Slash demo | 2026-10-07 | 68958546 to 68958599 | [`monad/slash/slash-2026-10-07T11-29-42-252Z.json`](monad/slash/slash-2026-10-07T11-29-42-252Z.json) |
+| x402 paid calls on Monad | 2026-10-07 | 68959337, 68961131 | [`monad/x402/runs/`](monad/x402/runs/) |
+| Batch, 145 requests and 145 verdicts | 2026-10-07 | 68960430 to 68960512 | [`monad/batch/results-2026-10-07T11-39-11-867Z.json`](monad/batch/results-2026-10-07T11-39-11-867Z.json) |
+| Smoke run, 11 of 11 tx ok | 2026-10-12 | 70444717 to 70444799 | [`monad/smoke-2026-10-12T16-26-31-759Z.json`](monad/smoke-2026-10-12T16-26-31-759Z.json) |
 
 ## Repository layout
 
 | Path | What |
 |---|---|
+| `sdk/` | `@predge/settlement-risk`: `getSettlementRisk`, `getOnchainVerdict`, `isSafeToAct`, x402 helper, offline and live tests |
+| `mcp/` | MCP server (stdio): `settlement_risk`, `onchain_verdict`, `is_safe_to_act` |
 | `monad/contracts/` | Solidity sources of the four deployed contracts, attribution, bytecode check, deploy script |
 | `monad/smoke.mjs`, `monad/deployment.json` | Monad testnet smoke run and deployment record |
 | `monad/slash/` | slash demo: dishonest bonded verdict challenged and slashed |
@@ -265,7 +348,15 @@ Dates come from git history.
 - Testnet only. The same contracts are deployed on Arbitrum One, Robinhood Chain and Arc; Monad
   mainnet is not deployed.
 - Revenue is $0 and there are no paying customers yet.
-- The evidence pack in the smoke run is signed with a prototype key, not the production key.
+- The evidence pack in the 2026-10-05 smoke run is signed with a prototype key, not the production
+  key; the 2026-10-12 run uses the production-signed pack.
+- The SDK finds the signed record a batch verdict is bound to in the verdict board's data file. That
+  file is not trusted: the SDK checks each record against the pinned key and against `responseHash`
+  on chain. Markets without a Predge verdict on Monad get the signed record only.
+- The x402 helper pays the Monad demo server (`monad/x402/server.mjs`); api.predge.io does not offer
+  Monad as a payment network yet. The paid path was run on 2026-10-07 with `monad/x402/agent.mjs`;
+  the SDK helper's paid path has not been run against the chain.
+- The SDK and MCP server are not published to npm or listed in an MCP registry yet.
 - Client and validator are one key in the smoke run; the provider is a separate key. A slash only
   happens when a bonded verdict contradicts what the provider committed on chain, so the honest
   flow never slashes; the slash demo uses its own bond instance and four separate keys.
