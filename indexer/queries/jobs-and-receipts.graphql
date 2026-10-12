@@ -1,0 +1,22 @@
+# Escrow lifecycle of every AgentJob, and pay-per-call receipts.
+query JobsAndReceipts {
+  Job(order_by: { jobId: asc }) {
+    jobId
+    status
+    client
+    provider
+    evaluator
+    escrowWei
+    paidWei
+    specHash
+    bonds { status score stakeWei }
+  }
+  Receipt(order_by: { block: asc }) {
+    payer
+    routeText
+    amountWei
+    meta
+    block
+    tx
+  }
+}

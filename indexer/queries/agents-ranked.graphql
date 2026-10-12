@@ -1,0 +1,12 @@
+# Agents ranked by verdicts received.
+query AgentsRanked {
+  AgentStats(order_by: { verdictsReceived: desc }, limit: 10) {
+    id
+    requests
+    verdictsReceived
+    score100
+    score0
+    avgScoreX100
+    lastVerdictBlock
+  }
+}

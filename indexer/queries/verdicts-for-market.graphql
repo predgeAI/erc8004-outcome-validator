@@ -1,0 +1,16 @@
+# Every verdict for one Polymarket market (here 2169995, the smoke-run market).
+query VerdictsForMarket($marketId: String = "2169995") {
+  Verdict(where: { marketId: { _eq: $marketId } }, order_by: { block: asc }) {
+    registry
+    score
+    agent
+    agentId
+    validator
+    tag
+    requestHash
+    responseHash
+    leadTimeSeconds
+    block
+    tx
+  }
+}

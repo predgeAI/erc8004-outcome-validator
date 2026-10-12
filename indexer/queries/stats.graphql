@@ -1,0 +1,25 @@
+# Global and per-registry aggregates.
+query Stats {
+  VerdictStats(order_by: { id: asc }) {
+    id
+    totalRequests
+    totalVerdicts
+    score0
+    score1to49
+    score50to99
+    score100
+    bondsCommitted
+    bondsScored
+    slashedCount
+    reclaimedCount
+    totalStakedWei
+    totalSlashedWei
+    jobsCreated
+    jobsCompleted
+    jobsRejected
+    totalEscrowWei
+    receipts
+    totalPaidWei
+    lastBlock
+  }
+}

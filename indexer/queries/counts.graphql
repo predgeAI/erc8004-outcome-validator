@@ -1,0 +1,11 @@
+# Row counts per entity and per registry, plus indexer sync status.
+query Counts {
+  _meta { chainId startBlock progressBlock sourceBlock eventsProcessed isReady }
+  predge: Verdict_aggregate(where: { registry: { _eq: "PredgeAgentValidator" } }) { aggregate { count } }
+  erc8004: Verdict_aggregate(where: { registry: { _eq: "ERC8004ValidationRegistry" } }) { aggregate { count } }
+  requests: ValidationRequest_aggregate { aggregate { count } }
+  bonds: Bond_aggregate { aggregate { count } }
+  jobs: Job_aggregate { aggregate { count } }
+  receipts: Receipt_aggregate { aggregate { count } }
+  identities: AgentIdentity_aggregate { aggregate { count } }
+}
