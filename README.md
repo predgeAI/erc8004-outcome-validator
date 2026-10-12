@@ -86,6 +86,11 @@ support:
 }
 ```
 
+**MetaMask Agent Wallet plugin** ([`mm-plugin/`](mm-plugin/README.md)): `mm predge check`,
+`mm predge scan` and `mm predge guard` for the `mm` CLI. Checks settlement risk before
+`mm predict place`, flags disputed or proposed-but-not-final positions in a wallet, and prints the
+exact `mm predict` order only when the market is safe. Read-only; installs with `file:`.
+
 Tests: `npm run sdk:test` (13 offline tests on the batch fixtures in `monad/batch/records/`),
 `npm run test:live -w @predge/settlement-risk` and `npm run test:live -w @predge/settlement-risk-mcp`
 (read-only against api.predge.io and Monad testnet).
@@ -338,6 +343,7 @@ later):
 | Batch of 145 verdicts, slash demo, x402 on Monad, verdict board (`monad/batch/`, `monad/slash/`, `monad/x402/`, `docs/`) | 2026-10-07 |
 | Smoke run on the production-signed evidence pack (pack_format 2), receipts | 2026-10-12 |
 | SDK `@predge/settlement-risk` (`sdk/`) and MCP server (`mcp/`) | 2026-10-12 |
+| MetaMask Agent Wallet plugin `mm predge` (`mm-plugin/`) | 2026-10-13 |
 
 **On chain, Monad testnet (chain 10143):**
 
@@ -356,6 +362,7 @@ later):
 |---|---|
 | `sdk/` | `@predge/settlement-risk`: `getSettlementRisk`, `getOnchainVerdict`, `isSafeToAct`, x402 helper, offline and live tests |
 | `mcp/` | MCP server (stdio): `settlement_risk`, `onchain_verdict`, `is_safe_to_act`, `dispute_exposure` |
+| `mm-plugin/` | MetaMask Agent Wallet plugin: `mm predge check`, `scan`, `guard`, agent skill, captured outputs |
 | `monad/contracts/` | Solidity sources of the four deployed contracts, attribution, bytecode check, deploy script |
 | `monad/smoke.mjs`, `monad/deployment.json` | Monad testnet smoke run and deployment record |
 | `monad/slash/` | slash demo: dishonest bonded verdict challenged and slashed |

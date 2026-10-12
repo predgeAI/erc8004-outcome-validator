@@ -1,0 +1,58 @@
+$ mm predge check 2026-nlcs-series-spread-dodgers-3pt5 --format text
+input:             2026-nlcs-series-spread-dodgers-3pt5
+market:
+  id: 5635483
+  slug: 2026-nlcs-series-spread-dodgers-3pt5
+  question: 2026 NLCS Series Spread: Dodgers (-3.5)
+  conditionId: 0xc4142ec06f2982c8eb00a42f3a0071128eba00f3e15b69c4e41aded990c3ba85
+  outcomes:
+    - Dodgers -3.5
+    - Brewers +3.5
+  closed: false
+  endDate: 2026-10-21T03:59:00Z
+riskLevel:         watch
+recommendation:    watch: "Brewers +3.5" proposed, challenge window ends 2026-10-12T23:10:57Z; no dispute yet.
+umaState:          proposed
+settlement:        proposed Brewers +3.5, not final
+disputeCount:      0
+openDispute:       false
+sentToUmaVote:     false
+paused:            false
+disputedProposal:  —
+currentProposal:   Brewers +3.5
+proposal:
+  outcome: Brewers +3.5
+  proposedAt: 2026-10-12T21:10:57Z
+  challengeWindowEnds: 2026-10-12T23:10:57Z
+finalOutcome:      —
+proposalVsOutcome: proposal Brewers +3.5 pending, not final
+timeline:
+  - at: 2026-10-12T21:10:57Z
+    event: proposal Brewers +3.5, not final; challenge window ends 2026-10-12T23:10:57Z
+    tx: null
+    url: null
+record:
+  url: https://api.predge.io/v1/settlement-risk/5635483
+  kid: 13fa3d18a369e6c7
+  checkedAt: 2026-10-12T21:26:20Z
+  issuedAt: 2026-10-12T21:26:20.477Z
+  signature: true
+  pinnedKey: true
+  contentHash: true
+  conditionIdMatches: true
+verdicts:
+  []
+verdictNote:       no disputed proposal, so Predge has no claim to score on chain for this market
+safeToAct:         false
+maxRisk:           ok
+reason:            "Brewers +3.5" proposed, challenge window ends 2026-10-12T23:10:57Z; no dispute yet (risk watch, above the ok limit)
+
+Hint: 2026 NLCS Series Spread: Dodgers (-3.5) (market 5635483, 2026-nlcs-series-spread-dodgers-3pt5)
+Risk:      WATCH  (UMA state proposed; proposed Brewers +3.5, not final)
+Disputes:  0
+  2026-10-12T21:10:57Z  proposal Brewers +3.5, not final; challenge window ends 2026-10-12T23:10:57Z
+Outcome:   proposal Brewers +3.5 pending, not final
+Record:    signed by Predge key 13fa3d18a369e6c7, signature ok, pinned key ok, content hash ok, condition id matches; checked 2026-10-12T21:26:20Z
+Verdict:   no disputed proposal, so Predge has no claim to score on chain for this market
+Safe to act: no, because "Brewers +3.5" proposed, challenge window ends 2026-10-12T23:10:57Z; no dispute yet (risk watch, above the ok limit)
+[exit 0]

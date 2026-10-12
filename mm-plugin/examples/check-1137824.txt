@@ -1,0 +1,76 @@
+$ mm predge check 1137824 --format text
+input:             1137824
+market:
+  id: 1137824
+  slug: cbb-mont-idaho-2026-01-08-total-151pt5
+  question: Montana Grizzlies vs. Idaho Vandals: O/U 151.5
+  conditionId: 0x53abd8d573f0d9e1712bc50223a6be99e7588617ec0d1e51c236f940302d30e8
+  outcomes:
+    - Over
+    - Under
+  closed: true
+  endDate: 2026-01-09T02:00:00Z
+riskLevel:         resolved
+recommendation:    resolved: the on-chain resolution is final (Over); nothing is left to settle.
+umaState:          settled
+settlement:        final: Over
+disputeCount:      1
+openDispute:       false
+sentToUmaVote:     false
+paused:            false
+disputedProposal:  Under
+currentProposal:   —
+proposal:          —
+finalOutcome:      Over
+proposalVsOutcome: disputed proposal Under was overturned: final outcome Over
+timeline:
+  - at: 2026-01-09T04:38:50Z
+    event: dispute 1 of proposal Under
+    tx: 0xf7ccb655259f50e5eeaed83b911300dcd11375ae000b0e8af50e94fcf903e1aa
+    url: https://polygonscan.com/tx/0xf7ccb655259f50e5eeaed83b911300dcd11375ae000b0e8af50e94fcf903e1aa
+  - at: 2026-10-12T21:30:28Z
+    event: state at check time: resolved on chain, outcome Over
+    tx: null
+    url: null
+record:
+  url: https://api.predge.io/v1/settlement-risk/1137824
+  kid: 13fa3d18a369e6c7
+  checkedAt: 2026-10-12T21:30:28Z
+  issuedAt: 2026-10-12T21:30:31.781Z
+  signature: true
+  pinnedKey: true
+  contentHash: true
+  conditionIdMatches: true
+verdicts:
+  - chainId: 10143
+    network: Monad testnet
+    contract: 0x884764736dBe1FD36291bDd3Afd50A75465F6e8A
+    requestHash: 0x325115be71caee3ab9dc26eaa8c6b8f209cb4ec54b634c29d42ccb7ecb34d928
+    found: true
+    score: 0
+    validator: 0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9
+    validatorMatches: true
+    responseHash: 0x97384c345d38d7b318d8d4865d00a74bbcfb37589fa13b7e11fe4dbb07e0c751
+    tag: predge:settlement-risk-v1
+    lastUpdate: 2026-10-07T11:39:22.000Z
+    bound: true
+    scoreConsistent: true
+    explorerUrl: https://testnet.monadvision.com/tx/0xf9cc82eee06ab10ea7cce11e0a800beb8f6a80a5785a1d7d4cba7d0844c3c016
+    via: https://testnet-rpc.monad.xyz (ctx.publicClient(10143) failed: A project id is required to resolve the default EVM gateway RPC URL.)
+    problems: []
+verdictNote:       —
+safeToAct:         true
+maxRisk:           ok
+reason:            the on-chain resolution is final (Over); nothing is left to settle (risk resolved, within the ok limit); the Monad testnet verdict is bound to the signed record
+
+Hint: Montana Grizzlies vs. Idaho Vandals: O/U 151.5 (market 1137824, cbb-mont-idaho-2026-01-08-total-151pt5)
+Risk:      RESOLVED  (UMA state settled; final: Over)
+Disputes:  1
+  2026-01-09T04:38:50Z  dispute 1 of proposal Under  https://polygonscan.com/tx/0xf7ccb655259f50e5eeaed83b911300dcd11375ae000b0e8af50e94fcf903e1aa
+  2026-10-12T21:30:28Z  state at check time: resolved on chain, outcome Over
+Outcome:   disputed proposal Under was overturned: final outcome Over
+Record:    signed by Predge key 13fa3d18a369e6c7, signature ok, pinned key ok, content hash ok, condition id matches; checked 2026-10-12T21:30:28Z
+Verdict:   Monad testnet: score 0, disputed proposal Under did not stand (tag predge:settlement-risk-v1), bound to the signed record, validator is Predge
+           https://testnet.monadvision.com/tx/0xf9cc82eee06ab10ea7cce11e0a800beb8f6a80a5785a1d7d4cba7d0844c3c016
+Safe to act: yes, because the on-chain resolution is final (Over); nothing is left to settle (risk resolved, within the ok limit); the Monad testnet verdict is bound to the signed record
+[exit 0]

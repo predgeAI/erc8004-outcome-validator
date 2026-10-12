@@ -1,0 +1,76 @@
+$ mm predge check 1102588 --format text
+input:             1102588
+market:
+  id: 1102588
+  slug: epl-mun-mac-2026-01-17-total-2pt5
+  question: Manchester United FC vs. Manchester City FC: O/U 2.5
+  conditionId: 0x573747eb0c154f2d697a940b764a19b267b7f8af6cfed0a0e6c5c50f785ef00b
+  outcomes:
+    - Over
+    - Under
+  closed: true
+  endDate: 2026-01-17T12:30:00Z
+riskLevel:         resolved
+recommendation:    resolved: the on-chain resolution is final (Under); nothing is left to settle.
+umaState:          settled
+settlement:        final: Under
+disputeCount:      1
+openDispute:       false
+sentToUmaVote:     false
+paused:            false
+disputedProposal:  Over
+currentProposal:   —
+proposal:          —
+finalOutcome:      Under
+proposalVsOutcome: disputed proposal Over was overturned: final outcome Under
+timeline:
+  - at: 2026-01-17T14:23:32Z
+    event: dispute 1 of proposal Over
+    tx: 0x2a2a655ac8da6fe175872490ef2aa212d5e0b4b8f39c25e4d5071d2cb47a8652
+    url: https://polygonscan.com/tx/0x2a2a655ac8da6fe175872490ef2aa212d5e0b4b8f39c25e4d5071d2cb47a8652
+  - at: 2026-10-12T21:26:01Z
+    event: state at check time: resolved on chain, outcome Under
+    tx: null
+    url: null
+record:
+  url: https://api.predge.io/v1/settlement-risk/1102588
+  kid: 13fa3d18a369e6c7
+  checkedAt: 2026-10-12T21:26:01Z
+  issuedAt: 2026-10-12T21:26:04.671Z
+  signature: true
+  pinnedKey: true
+  contentHash: true
+  conditionIdMatches: true
+verdicts:
+  - chainId: 10143
+    network: Monad testnet
+    contract: 0x884764736dBe1FD36291bDd3Afd50A75465F6e8A
+    requestHash: 0xd267b04a3050a46cedcb9c2b8f35e2d65400e51861e515bafb68f87c698ca08e
+    found: true
+    score: 0
+    validator: 0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9
+    validatorMatches: true
+    responseHash: 0xc8119dfda4d7a93a3c3b967f284e060a36e66dc19b5a0631d91b9349c4a86ce5
+    tag: predge:settlement-risk-v1
+    lastUpdate: 2026-10-07T11:39:23.000Z
+    bound: true
+    scoreConsistent: true
+    explorerUrl: https://testnet.monadvision.com/tx/0x97b0b7e7ba92a534b3b4aa8dcaeb5fd497fad28835b49b8de18d1b5ab5d2279d
+    via: https://testnet-rpc.monad.xyz (ctx.publicClient(10143) failed: A project id is required to resolve the default EVM gateway RPC URL.)
+    problems: []
+verdictNote:       —
+safeToAct:         true
+maxRisk:           ok
+reason:            the on-chain resolution is final (Under); nothing is left to settle (risk resolved, within the ok limit); the Monad testnet verdict is bound to the signed record
+
+Hint: Manchester United FC vs. Manchester City FC: O/U 2.5 (market 1102588, epl-mun-mac-2026-01-17-total-2pt5)
+Risk:      RESOLVED  (UMA state settled; final: Under)
+Disputes:  1
+  2026-01-17T14:23:32Z  dispute 1 of proposal Over  https://polygonscan.com/tx/0x2a2a655ac8da6fe175872490ef2aa212d5e0b4b8f39c25e4d5071d2cb47a8652
+  2026-10-12T21:26:01Z  state at check time: resolved on chain, outcome Under
+Outcome:   disputed proposal Over was overturned: final outcome Under
+Record:    signed by Predge key 13fa3d18a369e6c7, signature ok, pinned key ok, content hash ok, condition id matches; checked 2026-10-12T21:26:01Z
+Verdict:   Monad testnet: score 0, disputed proposal Over did not stand (tag predge:settlement-risk-v1), bound to the signed record, validator is Predge
+           https://testnet.monadvision.com/tx/0x97b0b7e7ba92a534b3b4aa8dcaeb5fd497fad28835b49b8de18d1b5ab5d2279d
+Safe to act: yes, because the on-chain resolution is final (Under); nothing is left to settle (risk resolved, within the ok limit); the Monad testnet verdict is bound to the signed record
+[exit 0]

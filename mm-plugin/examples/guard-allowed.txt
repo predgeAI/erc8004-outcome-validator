@@ -1,0 +1,67 @@
+$ mm predge guard nfl-buf-la-2026-10-13-spread-home-3pt5 --side YES --size 10 --format text
+side:         YES
+action:       buy
+size:         10
+check:
+  input: nfl-buf-la-2026-10-13-spread-home-3pt5
+  market:
+    id: 4061234
+    slug: nfl-buf-la-2026-10-13-spread-home-3pt5
+    question: Spread: Rams (-3.5)
+    conditionId: 0xb8505aa36ca51e10b1077439bdabc8a74bbf299a08d113b966621f7f1582defc
+    outcomes:
+      - Rams
+      - Bills
+    closed: false
+    endDate: 2026-10-13T00:15:00Z
+  riskLevel: ok
+  recommendation: ok: no proposal, dispute or recent bulletin-board update on chain.
+  umaState: requested
+  settlement: no proposal yet
+  disputeCount: 0
+  openDispute: false
+  sentToUmaVote: false
+  paused: false
+  disputedProposal: null
+  currentProposal: null
+  proposal: null
+  finalOutcome: null
+  proposalVsOutcome: no proposal has been disputed
+  timeline: []
+  record:
+    url: https://api.predge.io/v1/settlement-risk/4061234
+    kid: 13fa3d18a369e6c7
+    checkedAt: 2026-10-12T21:29:51Z
+    issuedAt: 2026-10-12T21:29:51.950Z
+    signature: true
+    pinnedKey: true
+    contentHash: true
+    conditionIdMatches: true
+  verdicts: []
+  verdictNote: no disputed proposal, so Predge has no claim to score on chain for this market
+  safeToAct: true
+  maxRisk: ok
+  reason: no proposal, dispute or recent bulletin-board update on chain (risk ok, within the ok limit)
+allowed:      true
+reason:       no proposal, dispute or recent bulletin-board update on chain (risk ok, within the ok limit)
+outcome:      Rams
+outcomeIndex: 0
+tokenId:      23250308899791469248496736713890367877528653645908077470390716328108040647589
+price:        0.48
+priceSource:  best ask on the Polymarket CLOB book
+commands:
+  quote: mm predict quote --token-id 23250308899791469248496736713890367877528653645908077470390716328108040647589 --side buy --size 10 --limit-price 0.48 --tick-size 0.01
+  place: mm predict place --token-id 23250308899791469248496736713890367877528653645908077470390716328108040647589 --side buy --size 10 --price 0.48 --tick-size 0.01
+
+Hint: Spread: Rams (-3.5) (market 4061234, nfl-buf-la-2026-10-13-spread-home-3pt5)
+Risk:      OK  (UMA state requested; no proposal yet)
+Disputes:  0
+Outcome:   no proposal has been disputed
+Record:    signed by Predge key 13fa3d18a369e6c7, signature ok, pinned key ok, content hash ok, condition id matches; checked 2026-10-12T21:29:51Z
+Verdict:   no disputed proposal, so Predge has no claim to score on chain for this market
+Safe to act: yes, because no proposal, dispute or recent bulletin-board update on chain (risk ok, within the ok limit)
+
+GUARD: allowed to buy 10 Rams (YES = outcome 0) at up to 0.48 (best ask on the Polymarket CLOB book). Run:
+  mm predict quote --token-id 23250308899791469248496736713890367877528653645908077470390716328108040647589 --side buy --size 10 --limit-price 0.48 --tick-size 0.01
+  mm predict place --token-id 23250308899791469248496736713890367877528653645908077470390716328108040647589 --side buy --size 10 --price 0.48 --tick-size 0.01
+[exit 0]

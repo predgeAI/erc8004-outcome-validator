@@ -1,0 +1,4 @@
+$ mm predge guard 5635483 --side YES --size 10 --format text
+Error [PREDGE_GUARD_REFUSED]: Refused: "Brewers +3.5" proposed, challenge window ends 2026-10-12T23:10:57Z; no dispute yet (risk watch, above the ok limit)
+Hint: Do not run mm predict place for market 5635483. Re-run mm predge check 5635483 later.
+[exit 1]
