@@ -1,0 +1,25 @@
+import type { WalletClient } from "viem";
+
+// Public identifiers (not secrets). An empty env value hides that provider.
+const env = import.meta.env as Record<string, string | undefined>;
+export const PRIVY_APP_ID = env.VITE_PRIVY_APP_ID ?? "cmo7lfg0f000k0cl251pk1m2o";
+export const DYNAMIC_ENV_ID = env.VITE_DYNAMIC_ENV_ID ?? "bf4fc614-b0ae-4976-874e-c470659d07f7";
+
+export type WalletKind = "privy" | "dynamic";
+export const AVAILABLE: WalletKind[] = [PRIVY_APP_ID ? "privy" : null, DYNAMIC_ENV_ID ? "dynamic" : null].filter(Boolean) as WalletKind[];
+
+export interface WalletApi {
+  kind: WalletKind;
+  ready: boolean;
+  authenticated: boolean;
+  address: `0x${string}` | null;
+  /** e.g. "embedded wallet" or "MetaMask" */
+  walletLabel: string | null;
+  login: () => void;
+  logout: () => Promise<void>;
+  /** a viem wallet client on Monad testnet (switches chain first) */
+  getWalletClient: () => Promise<WalletClient>;
+  error: string | null;
+}
+
+export interface HostProps { onChange: (api: WalletApi) => void; autoLogin: boolean }

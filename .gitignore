@@ -3,3 +3,8 @@ node_modules/
 .env.*
 !.env.example
 *.log
+
+# Predge Guard
+guard/src/generated/
+guard/.env.local
+guard/*.tsbuildinfo

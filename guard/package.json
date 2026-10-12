@@ -1,0 +1,30 @@
+{
+  "name": "predge-guard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Predge Guard: know if a prediction-market outcome will hold before your agent acts.",
+  "license": "MIT",
+  "scripts": {
+    "data": "node scripts/gen-data.mjs",
+    "dev": "npm run data && vite",
+    "build": "npm run data && tsc -b && node scripts/clean-assets.mjs && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@dynamic-labs/ethereum": "^4.20.0",
+    "@dynamic-labs/sdk-react-core": "^4.20.0",
+    "@noble/ed25519": "2.2.3",
+    "@privy-io/react-auth": "3.48.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "viem": "2.57.3"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "@vitejs/plugin-react": "4.4.1",
+    "typescript": "5.9.3",
+    "vite": "6.3.5"
+  }
+}
