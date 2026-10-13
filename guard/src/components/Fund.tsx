@@ -9,13 +9,21 @@ interface Pending { depositAddress: string; recipient: Address; from: string; am
 const load = (): Pending | null => { try { return JSON.parse(localStorage.getItem(LS) || "null"); } catch { return null; } };
 const save = (p: Pending | null) => { try { if (p) localStorage.setItem(LS, JSON.stringify(p)); else localStorage.removeItem(LS); } catch { /* storage blocked */ } };
 
+/** Our demo agent on Monad mainnet, prefilled so a quote needs no typing. */
+export const DEMO_AGENT = "0x67968e43b94a9F41ce0052A038172e6522C887f5";
+/** Fired by the flow and the sponsor card: scroll to Fund and quote 2 USDC from Base at once. */
+export const FUND_QUOTE_EVENT = "predge:fund-quote";
+export const quoteNow = () => window.dispatchEvent(new Event(FUND_QUOTE_EVENT));
+
 const ORDER = ["PENDING_DEPOSIT", "KNOWN_DEPOSIT_TX", "PROCESSING", "SUCCESS"];
 
 /** Fund a Predge agent on Monad mainnet from any chain, then spend the USDC on an x402-paid check. */
 export function Fund({ wallet }: { wallet: WalletApi | null }) {
-  const [recipient, setRecipient] = useState("");
-  const [from, setFrom] = useState("base");
-  const [amount, setAmount] = useState("2");
+  const [recipient, setRecipient] = useState(DEMO_AGENT);
+  const [fromSel, setFrom] = useState("base");
+  const from = fromSel;
+  const [amountSel, setAmount] = useState("2");
+  const amount = amountSel;
   const [refund, setRefund] = useState("");
   const [busy, setBusy] = useState<"" | "quote" | "deposit">("");
   const [err, setErr] = useState("");
@@ -27,12 +35,15 @@ export function Fund({ wallet }: { wallet: WalletApi | null }) {
   const [txHash, setTxHash] = useState("");
   const timer = useRef<number | null>(null);
 
-  useEffect(() => { if (!recipient && wallet?.address) setRecipient(wallet.address); }, [wallet?.address, recipient]);
+  useEffect(() => { if (wallet?.address && (!recipient || recipient === DEMO_AGENT)) setRecipient(wallet.address); }, [wallet?.address, recipient]);
   const evm = ORIGINS.find((o) => o.id === from)?.evm ?? true;
   const refundTo = refund || (evm ? recipient : "");
   const recipientOk = isAddress(recipient);
 
-  const ask = async (dry: boolean) => {
+  const ask = async (dry: boolean, o?: { from: string; amount: string }) => {
+    const from = o?.from ?? fromSel, amount = o?.amount ?? amountSel;
+    const evm = ORIGINS.find((x) => x.id === from)?.evm ?? true;
+    const refundTo = refund || (evm ? recipient : "");
     setErr("");
     if (!recipientOk) { setErr("Enter the Monad address that should receive the USDC."); return; }
     if (!refundTo) { setErr("Enter a refund address on the origin chain."); return; }
@@ -48,6 +59,19 @@ export function Fund({ wallet }: { wallet: WalletApi | null }) {
       }
     } catch (e) { setErr((e as Error).message); } finally { setBusy(""); }
   };
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const askRef = useRef(ask);
+  askRef.current = ask;
+  useEffect(() => {
+    const h = () => {
+      setFrom("base"); setAmount("2");
+      sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      askRef.current(true, { from: "base", amount: "2" });
+    };
+    window.addEventListener(FUND_QUOTE_EVENT, h);
+    return () => window.removeEventListener(FUND_QUOTE_EVENT, h);
+  }, []);
 
   // Poll the swap until it is terminal; then read the recipient's USDC on Monad.
   useEffect(() => {
@@ -91,7 +115,7 @@ export function Fund({ wallet }: { wallet: WalletApi | null }) {
   const origin = ORIGINS.find((o) => o.id === (pending?.from ?? from))?.label ?? pending?.from;
 
   return (
-    <section className="section fund" id="fund">
+    <section className="section fund" id="fund" ref={sectionRef}>
       <div className="section-head">
         <span className="eyebrow">Fund from any chain</span>
         <h2>Pay for Predge on Monad with USDC from Base, Arbitrum, Solana or 20+ other chains</h2>
@@ -101,7 +125,7 @@ export function Fund({ wallet }: { wallet: WalletApi | null }) {
       <div className="fund-grid">
         <div className="card">
           <div className="card-top"><b>1. Quote</b><span className="chain-pill">via {INTENTS_BACKEND}</span></div>
-          <label className="fund-l">Agent address on Monad (receives USDC)
+          <label className="fund-l">Agent address on Monad (receives USDC){recipient === DEMO_AGENT && <span className="dim" data-testid="fund-demo-label"> · demo agent (change to yours)</span>}
             <input className="fund-i mono" value={recipient} onChange={(e) => setRecipient(e.target.value.trim())} placeholder="0x…" spellCheck={false} data-testid="fund-recipient" />
           </label>
           <div className="fund-row">

@@ -8,6 +8,7 @@ import type { WalletKind } from "../wallet/config";
 import { AVAILABLE } from "../wallet/config";
 import type { useWalletState } from "./Wallet";
 import { Ext } from "./ui";
+import { quoteNow } from "./Fund";
 
 const BOOK_ABI = parseAbi(["function bestBidAsk() view returns (uint256, uint256)"]);
 type Quote = { bid: number; ask: number; live: boolean; at: Date | null };
@@ -137,7 +138,7 @@ export function Flow({ p, title, oc, evidenceOk, verifying, walletState, onOpen 
 
       {/* 5. FUND */}
       <Step n={5} title="Fund from any chain" why="No USDC on Monad? Top up from Base, Arbitrum, Solana and 20+ other chains." tag="Aurora" testId="step-fund">
-        <a className="btn-ghost sm" href="#fund" data-testid="go-fund">Get a live quote ↓</a>
+        <button className="btn-ghost sm" onClick={quoteNow} data-testid="go-fund">Get a live quote ↓</button>
       </Step>
 
       {/* 6. SIGN IN */}

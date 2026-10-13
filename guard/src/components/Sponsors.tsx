@@ -5,6 +5,7 @@ import { mtx, REPO } from "../lib/constants";
 import { ANDROID_RELEASE, KURU, LIVE_DISPUTE, X402_LAST } from "../lib/flow";
 import type { useWalletState } from "./Wallet";
 import { Ext } from "./ui";
+import { quoteNow } from "./Fund";
 
 const TESTNET_TX = (h: string) => `https://testnet.monadvision.com/tx/${h}`;
 const TESTNET_ADDR = (a: string) => `https://testnet.monadvision.com/address/${a}`;
@@ -72,7 +73,7 @@ export function Sponsors({ onOpen, walletState }: { onOpen: (id: string) => void
     { name: "Nansen", what: "Who holds each side of a disputed market, and how much money is on it (saved snapshot).", action: jump("Show in step 2", () => toStep("step-exposed")), proof: [{ href: tree("nansen"), label: "nansen/ ↗" }] },
     { name: "MetaMask", what: "The Predge plugin for the MetaMask agent CLI refuses to place a bet while the answer is disputed.", action: jump("Show in step 3", () => toStep("step-act")), proof: [{ href: tree("mm-plugin"), label: "mm-plugin/ ↗" }] },
     { name: "x402", what: "Agents pay 0.001 USDC per check, settled on Monad mainnet, no account.", action: jump("Show in step 4", () => toStep("step-pay")), proof: [{ href: mtx(X402_LAST.tx), label: "Payment tx ↗" }] },
-    { name: "Aurora", what: "Top up USDC on Monad from 20+ chains through Aurora Intents.", action: jump("Get a live quote", () => document.getElementById("fund")?.scrollIntoView({ behavior: "smooth" })), proof: [{ href: tree("aurora"), label: "aurora/ ↗" }] },
+    { name: "Aurora", what: "Top up USDC on Monad from 20+ chains through Aurora Intents.", action: jump("Get a live quote", quoteNow), proof: [{ href: tree("aurora"), label: "aurora/ ↗" }] },
     { name: "Privy", what: "Sign in with email; an embedded wallet is created if you have none.", action: walletState ? jump("Sign in with Privy", () => walletState.choose("privy")) : undefined, proof: [{ href: `${REPO}/blob/main/guard/src/wallet/PrivyHost.tsx`, label: "Code ↗" }] },
     { name: "Dynamic", what: "Sign in with the wallet you already use.", action: walletState ? jump("Sign in with Dynamic", () => walletState.choose("dynamic")) : undefined, proof: [{ href: `${REPO}/blob/main/guard/src/wallet/DynamicHost.tsx`, label: "Code ↗" }] },
     { name: "Mera", what: "A passkey is the whole account: no seed phrase, no extension. Also the key in the Android app.", action: jump("Open passkey mode", () => { location.href = "mera.html"; }), proof: [{ href: `${REPO}/blob/main/guard/MERA.md`, label: "MERA.md ↗" }] },
