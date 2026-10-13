@@ -22,6 +22,20 @@ export const MONAD = {
   },
 } as const;
 
+/** Monad mainnet: Predge verdicts on live and recently settled disputes (monad/mainnet/live-verdicts.mjs). */
+export const MONAD_MAIN = {
+  chainId: 143,
+  name: "Monad",
+  rpc: "https://rpc.monad.xyz",
+  explorer: "https://monadvision.com",
+  validator: "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9" as Address,
+  contracts: {
+    PredgeAgentValidator: "0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9" as Address,
+    PredgeValidatorBond: "0xd7bC19f836a92561b368eFf34667c32cAe4E7111" as Address,
+  },
+  records: "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records",
+} as const;
+
 export const REPO = "https://github.com/predgeAI/erc8004-outcome-validator";
 export const POLYGONSCAN = "https://polygonscan.com";
 

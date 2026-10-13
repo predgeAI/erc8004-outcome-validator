@@ -33,6 +33,25 @@ const x402 = readdirSync(path.join(MONAD, "x402", "runs")).filter((f) => f.endsW
     decision: r.decision };
 });
 
+// Monad mainnet: every request / response from monad/mainnet/runs, with the exact snapshotted record a
+// response is bound to (records/<id>.json, or records/<id>-settled.json for a deferred --respond).
+const MAIN = path.join(MONAD, "mainnet");
+const mainnet = new Map();
+for (const f of readdirSync(path.join(MAIN, "runs")).filter((f) => f.endsWith(".json")).sort()) {
+  const r = json(path.join(MAIN, "runs", f));
+  if (r.chainId !== 143) continue;
+  for (const v of r.verdicts) {
+    const m = mainnet.get(v.market_id) ?? { market_id: v.market_id, requestHash: v.requestHash, requestTx: null, responseTx: null, responseHash: null, score: null, record: null };
+    if (m.requestHash !== v.requestHash) continue;
+    if (v.request?.status === 1) m.requestTx = v.request.tx;
+    if (v.response?.status === 1 && v.responseURI) {
+      const a = json(path.join(MAIN, "records", path.basename(v.responseURI))).attestation;
+      Object.assign(m, { responseTx: v.response.tx, responseHash: v.responseHash, score: v.score, record: { public_key: a.public_key, signature: a.signature, canonical: a.canonical } });
+    }
+    if (m.requestTx || m.responseTx) mainnet.set(v.market_id, m);
+  }
+}
+
 const data = {
   chainId: 10143, rpc: "https://testnet-rpc.monad.xyz", explorer: "https://testnet.monadvision.com",
   contracts: Object.fromEntries(Object.entries(dep.contracts).map(([k, v]) => [k, v.address])),
@@ -43,8 +62,9 @@ const data = {
     tamperedOutcome: slash.tamperedOutcome, disputeWindowSeconds: slash.disputeWindowSeconds, parties: slash.parties, result: slash.result,
     record: slash.record, receipts: slash.receipts.map((r) => ({ step: r.step.trim(), from: r.from, tx: r.tx, block: r.block })) },
   x402,
+  mainnet: [...mainnet.values()],
 };
 mkdirSync(path.join(HERE, "..", "src", "generated"), { recursive: true });
 writeFileSync(path.join(HERE, "..", "src", "generated", "data.json"), JSON.stringify(data) + "\n");
 writeFileSync(path.join(HERE, "..", "src", "generated", "batch.json"), JSON.stringify(data.batch) + "\n");
-console.log(`guard data: ${verdicts.length} verdicts, slash ${slash.bond}, ${x402.length} x402 runs`);
+console.log(`guard data: ${verdicts.length} verdicts, mainnet ${data.mainnet.filter((m) => m.responseTx).length} verdicts + ${data.mainnet.filter((m) => !m.responseTx).length} open requests, slash ${slash.bond}, ${x402.length} x402 runs`);

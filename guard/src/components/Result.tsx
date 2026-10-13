@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Lookup, SignedPayload } from "../lib/api";
 import { checkKey } from "../lib/api";
-import { readOnchain, type OnchainResult } from "../lib/chain";
-import { addr, MONAD, polyTx, tx } from "../lib/constants";
+import { NET, netAddr, netTx, readOnchain, type OnchainResult } from "../lib/chain";
+import { MONAD, polyTx } from "../lib/constants";
 import { decide, RISK_LABEL } from "../lib/decide";
 import { roundTrips, sha256Hex, verifyEd25519 } from "../lib/verify";
 import { CheckIcon, CheckRow, Ext, fmtDate, Hash, type CheckState } from "./ui";
@@ -128,9 +128,11 @@ export function Result({ lookup, wallet, watch }: { lookup: Lookup; wallet: Wall
 
           <details className="proof proof-chain" data-testid="chain-line">
             <summary>
-              <span className="chain-pill"><span className="dot" />Monad</span>
+              <span className="chain-pill" data-testid="chain-net"><span className="dot" />{oc ? NET[oc.network].label : "Monad"}</span>
               <span>{chainLine(oc, ocErr)}</span>
-              {oc?.found && oc.responseTx ? <Ext href={tx(oc.responseTx)} className="proof-link">Explorer ↗</Ext> : <Ext href={addr(MONAD.contracts.PredgeAgentValidator)} className="proof-link">Validator ↗</Ext>}
+              {oc?.found && oc.responseTx ? <Ext href={netTx(oc.network, oc.responseTx)} className="proof-link">Explorer ↗</Ext>
+                : oc?.requested && oc.requestTx ? <Ext href={netTx(oc.network, oc.requestTx)} className="proof-link">Request tx ↗</Ext>
+                : <Ext href={oc ? netAddr(oc.network, NET[oc.network].validatorContract) : netAddr("mainnet", NET.mainnet.validatorContract)} className="proof-link">Validator ↗</Ext>}
               <span className="proof-more">details</span>
             </summary>
             <OnchainCard oc={oc} err={ocErr} step={ocStep} p={p} />
@@ -183,8 +185,8 @@ function storyVerdict(p: SignedPayload, evidenceFailed: boolean): { tone: Tone; 
 function chainLine(oc: OnchainResult | null | undefined, err: string | null): string {
   if (oc === undefined) return "Reading Predge's verdict on Monad…";
   if (oc === null) return err ? "Could not read Monad right now" : "No claim to answer on chain for this market";
-  if (!oc.found) return oc.requested ? "Verdict requested on Monad, not answered yet" : "No Predge verdict on Monad for this market yet";
-  return `Monad verdict: ${oc.score}/100, ${oc.score === 0 ? "the disputed answer did not hold" : oc.score === 100 ? "the disputed answer held" : "partial"}`;
+  if (!oc.found) return oc.requested ? (oc.network === "mainnet" ? "Request on Monad mainnet, verdict when the vote ends" : "Verdict requested on Monad testnet, not answered yet") : "No Predge verdict on Monad for this market yet";
+  return `Predge verdict: ${oc.score}/100, ${oc.score === 0 ? "the disputed answer did not hold" : oc.score === 100 ? "the disputed answer held" : "partial"}`;
 }
 
 function Timeline({ p, endDate }: { p: SignedPayload; endDate?: string }) {
@@ -229,13 +231,17 @@ function ScoreRing({ score }: { score: number }) {
 }
 
 function OnchainCard({ oc, err, step, p }: { oc: OnchainResult | null | undefined; err: string | null; step: number; p: SignedPayload }) {
-  const head = <div className="card-top"><h3>On-chain verdict</h3><span className="chain-pill"><span className="dot" />Monad testnet</span></div>;
-  if (oc === undefined) return <article className="card">{head}<ul className="checks"><CheckRow state="running" title="Reading PredgeAgentValidator" detail={<span className="mono">{MONAD.contracts.PredgeAgentValidator.slice(0, 10)}…</span>} /></ul></article>;
-  if (oc === null) return <article className="card">{head}<p className="muted">{err ? `Could not read Monad testnet right now (${err}).` : p.disputes?.length ? "No disputed proposal in this record." : "This market was never disputed, so there is no claim for Predge to answer on chain."}</p></article>;
+  const net = oc ? NET[oc.network] : null;
+  const tx = (h: string) => netTx(oc?.network ?? "testnet", h);
+  const addr = (a: string) => netAddr(oc?.network ?? "testnet", a);
+  const head = <div className="card-top"><h3>On-chain verdict</h3><span className="chain-pill"><span className="dot" />{net ? net.label : "Monad"}</span></div>;
+  if (oc === undefined) return <article className="card">{head}<ul className="checks"><CheckRow state="running" title="Reading PredgeAgentValidator on Monad mainnet, then testnet" detail={<span className="mono">{NET.mainnet.validatorContract.slice(0, 10)}… · {MONAD.contracts.PredgeAgentValidator.slice(0, 10)}…</span>} /></ul></article>;
+  if (oc === null) return <article className="card">{head}<p className="muted">{err ? `Could not read Monad right now (${err}).` : p.disputes?.length ? "No disputed proposal in this record." : "This market was never disputed, so there is no claim for Predge to answer on chain."}</p></article>;
   if (!oc.found) return (
     <article className="card">{head}
-      <p className="muted">{oc.requested ? "A validation request for this market is recorded on chain; Predge has not answered it yet." : "No Predge verdict on chain for this market yet. Verdicts exist for the 145 sampled markets; a signed-in user can request one below."}</p>
+      <p className="muted">{oc.requested ? (oc.network === "mainnet" ? "Predge's claim for this market is recorded on Monad mainnet while the dispute is open; the verdict is written when the vote ends." : "A validation request for this market is recorded on chain; Predge has not answered it yet.") : "No Predge verdict on chain for this market yet. Verdicts exist for the 145 sampled markets; a signed-in user can request one below."}</p>
       <div className="kv"><span>requestHash</span><Hash value={oc.requestHash} n={8} /></div>
+      {oc.requested && oc.requestTx && <div className="sm"><Ext href={tx(oc.requestTx)}>Request tx on MonadVision ↗</Ext></div>}
     </article>
   );
   const s = (i: number, ok: boolean | null): CheckState => (step < i ? (step === i - 1 ? "running" : "idle") : ok === null ? "na" : ok ? "ok" : "fail");

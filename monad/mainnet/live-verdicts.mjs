@@ -5,6 +5,19 @@
 //                                                         send the reviewed plan in live-plan.json
 //   node monad/mainnet/live-verdicts.mjs --respond        plan responses for open-dispute requests that have since settled
 //   CONFIRM_MAINNET=yes node monad/mainnet/live-verdicts.mjs --respond --send
+//   node monad/mainnet/live-verdicts.mjs --markets 2446852,1144023 --plan monad/mainnet/famous-plan.json
+//                                                         plan an explicit list of markets, any age (DRY RUN)
+//   CONFIRM_MAINNET=yes node monad/mainnet/live-verdicts.mjs --send --plan monad/mainnet/famous-plan.json
+//
+//   --plan <file>  plan file written by the dry run and read by --send / --respond
+//                  (default monad/mainnet/live-plan.json; with --markets, monad/mainnet/markets-plan.json)
+//
+// --markets <id,id,...> (explicit list, no recency window): Gamma by market id gives the UMA question id
+//   and labels; Polygon logs give every DisputePrice by that adapter for the question from (market
+//   creation - 2 d) to its QuestionResolved (or head), and the QuestionResolved itself. Settled markets
+//   get request + response, open disputes the request only; a market whose request is already on chain
+//   is skipped and reported. The same record verification and chain cross-checks apply, plus: every
+//   dispute tx in the record must be on chain.
 //
 // Selection (dry run):
 //   1  Polygon logs: every UMA DisputePrice on the Managed OOv2 (0x2c03...) in the last --scan-days
@@ -55,6 +68,8 @@ const MAX_MARKETS = Number(arg("--max", "50"));
 const MAX_MON = ethers.parseEther(arg("--max-mon", "1.5"));
 const BUDGET = ethers.parseEther(arg("--budget", "1.45"));
 const MAX_OPEN = Number(arg("--max-open", "12"));
+const MARKETS = arg("--markets") ? [...new Set(arg("--markets").split(",").map((x) => x.trim()).filter(Boolean))] : null;
+if (MARKETS && MARKETS.some((x) => !/^\d+$/.test(x))) { console.error("--markets takes numeric Polymarket market ids, comma separated"); process.exit(2); }
 const STRICT_OPEN = argv.includes("--strict-open"); // only records with open_dispute true (not reset-and-awaiting-proposal)
 if (SEND && process.env.CONFIRM_MAINNET !== "yes") { console.error("Refusing: --send needs CONFIRM_MAINNET=yes"); process.exit(2); }
 
@@ -69,7 +84,7 @@ const TAG = "predge:settlement-risk-v1";
 const OO = "0x2c0367a9db231ddebd88a94b4f6461a6e47c58b1"; // UMA Managed Optimistic Oracle V2 on Polygon
 const REC_DIR = path.join(HERE, "records");
 const RUN_DIR = path.join(HERE, "runs");
-const PLAN_FILE = path.join(HERE, "live-plan.json");
+const PLAN_FILE = arg("--plan") ? path.resolve(arg("--plan")) : path.join(HERE, MARKETS ? "markets-plan.json" : "live-plan.json");
 mkdirSync(REC_DIR, { recursive: true });
 
 const dep = JSON.parse(readFileSync(path.join(HERE, "deployment.json"), "utf8"));
@@ -219,7 +234,7 @@ async function logs(filter, from, to) {
 
 // ================================================================ --respond
 if (RESPOND) {
-  if (!existsSync(PLAN_FILE)) throw new Error("no live-plan.json");
+  if (!existsSync(PLAN_FILE)) throw new Error(`no plan file ${PLAN_FILE}`);
   const plan = JSON.parse(readFileSync(PLAN_FILE, "utf8"));
   const adapterI = new ethers.Interface(["event QuestionResolved(bytes32 indexed questionID, int256 indexed settledPrice, uint256[] payouts)"]);
   const todo = [], waiting = [], skipped = [];
@@ -287,8 +302,10 @@ function writeRun(kind, items, bound, plannedCost) {
 
 // ================================================================ --send (the reviewed plan)
 if (SEND) {
-  if (!existsSync(PLAN_FILE)) throw new Error("no live-plan.json: run the dry run first");
+  if (!existsSync(PLAN_FILE)) throw new Error(`no plan file ${PLAN_FILE}: run the dry run first`);
   const plan = JSON.parse(readFileSync(PLAN_FILE, "utf8"));
+  if (plan.chainId !== 143 || ethers.getAddress(plan.contract) !== CONTRACT || ethers.getAddress(plan.validator) !== VALIDATOR) throw new Error(`${PLAN_FILE} is not a plan for this mainnet contract / validator`);
+  console.log(`plan ${path.relative(process.cwd(), PLAN_FILE)} (planned ${plan.plannedAt}, ${plan.markets.length} market(s))`);
   const items = [];
   for (const m of plan.markets) {
     const snap = JSON.parse(readFileSync(path.join(REC_DIR, `${m.market_id}.json`), "utf8"));
@@ -322,13 +339,20 @@ const adI = new ethers.Interface(["event QuestionResolved(bytes32 indexed questi
 const head = await getBlock("latest");
 const ref = await getBlock(head.number - 200000);
 const secPerBlock = (head.timestamp - ref.timestamp) / 200000;
-const fromBlock = head.number - Math.ceil((SCAN_DAYS * 86400) / secPerBlock);
-const settledSince = head.timestamp - DAYS * 86400;
+const byQ = new Map();
+const skipped = [];
+const skip = (q, why) => skipped.push({ market_id: q.gamma?.id ?? null, uma_question_id: q.qid, title: q.gamma?.title ?? null, reason: why });
+const settledC = [], openC = [];
+const gammaOf = (g) => ({ id: String(g.id), title: g.question, outcomes: JSON.parse(g.outcomes || "[]"), closed: g.closed, status: g.umaResolutionStatus, statuses: JSON.parse(g.umaResolutionStatuses || "[]") });
+let fromBlock, settledSince;
+
+if (!MARKETS) {
+fromBlock = head.number - Math.ceil((SCAN_DAYS * 86400) / secPerBlock);
+settledSince = head.timestamp - DAYS * 86400;
 const settledFromBlock = head.number - Math.ceil(((DAYS + 1) * 86400) / secPerBlock);
 console.log(`Polygon head ${head.number} (${iso(head.timestamp)}), scanning disputes from block ${fromBlock} (~${SCAN_DAYS} d), settled window ${DAYS} d (since ${iso(settledSince)})`);
 
 const disputeLogs = await logs({ address: OO, topics: [ooI.getEvent("DisputePrice").topicHash] }, fromBlock, head.number);
-const byQ = new Map();
 for (const l of disputeLogs) {
   const p = ooI.parseLog(l);
   const qid = ethers.keccak256(p.args.ancillaryData);
@@ -360,13 +384,10 @@ for (let i = 0; i < qids.length; i += 20) {
   const chunk = qids.slice(i, i + 20);
   for (const g of [...(await gamma(chunk, false)), ...(await gamma(chunk, true))]) {
     const q = byQ.get(String(g.questionID).toLowerCase()) ?? byQ.get(g.questionID);
-    if (q) q.gamma = { id: String(g.id), title: g.question, outcomes: JSON.parse(g.outcomes || "[]"), closed: g.closed, status: g.umaResolutionStatus, statuses: JSON.parse(g.umaResolutionStatuses || "[]") };
+    if (q) q.gamma = gammaOf(g);
   }
 }
 
-const skipped = [];
-const skip = (q, why) => skipped.push({ market_id: q.gamma?.id ?? null, uma_question_id: q.qid, title: q.gamma?.title ?? null, reason: why });
-const settledC = [], openC = [];
 for (const q of byQ.values()) {
   if (q.resolved) { if (q.resolved.time >= settledSince) settledC.push(q); continue; }
   if (!q.gamma) { skip(q, "open on chain but not found in Gamma"); continue; }
@@ -376,6 +397,71 @@ for (const q of settledC) if (!q.gamma) skip(q, "settled on chain but not found 
 settledC.sort((a, b) => b.resolved.time - a.resolved.time);
 openC.sort((a, b) => b.disputes.at(-1).block - a.disputes.at(-1).block); // most recent disputes first
 console.log(`candidates: settled in window ${settledC.length}, open per Gamma ${openC.length}`);
+} else {
+// ---------------------------------------------------------------- --markets: explicit list, any age
+// first block with timestamp >= t (interpolation + bisection on Polygon headers)
+async function blockAt(t) {
+  let lo = { number: 1, timestamp: 0 }, hi = head;
+  if (t >= head.timestamp) return head.number;
+  let guess = Math.max(1, head.number - Math.ceil((head.timestamp - t) / secPerBlock));
+  for (let i = 0; i < 40 && hi.number - lo.number > 1; i++) {
+    const b = await getBlock(Math.min(hi.number - 1, Math.max(lo.number + 1, guess)));
+    if (b.timestamp >= t) hi = b; else lo = b;
+    const span = hi.number - lo.number;
+    guess = i < 4 && lo.timestamp > 0 ? lo.number + Math.round((t - lo.timestamp) / Math.max(1e-9, (hi.timestamp - lo.timestamp) / span)) : lo.number + Math.floor(span / 2);
+  }
+  return hi.number;
+}
+const DisputeTopic = ooI.getEvent("DisputePrice").topicHash, ResolvedTopic = adI.getEvent("QuestionResolved").topicHash;
+fromBlock = Infinity;
+console.log(`Polygon head ${head.number} (${iso(head.timestamp)}), explicit markets: ${MARKETS.join(", ")} (no recency window)`);
+for (const id of MARKETS) {
+  let g = null;
+  for (let a = 0; a < 4 && !g; a++) { const r = await fetch(`${GAMMA}/markets/${id}`).catch(() => null); if (r?.ok) g = await r.json(); else if (r?.status === 404) break; else await sleep(2000); }
+  if (!g?.questionID) { skip({ gamma: { id }, qid: null }, "market not found in Gamma (or no UMA question id)"); continue; }
+  const q = { qid: String(g.questionID).toLowerCase(), adapter: String(g.resolvedBy || "").toLowerCase(), disputes: [], gamma: gammaOf(g) };
+  if (!/^0x[0-9a-f]{40}$/.test(q.adapter)) { skip(q, `Gamma resolvedBy is not an adapter address (${g.resolvedBy})`); continue; }
+  // the signed record names the dispute txs; their receipts pin the dispute blocks
+  const att = await fetchRecord(id);
+  if (att?.error || !att) { skip(q, att?.error ?? "no attestation"); continue; }
+  q.att = att;
+  const rec = JSON.parse(att.canonical);
+  const recTxs = (rec.disputes ?? []).map((d) => String(d.tx).toLowerCase());
+  let firstBlock = Infinity, badTx = null;
+  for (const tx of recTxs) {
+    const r = await pg("eth_getTransactionReceipt", [tx]);
+    const hit = (r?.logs ?? []).find((l) => l.address.toLowerCase() === OO && l.topics[0] === DisputeTopic && ethers.keccak256(ooI.parseLog(l).args.ancillaryData) === q.qid);
+    if (!hit) { badTx = tx; break; }
+    firstBlock = Math.min(firstBlock, Number(r.blockNumber));
+  }
+  if (badTx) { skip(q, `record and chain disagree: record dispute tx ${badTx} has no DisputePrice for this question on chain`); continue; }
+  // QuestionResolved: scan forward from the first dispute, stop at the first hit
+  const startRes = Number.isFinite(firstBlock) ? firstBlock : await blockAt(Date.parse(g.createdAt) / 1000 - 2 * 86400);
+  for (let a = startRes; a <= head.number && !q.resolved; a += 500000) {
+    const l = (await logs({ address: q.adapter, topics: [ResolvedTopic, q.qid] }, a, Math.min(a + 499999, head.number)))[0];
+    if (l) { const p = adI.parseLog(l); q.resolved = { block: Number(l.blockNumber), price: p.args.settledPrice, tx: l.transactionHash, time: (await getBlock(Number(l.blockNumber))).timestamp }; }
+  }
+  // every DisputePrice for this question by its adapter, from market creation (- 2 d) to resolution (or head)
+  const from = Math.min(await blockAt(Date.parse(g.createdAt) / 1000 - 2 * 86400), Number.isFinite(firstBlock) ? firstBlock : Infinity);
+  q.scanFromBlock = from;
+  fromBlock = Math.min(fromBlock, from);
+  const to = q.resolved?.block ?? head.number;
+  for (const l of await logs({ address: OO, topics: [DisputeTopic, ethers.zeroPadValue(q.adapter, 32)] }, from, to)) {
+    const p = ooI.parseLog(l);
+    if (ethers.keccak256(p.args.ancillaryData) !== q.qid) continue;
+    q.disputes.push({ tx: l.transactionHash.toLowerCase(), block: Number(l.blockNumber), logIndex: Number(l.logIndex), price: p.args.proposedPrice });
+  }
+  q.disputes.sort((a, b) => a.block - b.block || a.logIndex - b.logIndex);
+  byQ.set(q.qid, q);
+  console.log(`  ${id.padEnd(9)} q ${q.qid.slice(0, 12)}.. adapter ${q.adapter.slice(0, 10)}.. disputes on chain ${q.disputes.length} (blocks ${from}-${to}), ${q.resolved ? `resolved block ${q.resolved.block} ${iso(q.resolved.time)}` : "not resolved on chain"}`);
+  if (!q.disputes.length) { skip(q, "no DisputePrice on chain for this question"); continue; }
+  if (q.resolved) settledC.push(q);
+  else if (q.gamma.status === "disputed") openC.push(q);
+  else skip(q, `not resolved on chain and Gamma status is ${q.gamma.status}, not disputed`);
+}
+if (!Number.isFinite(fromBlock)) fromBlock = head.number;
+console.log(`candidates: settled ${settledC.length}, open per Gamma ${openC.length}`);
+}
 
 // verify + cross-check one market against the chain
 function crossCheck(q, p, state) {
@@ -420,7 +506,7 @@ async function consider(q, state) {
     if (on) { already.push({ market_id: id, state, requestHash: requestHashOf(snap.claim) }); return "on-chain"; }
     if (snapResolved !== (state === "settled")) snap = null;
   }
-  let att = snap?.attestation;
+  let att = snap?.attestation ?? q.att;
   if (!att) {
     att = await fetchRecord(id);
     if (att?.error || !att) { skip(q, att?.error ?? "no attestation"); return "skip"; }
@@ -431,7 +517,7 @@ async function consider(q, state) {
   const why = crossCheck(q, p, state);
   if (why) { skip(q, `record and chain disagree: ${why}`); return "skip"; }
   const claim = buildClaim(p);
-  const v = { market_id: id, title: q.gamma.title, state, adapter: q.adapter, uma_question_id: q.qid, outcomes: q.gamma.outcomes, scanFromBlock: fromBlock,
+  const v = { market_id: id, title: q.gamma.title, state, adapter: q.adapter, uma_question_id: q.qid, outcomes: q.gamma.outcomes, scanFromBlock: q.scanFromBlock ?? fromBlock,
     first_dispute_utc: p.disputes[0].disputed_at, dispute_count: Number(p.dispute_count), proposal: claim.proposal,
     uma_state: p.uma_state, open_dispute: !!p.open_dispute,
     outcome: state === "settled" ? p.onchain_resolution.outcome : null, resolved_utc: q.resolved ? iso(q.resolved.time) : null,
@@ -472,7 +558,7 @@ console.log(`base fee ${ethers.formatUnits(block.baseFeePerGas, "gwei")} gwei, t
 const line = (v) => `${v.market_id.padEnd(9)} ${v.state.padEnd(7)} ${(v.title ?? "").slice(0, 58).padEnd(58)} | proposal ${String(v.proposal).padEnd(10)} | ${v.state === "settled" ? `outcome ${String(v.outcome).padEnd(10)} => ${String(v.score).padStart(3)}` : `pending (${String(v.uma_state).padEnd(9)}) => request only`} | req ${v.reqLimit} ${v.resLimit ? `res ${v.resLimit}` : `(later res ${v.deferredResLimit})`}`;
 console.log("OPEN disputes (validationRequest now, response via --respond after settlement):");
 for (const v of selected.filter((x) => x.state === "open")) console.log("  " + line(v));
-console.log(`SETTLED in the last ${DAYS} d (validationRequest + validationResponse now):`);
+console.log(`SETTLED${MARKETS ? "" : ` in the last ${DAYS} d`} (validationRequest + validationResponse now):`);
 for (const v of selected.filter((x) => x.state === "settled")) console.log("  " + line(v) + `  resolved ${v.resolved_utc}`);
 const settled = selected.filter((v) => v.state === "settled");
 console.log(`\nmarkets ${selected.length}: open ${selected.length - settled.length}, settled ${settled.length} (score 100: ${settled.filter((v) => v.score === 100).length}, score 0: ${settled.filter((v) => v.score === 0).length})`);
@@ -490,10 +576,10 @@ for (const s of noGamma) { const k = `${s.reason} (adapter ${ad(s.uma_question_i
 for (const [k, n] of Object.entries(grp)) console.log(`  ${String(n).padStart(3)} x ${k}: Gamma has no market for this UMA question id (neg-risk questions carry a different Gamma questionID), so no signed record can be fetched`);
 for (const s of skipped.filter((x) => x.market_id)) console.log(`  ${String(s.market_id).padEnd(9)} ${(s.title ?? "").slice(0, 50).padEnd(50)} ${s.reason}`);
 
-writeFileSync(PLAN_FILE, JSON.stringify(ser({ plannedAt: new Date().toISOString(), chainId: 143, contract: CONTRACT, validator: VALIDATOR, tag: TAG, maxFeeGwei: ethers.formatUnits(MAX_FEE, "gwei"),
+writeFileSync(PLAN_FILE, JSON.stringify(ser({ plannedAt: new Date().toISOString(), selection: MARKETS ? { markets: MARKETS } : { days: DAYS, scanDays: SCAN_DAYS }, chainId: 143, contract: CONTRACT, validator: VALIDATOR, tag: TAG, maxFeeGwei: ethers.formatUnits(MAX_FEE, "gwei"),
   worstCaseMON: { now: ethers.formatEther(costNow), deferred: ethers.formatEther(costLater), total: ethers.formatEther(total) },
   markets: selected.map(({ published: _p, ...v }) => v), skipped, alreadyOnChain: already }), null, 1) + "\n");
 console.log(`plan -> ${path.relative(process.cwd(), PLAN_FILE)}`);
 if (costNow > MAX_MON) { console.error(`REFUSING: worst-case ${fmt(costNow)} > ${fmt(MAX_MON)}`); process.exit(1); }
 if (total > vBal) { console.error("REFUSING: balance below worst-case cost"); process.exit(1); }
-console.log("DRY RUN OK. To send after review: push records/, then CONFIRM_MAINNET=yes node monad/mainnet/live-verdicts.mjs --send");
+console.log(`DRY RUN OK. To send after review: push records/, then CONFIRM_MAINNET=yes node monad/mainnet/live-verdicts.mjs --send --plan ${path.relative(process.cwd(), PLAN_FILE)}`);

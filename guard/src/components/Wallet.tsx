@@ -227,7 +227,7 @@ export function WalletActions({ wallet, payload, oc, watch, evidence, title }: {
     );
   }
   const account = wallet.address;
-  const canRequest = Boolean(oc && oc.claim && !oc.requested);
+  const canRequest = Boolean(oc && oc.claim && !oc.testnetRequested);
   const noGas = wallet.balance === 0n;
 
   const request = async () => {
@@ -278,7 +278,7 @@ export function WalletActions({ wallet, payload, oc, watch, evidence, title }: {
         <button className={`btn-ghost ${watching ? "on" : ""}`} onClick={() => watch.toggle(id)} data-testid="watch">{watching ? "Watching" : "Watch this market"}</button>
         {oc?.claim && (
           <button className="btn-ghost" disabled={!canRequest || status.kind === "busy"} onClick={request} title={canRequest ? "" : "A request for this market already exists on chain"} data-testid="request">
-            {oc.requested ? "Already requested on chain" : "Request validation (testnet)"}
+            {oc.testnetRequested ? "Already requested on chain" : "Request validation (testnet)"}
           </button>
         )}
       </div>

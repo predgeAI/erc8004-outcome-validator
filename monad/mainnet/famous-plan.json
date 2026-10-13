@@ -1,0 +1,136 @@
+{
+ "plannedAt": "2026-10-13T08:14:13.263Z",
+ "selection": {
+  "markets": [
+   "2169995",
+   "2446852",
+   "1144023",
+   "2241873",
+   "5219930"
+  ]
+ },
+ "chainId": 143,
+ "contract": "0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9",
+ "validator": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+ "tag": "predge:settlement-risk-v1",
+ "maxFeeGwei": "112.0",
+ "worstCaseMON": {
+  "now": "0.195237616",
+  "deferred": "0.0",
+  "total": "0.195237616"
+ },
+ "markets": [
+  {
+   "market_id": "2169995",
+   "title": "MicroStrategy sells any Bitcoin by May 31, 2026?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x0382b71b4df8e161d7947966fef8e5f6cc2d29b0285f87761e569b043e68f83d",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 86365939,
+   "first_dispute_utc": "2026-06-01T04:12:20Z",
+   "dispute_count": 2,
+   "proposal": "No",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "No",
+   "resolved_utc": "2026-06-04T00:34:19Z",
+   "requestHash": "0xc1542e645917621034b2cd1d63afd1871d6a40147b250d72d89931fc72d04dec",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/2169995.json",
+   "score": 100,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/2169995.json",
+   "responseHash": "0x7a037db521608ebdcc06fc5655bc50c2969079028c22b1aabd3212c78807d1d1",
+   "reqLimit": "216019",
+   "resLimit": "219789"
+  },
+  {
+   "market_id": "2446852",
+   "title": "Will Ronaldo Cry at the World Cup?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0xe551e7f1b6911df967af21d07fc8c47b761bfcdb10d01a09333a2d7ec0f29024",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 87874687,
+   "first_dispute_utc": "2026-07-06T21:25:46Z",
+   "dispute_count": 2,
+   "proposal": "No",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Yes",
+   "resolved_utc": "2026-07-10T00:46:11Z",
+   "requestHash": "0x277202962c7c5b0ebe0697a8d79068d87e51ece8130b73730f085d6d4e902994",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/2446852.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/2446852.json",
+   "responseHash": "0x01316e631ef2f358d694e814f0cd9bd5aebb1f74bf928270c85b1756b2372677",
+   "reqLimit": "216019",
+   "resLimit": "219776"
+  },
+  {
+   "market_id": "1144023",
+   "title": "U.S. anti-cartel ground operation in Mexico by January 31?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x816cc23e3472f2ccc65e255ae83de7d0b30f346231f11e4e610c0ab65702c03a",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 81342883,
+   "first_dispute_utc": "2026-02-01T06:55:54Z",
+   "dispute_count": 2,
+   "proposal": "No",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "Yes",
+   "resolved_utc": "2026-02-04T00:26:48Z",
+   "requestHash": "0xf22f5f526bf8a5dea392e40272e1c5a53f0caaa90e13db1c7ede3e72635cef09",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/1144023.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/1144023.json",
+   "responseHash": "0xbeef699b1c5124ca0a9c91d5c2a3a225187e5b181a3910036d94d2125f671ec2",
+   "reqLimit": "216019",
+   "resLimit": "219776"
+  },
+  {
+   "market_id": "2241873",
+   "title": "Iran closes its airspace by May 24?",
+   "state": "settled",
+   "adapter": "0x65070be91477460d8a7aeeb94ef92fe056c2f2a7",
+   "uma_question_id": "0x30ebd10971cc044380ce6495e791828e9e0291fbb48550ca8be42149e1982791",
+   "outcomes": [
+    "Yes",
+    "No"
+   ],
+   "scanFromBlock": 86677553,
+   "first_dispute_utc": "2026-05-22T23:26:52Z",
+   "dispute_count": 2,
+   "proposal": "Yes",
+   "uma_state": "settled",
+   "open_dispute": false,
+   "outcome": "No",
+   "resolved_utc": "2026-05-27T03:29:12Z",
+   "requestHash": "0xcf1827987d957d5c513856f9a566a640ae8b7d975dbc8a232a4b870afefe7eae",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/2241873.json",
+   "score": 0,
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/2241873.json",
+   "responseHash": "0x76240af4f15a48f247a1d060e5df526b6d1cd00f27b3e5d9677f9c6940e6bead",
+   "reqLimit": "216019",
+   "resLimit": "219776"
+  }
+ ],
+ "skipped": [],
+ "alreadyOnChain": [
+  {
+   "market_id": "5219930",
+   "state": "open",
+   "requestHash": "0x48c69bd02d7a2b777798db1a315ee72aa98d78a573bf276f9fc417a0cef14793"
+  }
+ ]
+}
