@@ -1,0 +1,84 @@
+{
+  "chainId": 10143,
+  "deployer": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+  "txs": {
+    "deploy TestUSD": "0xf393a12b77ca016ebb623f391072fc2146c47031f5982b603ee2ca926112c1f9",
+    "deploy DisputeNoteFactory": "0xfab6587b9a26363f3e4d70b525b03f1e819779455e31c0a5f5d7c2f5cf0dca57",
+    "createNote": "0x78c1c9b71c0927e171e93d8057f51f25dafed670b6e593d20ac578ebd1f3c3d5",
+    "TestUSD.faucet": "0x733f77eb6fb8a6ee5d43aff61d921b4822ec55ccc5157131a84c3ae44a60a0bb",
+    "approve collateral -> factory": "0x0f33bd9b8e28432ba292bb576afdf9d3d215c9fedba8d34e7da99f0a4059b923",
+    "mint 200 notes": "0xc6f86961bd18f07a86d70ba88606c857d7af33b90247bdd74382b046cbbc1d16",
+    "Kuru Router.deployProxy CHANGE/tUSD": "0xab7545d89f0faeba818577f0bd64510c80b887ce56ef34f2e008a59579a45be3",
+    "approve CHANGE -> MarginAccount": "0xa00ee45d1d50c9255ef6d11f4dfa42ad795478bb3b03d82be055360306884c0b",
+    "MarginAccount.deposit CHANGE": "0x04c3c29612fe9f58ceb411d8b40d814970d41e6f86531f730fde803fa464e52a",
+    "approve tUSD -> MarginAccount": "0x77410ed8349093273a69ce14b350686c44c3e5cda7337796cb7a07bc15e0eca7",
+    "MarginAccount.deposit tUSD": "0x35cd41fa97c507a354ec2fff1019ec626f3dfdb0989e4bb51d89950e8d12a677",
+    "buy 50 CHANGE @ 0.18": "0x4507600fdb172e02ac0273759723cb07d060d29a6dfaa4981f7470e0ea2f7168",
+    "sell 50 CHANGE @ 0.25": "0x479d0d75609abce73f8c5920857213dd9d6c6265c5dcdb3cc95557ed579a4d1a",
+    "buy 50 CHANGE @ 0.15": "0x79762f092465f98dd312874b168a1cd76b3a3dcccdfe05cc3bb7459f86bf3532",
+    "sell 50 CHANGE @ 0.28": "0x8a5348fe19f677ea1e2acd6127657c12dda7a394a59e1ced2598ae636f5b2eb5"
+  },
+  "collateral": "0x860f9c8b5d95B5BA204BDC80167C84969708eF3d",
+  "collateralIsTestUSD": true,
+  "factory": "0x9FAC0dD79cf9D535ae890Cd1Bbf7a838f3B63D06",
+  "forwarder": "0xB9F79d863261869B234c481D1f9A7af84AeAd192",
+  "noteId": 0,
+  "hold": "0xBfD25f66f12d17820177DF63Bb66174eE16f2C04",
+  "change": "0x65e05B95A4fc3eFFAf8881eb7A435f9c64d0319D",
+  "expiry": 1797057438,
+  "marketId": "5219930",
+  "conditionId": "0x50d446794ad4e7b16e27e248ed841c76ca7edbb084907f61cd5a9d1f83cf96a8",
+  "proposal": [
+    "0",
+    "1"
+  ],
+  "disputeTx": "0x7a19f69e9d4c2e1b128b9a994b3367a957ef431af0380a364d840fa656fa3b74",
+  "minted": "200",
+  "kuruMarket": "0x6Ee28124848dAb2685Ff424b9DF0eAc43e9b30A8",
+  "kuruVault": "0xa4B9e3f0e71f495c6DB2eC74c803D6Af32DdADD7",
+  "kuruParams": {
+    "type": "0",
+    "sizePrecision": "10000",
+    "pricePrecision": "10000",
+    "tickSize": "100",
+    "minSize": "10000",
+    "maxSize": "10000000000",
+    "takerFeeBps": "30",
+    "makerFeeBps": "10",
+    "kuruAmmSpread": "100"
+  },
+  "deposited": {
+    "change": "100000000",
+    "collateral": "18000000"
+  },
+  "orders": [
+    {
+      "side": "buy",
+      "price": 0.18,
+      "size": 50,
+      "priceUnits": 1800,
+      "sizeUnits": "500000"
+    },
+    {
+      "side": "sell",
+      "price": 0.25,
+      "size": 50,
+      "priceUnits": 2500,
+      "sizeUnits": "500000"
+    },
+    {
+      "side": "buy",
+      "price": 0.15,
+      "size": 50,
+      "priceUnits": 1500,
+      "sizeUnits": "500000"
+    },
+    {
+      "side": "sell",
+      "price": 0.28,
+      "size": 50,
+      "priceUnits": 2800,
+      "sizeUnits": "500000"
+    }
+  ]
+}
