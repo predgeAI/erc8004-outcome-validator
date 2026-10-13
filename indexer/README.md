@@ -1,5 +1,7 @@
 # Predge indexer on Monad testnet (Envio HyperIndex)
 
+Hosted on Envio Cloud as `predgeai/predge-validator` (branch `main`, root `./indexer`), syncing Monad mainnet (chain 143) and Monad testnet (10143) over HyperSync.
+
 An [Envio HyperIndex](https://docs.envio.dev/docs/HyperIndex/overview) indexer for every Predge
 contract on Monad testnet (chain 10143). It turns the raw events into a GraphQL API: verdicts by
 market, by agent and by registry, bonded verdicts and slashes, the escrow lifecycle of each job, and
