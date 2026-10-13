@@ -1,16 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { DATA } from "../lib/data";
 import { readSlashBond, type BondInfo } from "../lib/chain";
-import { addr, MONAD, REPO, tx } from "../lib/constants";
+import { addr, MONAD, REPO, tx, mtx, maddr, MONAD_MAIN } from "../lib/constants";
 import { Copy, Ext, fmtDate, Hash } from "./ui";
 
-type Tab = "verdicts" | "slash" | "x402" | "agents";
+type Tab = "mainnet" | "verdicts" | "slash" | "x402" | "agents";
 
 export function Explore({ onOpen }: { onOpen: (id: string) => void }) {
-  const [tab, setTab] = useState<Tab>("verdicts");
+  const [tab, setTab] = useState<Tab>("mainnet");
   const tabs: { id: Tab; label: string; count?: string }[] = [
-    { id: "verdicts", label: "Verdicts", count: String(DATA.verdicts.length) },
-    { id: "slash", label: "Slash demo" },
+    { id: "mainnet", label: "Mainnet verdicts", count: String(DATA.mainnet.length) },
+    { id: "verdicts", label: "Testnet archive", count: String(DATA.verdicts.length) },
+    { id: "slash", label: "Slash demo (testnet)" },
     { id: "x402", label: "Paid calls (x402)", count: String(DATA.x402.length) },
     { id: "agents", label: "Use it from your agent" },
   ];
@@ -18,7 +19,7 @@ export function Explore({ onOpen }: { onOpen: (id: string) => void }) {
     <section className="section" id="explore">
       <div className="section-head">
         <span className="eyebrow">Explore</span>
-        <h2>Everything here is on Monad testnet, and checkable</h2>
+        <h2>Live on Monad mainnet, and checkable</h2>
       </div>
       <div className="tabs" role="tablist">
         {tabs.map((t) => (
@@ -28,12 +29,43 @@ export function Explore({ onOpen }: { onOpen: (id: string) => void }) {
         ))}
       </div>
       <div className="tab-panel" key={tab}>
+        {tab === "mainnet" && <Mainnet onOpen={onOpen} />}
         {tab === "verdicts" && <Verdicts onOpen={onOpen} />}
         {tab === "slash" && <Slash />}
         {tab === "x402" && <X402 />}
         {tab === "agents" && <Agents />}
       </div>
     </section>
+  );
+}
+
+function Mainnet({ onOpen }: { onOpen: (id: string) => void }) {
+  const rows = useMemo(() => [...DATA.mainnet].sort((a, b) => Number(Boolean(b.responseTx)) - Number(Boolean(a.responseTx))), []);
+  const done = rows.filter((r) => r.responseTx).length;
+  return (
+    <div>
+      <p className="lede">{done} verdicts and {rows.length - done} open requests on Monad mainnet (chain 143), on real Polymarket disputes. Open requests get their verdict when the vote ends.</p>
+      <div className="table-wrap">
+        <table className="vt" data-testid="mainnet-table">
+          <thead><tr><th>Market</th><th>Disputed proposal</th><th>Final outcome</th><th>Score</th><th>Tx</th></tr></thead>
+          <tbody>
+            {rows.map((v) => {
+              const h = v.responseTx ?? v.requestTx;
+              return (
+                <tr key={v.market_id} onClick={() => onOpen(v.market_id)} tabIndex={0} onKeyDown={(e) => { if (e.key === "Enter") onOpen(v.market_id); }}>
+                  <td className="vt-q"><span>{v.title || `market ${v.market_id}`}</span><span className="mono dim">{v.market_id}</span></td>
+                  <td>{v.proposal}</td>
+                  <td>{v.responseTx ? v.outcome : <span className="muted">vote pending</span>}</td>
+                  <td>{v.score === null ? <span className="muted">-</span> : <span className={`score s${v.score}`}>{v.score}</span>}</td>
+                  <td onClick={(e) => e.stopPropagation()}>{h ? <Hash value={h} href={mtx(h)} n={4} /> : null}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <p className="sm muted">Validator <Hash value={MONAD_MAIN.contracts.PredgeAgentValidator} href={maddr(MONAD_MAIN.contracts.PredgeAgentValidator)} />. Click a row to check it above.</p>
+    </div>
   );
 }
 
@@ -48,7 +80,7 @@ function Verdicts({ onOpen }: { onOpen: (id: string) => void }) {
   const b = DATA.batch;
   return (
     <div>
-      <p className="lede">On {fmtDate(b.ranAt).split(",")[0]}, Predge answered {b.verdicts} agent claims on an evenly spaced sample of disputed Polymarket markets. Each claim says "the final outcome equals the first disputed proposal". Predge answered 100 if it did and 0 if the market settled differently, each bound to a signed record. {b.transactions} transactions, {b.chainSeconds} s of chain time, {Number(b.costMON.perVerdict).toFixed(4)} MON per verdict.</p>
+      <p className="lede"><b>Testnet archive.</b> On {fmtDate(b.ranAt).split(",")[0]}, Predge answered {b.verdicts} agent claims on an evenly spaced sample of disputed Polymarket markets. Each claim says "the final outcome equals the first disputed proposal". Predge answered 100 if it did and 0 if the market settled differently, each bound to a signed record. {b.transactions} transactions, {b.chainSeconds} s of chain time, {Number(b.costMON.perVerdict).toFixed(4)} MON per verdict.</p>
       <div className="table-tools">
         <input className="input sm-input" placeholder="Search by question or market id" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search verdicts" />
         <div className="seg" role="group" aria-label="Filter by verdict">
@@ -95,7 +127,7 @@ function Slash() {
   const deploy = s.receipts.find((r) => r.step.startsWith("0 "));
   return (
     <div className="slash">
-      <p className="lede">A verdict with money behind it. If a bonded verdict contradicts what the provider committed on chain, anyone can slash the bond within the dispute window ({s.disputeWindowSeconds / 3600} h, counted from the verdict). Run on {fmtDate(s.ranAt)} with four separate keys.</p>
+      <p className="lede"><b>Testnet demo.</b> A verdict with money behind it. If a bonded verdict contradicts what the provider committed on chain, anyone can slash the bond within the dispute window ({s.disputeWindowSeconds / 3600} h, counted from the verdict). Run on {fmtDate(s.ranAt)} with four separate keys.</p>
       <ol className="story">
         {steps.map((r, i) => {
           const k = r.step[0];
@@ -132,21 +164,24 @@ function Slash() {
   );
 }
 
+const FUND_TX = "0xece785a6188c7c53aa27268b89e84b34a040296eb79a3a19bd443ab8daaa7caf";
+
 function X402() {
   return (
     <div>
-      <p className="lede">An agent pays 0.001 USDC on Monad testnet per call through Monad's x402 facilitator (x402 v2, scheme exact). It gets the signed record plus Predge's on-chain verdict and checks both before acting. The agent holds no MON; the facilitator pays gas.</p>
+      <p className="lede">An agent pays 0.001 USDC per call through Monad's x402 facilitator (mainnet; the older runs are testnet) (x402 v2, scheme exact). It gets the signed record plus Predge's on-chain verdict and checks both before acting. The agent holds no MON; the facilitator pays gas.</p>
       <div className="runs">
-        {DATA.x402.map((r) => (
+        {[...DATA.x402].sort((a, b) => Number(b.network === "mainnet") - Number(a.network === "mainnet")).map((r) => (
           <div className="run" key={r.file}>
-            <div className="run-top"><span className="eyebrow">market {r.market}</span><span className="badge badge-ok">{r.amountUSDC} USDC</span></div>
+            <div className="run-top"><span className="eyebrow">market {r.market} · {r.network}</span><span className="badge badge-ok">{r.amountUSDC} USDC</span></div>
             <div className="run-big">{(r.latencyMs / 1000).toFixed(1)} s<span> end to end</span></div>
             <ul className="run-list">
               <li>Signature checked: {r.recordSignatureOk ? "yes" : "no"}</li>
               <li>{r.verdict ? <>On-chain verdict {r.verdict.response}, bound to the signed record</> : "Record only (before the verdict was attached)"}</li>
               <li className="mono dim">{r.decision}</li>
             </ul>
-            <div className="run-tx">Settlement <Hash value={r.tx} href={tx(r.tx)} /> · block {r.block}</div>
+            <div className="run-tx">Settlement <Hash value={r.tx} href={r.network === "mainnet" ? mtx(r.tx) : tx(r.tx)} /> · block {r.block}</div>
+            {r.network === "mainnet" && <div className="run-tx">Funded from Base via Aurora Intents · delivery <Hash value={FUND_TX} href={mtx(FUND_TX)} /></div>}
           </div>
         ))}
       </div>

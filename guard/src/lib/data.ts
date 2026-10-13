@@ -16,7 +16,7 @@ export interface BatchVerdict {
 }
 
 export interface X402Run {
-  file: string; market: string; tx: string; block: number; amountUSDC: string; latencyMs: number;
+  file: string; network: "mainnet" | "testnet"; market: string; tx: string; block: number; amountUSDC: string; latencyMs: number;
   payer: string; payTo: string; gasPaidBy: string; recordSignatureOk: boolean;
   verdict: { response: number; responseTx: string; bound: boolean } | null;
   decision: string;
@@ -37,6 +37,9 @@ export interface BundleData {
 /** A Monad mainnet request (and, once answered, the verdict with the record its responseHash is bound to). */
 export interface MainnetEntry {
   market_id: string;
+  title: string;
+  proposal: string;
+  outcome: string | null;
   requestHash: `0x${string}`;
   requestTx: string | null;
   responseTx: string | null;

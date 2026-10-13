@@ -27,7 +27,7 @@ const slashFile = readdirSync(path.join(MONAD, "slash")).filter((f) => /^slash-.
 const slash = json(path.join(MONAD, "slash", slashFile));
 const x402 = readdirSync(path.join(MONAD, "x402", "runs")).filter((f) => f.endsWith(".json")).sort().map((f) => {
   const r = json(path.join(MONAD, "x402", "runs", f));
-  return { file: f, market: r.market, tx: r.payment?.tx, block: r.payment?.block, amountUSDC: r.payment?.amountUSDC, latencyMs: r.latencyMs,
+  return { file: f, network: r.network === "eip155:143" ? "mainnet" : "testnet", market: r.market, tx: r.payment?.tx, block: r.payment?.block, amountUSDC: r.payment?.amountUSDC, latencyMs: r.latencyMs,
     payer: r.payment?.from, payTo: r.payment?.to, gasPaidBy: r.payment?.gasPaidBy, recordSignatureOk: r.recordSignatureOk,
     verdict: r.verdict ? { response: r.verdict.response, responseTx: r.verdict.responseTx, bound: r.verdict.boundToSignedRecord } : null,
     decision: r.decision };
@@ -41,12 +41,12 @@ for (const f of readdirSync(path.join(MAIN, "runs")).filter((f) => f.endsWith(".
   const r = json(path.join(MAIN, "runs", f));
   if (r.chainId !== 143) continue;
   for (const v of r.verdicts) {
-    const m = mainnet.get(v.market_id) ?? { market_id: v.market_id, requestHash: v.requestHash, requestTx: null, responseTx: null, responseHash: null, score: null, record: null };
+    const m = mainnet.get(v.market_id) ?? { market_id: v.market_id, requestHash: v.requestHash, title: v.title || "", proposal: v.proposal ?? "", outcome: null, requestTx: null, responseTx: null, responseHash: null, score: null, record: null };
     if (m.requestHash !== v.requestHash) continue;
     if (v.request?.status === 1) m.requestTx = v.request.tx;
     if (v.response?.status === 1 && v.responseURI) {
       const a = json(path.join(MAIN, "records", path.basename(v.responseURI))).attestation;
-      Object.assign(m, { responseTx: v.response.tx, responseHash: v.responseHash, score: v.score, record: { public_key: a.public_key, signature: a.signature, canonical: a.canonical } });
+      Object.assign(m, { outcome: v.outcome ?? null, responseTx: v.response.tx, responseHash: v.responseHash, score: v.score, record: { public_key: a.public_key, signature: a.signature, canonical: a.canonical } });
     }
     if (m.requestTx || m.responseTx) mainnet.set(v.market_id, m);
   }
@@ -66,5 +66,6 @@ const data = {
 };
 mkdirSync(path.join(HERE, "..", "src", "generated"), { recursive: true });
 writeFileSync(path.join(HERE, "..", "src", "generated", "data.json"), JSON.stringify(data) + "\n");
-writeFileSync(path.join(HERE, "..", "src", "generated", "batch.json"), JSON.stringify(data.batch) + "\n");
+const mainBatch = { verdicts: data.mainnet.filter((m) => m.responseTx).length, open: data.mainnet.filter((m) => !m.responseTx).length };
+writeFileSync(path.join(HERE, "..", "src", "generated", "batch.json"), JSON.stringify({ ...data.batch, mainnet: mainBatch }) + "\n");
 console.log(`guard data: ${verdicts.length} verdicts, mainnet ${data.mainnet.filter((m) => m.responseTx).length} verdicts + ${data.mainnet.filter((m) => !m.responseTx).length} open requests, slash ${slash.bond}, ${x402.length} x402 runs`);

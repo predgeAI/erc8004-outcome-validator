@@ -1,7 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { fromBundle, lookupMarket, LookupError, parseMarketInput, type Lookup } from "./lib/api";
 import { readCounts } from "./lib/chain";
-import { addr, EXAMPLES, MONAD, REPO } from "./lib/constants";
+import { addr, EXAMPLES, maddr, MONAD, MONAD_MAIN, REPO } from "./lib/constants";
 import { BATCH } from "./lib/batch";
 import { DEFAULT_MARKET, FAMOUS, famousById } from "./lib/famous";
 import { Result } from "./components/Result";
@@ -117,7 +117,7 @@ export default function App() {
           <div className="stats">
             <Stat big="3,005" label="disputes on 2,666 Polymarket markets" sub="1 Jan to 2 Oct 2026" />
             <Stat big="33.5%" label="settled differently from the disputed proposal" sub="853 of 2,543 settled markets" tone="warn" />
-            <Stat big={String(BATCH.verdicts)} label="verdicts on Monad testnet" sub={`${BATCH.transactions} tx in ${BATCH.chainSeconds} s of chain time`} tone="ok" />
+            <Stat big={String(BATCH.mainnet.verdicts)} label="verdicts on Monad mainnet" sub={`+${BATCH.mainnet.open} open disputes awaiting the vote`} tone="ok" />
             <Stat big="0.0255" unit="MON" label="per on-chain verdict" sub="x402: 0.001 USDC per paid call" />
           </div>
           <div className="chips">
@@ -147,7 +147,7 @@ export default function App() {
               <p>Who it is for: builders of trading agents, signal bots and protocols that act on or settle against prediction-market outcomes.</p>
             </div>
             <div className="honest">
-              <div className="honest-row"><span>Status</span><b>Monad testnet; testnet MON has no value</b></div>
+              <div className="honest-row"><span>Status</span><b>Live on Monad mainnet; wallet actions on this page use testnet (free gas)</b></div>
               <div className="honest-row"><span>Revenue</span><b>$0, no paying customers yet</b></div>
               <div className="honest-row"><span>Trust boundary</span><b>Signatures are checked off chain; the chain enforces request before verdict, written once</b></div>
               <div className="honest-row"><span>Not advice</span><b>Records are Predge's reading of public chain facts</b></div>
@@ -165,7 +165,11 @@ export default function App() {
             <p className="sm"><a href="mailto:hello@predge.io">hello@predge.io</a></p>
           </div>
           <div>
-            <div className="footer-h">Contracts on Monad testnet <span className="muted">(Sourcify verified)</span></div>
+            <div className="footer-h">Contracts on Monad mainnet</div>
+            {Object.entries(MONAD_MAIN.contracts).map(([k, v]) => (
+              <div className="footer-c" key={k}><span>{k}</span><Ext href={maddr(v)} className="mono">{v.slice(0, 8)}…{v.slice(-4)}</Ext></div>
+            ))}
+            <div className="footer-h" style={{ marginTop: 14 }}>Testnet (archive) <span className="muted">(Sourcify verified)</span></div>
             {Object.entries(MONAD.contracts).map(([k, v]) => (
               <div className="footer-c" key={k}><span>{k}</span><Ext href={addr(v)} className="mono">{v.slice(0, 8)}…{v.slice(-4)}</Ext></div>
             ))}
@@ -179,7 +183,7 @@ export default function App() {
             <div className="footer-l"><Ext href={MONAD.faucet}>Monad testnet faucet</Ext></div>
           </div>
         </div>
-        <p className="footer-fine">Testnet only. Testnet MON has no value. Revenue $0, no paying customers yet. Nothing here is financial advice.</p>
+        <p className="footer-fine">Live on Monad mainnet; wallet actions here use testnet, whose MON has no value. Revenue $0, no paying customers yet. Nothing here is financial advice.</p>
       </footer>
     </div>
   );

@@ -32,6 +32,8 @@ export const MONAD_MAIN = {
   contracts: {
     PredgeAgentValidator: "0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9" as Address,
     PredgeValidatorBond: "0xd7bC19f836a92561b368eFf34667c32cAe4E7111" as Address,
+    AgentJob: "0x64668df7917A84a26d53Fff7883DD998258D6987" as Address,
+    PredgeSettlement: "0xb4540AD38FE0bCd08578664151689d4E9dd67F35" as Address,
   },
   records: "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records",
 } as const;
@@ -40,6 +42,8 @@ export const REPO = "https://github.com/predgeAI/erc8004-outcome-validator";
 export const POLYGONSCAN = "https://polygonscan.com";
 
 export const tx = (h: string) => `${MONAD.explorer}/tx/${h}`;
+export const mtx = (h: string) => `${MONAD_MAIN.explorer}/tx/${h}`;
+export const maddr = (a: string) => `${MONAD_MAIN.explorer}/address/${a}`;
 export const addr = (a: string) => `${MONAD.explorer}/address/${a}`;
 export const polyTx = (h: string) => `${POLYGONSCAN}/tx/${h}`;
 export const short = (h: string, n = 6) => (h && h.length > 2 * n + 2 ? `${h.slice(0, n + 2)}…${h.slice(-4)}` : h);
