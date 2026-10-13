@@ -1,0 +1,110 @@
+{
+  "checkedAt": "2026-10-13T06:27:41.723Z",
+  "depositAddress": "0x3D7599Ebe40Cec3a6a24CF2485203bE327FFeF3f",
+  "status": "SUCCESS",
+  "originTx": [
+    "0x1493c83426324744c8bf124f1c4a37b5f503b828c8c7ecbb89461b1f5cdcb7fc"
+  ],
+  "nearTx": [
+    "GGsRa9Ynb1Jf5UNYrk6qQU3JswYCEFJAX2VnjH38MUht",
+    "HoaWDV1Hc5MByK67pRNd2hwu8mgxyiYvdi46PHViyxGr"
+  ],
+  "monadTx": [
+    "https://monadvision.com/tx/0xece785a6188c7c53aa27268b89e84b34a040296eb79a3a19bd443ab8daaa7caf"
+  ],
+  "amountIn": "2.0",
+  "amountOut": "1.994914",
+  "refunded": "0",
+  "refundReason": null,
+  "recipient": "0x67968e43b94a9F41ce0052A038172e6522C887f5",
+  "recipientBalanceOnMonad": "1.994914 USDC",
+  "next": "MONAD_NETWORK=mainnet node monad/x402/agent.mjs 5532382 http://localhost:4021   # pay 0.001 USDC for a Predge check from 0x67968e43b94a9F41ce0052A038172e6522C887f5",
+  "raw": {
+    "status": "SUCCESS",
+    "updatedAt": "2026-10-13T06:27:37.000Z",
+    "correlationId": "06622137-7430-46f3-bf22-c3608fceedae",
+    "swapDetails": {
+      "depositedAmount": "2000000",
+      "depositedAmountUsd": "1.999578000000",
+      "depositedAmountFormatted": "2.0",
+      "intentHashes": [
+        "8McJKWyR9ingTcdUir7TNFBDh9bSzvTYNYrd4mu3htmY"
+      ],
+      "nearTxHashes": [
+        "GGsRa9Ynb1Jf5UNYrk6qQU3JswYCEFJAX2VnjH38MUht",
+        "HoaWDV1Hc5MByK67pRNd2hwu8mgxyiYvdi46PHViyxGr"
+      ],
+      "amountIn": "2000000",
+      "amountInFormatted": "2.0",
+      "amountInUsd": "1.999578000000",
+      "amountOut": "1994914",
+      "amountOutFormatted": "1.994914",
+      "amountOutUsd": "1.994493073146",
+      "slippage": 0,
+      "refundedAmount": "0",
+      "refundedAmountFormatted": "0",
+      "refundedAmountUsd": "0",
+      "refundReason": null,
+      "refundFee": "2400",
+      "withdrawFee": "679",
+      "originChainTxHashes": [
+        {
+          "hash": "0x1493c83426324744c8bf124f1c4a37b5f503b828c8c7ecbb89461b1f5cdcb7fc",
+          "explorerUrl": ""
+        }
+      ],
+      "destinationChainTxHashes": [
+        {
+          "hash": "0xece785a6188c7c53aa27268b89e84b34a040296eb79a3a19bd443ab8daaa7caf",
+          "explorerUrl": ""
+        }
+      ]
+    },
+    "quoteResponse": {
+      "timestamp": "2026-10-13T06:20:47.032Z",
+      "signature": "ed25519:4pjjKC3hwVE9LRb9CeP8pZuyD88XkWkagi2ES9UouNMqLYA4t9f8zoX2Y6MHRoaRuzqTgN6shYfBUVPhfyyeWhVz",
+      "quoteRequest": {
+        "dry": false,
+        "swapType": "EXACT_INPUT",
+        "depositMode": "SIMPLE",
+        "slippageTolerance": 100,
+        "originAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+        "depositType": "ORIGIN_CHAIN",
+        "destinationAsset": "nep245:v2_1.omni.hot.tg:143_2dmLwYWkCQKyTjeUPAsGJuiVLbFx",
+        "amount": "2000000",
+        "refundTo": "0x67968e43b94a9F41ce0052A038172e6522C887f5",
+        "refundType": "ORIGIN_CHAIN",
+        "recipient": "0x67968e43b94a9F41ce0052A038172e6522C887f5",
+        "recipientType": "DESTINATION_CHAIN",
+        "deadline": "2026-10-13T07:20:46.365Z",
+        "appFees": [
+          {
+            "limitOrderId": null,
+            "recipient": "5880ad2b362620fadf759cbceb1cd5737ce8c6ed7fb8e9942881e6731f9247dd",
+            "fee": 20
+          }
+        ],
+        "virtualChainRecipient": null,
+        "virtualChainRefundRecipient": null,
+        "referral": "predge",
+        "confidentiality": "public"
+      },
+      "quote": {
+        "amountIn": "2000000",
+        "amountInFormatted": "2.0",
+        "amountInUsd": "1.999578000000",
+        "minAmountIn": "2000000",
+        "amountOut": "1994915",
+        "amountOutFormatted": "1.994915",
+        "amountOutUsd": "1.994494072935",
+        "minAmountOut": "1974965",
+        "timeWhenInactive": "2026-10-16T07:20:46.365Z",
+        "depositAddress": "0x3D7599Ebe40Cec3a6a24CF2485203bE327FFeF3f",
+        "deadline": "2026-10-16T07:20:46.365Z",
+        "timeEstimate": 37,
+        "refundFee": "2400",
+        "withdrawFee": "679"
+      }
+    }
+  }
+}

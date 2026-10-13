@@ -1,0 +1,51 @@
+{
+  "kind": "aurora-fund",
+  "backend": "near-intents-1click",
+  "createdAt": "2026-10-13T06:20:47.020Z",
+  "from": "base",
+  "origin": {
+    "assetId": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+    "contract": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+    "decimals": 6,
+    "symbol": "USDC"
+  },
+  "destination": {
+    "assetId": "nep245:v2_1.omni.hot.tg:143_2dmLwYWkCQKyTjeUPAsGJuiVLbFx",
+    "contract": "0x754704bc059f8c67012fed69bc8a327a5aafb603",
+    "decimals": 6,
+    "symbol": "USDC"
+  },
+  "request": {
+    "dry": false,
+    "swapType": "EXACT_INPUT",
+    "slippageTolerance": 100,
+    "originAsset": "nep141:base-0x833589fcd6edb6e08f4c7c32d4f71b54bda02913.omft.near",
+    "depositType": "ORIGIN_CHAIN",
+    "destinationAsset": "nep245:v2_1.omni.hot.tg:143_2dmLwYWkCQKyTjeUPAsGJuiVLbFx",
+    "amount": "2000000",
+    "refundTo": "0x67968e43b94a9F41ce0052A038172e6522C887f5",
+    "refundType": "ORIGIN_CHAIN",
+    "recipient": "0x67968e43b94a9F41ce0052A038172e6522C887f5",
+    "recipientType": "DESTINATION_CHAIN",
+    "deadline": "2026-10-13T07:20:46.365Z",
+    "referral": "predge"
+  },
+  "quote": {
+    "amountIn": "2000000",
+    "amountInFormatted": "2.0",
+    "amountInUsd": "1.999578000000",
+    "minAmountIn": "2000000",
+    "amountOut": "1994915",
+    "amountOutFormatted": "1.994915",
+    "amountOutUsd": "1.994494072935",
+    "minAmountOut": "1974965",
+    "timeEstimate": 37,
+    "refundFee": "2400",
+    "withdrawFee": "679",
+    "deadline": "2026-10-16T07:20:46.365Z",
+    "timeWhenInactive": "2026-10-16T07:20:46.365Z",
+    "depositAddress": "0x3D7599Ebe40Cec3a6a24CF2485203bE327FFeF3f"
+  },
+  "signature": "ed25519:4pjjKC3hwVE9LRb9CeP8pZuyD88XkWkagi2ES9UouNMqLYA4t9f8zoX2Y6MHRoaRuzqTgN6shYfBUVPhfyyeWhVz",
+  "correlationId": "d2a319f0-414a-48c1-83fd-6bae0220bd64"
+}

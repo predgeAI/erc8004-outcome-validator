@@ -114,7 +114,7 @@ export interface AckRecord {
   signature: Hex;
   signer: Address;
   recovered: Address;
-  provider: "privy" | "dynamic";
+  provider: "privy" | "dynamic" | "mera";
   /** the SDK call that produced the signature, shown in the UI */
   via: string;
   signedAt: string;
@@ -148,4 +148,9 @@ export function removeAck(signature: Hex): AckRecord[] {
   const list = loadAcks().filter((x) => x.signature !== signature);
   try { localStorage.setItem(ACK_KEY, JSON.stringify(list)); } catch { /* storage blocked */ }
   return list;
+}
+
+/** Replaces the stored list (null clears it). Used when the passkey vault is opened or locked. */
+export function replaceAcks(list: AckRecord[] | null) {
+  try { if (list === null) localStorage.removeItem(ACK_KEY); else localStorage.setItem(ACK_KEY, JSON.stringify(list.slice(0, 100))); } catch { /* storage blocked */ }
 }

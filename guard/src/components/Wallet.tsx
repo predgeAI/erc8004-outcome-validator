@@ -6,12 +6,15 @@ import { client, VALIDATOR_ABI, type OnchainResult } from "../lib/chain";
 import { addr, MONAD, tx } from "../lib/constants";
 import { buildReceipt, loadAcks, removeAck, saveAck, signReceipt, verifyReceipt, type AckRecord } from "../wallet/receipt";
 import { Copy, Ext, fmtDate, Hash } from "./ui";
+import { meraIntent } from "../wallet/meraIntent";
+import { AttestButton } from "./PasskeyKeys";
+import { ACKS_EVENT, readWatchlist, WATCH_EVENT, writeWatchlist } from "../lib/localLists";
 
 const PrivyHost = lazy(() => import("../wallet/PrivyHost"));
 const DynamicHost = lazy(() => import("../wallet/DynamicHost"));
+const MeraHost = lazy(() => import("../wallet/MeraHost"));
 
 const KIND_KEY = "guard.wallet.kind";
-const WATCH_KEY = "guard.watchlist";
 const safeGet = (k: string) => { try { return localStorage.getItem(k); } catch { return null; } };
 const safeSet = (k: string, v: string | null) => { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch { /* storage blocked */ } };
 
@@ -20,7 +23,7 @@ export function WalletHost({ kind, autoLogin, onChange }: { kind: WalletKind | n
   if (!kind) return null;
   return (
     <Suspense fallback={null}>
-      {kind === "privy" ? <PrivyHost onChange={onChange} autoLogin={autoLogin} /> : <DynamicHost onChange={onChange} autoLogin={autoLogin} />}
+      {kind === "privy" ? <PrivyHost onChange={onChange} autoLogin={autoLogin} /> : kind === "dynamic" ? <DynamicHost onChange={onChange} autoLogin={autoLogin} /> : <MeraHost onChange={onChange} autoLogin={autoLogin} />}
     </Suspense>
   );
 }
@@ -30,7 +33,8 @@ export function useWalletState() {
   const [kind, setKind] = useState<WalletKind | null>(saved && AVAILABLE.includes(saved) ? saved : null);
   const [autoLogin, setAutoLogin] = useState(false);
   const [api, setApi] = useState<WalletApi | null>(null);
-  const choose = (k: WalletKind) => {
+  const choose = (k: WalletKind, mode?: "create" | "get" | "pick") => {
+    if (mode) meraIntent.mode = mode;
     if (kind === k && api?.ready) { api.login(); return; }
     setApi(null); setAutoLogin(true); setKind(k); safeSet(KIND_KEY, k);
   };
@@ -44,6 +48,7 @@ export function useWalletState() {
 const NAMES: Record<WalletKind, { name: string; sub: string }> = {
   privy: { name: "Privy", sub: "Email or wallet, embedded wallet if you have none" },
   dynamic: { name: "Dynamic", sub: "Wallet or email via Dynamic" },
+  mera: { name: "Mera", sub: "Passkey account: Face ID, Touch ID or a security key. No seed phrase, no extension" },
 };
 
 export function ConnectButton({ state }: { state: ReturnType<typeof useWalletState> }) {
@@ -68,6 +73,7 @@ export function ConnectButton({ state }: { state: ReturnType<typeof useWalletSta
             <div className="menu-addr mono">{api.address}</div>
             <div className="menu-sub">{api.walletLabel} · Monad testnet (chain {MONAD.chainId})</div>
             <div className="menu-sub">Balance: <BalanceText api={api} /></div>
+            {api.kind === "mera" && <SessionText endsAt={api.sessionEndsAt ?? null} />}
             <div className="menu-row">
               <Ext href={addr(api.address)} className="btn-ghost sm">MonadVision ↗</Ext>
               <Ext href={MONAD.faucet} className="btn-ghost sm">Testnet faucet ↗</Ext>
@@ -87,11 +93,20 @@ export function ConnectButton({ state }: { state: ReturnType<typeof useWalletSta
       {open && (
         <div className="menu">
           <div className="menu-head">Sign in to watch markets and request verdicts</div>
-          {AVAILABLE.map((k) => (
+          {AVAILABLE.filter((k) => k !== "mera").map((k) => (
             <button key={k} className="menu-item" data-testid={`connect-${k}`} onClick={() => { setOpen(false); state.choose(k); }}>
               <b>Continue with {NAMES[k].name}</b><span>{NAMES[k].sub}</span>
             </button>
           ))}
+          {AVAILABLE.includes("mera") && (<>
+            <button className="menu-item" data-testid="connect-mera-create" onClick={() => { setOpen(false); state.choose("mera", "create"); }}>
+              <b>Create a passkey account</b><span>{NAMES.mera.sub}. One prompt.</span>
+            </button>
+            <button className="menu-item" data-testid="connect-mera-get" onClick={() => { setOpen(false); state.choose("mera", "pick"); }}>
+              <b>Sign in with my passkey</b><span>Same passkey, same account, on any device it syncs to</span>
+            </button>
+          </>)}
+          {api?.error && <div className="menu-sub err">{api.error}</div>}
           <div className="menu-sub">Monad testnet only. Testnet MON has no value.</div>
         </div>
       )}
@@ -99,10 +114,15 @@ export function ConnectButton({ state }: { state: ReturnType<typeof useWalletSta
   );
 }
 
+
 export function useWatchlist() {
-  const read = (): string[] => { try { return JSON.parse(safeGet(WATCH_KEY) || "[]"); } catch { return []; } };
-  const [list, setList] = useState<string[]>(read);
-  const toggle = (id: string) => setList((l) => { const n = l.includes(id) ? l.filter((x) => x !== id) : [id, ...l].slice(0, 50); safeSet(WATCH_KEY, JSON.stringify(n)); return n; });
+  const [list, setList] = useState<string[]>(readWatchlist);
+  useEffect(() => {
+    const h = () => setList(readWatchlist());
+    window.addEventListener(WATCH_EVENT, h);
+    return () => window.removeEventListener(WATCH_EVENT, h);
+  }, []);
+  const toggle = (id: string) => { const l = readWatchlist(); writeWatchlist(l.includes(id) ? l.filter((x) => x !== id) : [id, ...l]); };
   return { list, toggle };
 }
 
@@ -123,7 +143,14 @@ function BalanceText({ api }: { api: WalletApi }) {
   return <span className={api.balance === 0n ? "err" : "okc"}>{fmtMon(api.balance)} MON</span>;
 }
 
-const ACKS_EVENT = "guard-acks";
+export function SessionText({ endsAt }: { endsAt: number | null }) {
+  const [, force] = useState(0);
+  useEffect(() => { const id = setInterval(() => force((x) => x + 1), 15_000); return () => clearInterval(id); }, []);
+  if (!endsAt) return <div className="menu-sub" data-testid="mera-session">Signing locked. The next signature asks for your passkey once.</div>;
+  const min = Math.max(0, Math.ceil((endsAt - Date.now()) / 60_000));
+  return <div className="menu-sub okc" data-testid="mera-session">Signing session open: no prompts for about {min} min (10 min idle, 30 min max)</div>;
+}
+
 const errText = (e: unknown) => {
   const m = (e as { shortMessage?: string; message?: string }).shortMessage ?? (e as Error).message ?? "failed";
   if (/rejected|denied|cancel|closed/i.test(m)) return "Cancelled in the wallet.";
@@ -143,7 +170,8 @@ export function WalletActions({ wallet, payload, oc, watch, evidence, title }: {
   if (!wallet?.authenticated || !wallet.address) {
     return (
       <div className="actions-bar muted-bar">
-        <span>Sign in with Privy or Dynamic to sign a risk receipt for this check, watch this market, or record a validation request on Monad testnet from your own wallet.</span>
+        <span>Sign in to sign a wallet receipt for this check, watch this market, or record a validation request on Monad testnet. A passkey attestation needs no wallet at all.</span>
+        <AttestButton payload={payload} oc={oc} evidence={evidence} title={title} />
       </div>
     );
   }
@@ -195,6 +223,7 @@ export function WalletActions({ wallet, payload, oc, watch, evidence, title }: {
         <button className="btn-primary sm" disabled={!evidence.ok || !evidence.sha || ack.kind === "busy"} onClick={acknowledge} data-testid="ack" title={evidence.ok ? "" : "Available once the evidence has verified"}>
           {ack.kind === "busy" ? "Signing…" : "Acknowledge risk"}
         </button>
+        <AttestButton payload={payload} oc={oc} evidence={evidence} title={title} />
         <button className={`btn-ghost ${watching ? "on" : ""}`} onClick={() => watch.toggle(id)} data-testid="watch">{watching ? "Watching" : "Watch this market"}</button>
         {oc?.claim && (
           <button className="btn-ghost" disabled={!canRequest || status.kind === "busy"} onClick={request} title={canRequest ? "" : "A request for this market already exists on chain"} data-testid="request">
@@ -265,7 +294,7 @@ export function AckList({ onOpen }: { onOpen: (id: string) => void }) {
   return (
     <section className="section" id="acks" data-testid="ack-list">
       <div className="section-head"><span className="eyebrow">My acknowledged checks</span><h2>Receipts you signed</h2>
-        <p className="lede">EIP-712 receipts signed with your Privy or Dynamic wallet after a check. Stored in this browser only. Each one re-verifies when you open it.</p>
+        <p className="lede">EIP-712 receipts signed with your Privy, Dynamic or Mera account after a check. Kept in this browser, and in your passkey vault once you seal it. Each one re-verifies when you open it.</p>
       </div>
       <div className="ack-list">
         {list.map((a) => (

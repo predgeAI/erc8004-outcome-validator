@@ -10,13 +10,17 @@
     "dev": "npm run data && vite",
     "build": "npm run data && tsc -b && node scripts/clean-assets.mjs && vite build",
     "preview": "vite preview",
-    "test:receipt": "esbuild scripts/test-receipt.ts --bundle --platform=node --format=esm --log-level=warning --outfile=node_modules/.cache/test-receipt.mjs && node node_modules/.cache/test-receipt.mjs"
+    "test:receipt": "esbuild scripts/test-receipt.ts --bundle --platform=node --format=esm --log-level=warning --outfile=node_modules/.cache/test-receipt.mjs && node node_modules/.cache/test-receipt.mjs",
+    "test:mera": "esbuild scripts/test-mera.ts --bundle --platform=node --format=esm --log-level=warning --outfile=node_modules/.cache/test-mera.mjs && node node_modules/.cache/test-mera.mjs"
   },
   "dependencies": {
+    "@category-labs/mera": "0.2.0",
     "@dynamic-labs/ethereum": "^4.20.0",
     "@dynamic-labs/sdk-react-core": "^4.20.0",
     "@noble/ed25519": "2.2.3",
     "@privy-io/react-auth": "3.48.0",
+    "@scure/bip32": "2.4.0",
+    "@scure/bip39": "2.4.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "viem": "2.57.3"

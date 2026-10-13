@@ -1,0 +1,178 @@
+{
+  "at": "2026-10-13T06:19:08.432Z",
+  "rpc": "https://testnet-rpc.monad.xyz",
+  "market": "5219930",
+  "conditionId": "0x50d446794ad4e7b16e27e248ed841c76ca7edbb084907f61cd5a9d1f83cf96a8",
+  "proposal": [
+    "0",
+    "1"
+  ],
+  "reference": 0.2166,
+  "quotes": [
+    {
+      "side": "buy",
+      "price": 0.18,
+      "size": 50
+    },
+    {
+      "side": "sell",
+      "price": 0.25,
+      "size": 50
+    },
+    {
+      "side": "buy",
+      "price": 0.15,
+      "size": 50
+    },
+    {
+      "side": "sell",
+      "price": 0.28,
+      "size": 50
+    }
+  ],
+  "hypotheticalOutcome": "yes",
+  "addresses": {
+    "USD": "0x860f9c8b5d95B5BA204BDC80167C84969708eF3d",
+    "FACTORY": "0x9FAC0dD79cf9D535ae890Cd1Bbf7a838f3B63D06",
+    "HOLD": "0xBfD25f66f12d17820177DF63Bb66174eE16f2C04",
+    "CHANGE": "0x65e05B95A4fc3eFFAf8881eb7A435f9c64d0319D",
+    "MARKET_ADDR": "0x6Ee28124848dAb2685Ff424b9DF0eAc43e9b30A8"
+  },
+  "rows": [
+    {
+      "step": "deploy TestUSD",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "deploy DisputeNoteFactory",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "createNote",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "TestUSD.faucet (issuer)",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "approve tUSD -> factory",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "mint 200 HOLD + 200 CHANGE",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "Kuru Router.deployProxy CHANGE/tUSD",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "approve CHANGE -> MarginAccount",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "MarginAccount.deposit CHANGE",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "approve tUSD -> MarginAccount",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "MarginAccount.deposit tUSD",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "buy 50 CHANGE @ 0.18",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "sell 50 CHANGE @ 0.25",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "buy 50 CHANGE @ 0.15",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "sell 50 CHANGE @ 0.28",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "bestBidAsk",
+      "ok": true,
+      "note": "bid 180000000000000000 ask 250000000000000000 (raw)"
+    },
+    {
+      "step": "TestUSD.faucet (taker)",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "taker approve tUSD -> MarginAccount",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "taker MarginAccount.deposit 5 tUSD",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "taker crossing limit buy 8 CHANGE @ 0.25",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "taker margin CHANGE balance",
+      "ok": true,
+      "note": "7.976"
+    },
+    {
+      "step": "taker withdraws CHANGE from margin",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "taker CHANGE balance",
+      "ok": true,
+      "note": "7.976"
+    },
+    {
+      "step": "HYPOTHETICAL CRE report via forwarder: payouts [1,0]",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "note state",
+      "ok": true,
+      "note": "state 2 (1 HOLD wins, 2 CHANGE wins), collateralLocked 200.0"
+    },
+    {
+      "step": "taker redeems CHANGE",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "step": "taker tUSD balance",
+      "ok": true,
+      "note": "7.976"
+    }
+  ]
+}
