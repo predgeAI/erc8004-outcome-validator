@@ -6,7 +6,7 @@ import { client, monadTestnet } from "../lib/chain";
 import { MONAD } from "../lib/constants";
 import type { HostProps } from "./config";
 import { deriveEvmKey } from "./meraKeys";
-import { createPasskey, forgetCredential, getPrf, passkeyError } from "./passkey";
+import { createPasskey, forgetCredential, getPrf, passkeyError, passkeySupportProblem, prfSupported } from "./passkey";
 import type { ReceiptTypedData } from "./receipt";
 import { meraIntent } from "./meraIntent";
 
@@ -81,7 +81,16 @@ export default function MeraHost({ onChange, autoLogin }: HostProps) {
   const login = useCallback(() => {
     const mode = meraIntent.mode;
     meraIntent.mode = "get";
-    open(mode).catch((e) => setError(passkeyError(e)));
+    const unsupported = passkeySupportProblem();
+    if (unsupported) { setError(unsupported); return; }
+    // A ceremony that never answers (no authenticator, blocked prompt) must not spin forever.
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const stalled = new Promise<never>((_, rej) => { timer = setTimeout(() => rej(new Error("No passkey answer after 90 s. This browser may not support passkeys here. Try Chrome or Safari.")), 90_000); });
+    const guarded = prfSupported().then((ok) => {
+      if (ok === false) throw new Error("This browser does not support the passkey PRF extension that Mera needs. Try Chrome or Safari.");
+      return Promise.race([open(mode), stalled]);
+    });
+    guarded.catch((e) => setError(passkeyError(e))).finally(() => clearTimeout(timer));
   }, [open]);
 
   useEffect(() => {

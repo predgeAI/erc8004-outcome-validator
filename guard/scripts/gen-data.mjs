@@ -46,4 +46,5 @@ const data = {
 };
 mkdirSync(path.join(HERE, "..", "src", "generated"), { recursive: true });
 writeFileSync(path.join(HERE, "..", "src", "generated", "data.json"), JSON.stringify(data) + "\n");
+writeFileSync(path.join(HERE, "..", "src", "generated", "batch.json"), JSON.stringify(data.batch) + "\n");
 console.log(`guard data: ${verdicts.length} verdicts, slash ${slash.bond}, ${x402.length} x402 runs`);

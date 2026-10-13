@@ -32,5 +32,5 @@ export const short = (h: string, n = 6) => (h && h.length > 2 * n + 2 ? `${h.sli
 
 export const EXAMPLES = [
   { id: "1137824", label: "Montana vs Idaho O/U 151.5", note: "settled differently from the disputed proposal" },
-  { id: "2169995", label: "2169995", note: "disputed twice, used in the slash demo" },
+  { id: "2169995", label: "Disputed twice, used in the slash demo", note: "disputed twice, used in the slash demo" },
 ];

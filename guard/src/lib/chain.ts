@@ -2,7 +2,7 @@ import { createPublicClient, defineChain, http, parseAbi, type Hex } from "viem"
 import { MONAD, PINNED_KEY as MONAD_PINNED } from "./constants";
 import { canonicalJson, keccakOf, verifyEd25519, type SignedRecord } from "./verify";
 import { formatEther } from "viem";
-import { byMarket, DATA } from "./data";
+const bundle = () => import("./data");
 import type { SignedPayload } from "./api";
 
 export const monadTestnet = defineChain({
@@ -73,6 +73,7 @@ export async function readOnchain(p: SignedPayload): Promise<OnchainResult | nul
   const claim = claimOf(p);
   if (!claim) return null;
   const requestHash = requestHashOf(claim);
+  const { byMarket } = await bundle();
   const v = byMarket.get(String(p.market_id));
   const addr = MONAD.contracts.PredgeAgentValidator;
   const [st, validated, lead] = await Promise.all([
@@ -111,11 +112,13 @@ async function readBond(requestHash: Hex, marketId: string): Promise<BondInfo | 
     const n = await client.readContract({ address: MONAD.contracts.PredgeValidatorBond, abi: BOND_ABI, functionName: "slashCount" });
     return { contract: MONAD.contracts.PredgeValidatorBond, bondMON: fmtMON(s[1]), scored: s[4], closed: s[5], score: s[3], slashCount: Number(n), demo: false };
   }
+  const { DATA } = await bundle();
   if (marketId === DATA.slash.market) return readSlashBond();
   return null;
 }
 
 export async function readSlashBond(): Promise<BondInfo> {
+  const { DATA } = await bundle();
   const b = DATA.slash.bond;
   const [s, n] = await Promise.all([
     client.readContract({ address: b, abi: BOND_ABI, functionName: "stakes", args: [DATA.slash.requestHash] }),

@@ -68,3 +68,20 @@ export function passkeyError(e: unknown): string {
   }
   return ((e as Error)?.message ?? "Passkey error").split("\n")[0];
 }
+
+/** A plain-words reason passkey keys cannot work in this browser, or null when nothing rules it out. */
+export function passkeySupportProblem(): string | null {
+  if (typeof window === "undefined" || !window.isSecureContext) return "Passkeys need HTTPS or localhost.";
+  if (!("PublicKeyCredential" in window) || !navigator.credentials) return "This browser has no passkey (WebAuthn) support. Try Chrome or Safari.";
+  return null;
+}
+
+/** Async probe: true/false when the browser reports PRF support, null when it does not say. */
+export async function prfSupported(): Promise<boolean | null> {
+  try {
+    const f = (window.PublicKeyCredential as unknown as { getClientCapabilities?: () => Promise<Record<string, boolean>> }).getClientCapabilities;
+    if (!f) return null;
+    const c = await f.call(window.PublicKeyCredential);
+    return typeof c["extension:prf"] === "boolean" ? c["extension:prf"] : null;
+  } catch { return null; }
+}

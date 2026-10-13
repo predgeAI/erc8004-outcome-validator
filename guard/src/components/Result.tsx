@@ -5,7 +5,8 @@ import { readOnchain, type OnchainResult } from "../lib/chain";
 import { addr, MONAD, polyTx, tx } from "../lib/constants";
 import { decide, RISK_LABEL } from "../lib/decide";
 import { roundTrips, sha256Hex, verifyEd25519 } from "../lib/verify";
-import { CheckRow, Ext, fmtDate, Hash, type CheckState } from "./ui";
+import { CheckIcon, CheckRow, Ext, fmtDate, Hash, type CheckState } from "./ui";
+import { famousById } from "../lib/famous";
 import type { WalletApi } from "../wallet/config";
 import { WalletActions, type Watch } from "./Wallet";
 
@@ -66,50 +67,54 @@ export function Result({ lookup, wallet, watch }: { lookup: Lookup; wallet: Wall
   const proposal = p.disputes?.[0]?.disputed_proposal ?? null;
   const outcome = p.onchain_resolution?.outcome ?? null;
 
+  const n = p.disputes?.length ?? 0;
+  const verdict = storyVerdict(p, evidenceDone && !evidenceOk);
+  const fam = famousById.get(String(p.market_id));
+  const verifyDone = evidenceDone;
+
   return (
     <section className="result" aria-live="polite">
-      {lookup.source === "bundled" && (
+      {lookup.source === "bundled" && lookup.fallbackReason && (
         <p className="fallback-note">{lookup.fallbackReason}. Showing the record signed on {fmtDate(p.issued_at)}, bundled with this page and verified the same way.</p>
       )}
 
-      <div className={`decision decision-${decision?.tone ?? "pending"}`} data-testid="decision">
-        <div className="decision-q">Is it safe to act?</div>
-        {decision ? (
-          <>
-            <div className="decision-head">{decision.headline}</div>
-            <div className="decision-detail">{decision.detail}</div>
-            <code className="decision-line mono">{decision.line}</code>
-          </>
-        ) : (
-          <div className="decision-head muted">Checking evidence and the chain…</div>
-        )}
-      </div>
+      <div className={`story-card story-${verdict.tone}`}>
+        <div className="card-top">
+          <span className="eyebrow">Polymarket · market {p.market_id}{fam ? ` · ${fam.traded} traded` : ""}</span>
+          <span className={`badge badge-${risk.tone}`}>Risk: {risk.label}</span>
+        </div>
+        <h2 className="market-title">{title}</h2>
 
-      <div className="result-grid">
-        <article className="card verdict-card">
-          <div className="card-top">
-            <span className="eyebrow">Polymarket · market {p.market_id}</span>
-            <span className={`badge badge-${risk.tone}`}>Risk: {risk.label}</span>
-          </div>
-          <h2 className="market-title">{title}</h2>
-          <div className="pv">
-            <div className="pv-cell">
-              <span className="pv-k">Disputed proposal</span>
-              <span className={`pv-v ${proposal && outcome && proposal !== outcome ? "struck" : ""}`}>{proposal ?? "none"}</span>
-            </div>
-            <div className="pv-arrow" aria-hidden>→</div>
-            <div className="pv-cell">
-              <span className="pv-k">Final on-chain outcome</span>
-              <span className="pv-v ok">{outcome ?? "not final yet"}</span>
-            </div>
-          </div>
-          <p className="rec">{p.recommendation}</p>
-          <Timeline p={p} endDate={lookup.market?.end_date} />
-        </article>
+        <ol className="flow" aria-label="How the answer changed">
+          <li className="flow-step">
+            <span className="flow-k">Proposed answer</span>
+            <span className={`flow-v ${proposal && outcome && proposal !== outcome ? "struck" : ""}`}>{proposal ?? "none"}</span>
+          </li>
+          <li className="flow-arrow" aria-hidden>→</li>
+          <li className="flow-step warn">
+            <span className="flow-k">Disputed</span>
+            <span className="flow-v">{n ? (n === 1 ? "once" : `${n} times`) : "never"}</span>
+            {p.sent_to_uma_vote && <span className="flow-s">UMA vote</span>}
+          </li>
+          <li className="flow-arrow" aria-hidden>→</li>
+          <li className={`flow-step ${outcome ? "fin" : "pend"}`}>
+            <span className="flow-k">Final</span>
+            <span className="flow-v">{outcome ?? "not yet"}</span>
+          </li>
+        </ol>
 
-        <div className="stack">
-          <article className="card">
-            <div className="card-top"><h3>Verify in your browser</h3><span className="muted sm">no server trusted</span></div>
+        <div className={`verdict-big verdict-${verdict.tone}`} data-testid="verdict-big">
+          <div className="verdict-head">{verdict.head}</div>
+          <div className="verdict-sub">{verdict.sub}</div>
+        </div>
+
+        <div className="proof-lines">
+          <details className={`proof proof-${!verifyDone ? "run" : evidenceOk ? "ok" : "bad"}`} data-testid="verify-line">
+            <summary>
+              <CheckIcon state={!verifyDone ? "running" : evidenceOk ? "ok" : "fail"} />
+              <span>{!verifyDone ? "Verifying on your device…" : evidenceOk ? "Verified on your device: signature, hash and signing key all match" : "Could not verify this record on your device"}</span>
+              <span className="proof-more">details</span>
+            </summary>
             <ul className="checks">
               <CheckRow testId="chk-key" state={ev.key} title="Signed by Predge's published key"
                 detail={ev.kid ? <>kid <span className="mono">{ev.kid}</span>{ev.keySrc === "well-known" ? <> matches <Ext href="https://api.predge.io/.well-known/predge-keys.json">predge-keys.json</Ext> and the pinned key</> : " matches the pinned key"}</> : "Fetching the key registry"} />
@@ -119,15 +124,67 @@ export function Result({ lookup, wallet, watch }: { lookup: Lookup; wallet: Wall
                 detail={ev.sha ? (ev.published ? <><span className="mono">{ev.sha.slice(0, 16)}…</span> equals the published content_hash</> : <>archived record carries no content_hash; computed <span className="mono">{ev.sha.slice(0, 16)}…</span></>) : "Waiting"} />
               <CheckRow testId="chk-fields" state={ev.fields} title="Everything on this page comes from the signed bytes" detail="Parsed and re-canonicalised: identical bytes" />
             </ul>
-          </article>
+          </details>
 
-          <OnchainCard oc={oc} err={ocErr} step={ocStep} p={p} />
+          <details className="proof proof-chain" data-testid="chain-line">
+            <summary>
+              <span className="chain-pill"><span className="dot" />Monad</span>
+              <span>{chainLine(oc, ocErr)}</span>
+              {oc?.found && oc.responseTx ? <Ext href={tx(oc.responseTx)} className="proof-link">Explorer ↗</Ext> : <Ext href={addr(MONAD.contracts.PredgeAgentValidator)} className="proof-link">Validator ↗</Ext>}
+              <span className="proof-more">details</span>
+            </summary>
+            <OnchainCard oc={oc} err={ocErr} step={ocStep} p={p} />
+          </details>
         </div>
       </div>
+
+      <details className="more-details">
+        <summary>Dispute timeline and the agent decision</summary>
+        <div className={`decision decision-${decision?.tone ?? "pending"}`} data-testid="decision">
+          <div className="decision-q">Is it safe to act?</div>
+          {decision ? (
+            <>
+              <div className="decision-head">{decision.headline}</div>
+              <div className="decision-detail">{decision.detail}</div>
+              <code className="decision-line mono">{decision.line}</code>
+            </>
+          ) : (
+            <div className="decision-head muted">Checking evidence and the chain…</div>
+          )}
+        </div>
+        <article className="card">
+          <p className="rec">{p.recommendation}</p>
+          <Timeline p={p} endDate={lookup.market?.end_date ?? undefined} />
+        </article>
+      </details>
 
       <WalletActions wallet={wallet} payload={p} oc={oc ?? null} watch={watch} evidence={{ ok: evidenceDone && evidenceOk, sha: ev.sha }} title={title} />
     </section>
   );
+}
+
+type Tone = "go" | "stop" | "wait";
+/** The plain-words verdict, read only from the signed facts. */
+function storyVerdict(p: SignedPayload, evidenceFailed: boolean): { tone: Tone; head: string; sub: string } {
+  if (evidenceFailed) return { tone: "stop", head: "Do not trust this record", sub: "Its signature or hash did not verify in this browser." };
+  const proposal = p.disputes?.[0]?.disputed_proposal ?? null;
+  const outcome = p.onchain_resolution?.outcome ?? null;
+  const n = p.disputes?.length ?? 0;
+  if (p.resolved_on_chain && outcome) {
+    if (!n) return { tone: "go", head: `Never disputed. Final: ${outcome}`, sub: "No one challenged the proposed answer." };
+    if (proposal && proposal !== outcome) return { tone: "stop", head: "This answer did NOT hold", sub: `The disputed answer was ${proposal.toUpperCase()}. The market finally settled ${outcome.toUpperCase()}.` };
+    if (proposal) return { tone: "go", head: "This answer held", sub: `Disputed, but the final answer is the same: ${outcome.toUpperCase()}.` };
+    return { tone: "go", head: `Final: ${outcome}`, sub: "The outcome is final on chain." };
+  }
+  if (p.open_dispute || n) return { tone: "wait", head: "Still disputed: wait", sub: "There is no final answer yet. Acting now means betting on the vote." };
+  return { tone: "wait", head: "Not final yet: wait", sub: "The market has no final on-chain answer." };
+}
+
+function chainLine(oc: OnchainResult | null | undefined, err: string | null): string {
+  if (oc === undefined) return "Reading Predge's verdict on Monad…";
+  if (oc === null) return err ? "Could not read Monad right now" : "No claim to answer on chain for this market";
+  if (!oc.found) return oc.requested ? "Verdict requested on Monad, not answered yet" : "No Predge verdict on Monad for this market yet";
+  return `Monad verdict: ${oc.score}/100, ${oc.score === 0 ? "the disputed answer did not hold" : oc.score === 100 ? "the disputed answer held" : "partial"}`;
 }
 
 function Timeline({ p, endDate }: { p: SignedPayload; endDate?: string }) {

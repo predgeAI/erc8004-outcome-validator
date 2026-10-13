@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { Component, lazy, Suspense, useEffect, useRef, useState, type ReactNode } from "react";
 import { encodeFunctionData, formatEther, type Hex } from "viem";
 import { AVAILABLE, type WalletApi, type WalletKind } from "../wallet/config";
 import type { SignedPayload } from "../lib/api";
@@ -18,14 +18,33 @@ const KIND_KEY = "guard.wallet.kind";
 const safeGet = (k: string) => { try { return localStorage.getItem(k); } catch { return null; } };
 const safeSet = (k: string, v: string | null) => { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch { /* storage blocked */ } };
 
+/** A provider chunk that fails to load must not leave the header stuck: report it as a stuck sign-in. */
+class HostBoundary extends Component<{ onFail: () => void; children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch() { this.props.onFail(); }
+  render() { return this.state.failed ? null : this.props.children; }
+}
+
 /** Mounts only the provider the user picked, so neither SDK loads until it is needed. */
-export function WalletHost({ kind, autoLogin, onChange }: { kind: WalletKind | null; autoLogin: boolean; onChange: (w: WalletApi | null) => void }) {
-  if (!kind) return null;
+export function WalletHost({ kind, autoLogin, enabled, nonce, onChange, onFail }: { kind: WalletKind | null; autoLogin: boolean; enabled: boolean; nonce: number; onChange: (w: WalletApi | null) => void; onFail: () => void }) {
+  if (!kind || !enabled) return null;
   return (
-    <Suspense fallback={null}>
-      {kind === "privy" ? <PrivyHost onChange={onChange} autoLogin={autoLogin} /> : kind === "dynamic" ? <DynamicHost onChange={onChange} autoLogin={autoLogin} /> : <MeraHost onChange={onChange} autoLogin={autoLogin} />}
-    </Suspense>
+    <HostBoundary key={`${kind}-${nonce}`} onFail={onFail}>
+      <Suspense fallback={null}>
+        {kind === "privy" ? <PrivyHost onChange={onChange} autoLogin={autoLogin} /> : kind === "dynamic" ? <DynamicHost onChange={onChange} autoLogin={autoLogin} /> : <MeraHost onChange={onChange} autoLogin={autoLogin} />}
+      </Suspense>
+    </HostBoundary>
   );
+}
+
+/** How long a provider SDK gets to become ready before the page stops showing a spinner. */
+export const READY_TIMEOUT_MS = 8000;
+
+export function stuckMessage(kind: WalletKind | null): string {
+  return kind === "mera"
+    ? "Passkey sign-in did not start. This browser may block passkeys or not support them here. Try Chrome or Safari, then retry."
+    : "Your browser blocked the sign-in window. In Brave, turn Shields off for this site, or try Chrome.";
 }
 
 export function useWalletState() {
@@ -33,16 +52,39 @@ export function useWalletState() {
   const [kind, setKind] = useState<WalletKind | null>(saved && AVAILABLE.includes(saved) ? saved : null);
   const [autoLogin, setAutoLogin] = useState(false);
   const [api, setApi] = useState<WalletApi | null>(null);
+  // A saved session is restored after first paint, never before; a fresh click mounts the provider at once.
+  const [enabled, setEnabled] = useState(false);
+  const [stuck, setStuck] = useState(false);
+  const [nonce, setNonce] = useState(0);
+  useEffect(() => {
+    if (!kind || enabled) return;
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+    const go = () => setEnabled(true);
+    if (w.requestIdleCallback) { w.requestIdleCallback(go, { timeout: 3000 }); return; }
+    const id = setTimeout(go, 1500);
+    return () => clearTimeout(id);
+  }, [kind, enabled]);
+  const ready = Boolean(api?.ready);
+  useEffect(() => {
+    if (!kind || !enabled || ready) { setStuck(false); return; }
+    const id = setTimeout(() => setStuck(true), READY_TIMEOUT_MS);
+    return () => clearTimeout(id);
+  }, [kind, enabled, ready, nonce]);
   const choose = (k: WalletKind, mode?: "create" | "get" | "pick") => {
     if (mode) meraIntent.mode = mode;
     if (kind === k && api?.ready) { api.login(); return; }
-    setApi(null); setAutoLogin(true); setKind(k); safeSet(KIND_KEY, k);
+    setApi(null); setStuck(false); setAutoLogin(true); setEnabled(true); setKind(k); setNonce((n) => n + 1); safeSet(KIND_KEY, k);
   };
+  const retry = () => {
+    if (!kind) return;
+    setApi(null); setStuck(false); setAutoLogin(true); setEnabled(true); setNonce((n) => n + 1);
+  };
+  const fail = () => setStuck(true);
   const disconnect = async () => {
     try { await api?.logout(); } catch { /* ignore */ }
-    setApi(null); setKind(null); setAutoLogin(false); safeSet(KIND_KEY, null);
+    setApi(null); setKind(null); setAutoLogin(false); setStuck(false); safeSet(KIND_KEY, null);
   };
-  return { kind, autoLogin, api, setApi, choose, disconnect };
+  return { kind, autoLogin, api, setApi, choose, disconnect, enabled, stuck, retry, fail, nonce };
 }
 
 const NAMES: Record<WalletKind, { name: string; sub: string }> = {
@@ -59,8 +101,11 @@ export function ConnectButton({ state }: { state: ReturnType<typeof useWalletSta
     document.addEventListener("mousedown", h);
     return () => document.removeEventListener("mousedown", h);
   }, []);
-  if (!AVAILABLE.length) return null;
   const { api } = state;
+  useEffect(() => { if (state.stuck && state.autoLogin) setOpen(true); }, [state.stuck, state.autoLogin]);
+  const apiError = api?.error ?? null;
+  useEffect(() => { if (apiError) setOpen(true); }, [apiError]);
+  if (!AVAILABLE.length) return null;
   if (api?.authenticated && api.address) {
     return (
       <div className="connect" ref={ref}>
@@ -89,9 +134,15 @@ export function ConnectButton({ state }: { state: ReturnType<typeof useWalletSta
   }
   return (
     <div className="connect" ref={ref}>
-      <button className="btn-primary sm" onClick={() => setOpen((o) => !o)} data-testid="connect">{state.kind && !api?.ready ? "Loading…" : "Connect"}</button>
+      <button className="btn-primary sm" onClick={() => setOpen((o) => !o)} data-testid="connect">{state.kind && state.enabled && !api?.ready && !state.stuck ? "Loading…" : "Connect"}</button>
       {open && (
         <div className="menu">
+          {state.stuck && (
+            <div className="stuck" role="alert" data-testid="signin-stuck">
+              <div>{stuckMessage(state.kind)}</div>
+              <button className="btn-primary sm" data-testid="signin-retry" onClick={() => { setOpen(false); state.retry(); }}>Retry</button>
+            </div>
+          )}
           <div className="menu-head">Sign in to watch markets and request verdicts</div>
           {AVAILABLE.filter((k) => k !== "mera").map((k) => (
             <button key={k} className="menu-item" data-testid={`connect-${k}`} onClick={() => { setOpen(false); state.choose(k); }}>

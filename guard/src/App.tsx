@@ -1,23 +1,37 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { lookupMarket, LookupError, parseMarketInput, type Lookup } from "./lib/api";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { fromBundle, lookupMarket, LookupError, parseMarketInput, type Lookup } from "./lib/api";
 import { readCounts } from "./lib/chain";
 import { addr, EXAMPLES, MONAD, REPO } from "./lib/constants";
-import { DATA, byMarket } from "./lib/data";
+import { BATCH } from "./lib/batch";
+import { DEFAULT_MARKET, FAMOUS, famousById } from "./lib/famous";
 import { Result } from "./components/Result";
-import { Explore } from "./components/Explore";
+const Explore = lazy(() => import("./components/Explore").then((m) => ({ default: m.Explore })));
 import { Fund } from "./components/Fund";
 import { AckList, ConnectButton, useWalletState, useWatchlist, WalletHost } from "./components/Wallet";
 import { Ext, Shield } from "./components/ui";
 import { PasskeyKeys } from "./components/PasskeyKeys";
 import { MERA_ONLY } from "./wallet/config";
 
-const initialMarket = () => { try { return new URLSearchParams(location.search).get("m") ?? ""; } catch { return ""; } };
+const initialMarket = () => { try { return new URLSearchParams(location.search).get("m") || DEFAULT_MARKET; } catch { return DEFAULT_MARKET; } };
+type View = { kind: "idle" } | { kind: "loading"; id: string } | { kind: "error"; msg: string } | { kind: "ok"; lookup: Lookup };
+/** Famous disputes and the bundled batch show at once from the copy shipped with the page. */
+const firstView = (): View => {
+  const raw = initialMarket();
+  const id = parseMarketInput(raw) ?? DEFAULT_MARKET;
+  const b = famousById.has(id) ? fromBundle(id) : null;
+  return b ? { kind: "ok", lookup: { ...b, instant: true } } : { kind: "loading", id };
+};
+const sameFacts = (a: Lookup, b: Lookup) => {
+  const x = a.payload, y = b.payload;
+  return x.risk_level === y.risk_level && x.dispute_count === y.dispute_count && x.open_dispute === y.open_dispute && x.uma_state === y.uma_state
+    && x.onchain_resolution?.outcome === y.onchain_resolution?.outcome && x.disputes?.[0]?.disputed_proposal === y.disputes?.[0]?.disputed_proposal;
+};
 
 export default function App() {
   const wallet = useWalletState();
   const watch = useWatchlist();
-  const [input, setInput] = useState(initialMarket());
-  const [state, setState] = useState<{ kind: "idle" } | { kind: "loading"; id: string } | { kind: "error"; msg: string } | { kind: "ok"; lookup: Lookup }>({ kind: "idle" });
+  const [input, setInput] = useState("");
+  const [state, setState] = useState<View>(firstView);
   const [counts, setCounts] = useState<{ requests: number; responses: number } | null>(null);
   const abort = useRef<AbortController | null>(null);
   const resultRef = useRef<HTMLDivElement>(null);
@@ -28,26 +42,30 @@ export default function App() {
     abort.current?.abort();
     const ac = new AbortController();
     abort.current = ac;
-    setState({ kind: "loading", id });
+    const instant = famousById.has(id) ? fromBundle(id) : null;
+    setState(instant ? { kind: "ok", lookup: { ...instant, instant: true } } : { kind: "loading", id });
     try { history.replaceState(null, "", `?m=${encodeURIComponent(id)}`); } catch { /* sandboxed */ }
-    if (scroll) setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    if (scroll) setTimeout(() => { const r = resultRef.current?.getBoundingClientRect(); if (r && (r.top > window.innerHeight * 0.7 || r.top < 0)) resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50);
     try {
       const lookup = await lookupMarket(id, ac.signal);
-      if (!ac.signal.aborted) setState({ kind: "ok", lookup });
+      if (ac.signal.aborted) return;
+      // Keep the instant copy on screen when the live record says the same thing, so nothing flickers.
+      setState((cur) => (instant && cur.kind === "ok" && cur.lookup.instant && lookup.source === "live" && sameFacts(cur.lookup, lookup) ? cur : { kind: "ok", lookup }));
     } catch (e) {
       if ((e as Error).name === "AbortError") return;
+      if (instant) { setState({ kind: "ok", lookup: { ...instant, fallbackReason: "The live API could not be reached" } }); return; }
       setState({ kind: "error", msg: e instanceof LookupError ? e.message : `Lookup failed: ${(e as Error).message}` });
     }
   }, []);
 
-  useEffect(() => { const m = initialMarket(); if (m) run(m, false); }, [run]);
+  useEffect(() => { run(initialMarket(), false); }, [run]);
   useEffect(() => { readCounts().then(setCounts).catch(() => setCounts(null)); }, []);
 
-  const open = (id: string) => { setInput(id); run(id); };
+  const open = (id: string) => { setInput(""); run(id); };
 
   return (
     <div className="app">
-      <WalletHost kind={wallet.kind} autoLogin={wallet.autoLogin} onChange={wallet.setApi} />
+      <WalletHost kind={wallet.kind} autoLogin={wallet.autoLogin} enabled={wallet.enabled} nonce={wallet.nonce} onChange={wallet.setApi} onFail={wallet.fail} />
       <div className="bg-glow" aria-hidden />
       <header className="nav">
         <a className="brand" href="./"><Shield /> <span>Predge <b>Guard</b></span></a>
@@ -64,36 +82,32 @@ export default function App() {
 
       <main>
         <section className="hero" id="check">
-          <div className="eyebrow hero-eyebrow"><span className="dot ok" /> Settlement risk for prediction-market agents · live on Monad testnet</div>
-          <h1>Know if a prediction-market outcome will hold <span className="hl">before your agent acts.</span></h1>
+          <h1>One in three disputed prediction-market answers <span className="hl">does not hold.</span> Predge tells you before you bet.</h1>
           {MERA_ONLY && (
             <div className="mera-banner" data-testid="mera-banner"><span className="ptag ptag-mera">Mera mode</span><span className="muted">Your passkey is the whole account: one prompt to sign in, no seed phrase, no extension, no server holding keys. Clear this browser or open it on another device and the same passkey brings everything back.</span></div>
           )}
-          <p className="hero-sub">Optimistic oracles get disputed, and disputed proposals often do not hold. Predge Guard shows the signed dispute history of any Polymarket market, Predge's verdict on Monad, and one answer: act or wait. Every check runs in your browser.</p>
+          <p className="hero-sub">Markets that settled differently from the disputed answer traded at least <b>$299M</b> in 2026. Tap a famous dispute to see how it ended.</p>
 
-          <form className="search" onSubmit={(e) => { e.preventDefault(); run(input); }} role="search">
-            <svg className="search-icon" viewBox="0 0 24 24" aria-hidden><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
-            <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Polymarket link, market slug or market id" aria-label="Market" data-testid="search-input" spellCheck={false} autoComplete="off" />
-            <button className="btn-primary" type="submit" data-testid="search-go" disabled={state.kind === "loading"}>{state.kind === "loading" ? "Checking…" : "Check market"}</button>
+          <div className="famous" role="group" aria-label="Famous disputes">
+            {FAMOUS.map((f) => {
+              const on = (state.kind === "ok" ? state.lookup.payload.market_id : state.kind === "loading" ? state.id : "") === f.id;
+              return (
+                <button key={f.id} className={`fcard ${on ? "on" : ""}`} aria-pressed={on} onClick={() => open(f.id)} data-testid={`famous-${f.id}`}>
+                  <span className="fcard-top">
+                    {f.live ? <span className="live-pill"><span className="live-dot" />LIVE</span> : <span className="fcard-traded">{f.traded} traded</span>}
+                    {f.live && <span className="fcard-traded">{f.traded} so far</span>}
+                  </span>
+                  <span className="fcard-q">{f.question}</span>
+                  <span className="fcard-flow"><i>{f.disputed}</i><b aria-hidden>→</b><em className={f.final ? "" : "pend"}>{f.final ?? "vote pending"}</em></span>
+                </button>
+              );
+            })}
+          </div>
+
+          <form className="search search-slim" onSubmit={(e) => { e.preventDefault(); run(input); }} role="search">
+            <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="or paste any Polymarket link" aria-label="Market" data-testid="search-input" spellCheck={false} autoComplete="off" />
+            <button className="btn-ghost sm" type="submit" data-testid="search-go" disabled={state.kind === "loading"}>{state.kind === "loading" ? "Checking…" : "Check"}</button>
           </form>
-          <div className="chips">
-            <span className="chips-label">Try</span>
-            {EXAMPLES.map((e) => (
-              <button key={e.id} className="chip" onClick={() => open(e.id)} data-testid={`chip-${e.id}`}>
-                <b>{e.id}</b> <span>{e.id === e.label ? (byMarket.get(e.id)?.title || e.note) : e.label}</span>
-              </button>
-            ))}
-            {watch.list.filter((id) => !EXAMPLES.some((e) => e.id === id)).slice(0, 4).map((id) => (
-              <button key={id} className="chip chip-watch" onClick={() => open(id)}><span className="dot ok" /> <b>{id}</b> <span>watching</span></button>
-            ))}
-          </div>
-
-          <div className="stats">
-            <Stat big="3,005" label="disputes on 2,666 Polymarket markets" sub="1 Jan to 2 Oct 2026" />
-            <Stat big="33.5%" label="settled differently from the disputed proposal" sub="853 of 2,543 settled markets" tone="warn" />
-            <Stat big={String(DATA.batch.verdicts)} label="verdicts on Monad testnet" sub={`${DATA.batch.transactions} tx in ${DATA.batch.chainSeconds} s of chain time`} tone="ok" />
-            <Stat big="0.0255" unit="MON" label="per on-chain verdict" sub="x402: 0.001 USDC per paid call" />
-          </div>
         </section>
 
         <div ref={resultRef} className="result-anchor">
@@ -102,10 +116,30 @@ export default function App() {
           {state.kind === "ok" && <Result key={state.lookup.payload.market_id + state.lookup.payload.issued_at} lookup={state.lookup} wallet={wallet.api} watch={watch} />}
         </div>
 
+        <section className="hero-more">
+          <div className="stats">
+            <Stat big="3,005" label="disputes on 2,666 Polymarket markets" sub="1 Jan to 2 Oct 2026" />
+            <Stat big="33.5%" label="settled differently from the disputed proposal" sub="853 of 2,543 settled markets" tone="warn" />
+            <Stat big={String(BATCH.verdicts)} label="verdicts on Monad testnet" sub={`${BATCH.transactions} tx in ${BATCH.chainSeconds} s of chain time`} tone="ok" />
+            <Stat big="0.0255" unit="MON" label="per on-chain verdict" sub="x402: 0.001 USDC per paid call" />
+          </div>
+          <div className="chips">
+            <span className="chips-label">More</span>
+            {EXAMPLES.map((e) => (
+              <button key={e.id} className="chip" onClick={() => open(e.id)} data-testid={`chip-${e.id}`}>
+                <b>{e.id}</b> <span>{e.label}</span>
+              </button>
+            ))}
+            {watch.list.filter((id) => !EXAMPLES.some((e) => e.id === id)).slice(0, 4).map((id) => (
+              <button key={id} className="chip chip-watch" onClick={() => open(id)}><span className="dot ok" /> <b>{id}</b> <span>watching</span></button>
+            ))}
+          </div>
+        </section>
+
         <AckList onOpen={open} />
         <PasskeyKeys wallet={wallet.api} onOpen={open} />
         <HowItWorks />
-        <Explore onOpen={open} />
+        <Suspense fallback={<section className="section" id="explore" style={{ minHeight: 320 }} />}><Explore onOpen={open} /></Suspense>
         <Fund wallet={wallet.api} />
 
         <section className="section about" id="about">

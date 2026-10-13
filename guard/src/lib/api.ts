@@ -1,5 +1,5 @@
 import { PREDGE_API, KEYS_URL, PINNED_KID, PINNED_KEY } from "./constants";
-import { byMarket } from "./data";
+import { SNAPSHOT } from "./famous";
 import type { SignedRecord } from "./verify";
 
 export interface Dispute { disputed_at: string; disputed_proposal: string | null; tx: string }
@@ -28,12 +28,14 @@ export interface SignedPayload {
 
 export interface Lookup {
   source: "live" | "bundled";
+  /** shown instantly from the copy bundled with the page, a live refresh may follow */
+  instant?: boolean;
   /** why the bundled copy is shown, when it is */
   fallbackReason?: string;
   record: SignedRecord;
   payload: SignedPayload;
   /** unsigned market info from the API (question, slug, end date); display only */
-  market: { question?: string; slug?: string; end_date?: string } | null;
+  market: { question?: string; slug?: string; end_date?: string | null } | null;
 }
 
 /** Accept a Polymarket link, a market slug or a numeric market id. */
@@ -52,7 +54,18 @@ export function parseMarketInput(input: string): string | null {
   return null;
 }
 
-function fromBundle(id: string, reason: string): Lookup | null {
+/** The bundled copy of a famous dispute, shipped in the main bundle so it shows at once. */
+export function fromBundle(id: string, reason?: string): Lookup | null {
+  const f = SNAPSHOT[id];
+  if (!f) return null;
+  return { source: "bundled", ...(reason ? { fallbackReason: reason } : {}), record: f.record, payload: JSON.parse(f.record.canonical), market: f.market };
+}
+
+/** Famous copy first, then one of the 145 batch records (loaded only when needed). */
+async function fromAnyBundle(id: string, reason: string): Promise<Lookup | null> {
+  const f = fromBundle(id, reason);
+  if (f) return f;
+  const { byMarket } = await import("./data");
   const v = byMarket.get(id);
   if (!v) return null;
   return { source: "bundled", fallbackReason: reason, record: v.record, payload: JSON.parse(v.record.canonical), market: v.title ? { question: v.title } : null };
@@ -60,20 +73,35 @@ function fromBundle(id: string, reason: string): Lookup | null {
 
 export class LookupError extends Error {}
 
-export async function lookupMarket(id: string, signal?: AbortSignal): Promise<Lookup> {
-  let res: Response;
+const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/** One attempt. Returns a response, or null when the network failed. */
+async function attempt(id: string, signal?: AbortSignal): Promise<Response | null> {
   try {
-    res = await fetch(`${PREDGE_API}/v1/settlement-risk/${encodeURIComponent(id)}`, { signal, headers: { accept: "application/json" } });
+    return await fetch(`${PREDGE_API}/v1/settlement-risk/${encodeURIComponent(id)}`, { signal, headers: { accept: "application/json" } });
   } catch (e) {
     if ((e as Error).name === "AbortError") throw e;
-    const b = fromBundle(id, "The live API could not be reached from this browser");
+    return null;
+  }
+}
+
+/** Live lookup. A 5xx, 429 or network failure is retried once, then the bundled copy is used when there is one. */
+export async function lookupMarket(id: string, signal?: AbortSignal): Promise<Lookup> {
+  let res = await attempt(id, signal);
+  if (!res || res.status >= 500 || res.status === 429) {
+    await wait(700);
+    if (signal?.aborted) throw new DOMException("aborted", "AbortError");
+    res = await attempt(id, signal);
+  }
+  if (!res) {
+    const b = await fromAnyBundle(id, "The live API could not be reached from this browser");
     if (b) return b;
-    throw new LookupError("The live API could not be reached, and this market is not in the bundled set of 145.");
+    throw new LookupError("The live API could not be reached, and this market is not in the bundled set.");
   }
   if (!res.ok) {
     let msg = `The API answered ${res.status}.`;
     try { const j = await res.json(); if (j?.error) msg = String(j.error.message ?? j.error); } catch { /* keep status */ }
-    const b = res.status >= 500 || res.status === 429 ? fromBundle(id, `The live API answered ${res.status}`) : null;
+    const b = res.status >= 500 || res.status === 429 ? await fromAnyBundle(id, `The live API answered ${res.status}`) : null;
     if (b) return b;
     throw new LookupError(res.status === 404 ? "No Polymarket market found for that link, slug or id." : msg);
   }
