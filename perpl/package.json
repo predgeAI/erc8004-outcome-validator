@@ -1,0 +1,19 @@
+{
+  "name": "@predge/perpl-settlement-hedger",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Delta-hedges Polymarket crypto price-threshold positions on Perpl perps and holds the payout back until Predge's signed record says the UMA settlement is final.",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "perpl-hedger": "bin/hedger.mjs" },
+  "scripts": {
+    "test": "node --test test/",
+    "scan": "node bin/hedger.mjs scan",
+    "paper": "node bin/hedger.mjs run --positions examples/positions.json --once",
+    "replay": "node bin/replay.mjs --market 2007078"
+  },
+  "dependencies": {
+    "@predge/settlement-risk": "*",
+    "ws": "8.17.1"
+  }
+}

@@ -1,0 +1,6 @@
+[
+  { "marketId": "5407348", "side": "Yes", "shares": 1000, "note": "BTC above 84,000 on Oct 14 (noon ET): before the observation, delta-hedged on Perpl BTC" },
+  { "marketId": "5407322", "side": "No", "shares": 500, "overrides": { "hedgeRatio": 0.5 }, "note": "ETH above 2,500 on Oct 14: NO holder, half hedge" },
+  { "marketId": "5641666", "side": "No", "shares": 2000, "note": "BTC above 85,600 on Oct 13, 2AM ET: observed, UMA proposal pending" },
+  { "marketId": "2007078", "side": "No", "shares": 1000, "note": "BTC above 78,000 on Apr 24: disputed twice, now resolved; signed Predge record" }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "marketId": "5407348",
+    "side": "Yes",
+    "shares": 1000,
+    "note": "BTC above 84,000 on Oct 14 (noon ET): before the observation, delta-hedged on Perpl BTC"
+  },
+  {
+    "marketId": "5407322",
+    "side": "No",
+    "shares": 500,
+    "overrides": {
+      "hedgeRatio": 0.5
+    },
+    "note": "ETH above 2,500 on Oct 14: NO holder, half hedge"
+  }
+]

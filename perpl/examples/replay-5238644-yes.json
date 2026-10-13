@@ -1,0 +1,327 @@
+{
+  "market": {
+    "id": "5238644",
+    "question": "Will the price of Bitcoin be above $84,000 on October 10?",
+    "observation": "2026-10-10T16:00:00.000Z",
+    "umaStatuses": [
+      "proposed",
+      "proposed"
+    ]
+  },
+  "position": {
+    "side": "Yes",
+    "shares": 1000,
+    "entryPrice": 0.125,
+    "entryAt": "2026-10-09T16:00:00.000Z"
+  },
+  "assumptions": {
+    "perplMarket": "BTC (1) mainnet, 1h candle closes",
+    "fills": "candle close, 5 bps all-in cost",
+    "pinZoneMinutes": 15,
+    "volLookbackHours": 48,
+    "maxHedgeUsd": 25000
+  },
+  "preObservation": {
+    "hourlySteps": 24,
+    "hourlyPnlStdevUnhedged": 14,
+    "hourlyPnlStdevHedged": 16.15,
+    "perpHedgePnlAfterCosts": 0.03,
+    "costs": 21.53,
+    "maxHedge": 0.19729
+  },
+  "settlement": {
+    "perplReference": {
+      "available": true,
+      "candleStart": "2026-10-10T15:59:00.000Z",
+      "candleSec": 60,
+      "close": 82960,
+      "threshold": 84000,
+      "gapBps": -123.8,
+      "implied": "No",
+      "tooCloseToCall": false
+    },
+    "predge": {
+      "signed": true,
+      "riskLevel": "resolved",
+      "outcome": "No",
+      "disputeCount": 0,
+      "disputedProposals": []
+    },
+    "release": {
+      "safe": true,
+      "reason": "act: risk resolved within resolved, final outcome No",
+      "riskLevel": "resolved",
+      "outcome": "No"
+    },
+    "payoutUsd": 0,
+    "finalPnlUnhedged": -125,
+    "finalPnlHedged": -124.97,
+    "payoutLockedHours": 0.6
+  },
+  "steps": [
+    {
+      "at": "2026-10-09T16:00:00.000Z",
+      "spot": 82826.7,
+      "vol": 0.403,
+      "modelYes": 0.249,
+      "polymarketYes": 0.125,
+      "hedge": -0.1815,
+      "polyPnl": 0,
+      "hedgePnl": -7.52,
+      "combined": -7.52
+    },
+    {
+      "at": "2026-10-09T17:00:00.000Z",
+      "spot": 82689.3,
+      "vol": 0.402,
+      "modelYes": 0.22,
+      "polymarketYes": 0.075,
+      "hedge": -0.17358,
+      "polyPnl": -50,
+      "hedgePnl": 17.09,
+      "combined": -32.91
+    },
+    {
+      "at": "2026-10-09T18:00:00.000Z",
+      "spot": 82665.1,
+      "vol": 0.4,
+      "modelYes": 0.209,
+      "polymarketYes": 0.045,
+      "hedge": -0.17356,
+      "polyPnl": -80,
+      "hedgePnl": 21.29,
+      "combined": -58.71
+    },
+    {
+      "at": "2026-10-09T19:00:00.000Z",
+      "spot": 82380.5,
+      "vol": 0.402,
+      "modelYes": 0.159,
+      "polymarketYes": 0.0295,
+      "hedge": -0.14939,
+      "polyPnl": -95.5,
+      "hedgePnl": 69.69,
+      "combined": -25.81
+    },
+    {
+      "at": "2026-10-09T20:00:00.000Z",
+      "spot": 82271.6,
+      "vol": 0.403,
+      "modelYes": 0.138,
+      "polymarketYes": 0.0425,
+      "hedge": -0.1391,
+      "polyPnl": -82.5,
+      "hedgePnl": 85.54,
+      "combined": 3.04
+    },
+    {
+      "at": "2026-10-09T21:00:00.000Z",
+      "spot": 82441.1,
+      "vol": 0.402,
+      "modelYes": 0.156,
+      "polymarketYes": 0.0385,
+      "hedge": -0.15521,
+      "polyPnl": -86.5,
+      "hedgePnl": 61.3,
+      "combined": -25.2
+    },
+    {
+      "at": "2026-10-09T22:00:00.000Z",
+      "spot": 82468.5,
+      "vol": 0.401,
+      "modelYes": 0.154,
+      "polymarketYes": 0.043,
+      "hedge": -0.15797,
+      "polyPnl": -82,
+      "hedgePnl": 56.93,
+      "combined": -25.07
+    },
+    {
+      "at": "2026-10-09T23:00:00.000Z",
+      "spot": 82536.8,
+      "vol": 0.401,
+      "modelYes": 0.158,
+      "polymarketYes": 0.046,
+      "hedge": -0.16536,
+      "polyPnl": -79,
+      "hedgePnl": 45.83,
+      "combined": -33.17
+    },
+    {
+      "at": "2026-10-10T00:00:00.000Z",
+      "spot": 82539.9,
+      "vol": 0.401,
+      "modelYes": 0.151,
+      "polymarketYes": 0.0255,
+      "hedge": -0.16564,
+      "polyPnl": -99.5,
+      "hedgePnl": 45.31,
+      "combined": -54.19
+    },
+    {
+      "at": "2026-10-10T01:00:00.000Z",
+      "spot": 82508.6,
+      "vol": 0.399,
+      "modelYes": 0.137,
+      "polymarketYes": 0.0325,
+      "hedge": -0.16111,
+      "polyPnl": -92.5,
+      "hedgePnl": 50.31,
+      "combined": -42.19
+    },
+    {
+      "at": "2026-10-10T02:00:00.000Z",
+      "spot": 82614.8,
+      "vol": 0.399,
+      "modelYes": 0.147,
+      "polymarketYes": 0.039,
+      "hedge": -0.17438,
+      "polyPnl": -86,
+      "hedgePnl": 32.65,
+      "combined": -53.35
+    },
+    {
+      "at": "2026-10-10T03:00:00.000Z",
+      "spot": 82556.9,
+      "vol": 0.393,
+      "modelYes": 0.125,
+      "polymarketYes": 0.0275,
+      "hedge": -0.16438,
+      "polyPnl": -97.5,
+      "hedgePnl": 42.33,
+      "combined": -55.17
+    },
+    {
+      "at": "2026-10-10T04:00:00.000Z",
+      "spot": 82533.7,
+      "vol": 0.393,
+      "modelYes": 0.112,
+      "polymarketYes": 0.0255,
+      "hedge": -0.1583,
+      "polyPnl": -99.5,
+      "hedgePnl": 45.9,
+      "combined": -53.6
+    },
+    {
+      "at": "2026-10-10T05:00:00.000Z",
+      "spot": 82613.5,
+      "vol": 0.393,
+      "modelYes": 0.115,
+      "polymarketYes": 0.0265,
+      "hedge": -0.1684,
+      "polyPnl": -98.5,
+      "hedgePnl": 32.85,
+      "combined": -65.65
+    },
+    {
+      "at": "2026-10-10T06:00:00.000Z",
+      "spot": 82785.1,
+      "vol": 0.392,
+      "modelYes": 0.135,
+      "polymarketYes": 0.026,
+      "hedge": -0.19729,
+      "polyPnl": -99,
+      "hedgePnl": 2.75,
+      "combined": -96.25
+    },
+    {
+      "at": "2026-10-10T07:00:00.000Z",
+      "spot": 82688.5,
+      "vol": 0.392,
+      "modelYes": 0.104,
+      "polymarketYes": 0.0155,
+      "hedge": -0.17393,
+      "polyPnl": -109.5,
+      "hedgePnl": 20.85,
+      "combined": -88.65
+    },
+    {
+      "at": "2026-10-10T08:00:00.000Z",
+      "spot": 82714.6,
+      "vol": 0.392,
+      "modelYes": 0.095,
+      "polymarketYes": 0.015,
+      "hedge": -0.17307,
+      "polyPnl": -110,
+      "hedgePnl": 16.27,
+      "combined": -93.73
+    },
+    {
+      "at": "2026-10-10T09:00:00.000Z",
+      "spot": 82746.6,
+      "vol": 0.39,
+      "modelYes": 0.085,
+      "polymarketYes": 0.015,
+      "hedge": -0.17126,
+      "polyPnl": -110,
+      "hedgePnl": 10.66,
+      "combined": -99.34
+    },
+    {
+      "at": "2026-10-10T10:00:00.000Z",
+      "spot": 82764.5,
+      "vol": 0.385,
+      "modelYes": 0.07,
+      "polymarketYes": 0.0255,
+      "hedge": -0.16095,
+      "polyPnl": -99.5,
+      "hedgePnl": 7.16,
+      "combined": -92.34
+    },
+    {
+      "at": "2026-10-10T11:00:00.000Z",
+      "spot": 82763.8,
+      "vol": 0.383,
+      "modelYes": 0.052,
+      "polymarketYes": 0.0245,
+      "hedge": -0.14059,
+      "polyPnl": -100.5,
+      "hedgePnl": 6.43,
+      "combined": -94.07
+    },
+    {
+      "at": "2026-10-10T12:00:00.000Z",
+      "spot": 82784.7,
+      "vol": 0.382,
+      "modelYes": 0.037,
+      "polymarketYes": 0.0155,
+      "hedge": -0.11875,
+      "polyPnl": -109.5,
+      "hedgePnl": 2.59,
+      "combined": -106.91
+    },
+    {
+      "at": "2026-10-10T13:00:00.000Z",
+      "spot": 82723.5,
+      "vol": 0.381,
+      "modelYes": 0.015,
+      "polymarketYes": 0.0045,
+      "hedge": -0.06416,
+      "polyPnl": -120.5,
+      "hedgePnl": 7.6,
+      "combined": -112.9
+    },
+    {
+      "at": "2026-10-10T14:00:00.000Z",
+      "spot": 82742.2,
+      "vol": 0.372,
+      "modelYes": 0.004,
+      "polymarketYes": 0.0015,
+      "hedge": -0.02331,
+      "polyPnl": -123.5,
+      "hedgePnl": 4.71,
+      "combined": -118.79
+    },
+    {
+      "at": "2026-10-10T15:00:00.000Z",
+      "spot": 82901.6,
+      "vol": 0.241,
+      "modelYes": 0,
+      "polymarketYes": 0.0045,
+      "hedge": 0,
+      "polyPnl": -120.5,
+      "hedgePnl": 0.03,
+      "combined": -120.47
+    }
+  ]
+}

@@ -362,6 +362,7 @@ later):
 |---|---|
 | `sdk/` | `@predge/settlement-risk`: `getSettlementRisk`, `getOnchainVerdict`, `isSafeToAct`, x402 helper, offline and live tests |
 | `mcp/` | MCP server (stdio): `settlement_risk`, `onchain_verdict`, `is_safe_to_act`, `dispute_exposure` |
+| `perpl/` | Perpl settlement hedger: delta-hedges Polymarket crypto price positions on Perpl perps and holds the payout until the signed record is final; paper mode on live Perpl data, testnet-only live mode, replays |
 | `mm-plugin/` | MetaMask Agent Wallet plugin: `mm predge check`, `scan`, `guard`, agent skill, captured outputs |
 | `monad/contracts/` | Solidity sources of the four deployed contracts, attribution, bytecode check, deploy script |
 | `monad/smoke.mjs`, `monad/deployment.json` | Monad testnet smoke run and deployment record |
