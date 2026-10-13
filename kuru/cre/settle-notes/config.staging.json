@@ -6,8 +6,8 @@
   },
   "notes": {
     "chainSelectorName": "monad-testnet",
-    "factory": "0x0000000000000000000000000000000000000000",
+    "factory": "0x9FAC0dD79cf9D535ae890Cd1Bbf7a838f3B63D06",
     "gasLimit": "400000",
-    "write": false
+    "write": true
   }
 }

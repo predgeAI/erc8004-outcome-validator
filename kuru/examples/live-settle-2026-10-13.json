@@ -1,0 +1,232 @@
+{
+  "title": "Live on Monad testnet: list -> mint -> CRE settle -> redeem (13 Oct 2026)",
+  "summary": "Two notes listed on markets already resolved on Polygon CTF. The Chainlink CRE settle-notes workflow (cre workflow simulate --broadcast, CLI 1.30.0) read CTF payoutDenominator/payoutNumerators on Polygon mainnet at a finalized block and wrote the report through the CRE MockKeystoneForwarder to DisputeNoteFactory.onReport. 1112268: proposal Over, Polygon payouts [0,1] (Under) -> SETTLED_CHANGE. 1004831: proposal No, payouts [0,1] (No) -> SETTLED_HOLD. The winning leg of each was redeemed 1:1 for tUSD; the losing leg is worthless and stays in the wallet.",
+  "trust_note": "Testnet forwarder is Chainlink's MockKeystoneForwarder, which does not verify DON signatures; the factory accepts onReport only from it, and the owner has no settle path. The report tx sender is the simulator's broadcast key (the deployer).",
+  "cre_logs": [
+    "kuru/cre/out/live-settle-1112268-2026-10-13.txt",
+    "kuru/cre/out/live-settle-1004831-2026-10-13.txt"
+  ],
+  "chainId": 10143,
+  "explorer": "https://testnet.monadvision.com",
+  "factory": "0x9FAC0dD79cf9D535ae890Cd1Bbf7a838f3B63D06",
+  "collateral": "0x860f9c8b5d95B5BA204BDC80167C84969708eF3d",
+  "forwarder": "0xB9F79d863261869B234c481D1f9A7af84AeAd192",
+  "holder": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+  "notes": {
+    "1004831": {
+      "noteId": 2,
+      "conditionId": "0x4e1cda2427c220278e16babce5b67b7f0f07946b5c76cc383ebf6035edf5f478",
+      "question": "Will there be exactly four announced new U.S. armed forces strikes against drug boats in 2025?",
+      "disputedProposal": "No",
+      "proposalVector": [
+        "0",
+        "1"
+      ],
+      "polygonDisputeTx": "0x251f550e549a43d5433a611a480fc9c3bbf1ca36dc20a4067356bbab9feca62d",
+      "hold": "0x2d628770845DB2189c57e7F86345C1cD61909C21",
+      "change": "0x50Bc694f2bFc76A8eCeA665E5FeA0458E3cddCbb",
+      "expiry": "1797099563"
+    },
+    "1112268": {
+      "noteId": 1,
+      "conditionId": "0xddff7251af9c56b2048edd2513019e55ae104143faa97d5799978f926bfcf1e0",
+      "question": "Torino FC vs. AS Roma: O/U 2.5",
+      "disputedProposal": "Over",
+      "proposalVector": [
+        "1",
+        "0"
+      ],
+      "polygonDisputeTx": "0x7e59d684ba06456639386a8ec25d04ef02a2769d2cf1435887188b91ea664540",
+      "hold": "0x773F097E75B8106d6Af4BC91E5d12784E04D4cB2",
+      "change": "0xddd97834F1614D5cfDCEC49a9ECBe53BC6454Fd3",
+      "expiry": "1797099563"
+    }
+  },
+  "txs": [
+    {
+      "step": "createNote 1112268 (proposal Over)",
+      "tx": "0x71444b6ad8bb3ab0e072fe99a173cd0c9d92793a4bc8534b52884fb7497ee89a",
+      "url": "https://testnet.monadvision.com/tx/0x71444b6ad8bb3ab0e072fe99a173cd0c9d92793a4bc8534b52884fb7497ee89a",
+      "block": 70750839,
+      "gasUsed": "1444647"
+    },
+    {
+      "step": "createNote 1004831 (proposal No)",
+      "tx": "0x50628d677e6a538ecaaf1cb1149fcce16d94414412eafa9809749b89e80e36b1",
+      "url": "https://testnet.monadvision.com/tx/0x50628d677e6a538ecaaf1cb1149fcce16d94414412eafa9809749b89e80e36b1",
+      "block": 70750861,
+      "gasUsed": "1444647"
+    },
+    {
+      "step": "TestUSD.faucet 20 tUSD",
+      "tx": "0xa7a0ba0a14674de22dd84f7d82f0193d4c657cd1b733490ca2a479e2671342d8",
+      "url": "https://testnet.monadvision.com/tx/0xa7a0ba0a14674de22dd84f7d82f0193d4c657cd1b733490ca2a479e2671342d8",
+      "block": 70750877,
+      "gasUsed": "51108"
+    },
+    {
+      "step": "approve tUSD -> factory",
+      "tx": "0x87957eca6b396a8bf747d6359930c81a6e52c94d70e0505b51c11892b3b02a24",
+      "url": "https://testnet.monadvision.com/tx/0x87957eca6b396a8bf747d6359930c81a6e52c94d70e0505b51c11892b3b02a24",
+      "block": 70750880,
+      "gasUsed": "38789"
+    },
+    {
+      "step": "mint 10 HOLD + 10 CHANGE on 1112268",
+      "tx": "0xde9e48f1b980e4b9d73b0d0ce60629eb0165bff78d9f2c29502c2453eb1b589f",
+      "url": "https://testnet.monadvision.com/tx/0xde9e48f1b980e4b9d73b0d0ce60629eb0165bff78d9f2c29502c2453eb1b589f",
+      "block": 70750883,
+      "gasUsed": "274202"
+    },
+    {
+      "step": "mint 10 HOLD + 10 CHANGE on 1004831",
+      "tx": "0xff2ee0eed48b7b288f98aa308880a6161aaf51eae88410b6d7d9d843acfd1195",
+      "url": "https://testnet.monadvision.com/tx/0xff2ee0eed48b7b288f98aa308880a6161aaf51eae88410b6d7d9d843acfd1195",
+      "block": 70750886,
+      "gasUsed": "274202"
+    },
+    {
+      "step": "CRE settle-notes workflow simulate --broadcast: report for 1112268 -> MockKeystoneForwarder -> factory.onReport",
+      "tx": "0x2691279bb6c16de5974a92576613472d399cdaad51095567102dabdf8b4863d5",
+      "url": "https://testnet.monadvision.com/tx/0x2691279bb6c16de5974a92576613472d399cdaad51095567102dabdf8b4863d5",
+      "block": 70750994,
+      "gasUsed": "400000",
+      "from": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+      "to": "0xB9F79d863261869B234c481D1f9A7af84AeAd192",
+      "polygonBlockRead": "95473532",
+      "factoryEvents": [
+        "ResolutionReported(0xddff7251af9c56b2048edd2513019e55ae104143faa97d5799978f926bfcf1e0,0,1,1,95473532)",
+        "Settled(1,2)"
+      ]
+    },
+    {
+      "step": "CRE settle-notes workflow simulate --broadcast: report for 1004831 -> MockKeystoneForwarder -> factory.onReport",
+      "tx": "0xda13f97081c1882ae3ce440d8cee97a575b3d0457d466a68e490ce86108b4164",
+      "url": "https://testnet.monadvision.com/tx/0xda13f97081c1882ae3ce440d8cee97a575b3d0457d466a68e490ce86108b4164",
+      "block": 70751082,
+      "gasUsed": "400000",
+      "from": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+      "to": "0xB9F79d863261869B234c481D1f9A7af84AeAd192",
+      "polygonBlockRead": "95473549",
+      "factoryEvents": [
+        "ResolutionReported(0x4e1cda2427c220278e16babce5b67b7f0f07946b5c76cc383ebf6035edf5f478,0,1,1,95473549)",
+        "Settled(2,1)"
+      ]
+    },
+    {
+      "step": "redeem 10.0 CHANGE on 1112268",
+      "tx": "0xeeedfe094feea0a86bd6b01c0ce9571fd354cc2caa8d719f02d6079f3dc32ce1",
+      "url": "https://testnet.monadvision.com/tx/0xeeedfe094feea0a86bd6b01c0ce9571fd354cc2caa8d719f02d6079f3dc32ce1",
+      "block": 70751138,
+      "gasUsed": "127873"
+    },
+    {
+      "step": "redeem 10.0 HOLD on 1004831",
+      "tx": "0x2c615a505e056f3b554668817c08c2d8c098df0d09944a12236e60a0a3569478",
+      "url": "https://testnet.monadvision.com/tx/0x2c615a505e056f3b554668817c08c2d8c098df0d09944a12236e60a0a3569478",
+      "block": 70751155,
+      "gasUsed": "127864"
+    }
+  ],
+  "afterMint": {
+    "1004831": {
+      "noteId": 2,
+      "state": "OPEN",
+      "collateralLocked": "10.0",
+      "resolution": null,
+      "holder": {
+        "HOLD": "10.0",
+        "CHANGE": "10.0"
+      }
+    },
+    "1112268": {
+      "noteId": 1,
+      "state": "OPEN",
+      "collateralLocked": "10.0",
+      "resolution": null,
+      "holder": {
+        "HOLD": "10.0",
+        "CHANGE": "10.0"
+      }
+    },
+    "holderCollateral": "9.0"
+  },
+  "beforeRedeem": {
+    "1004831": {
+      "noteId": 2,
+      "state": "SETTLED_HOLD",
+      "collateralLocked": "10.0",
+      "resolution": {
+        "payouts": [
+          "0",
+          "1"
+        ],
+        "denominator": "1",
+        "polygonBlock": "95473549",
+        "reportedAt": "1791915639"
+      },
+      "holder": {
+        "HOLD": "10.0",
+        "CHANGE": "10.0"
+      }
+    },
+    "1112268": {
+      "noteId": 1,
+      "state": "SETTLED_CHANGE",
+      "collateralLocked": "10.0",
+      "resolution": {
+        "payouts": [
+          "0",
+          "1"
+        ],
+        "denominator": "1",
+        "polygonBlock": "95473532",
+        "reportedAt": "1791915613"
+      },
+      "holder": {
+        "HOLD": "10.0",
+        "CHANGE": "10.0"
+      }
+    },
+    "holderCollateral": "9.0"
+  },
+  "afterRedeem": {
+    "1004831": {
+      "noteId": 2,
+      "state": "SETTLED_HOLD",
+      "collateralLocked": "0.0",
+      "resolution": {
+        "payouts": [
+          "0",
+          "1"
+        ],
+        "denominator": "1",
+        "polygonBlock": "95473549",
+        "reportedAt": "1791915639"
+      },
+      "holder": {
+        "HOLD": "0.0",
+        "CHANGE": "10.0"
+      }
+    },
+    "1112268": {
+      "noteId": 1,
+      "state": "SETTLED_CHANGE",
+      "collateralLocked": "0.0",
+      "resolution": {
+        "payouts": [
+          "0",
+          "1"
+        ],
+        "denominator": "1",
+        "polygonBlock": "95473532",
+        "reportedAt": "1791915613"
+      },
+      "holder": {
+        "HOLD": "10.0",
+        "CHANGE": "0.0"
+      }
+    },
+    "holderCollateral": "29.0"
+  }
+}

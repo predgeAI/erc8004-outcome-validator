@@ -41,7 +41,42 @@ whichever side the proposal was on.
 | CRE settlement workflow `cre/settle-notes` | builds to WASM; 9 unit tests pass; **`cre workflow simulate` run against real Polygon** (below) |
 | Kuru `Router.deployProxy` on testnet | **confirmed permissionless** by `eth_call` and `eth_estimateGas` (1,301,551 gas) |
 | Whole lifecycle on live Monad testnet state | **passes in `eth_simulateV1`** (deploy, list, mint, Kuru book, deposits, 4 quotes, a taker fill, settlement report, redeem) |
-| Live deployment on Monad testnet | **not done: the deployer has 0.0067 MON, the run needs about 0.85 MON** (1.07 MON with headroom). `deploy.mjs --send` is resumable and does every step once funded. |
+| Live deployment on Monad testnet | **done**: factory `0x9FAC…3D06`, note on 5219930 with a Kuru CHANGE/tUSD book and four seed quotes (`deployments/monad-testnet.json`) |
+| Live settlement by CRE | **done** for two already-resolved markets: list, mint, `cre workflow simulate --broadcast`, redeem (below) |
+
+## Live on testnet: list → mint → CRE settle → redeem
+
+13 Oct 2026, Monad testnet (10143), factory `0x9FAC0dD79cf9D535ae890Cd1Bbf7a838f3B63D06`. Two notes on
+Polymarket markets that had a disputed proposal and are already resolved on Polygon CTF. Settlement
+came only from the CRE `settle-notes` workflow: `cre workflow simulate --broadcast` read
+`payoutDenominator` / `payoutNumerators` on Polygon mainnet at a finalized block, and the report went
+through Chainlink's MockKeystoneForwarder (`0xB9F7…D192`) to `onReport`. Full record:
+`examples/live-settle-2026-10-13.json`; CRE logs: `cre/out/live-settle-*-2026-10-13.txt`.
+
+| Market | Disputed proposal | Polygon CTF payouts (block) | Result | |
+|---|---|---|---|---|
+| 1112268 Torino vs Roma O/U 2.5 | Over `[1,0]` (dispute [0x7e59…4540](https://polygonscan.com/tx/0x7e59d684ba06456639386a8ec25d04ef02a2769d2cf1435887188b91ea664540)) | `[0,1]` Under (95473532) | **CHANGE wins** | note 1 |
+| 1004831 four drug-boat strikes in 2025 | No `[0,1]` (dispute [0x251f…a62d](https://polygonscan.com/tx/0x251f550e549a43d5433a611a480fc9c3bbf1ca36dc20a4067356bbab9feca62d)) | `[0,1]` No (95473549) | **HOLD wins** | note 2 |
+
+| Step | 1112268 | 1004831 |
+|---|---|---|
+| createNote | [0x7144…e89a](https://testnet.monadvision.com/tx/0x71444b6ad8bb3ab0e072fe99a173cd0c9d92793a4bc8534b52884fb7497ee89a) | [0x5062…36b1](https://testnet.monadvision.com/tx/0x50628d677e6a538ecaaf1cb1149fcce16d94414412eafa9809749b89e80e36b1) |
+| mint 10 HOLD + 10 CHANGE (10 tUSD) | [0xde9e…589f](https://testnet.monadvision.com/tx/0xde9e48f1b980e4b9d73b0d0ce60629eb0165bff78d9f2c29502c2453eb1b589f) | [0xff2e…1195](https://testnet.monadvision.com/tx/0xff2ee0eed48b7b288f98aa308880a6161aaf51eae88410b6d7d9d843acfd1195) |
+| CRE report → forwarder → `onReport` | [0x2691…63d5](https://testnet.monadvision.com/tx/0x2691279bb6c16de5974a92576613472d399cdaad51095567102dabdf8b4863d5) `Settled(1, CHANGE)` | [0xda13…4164](https://testnet.monadvision.com/tx/0xda13f97081c1882ae3ce440d8cee97a575b3d0457d466a68e490ce86108b4164) `Settled(2, HOLD)` |
+| redeem winning leg | 10 CHANGE → 10 tUSD [0xeeed…2ce1](https://testnet.monadvision.com/tx/0xeeedfe094feea0a86bd6b01c0ce9571fd354cc2caa8d719f02d6079f3dc32ce1) | 10 HOLD → 10 tUSD [0x2c61…9478](https://testnet.monadvision.com/tx/0x2c615a505e056f3b554668817c08c2d8c098df0d09944a12236e60a0a3569478) |
+
+(Setup: faucet [0xa7a0…42d8](https://testnet.monadvision.com/tx/0xa7a0ba0a14674de22dd84f7d82f0193d4c657cd1b733490ca2a479e2671342d8), approve [0x8795…2a24](https://testnet.monadvision.com/tx/0x87957eca6b396a8bf747d6359930c81a6e52c94d70e0505b51c11892b3b02a24).)
+
+After redemption both notes hold 0 collateral; the holder keeps 10 losing tokens per note, worth 0.
+On testnet the MockKeystoneForwarder does not check DON signatures (see trust assumptions); on
+mainnet the same workflow writes through the production KeystoneForwarder with `pinWorkflow` set.
+
+```bash
+CONFIRM_TESTNET=yes node kuru/scripts/live-settle.mjs list      # createNote x2, faucet, approve, mint x2
+cd kuru/cre && CRE_ETH_PRIVATE_KEY=... cre workflow simulate ./settle-notes --target staging-settings \
+  --non-interactive --trigger-index 1 --http-payload '{"condition_id":"0xddff…f1e0"}' --broadcast
+CONFIRM_TESTNET=yes node kuru/scripts/live-settle.mjs redeem    # redeem the winning leg of each note
+```
 
 ## The five sponsor questions
 
@@ -172,9 +207,8 @@ taker 30 bps, maker 10 bps.
 
 ### 5. Roadmap
 
-1. **This week (testnet, needs ~1.1 MON on the deployer):** run `deploy.mjs --send` for 5219930,
-   deploy the CRE workflow with `write: true` and the factory address, and settle the note from the
-   real UMA vote result through `cre workflow simulate --broadcast`.
+1. **This week (testnet):** deployed and settled live for two resolved markets (above); settle the
+   5219930 note from the real UMA vote result through the same `cre workflow simulate --broadcast`.
 2. **Next 4 weeks:** automatic listing for every new Polymarket dispute (Predge already detects
    them), Kuru testnet books for each, a small maker bot quoting from the reference rate and the
    Polymarket price, and a CHANGE basket token across all open notes.

@@ -1,0 +1,32 @@
+Initializing...
+Loading settings...
+Checking RPC connectivity...
+Compiling workflow...
+✓ Workflow compiled
+✓ Simulation limits enabled
+  HTTP: req=120kb resp=250kb timeout=10s | ConfHTTP: req=125kb resp=500kb timeout=1m30s | Consensus obs=25kb | ChainWrite evm_report=50kb evm_gas=10000000 solana_report=265b solana_cu=300000 | WASM binary=100mb compressed=20mb
+  Binary hash: 1a396d3b7ebfaf390ceb6787889ea9f52c0f4390aaa017f4c18bec972c8c8221
+  Config hash: eda49b04bb6c0442237f8796f5cd344af441495c9d2b751a2da97740a5147cab
+✓ Parsed JSON input successfully
+✓ Created HTTP trigger payload with 1 fields
+2026-10-13T21:20:11Z [SIMULATION] Simulator Initialized
+
+2026-10-13T21:20:11Z [SIMULATION] Running trigger trigger=http-trigger@1.0.0-alpha
+2026-10-13T21:20:12Z [USER LOG] [0xddff7251af9c56b2048edd2513019e55ae104143faa97d5799978f926bfcf1e0] Polygon CTF @95473532: slots=2 denominator=1 payouts=[0,1] -> resolved
+2026-10-13T21:20:14Z [USER LOG] [0xddff7251af9c56b2048edd2513019e55ae104143faa97d5799978f926bfcf1e0] settlement report written to 0x9FAC0dD79cf9D535ae890Cd1Bbf7a838f3B63D06, tx 0x2691279bb6c16de5974a92576613472d399cdaad51095567102dabdf8b4863d5
+
+✓ Workflow Simulation Result:
+"{\"status\":\"resolved\",\"conditionId\":\"0xddff7251af9c56b2048edd2513019e55ae104143faa97d5799978f926bfcf1e0\",\"payout0\":\"0\",\"payout1\":\"1\",\"denominator\":\"1\",\"polygonBlock\":\"95473532\",\"tx\":\"0x2691279bb6c16de5974a92576613472d399cdaad51095567102dabdf8b4863d5\"}"
+
+2026-10-13T21:20:14Z [SIMULATION] Execution finished signal received
+2026-10-13T21:20:14Z [SIMULATION] Skipping WorkflowEngineV2
+
+╭──────────────────────────────────────────────────────╮
+│ Simulation complete! Ready to deploy your workflow?  │
+│                                                      │
+│ Run cre account access to request deployment access. │
+╰──────────────────────────────────────────────────────╯
+
+⚠️  Update available! You’re running 1.30.0, but 1.38.0 is the latest.
+Run `cre update` or visit https://github.com/smartcontractkit/cre-cli/releases to upgrade.
+
