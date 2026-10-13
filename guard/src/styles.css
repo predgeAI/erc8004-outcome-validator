@@ -545,3 +545,6 @@ a.hash { color: var(--green-ink); }
   .proof-lines { gap: 6px; margin-top: 8px; }
   .hero-more { padding: 8px 16px 0; }
 }
+
+.fcard-flow.held i { color: var(--amber); text-decoration: none; }
+.fcard-flow.held em { color: var(--amber); }

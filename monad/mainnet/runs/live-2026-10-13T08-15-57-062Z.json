@@ -1,0 +1,151 @@
+{
+ "kind": "live",
+ "ranAt": "2026-10-13T08:15:57.062Z",
+ "chainId": 143,
+ "explorer": "https://monadvision.com",
+ "contract": "0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9",
+ "contractUrl": "https://monadvision.com/address/0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9",
+ "validator": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+ "tag": "predge:settlement-risk-v1",
+ "plannedWorstCaseMON": "0.195237616",
+ "gasLimitCharged": "1743193",
+ "readBackBound": 4,
+ "verdicts": [
+  {
+   "market_id": "2169995",
+   "title": "MicroStrategy sells any Bitcoin by May 31, 2026?",
+   "state": "settled",
+   "proposal": "No",
+   "outcome": "No",
+   "score": 100,
+   "requestHash": "0xc1542e645917621034b2cd1d63afd1871d6a40147b250d72d89931fc72d04dec",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/2169995.json",
+   "responseHash": "0x7a037db521608ebdcc06fc5655bc50c2969079028c22b1aabd3212c78807d1d1",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/2169995.json",
+   "request": {
+    "tx": "0xe28465d40902dea697b1f0f588a5d89bc9fb1638f004373e9071f5f864351391",
+    "url": "https://monadvision.com/tx/0xe28465d40902dea697b1f0f588a5d89bc9fb1638f004373e9071f5f864351391",
+    "status": 1,
+    "block": 112990727,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x0b51e34571f6a2e63ced4425ed3cb1f4bc31651a1e5e9d5e5998dca6bde7ba06",
+    "url": "https://monadvision.com/tx/0x0b51e34571f6a2e63ced4425ed3cb1f4bc31651a1e5e9d5e5998dca6bde7ba06",
+    "status": 1,
+    "block": 112990732,
+    "gasUsed": "219789",
+    "gasLimit": "219789"
+   },
+   "readBack": {
+    "response": 100,
+    "responseHash": "0x7a037db521608ebdcc06fc5655bc50c2969079028c22b1aabd3212c78807d1d1",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "2446852",
+   "title": "Will Ronaldo Cry at the World Cup?",
+   "state": "settled",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0x277202962c7c5b0ebe0697a8d79068d87e51ece8130b73730f085d6d4e902994",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/2446852.json",
+   "responseHash": "0x01316e631ef2f358d694e814f0cd9bd5aebb1f74bf928270c85b1756b2372677",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/2446852.json",
+   "request": {
+    "tx": "0xc0a0f3da049b2a5b59bbff1f9c3e88e9029e45a8479058b842fa2302f195489a",
+    "url": "https://monadvision.com/tx/0xc0a0f3da049b2a5b59bbff1f9c3e88e9029e45a8479058b842fa2302f195489a",
+    "status": 1,
+    "block": 112990727,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0xf8897229dc7643f44b84c8286fc64ce22282d18e5817c09ff6bebac819f150f8",
+    "url": "https://monadvision.com/tx/0xf8897229dc7643f44b84c8286fc64ce22282d18e5817c09ff6bebac819f150f8",
+    "status": 1,
+    "block": 112990733,
+    "gasUsed": "219776",
+    "gasLimit": "219776"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x01316e631ef2f358d694e814f0cd9bd5aebb1f74bf928270c85b1756b2372677",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "1144023",
+   "title": "U.S. anti-cartel ground operation in Mexico by January 31?",
+   "state": "settled",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0xf22f5f526bf8a5dea392e40272e1c5a53f0caaa90e13db1c7ede3e72635cef09",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/1144023.json",
+   "responseHash": "0xbeef699b1c5124ca0a9c91d5c2a3a225187e5b181a3910036d94d2125f671ec2",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/1144023.json",
+   "request": {
+    "tx": "0x2ba58735ebadad5e0c225e84889b33e05469ce4618f50d0492055e05335b7a85",
+    "url": "https://monadvision.com/tx/0x2ba58735ebadad5e0c225e84889b33e05469ce4618f50d0492055e05335b7a85",
+    "status": 1,
+    "block": 112990728,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0x5cae1e627ad6c860fb5bef4ffd0730cd88322c7ea2c3e35ea181db16d3e751ba",
+    "url": "https://monadvision.com/tx/0x5cae1e627ad6c860fb5bef4ffd0730cd88322c7ea2c3e35ea181db16d3e751ba",
+    "status": 1,
+    "block": 112990733,
+    "gasUsed": "219776",
+    "gasLimit": "219776"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0xbeef699b1c5124ca0a9c91d5c2a3a225187e5b181a3910036d94d2125f671ec2",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "2241873",
+   "title": "Iran closes its airspace by May 24?",
+   "state": "settled",
+   "proposal": "Yes",
+   "outcome": "No",
+   "score": 0,
+   "requestHash": "0xcf1827987d957d5c513856f9a566a640ae8b7d975dbc8a232a4b870afefe7eae",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/2241873.json",
+   "responseHash": "0x76240af4f15a48f247a1d060e5df526b6d1cd00f27b3e5d9677f9c6940e6bead",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/2241873.json",
+   "request": {
+    "tx": "0xe429d18380433bdb696c302c7beaf427fa29c8af3964be962c0a1e9f6b5b72f4",
+    "url": "https://monadvision.com/tx/0xe429d18380433bdb696c302c7beaf427fa29c8af3964be962c0a1e9f6b5b72f4",
+    "status": 1,
+    "block": 112990729,
+    "gasUsed": "216019",
+    "gasLimit": "216019"
+   },
+   "response": {
+    "tx": "0xf59062087cf9997d5e5812debfdab46beab64474e88d80a9524ee7ef0bc00b25",
+    "url": "https://monadvision.com/tx/0xf59062087cf9997d5e5812debfdab46beab64474e88d80a9524ee7ef0bc00b25",
+    "status": 1,
+    "block": 112990734,
+    "gasUsed": "219776",
+    "gasLimit": "219776"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x76240af4f15a48f247a1d060e5df526b6d1cd00f27b3e5d9677f9c6940e6bead",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  }
+ ]
+}

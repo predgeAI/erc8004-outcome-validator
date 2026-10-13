@@ -71,10 +71,7 @@ export default function App() {
         <a className="brand" href="./"><Shield /> <span>Predge <b>Guard</b></span></a>
         <nav className="nav-links">
           <a href="#check">Check</a>
-          <a href="#keys">Passkey</a>
           <a href="#explore">Explore</a>
-          <a href="#fund">Fund</a>
-          <a href="#about">About</a>
           <Ext href={REPO}>GitHub</Ext>
         </nav>
         <ConnectButton state={wallet} />
@@ -82,11 +79,11 @@ export default function App() {
 
       <main>
         <section className="hero" id="check">
-          <h1>One in three disputed prediction-market answers <span className="hl">does not hold.</span> Predge tells you before you bet.</h1>
+          <h1>1 in 3 disputed prediction-market answers <span className="hl">doesn’t hold.</span><br />Know before you bet.</h1>
           {MERA_ONLY && (
             <div className="mera-banner" data-testid="mera-banner"><span className="ptag ptag-mera">Mera mode</span><span className="muted">Your passkey is the whole account: one prompt to sign in, no seed phrase, no extension, no server holding keys. Clear this browser or open it on another device and the same passkey brings everything back.</span></div>
           )}
-          <p className="hero-sub">Markets that settled differently from the disputed answer traded at least <b>$299M</b> in 2026. Tap a famous dispute to see how it ended.</p>
+          <p className="hero-sub"><b>$299M</b> traded in 2026 on answers that changed after a dispute. Tap one:</p>
 
           <div className="famous" role="group" aria-label="Famous disputes">
             {FAMOUS.map((f) => {
@@ -98,7 +95,7 @@ export default function App() {
                     {f.live && <span className="fcard-traded">{f.traded} so far</span>}
                   </span>
                   <span className="fcard-q">{f.question}</span>
-                  <span className="fcard-flow"><i>{f.disputed}</i><b aria-hidden>→</b><em className={f.final ? "" : "pend"}>{f.final ?? "vote pending"}</em></span>
+                  <span className={`fcard-flow ${f.final === f.disputed ? "held" : ""}`}><i>{f.disputed}</i><b aria-hidden>→</b><em className={f.final ? "" : "pend"}>{f.final === f.disputed ? `${f.final}, held after 2 disputes` : f.final ?? "vote pending"}</em></span>
                 </button>
               );
             })}
