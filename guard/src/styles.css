@@ -416,3 +416,16 @@ a.hash { color: var(--green-ink); }
 .ack-row { display: grid; gap: 12px; padding: 16px 18px; }
 .ack-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: center; }
 @media (max-width: 560px) { .receipt-grid { grid-template-columns: 1fr; } .receipt-grid > span:nth-child(odd) { margin-top: 6px; } }
+
+/* Mera: one passkey, many keys */
+.ptag-mera { color: #fcd34d; border-color: rgba(252, 211, 77, 0.45); background: rgba(245, 158, 11, 0.12); }
+.ns-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 14px; }
+.ns-card { display: grid; gap: 8px; align-content: start; }
+.ns-card p { margin: 0; }
+.ns-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.vault-card { display: grid; gap: 12px; margin-bottom: 14px; }
+.vault-card p { margin: 0; }
+.vault-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.tx-in { flex: 1 1 260px; min-width: 0; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line-2); border-radius: 10px; color: inherit; padding: 8px 10px; font-size: 12px; }
+.mera-banner { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin: 16px 0 6px; font-size: 14px; max-width: 760px; line-height: 1.5; }
+@media (max-width: 860px) { .ns-grid { grid-template-columns: 1fr; } }

@@ -26,6 +26,11 @@ signature and SHA-256 content hash in your browser, reads Predge's verdict from 
 `responseHash == keccak256(signed record)`, and answers "is it safe to act?". Wallet login with Privy
 or Dynamic lets you watch markets and send a validationRequest on Monad testnet from your own wallet
 (source: [`guard/`](guard/), built into `docs/` with `cd guard && npm install && npm run build`).
+A passkey through [Mera](https://mera.category.xyz) is a third sign-in, and
+[`mera.html`](https://predgeai.github.io/erc8004-outcome-validator/mera.html) makes it the whole
+account layer. The same passkey also derives an ed25519 key that signs risk receipts without any wallet
+and an AES-256-GCM key that seals the watchlist and receipts into a blob that can be stored anywhere,
+each from its own PRF salt ([`guard/MERA.md`](guard/MERA.md)).
 The verdict board that re-verifies all 145 verdicts at once is at
 [`board.html`](https://predgeai.github.io/erc8004-outcome-validator/board.html) (source: [`docs/board.html`](docs/board.html)).
 

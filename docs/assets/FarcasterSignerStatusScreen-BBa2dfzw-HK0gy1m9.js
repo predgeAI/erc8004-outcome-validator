@@ -1,0 +1,28 @@
+import{d6 as c,d5 as t}from"./main-CBbADybU.js";import{dc as F,da as T,dh as I,dF as y,dH as h,dC as B,df as o}from"./PrivyHost-BkthXyK4.js";import{h as O}from"./CopyToClipboard-i_OQSBJr-CiqsozbK.js";import{n as q}from"./OpenLink-CUpJ1mOr-5ans6KR-.js";import{x as E}from"./QrCode-Ddiv3lt7-D8Ejw_gs.js";import{n as M}from"./ScreenLayout-CyLnlt7g-nvJ7pi0q.js";import{l as x}from"./farcaster-DPlSjvF5-crEd14B_.js";import"./index-Dr9A5A5I.js";import"./createWalletClient-1gkuE3OO.js";import"./browser-DiDTbi-n.js";import"./dijkstra-DorMYy3g.js";import"./ModalFooter-DDm8WjC0-DP9DrnCY.js";import"./Screen-BWBDKsup-uY1B7xsE.js";import"./index-CWARkn2w-DgbJHXFk.js";let S="#8a63d2";const _=({appName:d,loading:m,success:u,errorMessage:e,connectUri:a,onBack:r,onClose:l,onOpenFarcaster:s})=>t.jsx(M,h.isMobile||m?h.isIOS?{title:e?e.message:"Add a signer to Farcaster",subtitle:e?e.detail:`This will allow ${d} to add casts, likes, follows, and more on your behalf.`,icon:x,iconVariant:"loading",iconLoadingStatus:{success:u,fail:!!e},primaryCta:a&&s?{label:"Open Farcaster app",onClick:s}:void 0,onBack:r,onClose:l,watermark:!0}:{title:e?e.message:"Requesting signer from Farcaster",subtitle:e?e.detail:"This should only take a moment",icon:x,iconVariant:"loading",iconLoadingStatus:{success:u,fail:!!e},onBack:r,onClose:l,watermark:!0,children:a&&h.isMobile&&t.jsx(A,{children:t.jsx(q,{text:"Take me to Farcaster",url:a,color:S})})}:{title:"Add a signer to Farcaster",subtitle:`This will allow ${d} to add casts, likes, follows, and more on your behalf.`,onBack:r,onClose:l,watermark:!0,children:t.jsxs(R,{children:[t.jsx(L,{children:a?t.jsx(E,{url:a,size:275,squareLogoElement:x}):t.jsx(V,{children:t.jsx(B,{})})}),t.jsxs(N,{children:[t.jsx(P,{children:"Or copy this link and paste it into a phone browser to open the Farcaster app."}),a&&t.jsx(O,{text:a,itemName:"link",color:S})]})]})});let A=o.div`
+  margin-top: 24px;
+`,R=o.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+`,L=o.div`
+  padding: 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 275px;
+`,N=o.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+`,P=o.div`
+  font-size: 0.875rem;
+  text-align: center;
+  color: var(--privy-color-foreground-2);
+`,V=o.div`
+  position: relative;
+  width: 82px;
+  height: 82px;
+`;const te={component:()=>{let{lastScreen:d,navigateBack:m,data:u}=F(),e=T(),{requestFarcasterSignerStatus:a,closePrivyModal:r}=I(),[l,s]=c.useState(void 0),[k,v]=c.useState(!1),[j,w]=c.useState(!1),g=c.useRef([]),n=u?.farcasterSigner;c.useEffect((()=>{let b=Date.now(),i=setInterval((async()=>{if(!n?.public_key)return clearInterval(i),void s({retryable:!0,message:"Connect failed",detail:"Something went wrong. Please try again."});n.status==="approved"&&(clearInterval(i),v(!1),w(!0),g.current.push(setTimeout((()=>r({shouldCallAuthOnSuccess:!1,isSuccess:!0})),y)));let p=await a(n?.public_key),C=Date.now()-b;p.status==="approved"?(clearInterval(i),v(!1),w(!0),g.current.push(setTimeout((()=>r({shouldCallAuthOnSuccess:!1,isSuccess:!0})),y))):C>3e5?(clearInterval(i),s({retryable:!0,message:"Connect failed",detail:"The request timed out. Try again."})):p.status==="revoked"&&(clearInterval(i),s({retryable:!0,message:"Request rejected",detail:"The request was rejected. Please try again."}))}),2e3);return()=>{clearInterval(i),g.current.forEach((p=>clearTimeout(p)))}}),[]);let f=n?.status==="pending_approval"?n.signer_approval_url:void 0;return t.jsx(_,{appName:e.name,loading:k,success:j,errorMessage:l,connectUri:f,onBack:d?m:void 0,onClose:r,onOpenFarcaster:()=>{f&&(window.location.href=f)}})}};export{te as FarcasterSignerStatusScreen,_ as FarcasterSignerStatusView,te as default};
