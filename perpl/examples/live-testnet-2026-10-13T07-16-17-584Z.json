@@ -1,0 +1,57 @@
+{
+  "network": "monad-testnet",
+  "chainId": 10143,
+  "exchange": "0x1964C32f0bE608E7D29302AFF5E61268E72080cc",
+  "trader": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+  "ranAt": "2026-10-13T07:15:56.460Z",
+  "txs": [
+    {
+      "step": "execOrder openShort (hedge)",
+      "tx": "0x18e035985efb0fd515e602c4530ee06f586c4336f4ddc5bcbe119b59e0a6771d",
+      "url": "https://testnet.monadvision.com/tx/0x18e035985efb0fd515e602c4530ee06f586c4336f4ddc5bcbe119b59e0a6771d",
+      "block": 70620392
+    },
+    {
+      "step": "execOrder closeShort (unwind)",
+      "tx": "0xfc7514de2fac186b727ced245714ea872ef81f4ae0e6093adc7c1bfcda742b84",
+      "url": "https://testnet.monadvision.com/tx/0xfc7514de2fac186b727ced245714ea872ef81f4ae0e6093adc7c1bfcda742b84",
+      "block": 70620430
+    }
+  ],
+  "market": {
+    "marketId": "5407348",
+    "question": "Will the price of Bitcoin be above $84,000 on October 14?",
+    "symbol": "BTC",
+    "threshold": 84000,
+    "observationMs": 1791993600000,
+    "candleSec": 60,
+    "outcomes": [
+      "Yes",
+      "No"
+    ],
+    "yesPrice": 0.445,
+    "closed": false,
+    "umaStatus": null,
+    "umaStatuses": [],
+    "slug": "bitcoin-above-84k-on-october-14-2026"
+  },
+  "spot": 83690.5,
+  "vol": 0.45,
+  "model": {
+    "prob": 0.4411929147750567,
+    "deltaPerShare": 0.00017140484544970796,
+    "targetBtc": -0.008570242272485398
+  },
+  "shares": 50,
+  "lotLNS": "857",
+  "accountId": "1212",
+  "positionAfterOpen": {
+    "type": 1,
+    "lotLNS": "857",
+    "entryPNS": "836744",
+    "depositCNS": "358682781"
+  },
+  "positionAfterClose": {
+    "lotLNS": "0"
+  }
+}
