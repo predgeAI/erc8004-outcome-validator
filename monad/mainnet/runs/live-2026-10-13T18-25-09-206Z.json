@@ -1,0 +1,69 @@
+{
+ "kind": "respond",
+ "ranAt": "2026-10-13T18:25:09.206Z",
+ "chainId": 143,
+ "explorer": "https://monadvision.com",
+ "contract": "0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9",
+ "contractUrl": "https://monadvision.com/address/0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9",
+ "validator": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+ "tag": "predge:settlement-risk-v1",
+ "plannedWorstCaseMON": "0.049253792",
+ "gasLimitCharged": "439766",
+ "readBackBound": 2,
+ "verdicts": [
+  {
+   "market_id": "5592771",
+   "title": "Set Handicap: Evialina Laskevich (-1.5) vs Zoie Epps (+1.5)",
+   "state": "open",
+   "proposal": "Zoie Epps",
+   "outcome": "50-50",
+   "score": 0,
+   "requestHash": "0xc636811fc86534a9ee5f523e9b9c7490b211c56dfe487b0c7665b3e69bfef44f",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5592771.json",
+   "responseHash": "0x395e09271950b8282d5ad0d294928d038aae2b97d8602df24ec4be575fe00852",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5592771-settled.json",
+   "request": null,
+   "response": {
+    "tx": "0xfc8a1bb24cd0aa1168954e0b833c01e4447c7fe4fa6c8c3721e4aff7c096bb59",
+    "url": "https://monadvision.com/tx/0xfc8a1bb24cd0aa1168954e0b833c01e4447c7fe4fa6c8c3721e4aff7c096bb59",
+    "status": 1,
+    "block": 113111782,
+    "gasUsed": "219883",
+    "gasLimit": "219883"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x395e09271950b8282d5ad0d294928d038aae2b97d8602df24ec4be575fe00852",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5592765",
+   "title": "Set Handicap: Zoie Epps (-1.5) vs Evialina Laskevich (+1.5)",
+   "state": "open",
+   "proposal": "Zoie Epps",
+   "outcome": "50-50",
+   "score": 0,
+   "requestHash": "0x134a66964d4d3666c8294aebe9552f926f1073a81001e4802cd35566ade6b533",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5592765.json",
+   "responseHash": "0xa118f60997778cbee6706c7cf1fccff1bd164fbd562920fda2e3f24b21afd97e",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5592765-settled.json",
+   "request": null,
+   "response": {
+    "tx": "0xaf1bba174d4e9d359db00743d77f1bedd6bc982b17250d4df3e7009ea7c94581",
+    "url": "https://monadvision.com/tx/0xaf1bba174d4e9d359db00743d77f1bedd6bc982b17250d4df3e7009ea7c94581",
+    "status": 1,
+    "block": 113111784,
+    "gasUsed": "219883",
+    "gasLimit": "219883"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0xa118f60997778cbee6706c7cf1fccff1bd164fbd562920fda2e3f24b21afd97e",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  }
+ ]
+}
