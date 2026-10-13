@@ -1,0 +1,16 @@
+# CRE project settings for the dispute-note settlement workflow.
+# It reads Polygon mainnet (the Conditional Tokens Framework that Polymarket settles into) and reads
+# and writes Monad testnet (the note factory). Nothing is written to Polygon.
+staging-settings:
+  rpcs:
+    - chain-name: polygon-mainnet
+      url: https://polygon-bor-rpc.publicnode.com
+    - chain-name: monad-testnet
+      url: https://testnet-rpc.monad.xyz
+
+production-settings:
+  rpcs:
+    - chain-name: polygon-mainnet
+      url: https://polygon-bor-rpc.publicnode.com
+    - chain-name: monad-testnet
+      url: https://testnet-rpc.monad.xyz

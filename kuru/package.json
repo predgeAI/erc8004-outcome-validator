@@ -1,0 +1,15 @@
+{
+  "name": "predge-kuru-dispute-notes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Dispute-hedge notes: HOLD/CHANGE settlement-risk tokens for disputed Polymarket markets, traded on a Kuru order book (Monad testnet).",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test/",
+    "deploy:dry": "node scripts/deploy.mjs"
+  },
+  "devDependencies": {
+    "ganache": "7.9.2"
+  }
+}

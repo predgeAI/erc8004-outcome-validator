@@ -1,0 +1,13 @@
+{
+  "schedule": "0 */10 * * * *",
+  "polygon": {
+    "chainSelectorName": "polygon-mainnet",
+    "ctf": "0x4D97DCd97eC945f40cF65F87097ACe5EA0476045"
+  },
+  "notes": {
+    "chainSelectorName": "monad-testnet",
+    "factory": "0x0000000000000000000000000000000000000000",
+    "gasLimit": "400000",
+    "write": false
+  }
+}

@@ -1,0 +1,11 @@
+2026-10-13T09:10:27Z [USER LOG] [0x50d446794ad4e7b16e27e248ed841c76ca7edbb084907f61cd5a9d1f83cf96a8] Polygon CTF @95444351: slots=2 denominator=0 payouts=[0,0] -> unresolved
+✓ Workflow Simulation Result:
+"{\"status\":\"unresolved\",\"conditionId\":\"0x50d446794ad4e7b16e27e248ed841c76ca7edbb084907f61cd5a9d1f83cf96a8\",\"reason\":\"payoutDenominator is 0: not reported to the CTF yet\"}"
+2026-10-13T09:10:39Z [USER LOG] [0x4e1cda2427c220278e16babce5b67b7f0f07946b5c76cc383ebf6035edf5f478] Polygon CTF @95444359: slots=2 denominator=1 payouts=[0,1] -> resolved
+2026-10-13T09:10:39Z [USER LOG] [0x4e1cda2427c220278e16babce5b67b7f0f07946b5c76cc383ebf6035edf5f478] write disabled: report not sent
+✓ Workflow Simulation Result:
+"{\"status\":\"resolved\",\"conditionId\":\"0x4e1cda2427c220278e16babce5b67b7f0f07946b5c76cc383ebf6035edf5f478\",\"payout0\":\"0\",\"payout1\":\"1\",\"denominator\":\"1\",\"polygonBlock\":\"95444359\"}"
+2026-10-13T09:10:47Z [USER LOG] [0xddff7251af9c56b2048edd2513019e55ae104143faa97d5799978f926bfcf1e0] Polygon CTF @95444364: slots=2 denominator=1 payouts=[0,1] -> resolved
+2026-10-13T09:10:47Z [USER LOG] [0xddff7251af9c56b2048edd2513019e55ae104143faa97d5799978f926bfcf1e0] write disabled: report not sent
+✓ Workflow Simulation Result:
+"{\"status\":\"resolved\",\"conditionId\":\"0xddff7251af9c56b2048edd2513019e55ae104143faa97d5799978f926bfcf1e0\",\"payout0\":\"0\",\"payout1\":\"1\",\"denominator\":\"1\",\"polygonBlock\":\"95444364\"}"
