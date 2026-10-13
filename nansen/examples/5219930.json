@@ -1,14 +1,14 @@
 {
   "kind": "predge-nansen-dispute-exposure",
   "version": 1,
-  "generatedAt": "2026-10-12T21:15:44.949Z",
+  "generatedAt": "2026-10-13T20:08:44.015Z",
   "market": {
     "marketId": "5219930",
     "conditionId": "0x50d446794ad4e7b16e27e248ed841c76ca7edbb084907f61cd5a9d1f83cf96a8",
     "question": "Will Trump say \"Ammunition\" this week?"
   },
   "decision": "hedge",
-  "reason": "No is disputed and in a UMA vote. Nansen as of 2026-10-12T21:10:06.489Z: the other side trades at 0.0135 while Predge's signed reference rate that it settles differently from No is 21.7%, so the hedge is cheap relative to the risk. High-win-rate money against No: 0x44c1df (win rate 63.6% over 3252 markets, cost $4,175 on Yes); for it: 0x134a63 (win rate 76.2% over 3882 markets, cost $19,419 on No).",
+  "reason": "No is disputed and in a UMA vote. Nansen as of 2026-10-13T20:08:44.007Z: the other side trades at 0.008 while Predge's signed reference rate that it settles differently from No is 21.7%, so the hedge is cheap relative to the risk. High-win-rate money against No: 0x44c1df (win rate 63.7% over 3254 markets, cost $4,175 on Yes), 0x60a92c (win rate 60.1% over 1766 markets, cost $3,459 on Yes); for it: 0x134a63 (win rate 76.2% over 3882 markets, cost $20,580 on No).",
   "predge": {
     "marketId": "5219930",
     "conditionId": "0x50d446794ad4e7b16e27e248ed841c76ca7edbb084907f61cd5a9d1f83cf96a8",
@@ -45,43 +45,44 @@
   },
   "exposure": {
     "contestedOutcome": "No",
-    "asOf": "2026-10-12T21:10:06.489Z",
-    "source": "Nansen prediction-market top-holders (top 50 by shares) and position-detail (first 50 positions), fetched 2026-10-12T21:10:06.489Z",
+    "asOf": "2026-10-13T20:08:44.007Z",
+    "source": "Nansen prediction-market top-holders (top 50 by shares) and position-detail (first 50 positions), fetched 2026-10-13T20:08:44.007Z",
     "contestedSide": {
-      "holders": 26,
-      "shares": 118085.06,
-      "unrealizedPnlUsd": 30407.87,
-      "currentPrice": 0.9865,
-      "positions": 26,
-      "buyCostUsd": 91169.5,
-      "unrealizedValueUsd": 116490.91,
+      "holders": 27,
+      "shares": 132431.67,
+      "unrealizedPnlUsd": 26654.93,
+      "currentPrice": 0.992,
+      "positions": 27,
+      "buyCostUsd": 125822.48,
+      "unrealizedValueUsd": 131372.22,
       "redemptionValueUsd": 0
     },
     "otherSide": {
-      "holders": 24,
-      "shares": 124308.41,
-      "unrealizedPnlUsd": -33056.19,
-      "currentPrice": 0.0135,
-      "positions": 24,
-      "buyCostUsd": 36208.47,
-      "unrealizedValueUsd": 1678.16,
+      "holders": 23,
+      "shares": 123478.11,
+      "unrealizedPnlUsd": -26304.2,
+      "currentPrice": 0.008,
+      "positions": 23,
+      "buyCostUsd": 33519.76,
+      "unrealizedValueUsd": 987.82,
       "redemptionValueUsd": 0
     },
-    "top3ShareOfTopHolders": 0.239,
+    "top3ShareOfTopHolders": 0.227,
     "highWinRateRule": "win_rate >= 0.6 and markets_traded >= 20 (Nansen address-summary)",
     "signals": {
       "settlesDifferentlyProbability": 0.2166,
-      "hedgePrice": 0.0135,
-      "hedgeCheapBy": 0.2031,
-      "highWinRateCostOnUsd": 19418.62,
-      "highWinRateCostAgainstUsd": 4175.37,
-      "top3Share": 0.23919655145372304
+      "hedgePrice": 0.008,
+      "hedgeCheapBy": 0.2086,
+      "highWinRateCostOnUsd": 20580.44,
+      "highWinRateCostAgainstUsd": 7634.32,
+      "top3Share": 0.2272148846350758
     },
     "highWinRateOnContestedSide": [
       "0x134a63b764ac7b008356e8db1857db94e6b09e42"
     ],
     "highWinRateAgainstContestedSide": [
-      "0x44c1dfe43260c94ed4f1d00de2e1f80fb113ebc1"
+      "0x44c1dfe43260c94ed4f1d00de2e1f80fb113ebc1",
+      "0x60a92c8620846d81f5ea17b0564e0d4b7c545a71"
     ],
     "top3": [
       {
@@ -90,17 +91,17 @@
         "owner": "0x",
         "side": "No",
         "onContestedSide": true,
-        "shares": 27118.03,
-        "avgEntryPrice": 0.716076,
-        "currentPrice": 0.9865,
-        "unrealizedPnlUsd": 7333.37,
-        "buyCostUsd": 19418.62,
-        "unrealizedValueUsd": 26751.93,
+        "shares": 28293,
+        "avgEntryPrice": 0.727402,
+        "currentPrice": 0.992,
+        "unrealizedPnlUsd": 7486.27,
+        "buyCostUsd": 20580.44,
+        "unrealizedValueUsd": 28066.65,
         "winRate": 0.7619783616692427,
         "marketsTraded": 3882,
         "marketsWon": 2958,
-        "totalPnlUsd": 304442.31,
-        "walletAgeDays": 708,
+        "totalPnlUsd": 303387.43,
+        "walletAgeDays": 709,
         "highWinRate": true
       },
       {
@@ -109,37 +110,37 @@
         "owner": "0x",
         "side": "Yes",
         "onContestedSide": false,
-        "shares": 17802.83,
+        "shares": 16812.83,
         "avgEntryPrice": 0.234533,
-        "currentPrice": 0.0135,
-        "unrealizedPnlUsd": -3935.01,
+        "currentPrice": 0.008,
+        "unrealizedPnlUsd": -3808.66,
         "buyCostUsd": 4175.37,
-        "unrealizedValueUsd": 240.34,
-        "winRate": 0.6362238622386224,
-        "marketsTraded": 3252,
-        "marketsWon": 2069,
-        "totalPnlUsd": 2486703.37,
-        "walletAgeDays": 1003,
+        "unrealizedValueUsd": 134.5,
+        "winRate": 0.6367547633681623,
+        "marketsTraded": 3254,
+        "marketsWon": 2072,
+        "totalPnlUsd": 2395949.58,
+        "walletAgeDays": 1004,
         "highWinRate": true
       },
       {
         "rank": 3,
-        "address": "0xafde461fce5aa0fabdb7711c59db93b65e343e1d",
+        "address": "0x60a92c8620846d81f5ea17b0564e0d4b7c545a71",
         "owner": "0x",
         "side": "Yes",
         "onContestedSide": false,
-        "shares": 13058.83,
-        "avgEntryPrice": 0.357299,
-        "currentPrice": 0.0135,
-        "unrealizedPnlUsd": -4489.61,
-        "buyCostUsd": 4705.33,
-        "unrealizedValueUsd": 176.29,
-        "winRate": 0.22779369627507162,
-        "marketsTraded": 2792,
-        "marketsWon": 636,
-        "totalPnlUsd": 60462.56,
-        "walletAgeDays": 145,
-        "highWinRate": false
+        "shares": 13040.68,
+        "avgEntryPrice": 0.008355,
+        "currentPrice": 0.008,
+        "unrealizedPnlUsd": -4.63,
+        "buyCostUsd": 3458.95,
+        "unrealizedValueUsd": 3276.7,
+        "winRate": 0.6013590033975085,
+        "marketsTraded": 1766,
+        "marketsWon": 1062,
+        "totalPnlUsd": 251951.92,
+        "walletAgeDays": 464,
+        "highWinRate": true
       }
     ],
     "holdersReturned": 50,
@@ -162,15 +163,15 @@
             }
           ]
         },
-        "fetchedAt": "2026-10-12T21:09:52.070Z",
-        "fromCache": true,
+        "fetchedAt": "2026-10-13T20:08:26.737Z",
+        "fromCache": false,
         "payment": {
           "amountUSDC": "0.05",
           "network": "eip155:143",
-          "tx": "0x54ec0ceac648569729a55af3785f52ed71362b1bcadd37ab17f868a89501d42e",
-          "explorer": "https://monadvision.com/tx/0x54ec0ceac648569729a55af3785f52ed71362b1bcadd37ab17f868a89501d42e",
+          "tx": "0x642a62fe3b7baebb746a27515f8c5a5c7b93a6e23e5a3b4760563f2233493b57",
+          "explorer": "https://monadvision.com/tx/0x642a62fe3b7baebb746a27515f8c5a5c7b93a6e23e5a3b4760563f2233493b57",
           "onchain": {
-            "block": 112858417,
+            "block": 113132307,
             "status": 1,
             "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
             "transferUSDC": "0.05",
@@ -187,15 +188,15 @@
             "per_page": 50
           }
         },
-        "fetchedAt": "2026-10-12T21:09:55.040Z",
-        "fromCache": true,
+        "fetchedAt": "2026-10-13T20:08:30.618Z",
+        "fromCache": false,
         "payment": {
           "amountUSDC": "0.05",
           "network": "eip155:143",
-          "tx": "0xd00620a331b54844d2cb012d590f981680d7691b3c914bd946d9471a7f6a26af",
-          "explorer": "https://monadvision.com/tx/0xd00620a331b54844d2cb012d590f981680d7691b3c914bd946d9471a7f6a26af",
+          "tx": "0xca470ea617a3f53b5a2556e72e330826e7892ca78d63a9303d7062cf73b308f5",
+          "explorer": "https://monadvision.com/tx/0xca470ea617a3f53b5a2556e72e330826e7892ca78d63a9303d7062cf73b308f5",
           "onchain": {
-            "block": 112858429,
+            "block": 113132322,
             "status": 1,
             "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
             "transferUSDC": "0.05",
@@ -208,15 +209,15 @@
         "request": {
           "address": "0x134a63b764ac7b008356e8db1857db94e6b09e42"
         },
-        "fetchedAt": "2026-10-12T21:09:58.696Z",
-        "fromCache": true,
+        "fetchedAt": "2026-10-13T20:08:34.782Z",
+        "fromCache": false,
         "payment": {
           "amountUSDC": "0.01",
           "network": "eip155:143",
-          "tx": "0x274555e2d5bfbb71a8f260ecf5118481a15339567ce3aa14c82da1b33d72e6e9",
-          "explorer": "https://monadvision.com/tx/0x274555e2d5bfbb71a8f260ecf5118481a15339567ce3aa14c82da1b33d72e6e9",
+          "tx": "0x217e2927c69fab352e5a73a7cd9b92880991090c9a094ec792fd4a46665a9352",
+          "explorer": "https://monadvision.com/tx/0x217e2927c69fab352e5a73a7cd9b92880991090c9a094ec792fd4a46665a9352",
           "onchain": {
-            "block": 112858441,
+            "block": 113132336,
             "status": 1,
             "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
             "transferUSDC": "0.01",
@@ -229,15 +230,15 @@
         "request": {
           "address": "0x44c1dfe43260c94ed4f1d00de2e1f80fb113ebc1"
         },
-        "fetchedAt": "2026-10-12T21:10:03.230Z",
-        "fromCache": true,
+        "fetchedAt": "2026-10-13T20:08:39.127Z",
+        "fromCache": false,
         "payment": {
           "amountUSDC": "0.01",
           "network": "eip155:143",
-          "tx": "0x7c286df2af324a6a935778baba32bce11c2e4077b6216c0ed5bf4f9a32b277b2",
-          "explorer": "https://monadvision.com/tx/0x7c286df2af324a6a935778baba32bce11c2e4077b6216c0ed5bf4f9a32b277b2",
+          "tx": "0x14d79ffca84237962d19d74874ff05e59d60946b1d6045595edb8d849a3dc619",
+          "explorer": "https://monadvision.com/tx/0x14d79ffca84237962d19d74874ff05e59d60946b1d6045595edb8d849a3dc619",
           "onchain": {
-            "block": 112858456,
+            "block": 113132350,
             "status": 1,
             "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
             "transferUSDC": "0.01",
@@ -248,17 +249,17 @@
       {
         "endpoint": "address-summary",
         "request": {
-          "address": "0xafde461fce5aa0fabdb7711c59db93b65e343e1d"
+          "address": "0x60a92c8620846d81f5ea17b0564e0d4b7c545a71"
         },
-        "fetchedAt": "2026-10-12T21:10:06.489Z",
-        "fromCache": true,
+        "fetchedAt": "2026-10-13T20:08:44.007Z",
+        "fromCache": false,
         "payment": {
           "amountUSDC": "0.01",
           "network": "eip155:143",
-          "tx": "0xab8e91462d11f7209222d456c8fe383734bd5ee1a25baf64bd207430b4346c2d",
-          "explorer": "https://monadvision.com/tx/0xab8e91462d11f7209222d456c8fe383734bd5ee1a25baf64bd207430b4346c2d",
+          "tx": "0xfbea1fc96b0de6e2c2b1f51edeb3d697bd9636c8a8127ed88e305d98505e2e42",
+          "explorer": "https://monadvision.com/tx/0xfbea1fc96b0de6e2c2b1f51edeb3d697bd9636c8a8127ed88e305d98505e2e42",
           "onchain": {
-            "block": 112858467,
+            "block": 113132366,
             "status": 1,
             "transferTo": "0x93053f1e7A5eFEDa532Fe69CbbE43cBEc3A0F13f",
             "transferUSDC": "0.01",
@@ -267,47 +268,47 @@
         }
       }
     ],
-    "paidThisRunUSDC": "0.0",
+    "paidThisRunUSDC": "0.13",
     "costUSDC": "0.13",
     "payments": [
       {
         "endpoint": "top-holders",
         "amountUSDC": "0.05",
-        "tx": "0x54ec0ceac648569729a55af3785f52ed71362b1bcadd37ab17f868a89501d42e",
-        "explorer": "https://monadvision.com/tx/0x54ec0ceac648569729a55af3785f52ed71362b1bcadd37ab17f868a89501d42e"
+        "tx": "0x642a62fe3b7baebb746a27515f8c5a5c7b93a6e23e5a3b4760563f2233493b57",
+        "explorer": "https://monadvision.com/tx/0x642a62fe3b7baebb746a27515f8c5a5c7b93a6e23e5a3b4760563f2233493b57"
       },
       {
         "endpoint": "position-detail",
         "amountUSDC": "0.05",
-        "tx": "0xd00620a331b54844d2cb012d590f981680d7691b3c914bd946d9471a7f6a26af",
-        "explorer": "https://monadvision.com/tx/0xd00620a331b54844d2cb012d590f981680d7691b3c914bd946d9471a7f6a26af"
+        "tx": "0xca470ea617a3f53b5a2556e72e330826e7892ca78d63a9303d7062cf73b308f5",
+        "explorer": "https://monadvision.com/tx/0xca470ea617a3f53b5a2556e72e330826e7892ca78d63a9303d7062cf73b308f5"
       },
       {
         "endpoint": "address-summary",
         "amountUSDC": "0.01",
-        "tx": "0x274555e2d5bfbb71a8f260ecf5118481a15339567ce3aa14c82da1b33d72e6e9",
-        "explorer": "https://monadvision.com/tx/0x274555e2d5bfbb71a8f260ecf5118481a15339567ce3aa14c82da1b33d72e6e9"
+        "tx": "0x217e2927c69fab352e5a73a7cd9b92880991090c9a094ec792fd4a46665a9352",
+        "explorer": "https://monadvision.com/tx/0x217e2927c69fab352e5a73a7cd9b92880991090c9a094ec792fd4a46665a9352"
       },
       {
         "endpoint": "address-summary",
         "amountUSDC": "0.01",
-        "tx": "0x7c286df2af324a6a935778baba32bce11c2e4077b6216c0ed5bf4f9a32b277b2",
-        "explorer": "https://monadvision.com/tx/0x7c286df2af324a6a935778baba32bce11c2e4077b6216c0ed5bf4f9a32b277b2"
+        "tx": "0x14d79ffca84237962d19d74874ff05e59d60946b1d6045595edb8d849a3dc619",
+        "explorer": "https://monadvision.com/tx/0x14d79ffca84237962d19d74874ff05e59d60946b1d6045595edb8d849a3dc619"
       },
       {
         "endpoint": "address-summary",
         "amountUSDC": "0.01",
-        "tx": "0xab8e91462d11f7209222d456c8fe383734bd5ee1a25baf64bd207430b4346c2d",
-        "explorer": "https://monadvision.com/tx/0xab8e91462d11f7209222d456c8fe383734bd5ee1a25baf64bd207430b4346c2d"
+        "tx": "0xfbea1fc96b0de6e2c2b1f51edeb3d697bd9636c8a8127ed88e305d98505e2e42",
+        "explorer": "https://monadvision.com/tx/0xfbea1fc96b0de6e2c2b1f51edeb3d697bd9636c8a8127ed88e305d98505e2e42"
       }
     ]
   },
   "spend": {
-    "lifetimeUSDC": "0.65",
+    "lifetimeUSDC": "0.78",
     "capUSDC": "2.0",
     "maxPerCallUSDC": "0.1",
     "asset": "USDC 0x754704Bc059F8C67012fEd69BC8A327a5aafb603",
     "network": "eip155:143"
   },
-  "summary": "Will Trump say \"Ammunition\" this week? (Polymarket 5219930)\nPredge: caution, UMA disputed, disputes 2, disputed proposal No; signature verified true\nNansen, as of 2026-10-12T21:10:06.489Z:\n  contested (No) 26 top holders, 118,085.06 shares, cost $91,170, unrealized value $116,491, price 0.9865\n  other side 24 top holders, 124,308.41 shares, cost $36,208, unrealized value $1,678, price 0.0135\n  top 3 hold 23.9% of top-50 shares: 0x134a63b7 No 27,118.03 sh, win rate 76.2% of 3882; 0x44c1dfe4 Yes 17,802.83 sh, win rate 63.6% of 3252; 0xafde461f Yes 13,058.83 sh, win rate 22.8% of 2792\nDECISION: HEDGE: No is disputed and in a UMA vote. Nansen as of 2026-10-12T21:10:06.489Z: the other side trades at 0.0135 while Predge's signed reference rate that it settles differently from No is 21.7%, so the hedge is cheap relative to the risk. High-win-rate money against No: 0x44c1df (win rate 63.6% over 3252 markets, cost $4,175 on Yes); for it: 0x134a63 (win rate 76.2% over 3882 markets, cost $19,419 on No).\nNansen data for this market cost 0.13 USDC on Monad (5 x402 payments, 0.0 paid this run, rest from cache); lifetime 0.65 / 2.0 USDC"
+  "summary": "Will Trump say \"Ammunition\" this week? (Polymarket 5219930)\nPredge: caution, UMA disputed, disputes 2, disputed proposal No; signature verified true\nNansen, as of 2026-10-13T20:08:44.007Z:\n  contested (No) 27 top holders, 132,431.67 shares, cost $125,822, unrealized value $131,372, price 0.992\n  other side 23 top holders, 123,478.11 shares, cost $33,520, unrealized value $988, price 0.008\n  top 3 hold 22.7% of top-50 shares: 0x134a63b7 No 28,293 sh, win rate 76.2% of 3882; 0x44c1dfe4 Yes 16,812.83 sh, win rate 63.7% of 3254; 0x60a92c86 Yes 13,040.68 sh, win rate 60.1% of 1766\nDECISION: HEDGE: No is disputed and in a UMA vote. Nansen as of 2026-10-13T20:08:44.007Z: the other side trades at 0.008 while Predge's signed reference rate that it settles differently from No is 21.7%, so the hedge is cheap relative to the risk. High-win-rate money against No: 0x44c1df (win rate 63.7% over 3254 markets, cost $4,175 on Yes), 0x60a92c (win rate 60.1% over 1766 markets, cost $3,459 on Yes); for it: 0x134a63 (win rate 76.2% over 3882 markets, cost $20,580 on No).\nNansen data for this market cost 0.13 USDC on Monad (5 x402 payments, 0.13 paid this run, rest from cache); lifetime 0.78 / 2.0 USDC"
 }
