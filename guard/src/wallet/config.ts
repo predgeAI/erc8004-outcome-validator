@@ -6,8 +6,17 @@ const env = import.meta.env as Record<string, string | undefined>;
 export const PRIVY_APP_ID = env.VITE_PRIVY_APP_ID ?? "cmo7lfg0f000k0cl251pk1m2o";
 export const DYNAMIC_ENV_ID = env.VITE_DYNAMIC_ENV_ID ?? "bf4fc614-b0ae-4976-874e-c470659d07f7";
 
-export type WalletKind = "privy" | "dynamic";
-export const AVAILABLE: WalletKind[] = [PRIVY_APP_ID ? "privy" : null, DYNAMIC_ENV_ID ? "dynamic" : null].filter(Boolean) as WalletKind[];
+export type WalletKind = "privy" | "dynamic" | "mera";
+
+/**
+ * Mera-only mode (mera.html): the passkey is the whole account layer. No Privy or Dynamic SDK is
+ * offered or loaded on that page. index.html keeps all three, Privy and Dynamic first.
+ */
+export const MERA_ONLY = typeof document !== "undefined" && document.documentElement.dataset.account === "mera";
+const MERA_ENABLED = env.VITE_MERA !== "0";
+export const AVAILABLE: WalletKind[] = MERA_ONLY
+  ? ["mera"]
+  : ([PRIVY_APP_ID ? "privy" : null, DYNAMIC_ENV_ID ? "dynamic" : null, MERA_ENABLED ? "mera" : null].filter(Boolean) as WalletKind[]);
 
 export interface WalletApi {
   kind: WalletKind;
@@ -36,6 +45,8 @@ export interface WalletApi {
   sendVia: string;
   /** extra provider features (export key, create embedded wallet, profile) */
   extras: { id: string; label: string; run: () => void | Promise<void> }[];
+  /** Mera only: when the prompt-free signing session ends (ms since epoch), null when locked */
+  sessionEndsAt?: number | null;
 }
 
 export interface HostProps { onChange: (api: WalletApi) => void; autoLogin: boolean }

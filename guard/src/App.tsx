@@ -5,8 +5,11 @@ import { addr, EXAMPLES, MONAD, REPO } from "./lib/constants";
 import { DATA, byMarket } from "./lib/data";
 import { Result } from "./components/Result";
 import { Explore } from "./components/Explore";
+import { Fund } from "./components/Fund";
 import { AckList, ConnectButton, useWalletState, useWatchlist, WalletHost } from "./components/Wallet";
 import { Ext, Shield } from "./components/ui";
+import { PasskeyKeys } from "./components/PasskeyKeys";
+import { MERA_ONLY } from "./wallet/config";
 
 const initialMarket = () => { try { return new URLSearchParams(location.search).get("m") ?? ""; } catch { return ""; } };
 
@@ -50,7 +53,9 @@ export default function App() {
         <a className="brand" href="./"><Shield /> <span>Predge <b>Guard</b></span></a>
         <nav className="nav-links">
           <a href="#check">Check</a>
+          <a href="#keys">Passkey</a>
           <a href="#explore">Explore</a>
+          <a href="#fund">Fund</a>
           <a href="#about">About</a>
           <Ext href={REPO}>GitHub</Ext>
         </nav>
@@ -61,6 +66,9 @@ export default function App() {
         <section className="hero" id="check">
           <div className="eyebrow hero-eyebrow"><span className="dot ok" /> Settlement risk for prediction-market agents · live on Monad testnet</div>
           <h1>Know if a prediction-market outcome will hold <span className="hl">before your agent acts.</span></h1>
+          {MERA_ONLY && (
+            <div className="mera-banner" data-testid="mera-banner"><span className="ptag ptag-mera">Mera mode</span><span className="muted">Your passkey is the whole account: one prompt to sign in, no seed phrase, no extension, no server holding keys. Clear this browser or open it on another device and the same passkey brings everything back.</span></div>
+          )}
           <p className="hero-sub">Optimistic oracles get disputed, and disputed proposals often do not hold. Predge Guard shows the signed dispute history of any Polymarket market, Predge's verdict on Monad, and one answer: act or wait. Every check runs in your browser.</p>
 
           <form className="search" onSubmit={(e) => { e.preventDefault(); run(input); }} role="search">
@@ -95,8 +103,10 @@ export default function App() {
         </div>
 
         <AckList onOpen={open} />
+        <PasskeyKeys wallet={wallet.api} onOpen={open} />
         <HowItWorks />
         <Explore onOpen={open} />
+        <Fund wallet={wallet.api} />
 
         <section className="section about" id="about">
           <div className="section-head"><span className="eyebrow">About</span><h2>Built for agents that settle against outcomes</h2></div>

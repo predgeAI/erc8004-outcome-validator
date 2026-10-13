@@ -1,0 +1,33 @@
+{
+  "network": "eip155:143",
+  "explorer": "https://monadvision.com",
+  "facilitator": "https://x402-facilitator.molandak.org",
+  "market": "5532382",
+  "payer": "0x67968e43b94a9F41ce0052A038172e6522C887f5",
+  "latencyMs": 8859,
+  "settlement": {
+    "success": true,
+    "payer": "0x67968e43b94a9F41ce0052A038172e6522C887f5",
+    "transaction": "0x83de667bb4cdb8a7c338fd35a015d9b4071ea209eca0a1bbdd031250e0e55228",
+    "network": "eip155:143"
+  },
+  "payment": {
+    "tx": "0x83de667bb4cdb8a7c338fd35a015d9b4071ea209eca0a1bbdd031250e0e55228",
+    "block": 112969942,
+    "status": 1,
+    "from": "0x67968e43b94a9F41ce0052A038172e6522C887f5",
+    "to": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+    "amountUSDC": "0.001",
+    "gasPaidBy": "0x7f6a2850669202519f0FE8aa912451238820Db86"
+  },
+  "recordSignatureOk": true,
+  "verdict": {
+    "response": 0,
+    "responseHash": "0xb55a6f99e110b80ac9a9c8f951bfb429b59ef3c759852bfa6549cf8a16ef234e",
+    "responseTx": "0x807e6b1d175ab28e7cc52fa042d5a4469470dae684bfeec0475ef6fad3ca536d",
+    "boundToSignedRecord": true
+  },
+  "decision": "act: the outcome is final on chain",
+  "usdcBefore": "1.994914",
+  "usdcAfter": "1.993914"
+}

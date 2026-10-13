@@ -26,6 +26,11 @@ signature and SHA-256 content hash in your browser, reads Predge's verdict from 
 `responseHash == keccak256(signed record)`, and answers "is it safe to act?". Wallet login with Privy
 or Dynamic lets you watch markets and send a validationRequest on Monad testnet from your own wallet
 (source: [`guard/`](guard/), built into `docs/` with `cd guard && npm install && npm run build`).
+A passkey through [Mera](https://mera.category.xyz) is a third sign-in, and
+[`mera.html`](https://predgeai.github.io/erc8004-outcome-validator/mera.html) makes it the whole
+account layer. The same passkey also derives an ed25519 key that signs risk receipts without any wallet
+and an AES-256-GCM key that seals the watchlist and receipts into a blob that can be stored anywhere,
+each from its own PRF salt ([`guard/MERA.md`](guard/MERA.md)).
 The verdict board that re-verifies all 145 verdicts at once is at
 [`board.html`](https://predgeai.github.io/erc8004-outcome-validator/board.html) (source: [`docs/board.html`](docs/board.html)).
 
@@ -189,6 +194,14 @@ facilitator pays gas. Settlement txs:
 [`0xa41ba1f9…`](https://testnet.monadvision.com/tx/0xa41ba1f995eb229c322d5bc34c4d69550395356d94459c0706ba065b8da99cea),
 [`0x4e52243b…`](https://testnet.monadvision.com/tx/0x4e52243b505c28511dd6740102496afa062006f510d16e5fc09f144085d56a3e).
 Details: [`monad/x402/`](monad/x402/README.md).
+
+### Fund from any chain (Aurora Intents)
+
+An agent on Base, Arbitrum, Solana or 20+ other chains funds itself on Monad without a bridge or MON:
+Aurora Intents (powered by NEAR Intents) issues a one-time deposit address on the origin chain, solvers
+deliver native USDC on Monad mainnet in about 37 s, and the agent spends it on x402 checks on Monad mainnet
+(`MONAD_NETWORK=mainnet`, eip155:143). CLI `aurora/fund.mjs`, panel "Fund from any chain" in Predge Guard.
+Details and the live-run steps: [`aurora/`](aurora/README.md).
 
 ## Nansen dispute exposure
 

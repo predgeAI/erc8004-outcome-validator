@@ -13,5 +13,7 @@ export default defineConfig({
     assetsDir: "assets",
     chunkSizeWarningLimit: 4000,
     target: "es2022",
+    // index.html: Privy, Dynamic and Mera. mera.html: Mera is the whole account layer.
+    rollupOptions: { input: { index: "index.html", mera: "mera.html" } },
   },
 });
