@@ -2,7 +2,7 @@ import { useState, type ReactNode } from "react";
 import { parseAbi, type Hex } from "viem";
 import { client } from "../lib/chain";
 import { mtx, REPO } from "../lib/constants";
-import { ANDROID_RELEASE, KURU, LIVE_DISPUTE, X402_LAST } from "../lib/flow";
+import { ANDROID_RELEASE, EXPOSURE, KURU, LIVE_DISPUTE, X402_LAST } from "../lib/flow";
 import type { useWalletState } from "./Wallet";
 import { Ext } from "./ui";
 import { quoteNow } from "./Fund";
@@ -87,7 +87,7 @@ export function Sponsors({ onOpen, walletState }: { onOpen: (id: string) => void
     { name: "Chainlink CRE", what: "A workflow re-checks the signed record and the Monad verdict, reaches consensus, and writes one flag an agent can read: safe to act.", action: live("cre", "Read safeToAct", readCre), proof: [{ href: TESTNET_TX(CRE.reportTx), label: "Report tx ↗" }, { href: tree("cre"), label: "cre/ ↗" }] },
     { name: "Agora AUSD + Perpl", what: "For Bitcoin price markets the hedge is a BTC short on Perpl, margined in Agora's AUSD. The Android app sends it after a fingerprint.", action: live("perpl", "Read BTC mark and margin", readPerpl), proof: [{ href: ANDROID_RELEASE, label: "Android release ↗" }, { href: tree("perpl"), label: "perpl/ ↗" }] },
     { name: "Kuru", what: "Insurance notes that pay if a disputed answer flips, traded on Kuru's order book (test dollars).", action: live("kuru", "Read the order book", readKuru), proof: [{ href: TESTNET_ADDR(KURU.book), label: "Order book ↗" }, { href: tree("kuru"), label: "kuru/ ↗" }] },
-    { name: "Nansen", what: "Who holds each side of a disputed market, and how much money is on it (saved snapshot).", action: jump("Show in step 2", () => toStep("step-exposed")), proof: [{ href: tree("nansen"), label: "nansen/ ↗" }] },
+    { name: "Nansen", what: `Who holds each side of a disputed market: $${EXPOSURE[LIVE_DISPUTE].contestedUsd.toLocaleString("en-US")} on the disputed NO vs $${EXPOSURE[LIVE_DISPUTE].otherUsd.toLocaleString("en-US")} on YES for the Trump market. Nansen, paid live over x402 on Monad, 13 Oct 20:08 UTC.`, action: jump("Show in step 2", () => toStep("step-exposed")), proof: [{ href: mtx(EXPOSURE[LIVE_DISPUTE].paidTx!), label: "Payment tx ↗" }, { href: tree("nansen"), label: "nansen/ ↗" }] },
     { name: "MetaMask", what: "The Predge plugin for the MetaMask agent CLI refuses to place a bet while the answer is disputed.", action: jump("Show in step 3", () => toStep("step-act")), proof: [{ href: tree("mm-plugin"), label: "mm-plugin/ ↗" }] },
     { name: "x402", what: "Agents pay 0.001 USDC per check, settled on Monad mainnet, no account.", action: jump("Show in step 4", () => toStep("step-pay")), proof: [{ href: mtx(X402_LAST.tx), label: "Payment tx ↗" }] },
     { name: "Aurora", what: "Top up USDC on Monad from 20+ chains through Aurora Intents.", action: jump("Get a live quote", quoteNow), proof: [{ href: tree("aurora"), label: "aurora/ ↗" }] },

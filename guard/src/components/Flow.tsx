@@ -72,7 +72,7 @@ export function Flow({ p, title, oc, evidenceOk, verifying, walletState, onOpen 
         {exp ? (
           <>
             <Bars a={{ label: `on ${exp.contested} (disputed)`, v: exp.contestedUsd, n: exp.contestedHolders }} b={{ label: `on ${exp.other}`, v: exp.otherUsd, n: exp.otherHolders }} />
-            <p className="of-note">Top 50 holders, money in. Saved Nansen snapshot as of {fmtUtc(exp.asOf)}.</p>
+            <p className="of-note">Top 50 holders, money in. {exp.paidTx ? <>Nansen, paid live over x402 on Monad, {fmtUtc(exp.asOf)}. <Ext href={mtx(exp.paidTx)}>Payment ↗</Ext></> : <>Saved Nansen snapshot as of {fmtUtc(exp.asOf)}.</>}</p>
           </>
         ) : (
           <p className="of-muted">

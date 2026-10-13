@@ -4,9 +4,10 @@ import measured from "./monad-measured.json";
  * Saved Nansen snapshots (nansen/cache/exposure-<id>.json, top 50 holders by shares, fetched 12 Oct 2026 ~21:10 UTC
  * and paid over x402). Only the dollar totals per side are shown; nothing here is re-fetched by the page.
  */
-export interface Exposure { asOf: string; contested: string; other: string; contestedUsd: number; otherUsd: number; contestedHolders: number; otherHolders: number }
+export interface Exposure { asOf: string; paidTx?: string; contested: string; other: string; contestedUsd: number; otherUsd: number; contestedHolders: number; otherHolders: number }
 export const EXPOSURE: Record<string, Exposure> = {
-  "5219930": { asOf: "2026-10-12T21:10:06Z", contested: "NO", other: "YES", contestedUsd: 91170, otherUsd: 36208, contestedHolders: 26, otherHolders: 24 },
+  // 5219930 refreshed live on 13 Oct 20:08 UTC, 0.13 USDC over x402 on Monad mainnet (5 payments).
+  "5219930": { asOf: "2026-10-13T20:08:44Z", paidTx: "0xca470ea617a3f53b5a2556e72e330826e7892ca78d63a9303d7062cf73b308f5", contested: "NO", other: "YES", contestedUsd: 125822, otherUsd: 33520, contestedHolders: 27, otherHolders: 23 },
   "1112268": { asOf: "2026-10-12T21:12:52Z", contested: "Over", other: "Under", contestedUsd: 1023, otherUsd: 2138, contestedHolders: 34, otherHolders: 16 },
   "1137824": { asOf: "2026-10-12T21:12:26Z", contested: "Under", other: "Over", contestedUsd: 6625, otherUsd: 6141, contestedHolders: 6, otherHolders: 0 },
   "4838803": { asOf: "2026-10-12T21:13:39Z", contested: "NO", other: "YES", contestedUsd: 11741, otherUsd: 3198, contestedHolders: 21, otherHolders: 29 },
