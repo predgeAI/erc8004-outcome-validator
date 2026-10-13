@@ -11,7 +11,8 @@
     "build": "npm run data && tsc -b && node scripts/clean-assets.mjs && vite build",
     "preview": "vite preview",
     "test:receipt": "esbuild scripts/test-receipt.ts --bundle --platform=node --format=esm --log-level=warning --outfile=node_modules/.cache/test-receipt.mjs && node node_modules/.cache/test-receipt.mjs",
-    "test:mera": "esbuild scripts/test-mera.ts --bundle --platform=node --format=esm --log-level=warning --outfile=node_modules/.cache/test-mera.mjs && node node_modules/.cache/test-mera.mjs"
+    "test:mera": "esbuild scripts/test-mera.ts --bundle --platform=node --format=esm --log-level=warning --outfile=node_modules/.cache/test-mera.mjs && node node_modules/.cache/test-mera.mjs",
+    "test": "npm run test:receipt && npm run test:mera"
   },
   "dependencies": {
     "@category-labs/mera": "0.2.0",

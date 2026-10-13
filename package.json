@@ -6,6 +6,7 @@
   "description": "Predge as an ERC-8004 Validation Registry validator: real-world-resolution-vs-claim outcome attestation, mapped to the on-chain validationResponse.",
   "license": "MIT",
   "scripts": {
+    "test": "node grounded-feedback/verify-test-vectors.mjs && npm run sdk:test && npm test -w perpl && node --test nansen/test/",
     "prove": "node src/prove.mjs",
     "fire": "node src/fire-testnet.mjs",
     "vectors": "node grounded-feedback/make-test-vectors.mjs",

@@ -1,5 +1,32 @@
 # Predge: settlement risk for agents that act on prediction-market outcomes
 
+## For Metropolis judges (2 minutes)
+
+**What it is.** One in three disputed Polymarket answers does not hold. Predge tells an agent, before it trades,
+whether a market's answer is final: a signed dispute record plus a verdict written on Monad, checkable without trusting us.
+
+**Try it.**
+- Web: **https://guard.predge.io**, tap the Trump "Ammunition" card (a live dispute): check, who is exposed, hedge or wait, pay, fund, sign in.
+- Android: APK at https://github.com/predgeAI/predge-settle-watch/releases/tag/v0.6.4-monad
+
+**Proof on Monad mainnet (chain 143).**
+- Validator contract [`0xf4EE…eeF9`](https://monadvision.com/address/0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9) with 26+ verdicts and 12 open requests ([receipts](monad/mainnet/runs/))
+- x402 paid check, 0.001 USDC: [tx 0x83de…5228](https://monadvision.com/tx/0x83de667bb4cdb8a7c338fd35a015d9b4071ea209eca0a1bbdd031250e0e55228)
+- Envio GraphQL (indexer `predgeai/predge-validator`): https://indexer.dev.hyperindex.xyz/ee81664/v1/graphql
+
+**Sponsors, one line each.**
+- Chainlink CRE, [`cre/`](cre/): workflow re-verifies the record and the Monad verdict and writes `safeToAct(requestHash)` on Monad testnet ([report tx](https://testnet.monadvision.com/tx/0xfc7af2fc6b0b9ad0f21e55bb0182df3a48f5379183f1f743c32ff466993e7d2a)).
+- Kuru, [`kuru/`](kuru/): HOLD/CHANGE dispute notes on a Kuru order book (testnet, test dollars); settlement via CRE is simulated.
+- Perpl + Agora AUSD, [`perpl/`](perpl/): BTC-short hedge for Polymarket crypto price markets, AUSD margin, live testnet runs and paper mode.
+- MetaMask, [`mm-plugin/`](mm-plugin/): `mm predge` plugin for the MetaMask agent CLI; refuses to bet while a dispute is open.
+- Nansen, [`nansen/`](nansen/): who holds each side of a disputed market, paid per call over x402.
+- Aurora, [`aurora/`](aurora/): fund an agent with USDC on Monad mainnet from 20+ chains (Aurora Intents).
+- Envio, [`indexer/`](indexer/): HyperIndex indexer for the Monad mainnet and testnet contracts.
+- Privy, Dynamic, Mera, [`guard/`](guard/): sign-in without a seed phrase (email, existing wallet, passkey).
+- x402 on Monad, [`monad/x402/`](monad/x402/): 0.001 USDC per check, facilitator pays gas.
+
+How it was built and what existed before the hackathon: [Built during Metropolis](#built-during-metropolis-1-sep13-oct).
+
 Prediction markets settle through optimistic oracles, and disputes are common. From 1 Jan to
 2 Oct 2026 Predge counted **3,005 disputes on 2,666 Polymarket markets**; 323 markets were disputed
 twice or more. Of the 2,543 settled disputed markets, **853 (33.5%) settled differently from the
@@ -18,7 +45,8 @@ two things it can check without trusting us:
    within a dispute window counted from the verdict.
 
 This repository is Predge's submission to the **Monad Metropolis hackathon, Track 4 (Trust,
-Identity and AI Infrastructure)**. Everything below runs on **Monad testnet (chain 10143)**.
+Identity and AI Infrastructure)**. Most sections below were first built on **Monad testnet (chain 10143)**;
+the verdicts, x402 payments and Aurora funding also run on **Monad mainnet (chain 143)**.
 
 **Predge Guard:** https://guard.predge.io/ checks one market end to end:
 paste a Polymarket link, slug or market id, and it fetches the signed record, verifies the ed25519
@@ -357,6 +385,14 @@ later):
 | Smoke run on the production-signed evidence pack (pack_format 2), receipts | 2026-10-12 |
 | SDK `@predge/settlement-risk` (`sdk/`) and MCP server (`mcp/`) | 2026-10-12 |
 | MetaMask Agent Wallet plugin `mm predge` (`mm-plugin/`) | 2026-10-13 |
+| Chainlink CRE settlement-watch workflow and `PredgeSettlementWatch` consumer (`cre/`) | 2026-10-12 |
+| Envio HyperIndex indexer, Monad testnet then mainnet (`indexer/`) | 2026-10-12 to 2026-10-13 |
+| Predge Guard web app with Privy, Dynamic and Mera sign-in, built into `docs/` (`guard/`) | 2026-10-12 to 2026-10-13 |
+| Contracts on Monad mainnet and live dispute verdicts (`monad/mainnet/`) | 2026-10-12 to 2026-10-13 |
+| Nansen dispute exposure (`nansen/`) | 2026-10-13 |
+| Aurora Intents funding from any chain (`aurora/`) | 2026-10-13 |
+| Kuru dispute-hedge notes and CRE settle-notes workflow (`kuru/`) | 2026-10-13 |
+| Perpl settlement-aware hedger, AUSD margin (`perpl/`) | 2026-10-13 |
 
 **On chain, Monad testnet (chain 10143):**
 
@@ -368,6 +404,18 @@ later):
 | x402 paid calls on Monad | 2026-10-07 | 68959337, 68961131 | [`monad/x402/runs/`](monad/x402/runs/) |
 | Batch, 145 requests and 145 verdicts | 2026-10-07 | 68960430 to 68960512 | [`monad/batch/results-2026-10-07T11-39-11-867Z.json`](monad/batch/results-2026-10-07T11-39-11-867Z.json) |
 | Smoke run, 11 of 11 tx ok | 2026-10-12 | 70444717 to 70444799 | [`monad/smoke-2026-10-12T16-26-31-759Z.json`](monad/smoke-2026-10-12T16-26-31-759Z.json) |
+
+**On chain, Monad mainnet (chain 143):**
+
+| What | Date (UTC) | Key tx / link |
+|---|---|---|
+| Deploy of the four contracts | 2026-10-12, block 112858595 | [`monad/mainnet/deployment.json`](monad/mainnet/deployment.json), [validator](https://monadvision.com/address/0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9) |
+| 34 markets, 56 tx (22 verdicts, 12 open requests) | 2026-10-12 22:32 | [`monad/mainnet/runs/live-2026-10-12T22-32-40-193Z.json`](monad/mainnet/runs/live-2026-10-12T22-32-40-193Z.json) |
+| 4 more verdicts (MicroStrategy, Iran, Mexico, Ronaldo) | 2026-10-13 08:15 | [`monad/mainnet/runs/live-2026-10-13T08-15-57-062Z.json`](monad/mainnet/runs/live-2026-10-13T08-15-57-062Z.json) |
+| x402 paid check, 0.001 USDC | 2026-10-13 06:31 | [tx 0x83de…5228](https://monadvision.com/tx/0x83de667bb4cdb8a7c338fd35a015d9b4071ea209eca0a1bbdd031250e0e55228) |
+| Aurora: 2 USDC from Base delivered to Monad | 2026-10-13 | [tx 0xece7…7caf](https://monadvision.com/tx/0xece785a6188c7c53aa27268b89e84b34a040296eb79a3a19bd443ab8daaa7caf), [`aurora/runs/`](aurora/runs/) |
+
+**On chain, Monad testnet, after 12 Oct:** CRE report to `PredgeSettlementWatch` ([tx 0xfc7a…7d2a](https://testnet.monadvision.com/tx/0xfc7af2fc6b0b9ad0f21e55bb0182df3a48f5379183f1f743c32ff466993e7d2a)), Kuru CHANGE/tUSD book and quotes ([`kuru/deployments/monad-testnet.json`](kuru/deployments/monad-testnet.json)), Perpl hedge ([tx 0x6b03…3f36](https://testnet.monadvision.com/tx/0x6b032b3c33c2d165dbdcfc02f3fb1cddcf9b0e96f1787ec9584ee2c776373f36), [`perpl/examples/`](perpl/examples/)).
 
 ## Repository layout
 
