@@ -39,3 +39,6 @@ export const MEASURED = measured as {
 };
 
 export const usd = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
+
+/** Predge Settle Watch for Android, Monad edition: the same flow, with the hedges executed after a fingerprint. */
+export const ANDROID_RELEASE = "https://github.com/predgeAI/predge-settle-watch/releases/tag/v0.6.1-monad";

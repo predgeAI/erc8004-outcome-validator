@@ -11,6 +11,7 @@ import { AckList, ConnectButton, useWalletState, useWatchlist, WalletHost } from
 import { Ext, Shield } from "./components/ui";
 import { PasskeyKeys } from "./components/PasskeyKeys";
 import { OnlyMonad } from "./components/OnlyMonad";
+import { Sponsors } from "./components/Sponsors";
 import { MERA_ONLY } from "./wallet/config";
 
 const initialMarket = () => { try { return new URLSearchParams(location.search).get("m") || DEFAULT_MARKET; } catch { return DEFAULT_MARKET; } };
@@ -115,6 +116,7 @@ export default function App() {
         </div>
 
         <OnlyMonad />
+        <Sponsors onOpen={open} walletState={wallet} />
 
         <section className="hero-more">
           <div className="stats">

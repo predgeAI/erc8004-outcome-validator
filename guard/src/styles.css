@@ -699,3 +699,14 @@ a.hash { color: var(--green-ink); }
   .om-grid { grid-template-columns: 1fr; }
   .om-big { font-size: 24px; }
 }
+
+.of-android { font-size: 12.5px; color: var(--muted); margin: -2px 0 4px; }
+.sp-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.sp-card { background: var(--panel); border: 1px solid var(--line-2); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.sp-card h3 { font-size: 16px; }
+.sp-what { font-size: 13.5px; color: var(--ink-2); margin: 0; }
+.sp-read { font-size: 13px; margin: 0; padding: 6px 9px; border-radius: 8px; background: var(--panel-2); overflow-wrap: anywhere; }
+.sp-read.err { color: var(--red); }
+.sp-links { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-top: auto; padding-top: 4px; }
+@media (max-width: 960px) { .sp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .sp-grid { grid-template-columns: 1fr; } }

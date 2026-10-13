@@ -3,7 +3,7 @@ import { parseAbi } from "viem";
 import type { SignedPayload } from "../lib/api";
 import { client, type OnchainResult } from "../lib/chain";
 import { mtx } from "../lib/constants";
-import { EXPOSURE, isBtcThreshold, KURU, LIVE_DISPUTE, usd, X402_LAST } from "../lib/flow";
+import { ANDROID_RELEASE, EXPOSURE, isBtcThreshold, KURU, LIVE_DISPUTE, usd, X402_LAST } from "../lib/flow";
 import type { WalletKind } from "../wallet/config";
 import { AVAILABLE } from "../wallet/config";
 import type { useWalletState } from "./Wallet";
@@ -55,6 +55,7 @@ export function Flow({ p, title, oc, evidenceOk, verifying, walletState, onOpen 
       <ol className="of-rail" aria-hidden>
         {["Check", "Who's exposed", "Act", "Pay", "Fund", "Sign in"].map((s, i) => <li key={s}><b>{i + 1}</b>{s}</li>)}
       </ol>
+      <p className="of-android" data-testid="android-line">Also on Android: the same flow in Predge Settle Watch. <Ext href={ANDROID_RELEASE}>Get the app ↗</Ext></p>
 
       {/* 1. CHECK */}
       <Step n={1} title="Check" why="Is the answer you are about to bet on final, and did it hold?" testId="step-check">
@@ -107,7 +108,7 @@ export function Flow({ p, title, oc, evidenceOk, verifying, walletState, onOpen 
                     <p className="of-note"><span className="of-tag">Kuru</span> listed on Kuru's order book with test dollars; built to settle from Polymarket's final answer (settlement so far only simulated). <Ext href={`${KURU.explorer}/address/${KURU.book}`}>Order book ↗</Ext> · Buying from this page is not wired yet.</p>
                   </>
                 ) : btc ? (
-                  <p><span className="of-tag">Perpl</span> For a Bitcoin price market the risk is the price itself: hedge it with a BTC short on Perpl. Our hedger runs it in paper mode against Perpl's live prices. <Ext href="https://github.com/predgeAI/erc8004-outcome-validator/tree/main/perpl">How it works ↗</Ext></p>
+                  <p data-testid="act-perpl"><span className="of-tag">Perpl</span><span className="of-tag">Agora AUSD</span> For a Bitcoin price market the risk is the price itself: hedge it with a BTC short on Perpl, margined in Agora's AUSD dollar. The Android app places it after a fingerprint (test network); our bot runs the same hedge in paper mode on Perpl's live prices. <Ext href={ANDROID_RELEASE}>Android app ↗</Ext> · <Ext href="https://github.com/predgeAI/erc8004-outcome-validator/tree/main/perpl">How it works ↗</Ext></p>
                 ) : (
                   <p className="of-muted">There is no insurance note for this market yet. One is listed, with test dollars, for the Trump “Ammunition” dispute. <button className="linkish" onClick={() => onOpen(KURU.market)}>Open it →</button></p>
                 )}
