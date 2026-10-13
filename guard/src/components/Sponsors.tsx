@@ -52,6 +52,23 @@ async function readKuru(): Promise<ReactNode> {
   return <>Insurance note: bid <b>${(Number(b) / 1e18).toFixed(2)}</b>, offer <b>${(Number(a) / 1e18).toFixed(2)}</b> (read live)</>;
 }
 
+const ENVIO = "https://indexer.dev.hyperindex.xyz/ee81664/v1/graphql";
+/** Read-only GraphQL on Envio Cloud (predgeai/predge-validator). Verdict ids are "<chainId>_<block>_<log>". */
+async function readEnvio(): Promise<ReactNode> {
+  const query = `{ _meta { chainId eventsProcessed isReady } VerdictStats(where:{id:{_eq:"global"}}) { totalVerdicts totalRequests bondsCommitted slashedCount }
+    main: Verdict(where:{id:{_like:"143_%"}}) { id } latest: Verdict(where:{id:{_like:"143_%"}}, order_by:{timestamp:desc}, limit:1) { score timestamp tx } }`;
+  const r = await fetch(ENVIO, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ query }) });
+  const j = await r.json();
+  if (!r.ok || j.errors) throw new Error(j.errors?.[0]?.message ?? `HTTP ${r.status}`);
+  const d = j.data, g = d.VerdictStats[0], l = d.latest[0];
+  const ev = (c: number) => d._meta.find((m: { chainId: number }) => m.chainId === c)?.eventsProcessed ?? "?";
+  const when = l ? new Date(l.timestamp * 1000).toISOString().slice(0, 16).replace("T", " ") : "";
+  return (
+    <>From Envio GraphQL: <b>{d.main.length}</b> verdicts on Monad mainnet ({g.totalVerdicts} incl. testnet), {g.totalRequests} requests, {g.bondsCommitted} bonds, {g.slashedCount} slash.
+      {l && <> Latest mainnet verdict {l.score}/100 at {when} UTC (<Ext href={mtx(l.tx)}>tx ↗</Ext>).</>} Synced {ev(143)} + {ev(10143)} events.</>
+  );
+}
+
 export function Sponsors({ onOpen, walletState }: { onOpen: (id: string) => void; walletState: ReturnType<typeof useWalletState> | null }) {
   const [reads, setReads] = useState<Record<string, Read>>({});
   const run = (k: string, f: () => Promise<ReactNode>) => {
@@ -77,7 +94,7 @@ export function Sponsors({ onOpen, walletState }: { onOpen: (id: string) => void
     { name: "Privy", what: "Sign in with email; an embedded wallet is created if you have none.", action: walletState ? jump("Sign in with Privy", () => walletState.choose("privy")) : undefined, proof: [{ href: `${REPO}/blob/main/guard/src/wallet/PrivyHost.tsx`, label: "Code ↗" }] },
     { name: "Dynamic", what: "Sign in with the wallet you already use.", action: walletState ? jump("Sign in with Dynamic", () => walletState.choose("dynamic")) : undefined, proof: [{ href: `${REPO}/blob/main/guard/src/wallet/DynamicHost.tsx`, label: "Code ↗" }] },
     { name: "Mera", what: "A passkey is the whole account: no seed phrase, no extension. Also the key in the Android app.", action: jump("Open passkey mode", () => { location.href = "mera.html"; }), proof: [{ href: `${REPO}/blob/main/guard/MERA.md`, label: "MERA.md ↗" }] },
-    { name: "Envio", what: "An indexer for Predge's contracts on Monad mainnet and testnet, registered on Envio Cloud as predgeai/predge-validator.", proof: [{ href: tree("indexer"), label: "indexer/ ↗" }, { href: tree("indexer/queries"), label: "queries/ ↗" }], note: "Hosted deployment pending, so there is no live read here yet." },
+    { name: "Envio", what: "Indexes Predge's contracts on Monad mainnet and testnet (Envio Cloud, predgeai/predge-validator). Verification above still reads the chain directly.", action: live("envio", "Read from Envio", readEnvio), proof: [{ href: ENVIO, label: "GraphQL endpoint ↗" }, { href: tree("indexer"), label: "indexer/ ↗" }] },
   ];
 
   return (
