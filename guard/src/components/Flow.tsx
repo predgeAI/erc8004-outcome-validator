@@ -100,16 +100,16 @@ export function Flow({ p, title, oc, evidenceOk, verifying, walletState, onOpen 
                 {hasNote ? (
                   <>
                     <div className="of-quote">
-                      <div><span className="of-k">Insurance note</span><b>Pays $1 if the final answer is not {proposal?.toUpperCase() ?? "the disputed one"}</b></div>
+                      <div><span className="of-k">Insurance note</span><b>Pays $1 (test) if the final answer is not {proposal?.toUpperCase() ?? "the disputed one"}</b></div>
                       <div><span className="of-k">Price now</span><b data-testid="kuru-ask">{quote ? `$${quote.ask.toFixed(2)}` : "reading…"}</b><span className="of-sub">{quote ? `bid $${quote.bid.toFixed(2)}${quote.live ? " · read live just now" : " · saved quote"}` : ""}</span></div>
                     </div>
-                    <p>{quote ? <>Cover $1,000: 1,000 notes at ${quote.ask.toFixed(2)} = <b>${Math.round(1000 * quote.ask)}</b>. If the vote flips the answer, the notes pay $1,000.</> : "Reading the order book…"}</p>
-                    <p className="of-note"><span className="of-tag">Kuru</span> listed on Kuru's order book with test dollars, settled automatically from the final answer. <Ext href={`${KURU.explorer}/address/${KURU.book}`}>Order book ↗</Ext> · Buying from this page is not wired yet.</p>
+                    <p>{quote ? <>Cover $1,000: 1,000 notes at ${quote.ask.toFixed(2)} = <b>${Math.round(1000 * quote.ask)}</b>. If the vote flips the answer, the notes are built to pay $1,000 (test dollars).</> : "Reading the order book…"}</p>
+                    <p className="of-note"><span className="of-tag">Kuru</span> listed on Kuru's order book with test dollars; built to settle from Polymarket's final answer (settlement so far only simulated). <Ext href={`${KURU.explorer}/address/${KURU.book}`}>Order book ↗</Ext> · Buying from this page is not wired yet.</p>
                   </>
                 ) : btc ? (
                   <p><span className="of-tag">Perpl</span> For a Bitcoin price market the risk is the price itself: hedge it with a BTC short on Perpl. Our hedger runs it in paper mode against Perpl's live prices. <Ext href="https://github.com/predgeAI/erc8004-outcome-validator/tree/main/perpl">How it works ↗</Ext></p>
                 ) : (
-                  <p className="of-muted">There is no insurance note for this market yet. One is live for the Trump “Ammunition” dispute. <button className="linkish" onClick={() => onOpen(KURU.market)}>Open it →</button></p>
+                  <p className="of-muted">There is no insurance note for this market yet. One is listed, with test dollars, for the Trump “Ammunition” dispute. <button className="linkish" onClick={() => onOpen(KURU.market)}>Open it →</button></p>
                 )}
               </div>
             )}
