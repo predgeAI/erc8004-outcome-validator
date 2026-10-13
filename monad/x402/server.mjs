@@ -76,9 +76,31 @@ const scheme = new ExactEvmScheme();
 scheme.registerMoneyParser(async (amount, network) => network === NET.network
   ? { amount: Math.round(amount * 1_000_000).toString(), asset: NET.usdc, extra: { name: "USDC", version: "2" } }
   : null);
-const server = new x402ResourceServer(new HTTPFacilitatorClient({ url: FACILITATOR })).register(NET.network, scheme);
+const facilitator = new HTTPFacilitatorClient({ url: FACILITATOR });
+// Log every facilitator /verify and /settle outcome (incl. invalidReason / errorReason) and thrown errors.
+for (const op of ["verify", "settle"]) {
+  const orig = facilitator[op].bind(facilitator);
+  facilitator[op] = async (payload, reqs) => {
+    // The facilitator call can fail at the network layer ("fetch failed") before any response. Left unhandled,
+    // the middleware turns that into a bare `402 {}` with nothing logged. Retry transport errors only: an
+    // EIP-3009 nonce can be spent once, so a replayed /settle cannot double-charge the payer.
+    for (let attempt = 1; ; attempt++) {
+      try {
+        const r = await orig(payload, reqs);
+        console.log(`[facilitator ${op}]${attempt > 1 ? ` (attempt ${attempt})` : ""}`, JSON.stringify(r));
+        return r;
+      } catch (e) {
+        if (e instanceof TypeError && attempt < 3) { console.error(`[facilitator ${op} transport error, retrying]`, e.message, e.cause?.code || e.cause?.message || ""); await new Promise((r) => setTimeout(r, 500 * attempt)); continue; }
+        console.error(`[facilitator ${op} ERROR]`, e?.message, e?.cause?.code, e?.cause?.message, e?.invalidReason || e?.errorReason || "", JSON.stringify(e?.invalidMessage || e?.errorMessage || ""));
+        throw e;
+      }
+    }
+  };
+}
+const server = new x402ResourceServer(facilitator).register(NET.network, scheme);
 
 const app = express();
+app.use((req, _res, next) => { if (req.headers["payment-signature"] || req.headers["x-payment"]) console.log(`[paid request] ${req.method} ${req.url} header ${req.headers["payment-signature"] ? "PAYMENT-SIGNATURE" : "X-PAYMENT"}`); next(); });
 app.use(paymentMiddleware({
   "GET /v1/settlement-risk/:market": {
     accepts: { scheme: "exact", network: NET.network, payTo: PAY_TO, price: PRICE, maxTimeoutSeconds: 120 },
