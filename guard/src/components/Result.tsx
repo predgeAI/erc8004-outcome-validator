@@ -8,13 +8,14 @@ import { roundTrips, sha256Hex, verifyEd25519 } from "../lib/verify";
 import { CheckIcon, CheckRow, Ext, fmtDate, Hash, type CheckState } from "./ui";
 import { famousById } from "../lib/famous";
 import type { WalletApi } from "../wallet/config";
-import { WalletActions, type Watch } from "./Wallet";
+import { WalletActions, type Watch, type useWalletState } from "./Wallet";
+import { Flow } from "./Flow";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 interface Ev { key: CheckState; sig: CheckState; hash: CheckState; fields: CheckState; engine?: string; kid?: string; keySrc?: string; sha?: string; published?: string }
 
-export function Result({ lookup, wallet, watch }: { lookup: Lookup; wallet: WalletApi | null; watch: Watch }) {
+export function Result({ lookup, wallet, watch, walletState = null, onOpen = () => {} }: { lookup: Lookup; wallet: WalletApi | null; watch: Watch; walletState?: ReturnType<typeof useWalletState> | null; onOpen?: (id: string) => void }) {
   const p = lookup.payload;
   const [ev, setEv] = useState<Ev>({ key: "running", sig: "idle", hash: "idle", fields: "idle" });
   const [oc, setOc] = useState<OnchainResult | null | undefined>(undefined);
@@ -80,7 +81,7 @@ export function Result({ lookup, wallet, watch }: { lookup: Lookup; wallet: Wall
 
       <div className={`story-card story-${verdict.tone}`}>
         <div className="card-top">
-          <span className="eyebrow">Polymarket · market {p.market_id}{fam ? ` · ${fam.traded} traded` : ""}</span>
+          <span className="eyebrow">Polymarket{fam ? ` · ${fam.traded} traded` : ""}</span>
           <span className={`badge badge-${risk.tone}`}>Risk: {risk.label}</span>
         </div>
         <h2 className="market-title">{title}</h2>
@@ -94,7 +95,7 @@ export function Result({ lookup, wallet, watch }: { lookup: Lookup; wallet: Wall
           <li className="flow-step warn">
             <span className="flow-k">Disputed</span>
             <span className="flow-v">{n ? (n === 1 ? "once" : `${n} times`) : "never"}</span>
-            {p.sent_to_uma_vote && <span className="flow-s">UMA vote</span>}
+            {p.sent_to_uma_vote && <span className="flow-s">went to a vote</span>}
           </li>
           <li className="flow-arrow" aria-hidden>→</li>
           <li className={`flow-step ${outcome ? "fin" : "pend"}`}>
@@ -108,6 +109,13 @@ export function Result({ lookup, wallet, watch }: { lookup: Lookup; wallet: Wall
           <div className="verdict-sub">{verdict.sub}</div>
         </div>
 
+        <div className="plain-proof" data-testid="plain-proof">
+          <span className={`of-pill ${!verifyDone ? "" : evidenceOk ? "ok" : "bad"}`} data-testid="verified-pill">{!verifyDone ? "Checking…" : evidenceOk ? "✓ Verified" : "Not verified"}</span>
+          {oc?.found && oc.responseTx ? <Ext href={netTx(oc.network, oc.responseTx)} className="of-small" >Recorded on Monad ↗</Ext>
+            : oc?.requested && oc.requestTx ? <Ext href={netTx(oc.network, oc.requestTx)} className="of-small">Recorded on Monad, verdict after the vote ↗</Ext> : null}
+        </div>
+        <details className="how-verified" data-testid="how-verified">
+        <summary>How it's verified</summary>
         <div className="proof-lines">
           <details className={`proof proof-${!verifyDone ? "run" : evidenceOk ? "ok" : "bad"}`} data-testid="verify-line">
             <summary>
@@ -138,7 +146,10 @@ export function Result({ lookup, wallet, watch }: { lookup: Lookup; wallet: Wall
             <OnchainCard oc={oc} err={ocErr} step={ocStep} p={p} />
           </details>
         </div>
+        </details>
       </div>
+
+      <Flow p={p} title={title} oc={oc} evidenceOk={evidenceOk} verifying={!verifyDone} walletState={walletState} onOpen={onOpen} />
 
       <details className="more-details">
         <summary>Dispute timeline and the agent decision</summary>

@@ -1,0 +1,36 @@
+{
+ "measuredAt": "2026-10-13T11:02:43.523Z",
+ "rpc": "https://rpc.monad.xyz",
+ "runs": [
+  "monad/mainnet/runs/live-2026-10-12T22-32-40-193Z.json",
+  "monad/mainnet/runs/live-2026-10-13T08-15-57-062Z.json"
+ ],
+ "markets": 38,
+ "txs": 64,
+ "verdicts": 26,
+ "allSucceeded": true,
+ "gasPriceGwei": 102,
+ "totalMON": 1.469768694,
+ "monPerVerdict": 0.04626610546153846,
+ "monPerResponse": 0.024138272538461538,
+ "run1": {
+  "txs": 56,
+  "seconds": 13,
+  "blocks": 45
+ },
+ "run2": {
+  "pairs": 4,
+  "blocks": [
+   5,
+   6
+  ],
+  "seconds": [
+   1,
+   2
+  ]
+ },
+ "blockIntervalS": 0.30194,
+ "monUsd": 0.02430846,
+ "monUsdAt": "2026-10-13T11:02:01.000Z",
+ "monUsdSource": "https://www.coingecko.com/en/coins/monad"
+}

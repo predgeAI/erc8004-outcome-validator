@@ -221,7 +221,7 @@ export function WalletActions({ wallet, payload, oc, watch, evidence, title }: {
   if (!wallet?.authenticated || !wallet.address) {
     return (
       <div className="actions-bar muted-bar">
-        <span>Sign in to sign a wallet receipt for this check, watch this market, or record a validation request on Monad testnet. A passkey attestation needs no wallet at all.</span>
+        <span>After sign-in (step 6) you can sign a receipt for this check and watch this market. A passkey attestation needs no wallet at all.</span>
         <AttestButton payload={payload} oc={oc} evidence={evidence} title={title} />
       </div>
     );

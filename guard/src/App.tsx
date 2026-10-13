@@ -10,6 +10,7 @@ import { Fund } from "./components/Fund";
 import { AckList, ConnectButton, useWalletState, useWatchlist, WalletHost } from "./components/Wallet";
 import { Ext, Shield } from "./components/ui";
 import { PasskeyKeys } from "./components/PasskeyKeys";
+import { OnlyMonad } from "./components/OnlyMonad";
 import { MERA_ONLY } from "./wallet/config";
 
 const initialMarket = () => { try { return new URLSearchParams(location.search).get("m") || DEFAULT_MARKET; } catch { return DEFAULT_MARKET; } };
@@ -110,15 +111,17 @@ export default function App() {
         <div ref={resultRef} className="result-anchor">
           {state.kind === "loading" && <ResultSkeleton id={state.id} />}
           {state.kind === "error" && <div className="error-box" role="alert">{state.msg}</div>}
-          {state.kind === "ok" && <Result key={state.lookup.payload.market_id + state.lookup.payload.issued_at} lookup={state.lookup} wallet={wallet.api} watch={watch} />}
+          {state.kind === "ok" && <Result key={state.lookup.payload.market_id + state.lookup.payload.issued_at} lookup={state.lookup} wallet={wallet.api} watch={watch} walletState={wallet} onOpen={open} />}
         </div>
+
+        <OnlyMonad />
 
         <section className="hero-more">
           <div className="stats">
             <Stat big="3,005" label="disputes on 2,666 Polymarket markets" sub="1 Jan to 2 Oct 2026" />
             <Stat big="33.5%" label="settled differently from the disputed proposal" sub="853 of 2,543 settled markets" tone="warn" />
             <Stat big={String(BATCH.mainnet.verdicts)} label="verdicts on Monad mainnet" sub={`+${BATCH.mainnet.open} open disputes awaiting the vote`} tone="ok" />
-            <Stat big="0.0255" unit="MON" label="per on-chain verdict" sub="x402: 0.001 USDC per paid call" />
+            <Stat big="$299M+" label="traded on markets whose answer changed" sub="853 markets, Polymarket volume" />
           </div>
           <div className="chips">
             <span className="chips-label">More</span>

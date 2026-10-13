@@ -616,3 +616,86 @@ a.hash { color: var(--green-ink); }
 :root[data-theme="light"] .how-step { background: #ffffff; }
 :root[data-theme="light"] .tabs { background: #f3f4f7; }
 :root[data-theme="light"] .ci-ok svg { stroke: #ffffff; }
+
+/* Plain proof line under the verdict; the technical checks live behind "How it's verified". */
+.plain-proof { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-top: 10px; }
+.of-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); background: var(--panel); white-space: nowrap; }
+.of-pill.ok { color: var(--ink); }
+.of-pill.bad { color: var(--red); border-color: rgba(220, 38, 38, 0.4); }
+.of-small { font-size: 13px; color: var(--muted); white-space: nowrap; }
+.of-small:hover { color: var(--ink); }
+.how-verified { margin-top: 8px; }
+.how-verified > summary { cursor: pointer; font-size: 13px; color: var(--muted); padding: 4px 0; width: max-content; }
+.how-verified > summary:hover { color: var(--ink); }
+
+/* One flow: check -> exposed -> act -> pay -> fund -> sign in */
+.oneflow { margin-top: 14px; background: var(--panel); border: 1px solid var(--line-2); border-radius: 18px; padding: 14px 20px 6px; }
+.of-rail { list-style: none; margin: 0 0 6px; padding: 0 0 12px; display: flex; flex-wrap: wrap; gap: 6px 18px; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.of-rail li { display: inline-flex; align-items: center; gap: 6px; }
+.of-rail b { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; font-size: 11px; border: 1px solid var(--line-2); color: var(--ink-2); }
+.of-step { display: grid; grid-template-columns: 30px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.of-step:last-child { border-bottom: 0; }
+.of-n { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 13px; background: var(--ink); color: var(--bg); margin-top: 1px; }
+.of-body { min-width: 0; }
+.of-head { display: flex; align-items: center; gap: 8px; }
+.of-head h3 { font-size: 17px; }
+.of-tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.02em; padding: 1px 7px; border-radius: 6px; border: 1px solid var(--line-2); color: var(--muted); margin-right: 4px; vertical-align: 1px; }
+.of-why { color: var(--muted); font-size: 13.5px; margin: 2px 0 8px; }
+.of-line { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-size: 14.5px; }
+.of-note { font-size: 12.5px; color: var(--muted); margin: 6px 0 0; }
+.of-muted { color: var(--ink-2); font-size: 14px; margin: 0; }
+.of-bars { display: flex; flex-direction: column; gap: 8px; max-width: 620px; }
+.of-bar { display: grid; grid-template-columns: 84px 1fr; grid-template-rows: auto auto; column-gap: 12px; align-items: center; }
+.of-bar-v { font-family: var(--display); font-weight: 700; font-size: 18px; grid-row: span 2; }
+.of-bar-track { height: 10px; border-radius: 6px; background: var(--panel-2); overflow: hidden; }
+.of-bar-fill { display: block; height: 100%; border-radius: 6px; background: var(--ink); transition: width 0.6s var(--ease); }
+.of-bar-fill.alt { background: var(--dim); }
+.of-bar-l { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.of-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 620px; }
+.of-choice { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line-2); background: var(--panel); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+.of-choice b { font-family: var(--display); font-size: 18px; }
+.of-choice span { font-size: 13px; color: var(--muted); }
+.of-choice:hover { border-color: var(--ink-2); }
+.of-choice.on { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+.of-out { margin-top: 10px; padding: 12px 14px; border-radius: 12px; background: var(--panel-2); font-size: 14px; max-width: 760px; animation: rise 0.35s var(--ease) both; }
+.of-out.flat { margin-top: 0; }
+.of-out p { margin: 0 0 6px; }
+.of-out p:last-child { margin-bottom: 0; }
+.of-refuse { font-family: var(--display); font-size: 18px; margin-bottom: 4px; }
+.of-quote { display: grid; grid-template-columns: 1.6fr 1fr; gap: 12px; margin-bottom: 8px; }
+.of-quote > div { display: flex; flex-direction: column; gap: 2px; }
+.of-quote b { font-size: 15px; }
+.of-quote div:last-child b { font-family: var(--display); font-size: 24px; }
+.of-k { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.of-sub { font-size: 12px; color: var(--muted); }
+.of-signin { display: flex; flex-wrap: wrap; gap: 8px; }
+:root[data-theme="light"] .of-out { background: #f3f4f7; }
+
+/* Only possible on Monad */
+.only-monad .section-head h2 { font-size: clamp(20px, 2.4vw, 28px); max-width: 900px; }
+.om-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.om-tile { background: var(--panel); padding: 16px 18px; }
+.om-big { font-family: var(--display); font-weight: 700; font-size: 28px; line-height: 1.1; }
+.om-l { font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+.om-s { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+.om-foot { margin-top: 12px; max-width: 900px; }
+
+@media (max-width: 960px) { .om-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .oneflow { padding: 10px 12px 2px; border-radius: 14px; }
+  .of-rail { display: none; }
+  .of-step { grid-template-columns: 24px 1fr; gap: 10px; padding: 10px 0; }
+  .of-n { width: 22px; height: 22px; font-size: 12px; }
+  .of-head h3 { font-size: 15.5px; }
+  .of-why { font-size: 12.5px; }
+  .of-line { font-size: 13.5px; }
+  .of-choices { gap: 8px; }
+  .of-choice { padding: 10px 11px; }
+  .of-choice b { font-size: 16px; }
+  .of-choice span { font-size: 12px; }
+  .of-quote { grid-template-columns: 1fr; gap: 6px; }
+  .of-bar { grid-template-columns: 72px 1fr; }
+  .of-bar-v { font-size: 15px; }
+  .om-grid { grid-template-columns: 1fr; }
+  .om-big { font-size: 24px; }
+}
