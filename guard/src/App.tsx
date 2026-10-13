@@ -5,6 +5,7 @@ import { addr, EXAMPLES, MONAD, REPO } from "./lib/constants";
 import { DATA, byMarket } from "./lib/data";
 import { Result } from "./components/Result";
 import { Explore } from "./components/Explore";
+import { Fund } from "./components/Fund";
 import { AckList, ConnectButton, useWalletState, useWatchlist, WalletHost } from "./components/Wallet";
 import { Ext, Shield } from "./components/ui";
 
@@ -51,6 +52,7 @@ export default function App() {
         <nav className="nav-links">
           <a href="#check">Check</a>
           <a href="#explore">Explore</a>
+          <a href="#fund">Fund</a>
           <a href="#about">About</a>
           <Ext href={REPO}>GitHub</Ext>
         </nav>
@@ -97,6 +99,7 @@ export default function App() {
         <AckList onOpen={open} />
         <HowItWorks />
         <Explore onOpen={open} />
+        <Fund wallet={wallet.api} />
 
         <section className="section about" id="about">
           <div className="section-head"><span className="eyebrow">About</span><h2>Built for agents that settle against outcomes</h2></div>

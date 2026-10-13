@@ -10,7 +10,7 @@
 // buying agent can check that the verdict's responseHash equals keccak256 of the signed bytes.
 // The server holds no key: PAY_TO is a bare address.
 import express from "express";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { ethers } from "ethers";
@@ -21,23 +21,46 @@ import { ExactEvmScheme } from "@x402/evm/exact/server";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const MONAD_TESTNET = "eip155:10143";
 export const MONAD_USDC_TESTNET = "0x534b2f3A21130d7a60830c2Df862319e593943A3";
+// MONAD_NETWORK=mainnet switches to Monad mainnet (chain 143, Circle USDC 0x7547…b603, EIP-712 name
+// "USDC" version "2"); the facilitator lists `exact` on eip155:143. Default stays testnet.
+export const NETS = {
+  testnet: { chainId: 10143, network: MONAD_TESTNET, usdc: MONAD_USDC_TESTNET, rpc: "https://testnet-rpc.monad.xyz" },
+  mainnet: { chainId: 143, network: "eip155:143", usdc: "0x754704Bc059F8C67012fEd69BC8A327a5aafb603", rpc: "https://rpc.monad.xyz" },
+};
+const NET = NETS[process.env.MONAD_NETWORK || "testnet"];
+if (!NET) { console.error("MONAD_NETWORK must be testnet or mainnet"); process.exit(2); }
 export const FACILITATOR = process.env.FACILITATOR_URL || "https://x402-facilitator.molandak.org";
 const PORT = Number(process.env.PORT || 4021);
 const PRICE = process.env.PRICE || "$0.001";
 const PAY_TO = process.env.PAY_TO && ethers.getAddress(process.env.PAY_TO);
 if (!PAY_TO) { console.error("PAY_TO=<address> is required"); process.exit(2); }
 const API = process.env.PREDGE_API || "https://api.predge.io";
-const RPC = process.env.RPC_URL || "https://testnet-rpc.monad.xyz";
+const RPC = process.env.RPC_URL || NET.rpc;
 
-const dep = JSON.parse(readFileSync(path.join(HERE, "..", "deployment.json"), "utf8"));
-const chain = new ethers.JsonRpcProvider(RPC, undefined, { staticNetwork: ethers.Network.from(10143n) });
+const MAINNET = NET.chainId === 143;
+const dep = JSON.parse(readFileSync(path.join(HERE, "..", ...(MAINNET ? ["mainnet", "deployment.json"] : ["deployment.json"])), "utf8"));
+const chain = new ethers.JsonRpcProvider(RPC, undefined, { staticNetwork: ethers.Network.from(BigInt(NET.chainId)) });
 const validator = new ethers.Contract(dep.contracts.PredgeAgentValidator.address, [
   "event ValidationResponse(address indexed validatorAddress, uint256 indexed agentId, bytes32 indexed requestHash, uint8 response, string responseURI, bytes32 responseHash, string tag)",
   "function getValidationStatus(bytes32) view returns (address validatorAddress, uint256 agentId, uint8 response, bytes32 responseHash, string tag, uint256 lastUpdate)",
 ], chain);
 
 // Verdicts written by the Monad batch run (monad/batch/results-*.json), indexed by market id.
+// On mainnet: verdicts with a response from monad/mainnet/runs/live-*.json, records in monad/mainnet/records.
+function loadMainnetIndex() {
+  const idx = {};
+  const dir = path.join(HERE, "..", "mainnet");
+  try {
+    for (const f of readdirSync(path.join(dir, "runs")).filter((n) => n.startsWith("live-")).sort()) {
+      for (const v of JSON.parse(readFileSync(path.join(dir, "runs", f), "utf8")).verdicts) {
+        if (v.response?.status === 1) idx[v.market_id] = { requestHash: v.requestHash, responseTx: v.response.tx, recordFile: path.join(dir, "records", `${v.market_id}.json`) };
+      }
+    }
+  } catch { /* no mainnet runs */ }
+  return idx;
+}
 function loadBatchIndex() {
+  if (MAINNET) return loadMainnetIndex();
   const idx = {};
   try {
     const dir = path.join(HERE, "..", "batch");
@@ -50,16 +73,16 @@ function loadBatchIndex() {
 const batch = loadBatchIndex();
 
 const scheme = new ExactEvmScheme();
-scheme.registerMoneyParser(async (amount, network) => network === MONAD_TESTNET
-  ? { amount: Math.floor(amount * 1_000_000).toString(), asset: MONAD_USDC_TESTNET, extra: { name: "USDC", version: "2" } }
+scheme.registerMoneyParser(async (amount, network) => network === NET.network
+  ? { amount: Math.round(amount * 1_000_000).toString(), asset: NET.usdc, extra: { name: "USDC", version: "2" } }
   : null);
-const server = new x402ResourceServer(new HTTPFacilitatorClient({ url: FACILITATOR })).register(MONAD_TESTNET, scheme);
+const server = new x402ResourceServer(new HTTPFacilitatorClient({ url: FACILITATOR })).register(NET.network, scheme);
 
 const app = express();
 app.use(paymentMiddleware({
   "GET /v1/settlement-risk/:market": {
-    accepts: { scheme: "exact", network: MONAD_TESTNET, payTo: PAY_TO, price: PRICE, maxTimeoutSeconds: 120 },
-    description: "Predge Settlement Risk record for one Polymarket market (ed25519-signed) plus Predge's on-chain verdict on Monad testnet, if one exists.",
+    accepts: { scheme: "exact", network: NET.network, payTo: PAY_TO, price: PRICE, maxTimeoutSeconds: 120 },
+    description: "Predge Settlement Risk record for one Polymarket market (ed25519-signed) plus Predge's on-chain verdict on Monad, if one exists.",
     mimeType: "application/json",
   },
 }, server));
@@ -74,11 +97,11 @@ app.get("/v1/settlement-risk/:market", async (req, res) => {
   const v = batch[market];
   if (v) {
     const s = await validator.getValidationStatus(v.requestHash);
-    onchainVerdict = { chainId: 10143, contract: await validator.getAddress(), requestHash: v.requestHash, response: Number(s.response), responseHash: s.responseHash, tag: s.tag, lastUpdate: Number(s.lastUpdate), responseTx: v.responseTx,
+    onchainVerdict = { chainId: NET.chainId, contract: await validator.getAddress(), requestHash: v.requestHash, response: Number(s.response), responseHash: s.responseHash, tag: s.tag, lastUpdate: Number(s.lastUpdate), responseTx: v.responseTx,
       // the exact signed record the verdict was bound to when it was written
-      boundRecord: JSON.parse(readFileSync(path.join(HERE, "..", "batch", "records", `${market}.json`), "utf8")).attestation };
+      boundRecord: JSON.parse(readFileSync(v.recordFile || path.join(HERE, "..", "batch", "records", `${market}.json`), "utf8")).attestation };
   }
   res.json({ market, record: body.attestation, onchainVerdict });
 });
 
-app.listen(PORT, () => console.log(`x402 on Monad testnet: http://localhost:${PORT}/v1/settlement-risk/<market>  price ${PRICE} USDC  payTo ${PAY_TO}  facilitator ${FACILITATOR}  verdicts indexed ${Object.keys(batch).length}`));
+app.listen(PORT, () => console.log(`x402 on Monad ${MAINNET ? "MAINNET (chain 143)" : "testnet"}: http://localhost:${PORT}/v1/settlement-risk/<market>  price ${PRICE} USDC  payTo ${PAY_TO}  facilitator ${FACILITATOR}  verdicts indexed ${Object.keys(batch).length}`));

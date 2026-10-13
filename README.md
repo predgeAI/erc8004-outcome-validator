@@ -190,6 +190,14 @@ facilitator pays gas. Settlement txs:
 [`0x4e52243b…`](https://testnet.monadvision.com/tx/0x4e52243b505c28511dd6740102496afa062006f510d16e5fc09f144085d56a3e).
 Details: [`monad/x402/`](monad/x402/README.md).
 
+### Fund from any chain (Aurora Intents)
+
+An agent on Base, Arbitrum, Solana or 20+ other chains funds itself on Monad without a bridge or MON:
+Aurora Intents (powered by NEAR Intents) issues a one-time deposit address on the origin chain, solvers
+deliver native USDC on Monad mainnet in about 37 s, and the agent spends it on x402 checks on Monad mainnet
+(`MONAD_NETWORK=mainnet`, eip155:143). CLI `aurora/fund.mjs`, panel "Fund from any chain" in Predge Guard.
+Details and the live-run steps: [`aurora/`](aurora/README.md).
+
 ## Nansen dispute exposure
 
 Predge knows that a market is disputed and which proposed outcome was disputed; Nansen knows who
