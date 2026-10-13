@@ -58,27 +58,8 @@ chains:
     # Block 68349040 is the PredgeAgentValidator deploy tx (monad/deployment.json), the
     # earliest Predge contract on Monad testnet. Nothing relevant happens before it.
     start_block: 68349040
-    # Monad testnet is a HyperSync chain (monad-testnet.hypersync.xyz). HyperSync needs an
-    # ENVIO_API_TOKEN; without one this config syncs over public RPC. Public Monad testnet
-    # endpoints cap eth_getLogs at 100 blocks per call (testnet-rpc.monad.xyz also at 25
-    # requests/s), so the historical sync takes 100-block steps from Ankr's public endpoint
-    # with the Monad Foundation endpoint as fallback. To use HyperSync instead, delete the
-    # `rpc` block and set ENVIO_API_TOKEN (see README).
-    rpc:
-      # ENVIO_MONAD_SYNC_RPC / ENVIO_SYNC_BLOCK_INTERVAL let you point the sync at the local
-      # fan-out proxy in tools/logs-proxy.mjs (see README, "Fast local sync").
-      - url: ${ENVIO_MONAD_SYNC_RPC:-https://rpc.ankr.com/monad_testnet}
-        for: sync
-        initial_block_interval: ${ENVIO_SYNC_BLOCK_INTERVAL:-100}
-        interval_ceiling: ${ENVIO_SYNC_BLOCK_INTERVAL:-100}
-        acceleration_additive: 0
-        backoff_multiplicative: 0.5
-        backoff_millis: 1000
-        query_timeout_millis: ${ENVIO_SYNC_TIMEOUT_MS:-20000}
-      - url: ${ENVIO_MONAD_FALLBACK_RPC:-https://testnet-rpc.monad.xyz}
-        for: fallback
-        initial_block_interval: 100
-        interval_ceiling: 100
+    # Monad testnet and mainnet are HyperSync chains; on Envio Cloud HyperSync is built in. Locally
+    # set ENVIO_API_TOKEN (see README). The old public-RPC sync steps 100 blocks per call.
     contracts:
       - name: PredgeAgentValidator
         address: "0x884764736dBe1FD36291bDd3Afd50A75465F6e8A"
@@ -94,3 +75,16 @@ chains:
         address: "0x34F1ef2f39Bfdd6c10Fcaa02f5B257A5dB2e93E9"
       - name: PredgeSettlement
         address: "0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9"
+  - id: 143 # Monad mainnet (monad/mainnet/deployment.json); PredgeAgentValidator deploy block
+    start_block: 112858595
+    contracts:
+      - name: PredgeAgentValidator
+        address: "0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9"
+      - name: ERC8004ValidationRegistry
+        address: "0x8004Cc8439f36fd5F9F049D9fF86523Df6dAAB58"
+      - name: PredgeValidatorBond
+        address: "0xd7bC19f836a92561b368eFf34667c32cAe4E7111"
+      - name: AgentJob
+        address: "0x64668df7917A84a26d53Fff7883DD998258D6987"
+      - name: PredgeSettlement
+        address: "0xb4540AD38FE0bCd08578664151689d4E9dd67F35"
