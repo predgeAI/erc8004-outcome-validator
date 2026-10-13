@@ -548,3 +548,19 @@ a.hash { color: var(--green-ink); }
 
 .fcard-flow.held i { color: var(--amber); text-decoration: none; }
 .fcard-flow.held em { color: var(--amber); }
+
+/* One accent rule: the verdict box is the only colored element in the hero and result.
+   Everything around it stays neutral so the eye lands on the answer. */
+.hero .hl { color: var(--ink); background: none; -webkit-text-fill-color: currentColor; }
+.fcard.on { border-color: rgba(255, 255, 255, 0.35); background: rgba(255, 255, 255, 0.04); box-shadow: none; }
+.fcard-traded { color: var(--ink-2); }
+.fcard-flow i, .fcard-flow.held i { color: var(--dim); text-decoration-color: var(--dim); }
+.fcard-flow.held i { text-decoration: none; }
+.fcard-flow em, .fcard-flow.held em, .fcard-flow em.pend { color: var(--ink); }
+.live-pill { color: var(--ink-2); }
+.flow-step.warn, .flow-step.fin, .flow-step.pend { border-color: var(--line); background: rgba(255, 255, 255, 0.02); }
+.flow-step.pend { border-style: dashed; }
+.flow-v, .flow-step.fin .flow-v, .flow-step.warn .flow-v { color: var(--ink); }
+.flow-v.struck { color: var(--dim); text-decoration-color: var(--dim); }
+.proof-ok > summary { color: var(--ink-2); }
+.badge { color: var(--ink-2) !important; background: rgba(255, 255, 255, 0.04) !important; border-color: var(--line) !important; }
