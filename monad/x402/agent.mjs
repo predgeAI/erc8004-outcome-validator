@@ -21,22 +21,29 @@ import { ExactEvmScheme } from "@x402/evm/exact/client";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const MARKET = process.argv[2] || "2169995";
 const BASE = process.argv[3] || "http://localhost:4021";
-const RPC = process.env.RPC_URL || "https://testnet-rpc.monad.xyz";
-const USDC = "0x534b2f3A21130d7a60830c2Df862319e593943A3";
+// MONAD_NETWORK=mainnet pays on Monad mainnet (chain 143, Circle USDC 0x7547…b603); default testnet.
+const NETS = {
+  testnet: { chainId: 10143, network: "eip155:10143", usdc: "0x534b2f3A21130d7a60830c2Df862319e593943A3", rpc: "https://testnet-rpc.monad.xyz", explorer: "https://testnet.monadvision.com" },
+  mainnet: { chainId: 143, network: "eip155:143", usdc: "0x754704Bc059F8C67012fEd69BC8A327a5aafb603", rpc: "https://rpc.monad.xyz", explorer: "https://monadvision.com" },
+};
+const NET = NETS[process.env.MONAD_NETWORK || "testnet"];
+if (!NET) { console.error("MONAD_NETWORK must be testnet or mainnet"); process.exit(2); }
+const RPC = process.env.RPC_URL || NET.rpc;
+const USDC = NET.usdc;
 const readEnv = (f) => Object.fromEntries(readFileSync(f, "utf8").split("\n").map((l) => /^([A-Z0-9_]+)=(.*)$/.exec(l.trim())).filter(Boolean).map((m) => [m[1], m[2]]));
 const key = process.env.PAYER_PRIVATE_KEY || readEnv(process.env.PREDGE_AGENT_ENV_FILE || path.join(os.homedir(), ".predge-monad/monad-metropolis.env")).X402_PAYER_PRIVATE_KEY;
 const account = privateKeyToAccount(key);
-const chain = new ethers.JsonRpcProvider(RPC, undefined, { staticNetwork: ethers.Network.from(10143n) });
+const chain = new ethers.JsonRpcProvider(RPC, undefined, { staticNetwork: ethers.Network.from(BigInt(NET.chainId)) });
 const usdc = new ethers.Contract(USDC, ["function balanceOf(address) view returns (uint256)", "event Transfer(address indexed from, address indexed to, uint256 value)"], chain);
 
 const verifyEd25519 = (a) => crypto.verify(null, Buffer.from(a.canonical), crypto.createPublicKey({ key: Buffer.concat([Buffer.from("302a300506032b6570032100", "hex"), Buffer.from(a.public_key, "hex")]), format: "der", type: "spki" }), Buffer.from(a.signature, "hex"));
 
 const client = new x402Client();
-client.register("eip155:10143", new ExactEvmScheme(account));
+client.register(NET.network, new ExactEvmScheme(account));
 const payFetch = wrapFetchWithPayment(fetch, client);
 
 const before = await usdc.balanceOf(account.address);
-console.log(`agent ${account.address}  USDC ${ethers.formatUnits(before, 6)} on Monad testnet`);
+console.log(`agent ${account.address}  USDC ${ethers.formatUnits(before, 6)} on Monad ${NET.chainId === 143 ? "mainnet" : "testnet"}`);
 const unpaid = await fetch(`${BASE}/v1/settlement-risk/${MARKET}`);
 const required = JSON.parse(Buffer.from(unpaid.headers.get("payment-required") || "", "base64").toString() || "{}");
 console.log(`unpaid request -> HTTP ${unpaid.status}; accepts ${JSON.stringify(required.accepts?.map((x) => ({ network: x.network, asset: x.asset, amount: x.amount, payTo: x.payTo })))}`);
@@ -78,5 +85,5 @@ console.log(`agent decision: ${decision}`);
 
 mkdirSync(path.join(HERE, "runs"), { recursive: true });
 const out = path.join(HERE, "runs", `x402-${new Date().toISOString().replace(/[:.]/g, "-")}.json`);
-writeFileSync(out, JSON.stringify({ network: "eip155:10143", facilitator: "https://x402-facilitator.molandak.org", market: MARKET, payer: account.address, latencyMs: ms, settlement: settle, payment, recordSignatureOk: sigOk, verdict, decision, usdcBefore: ethers.formatUnits(before, 6), usdcAfter: ethers.formatUnits(after, 6) }, null, 2) + "\n");
+writeFileSync(out, JSON.stringify({ network: NET.network, explorer: NET.explorer, facilitator: "https://x402-facilitator.molandak.org", market: MARKET, payer: account.address, latencyMs: ms, settlement: settle, payment, recordSignatureOk: sigOk, verdict, decision, usdcBefore: ethers.formatUnits(before, 6), usdcAfter: ethers.formatUnits(after, 6) }, null, 2) + "\n");
 console.log(`run -> ${path.relative(process.cwd(), out)}`);

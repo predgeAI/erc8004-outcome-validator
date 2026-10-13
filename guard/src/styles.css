@@ -429,3 +429,18 @@ a.hash { color: var(--green-ink); }
 .tx-in { flex: 1 1 260px; min-width: 0; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line-2); border-radius: 10px; color: inherit; padding: 8px 10px; font-size: 12px; }
 .mera-banner { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin: 16px 0 6px; font-size: 14px; max-width: 760px; line-height: 1.5; }
 @media (max-width: 860px) { .ns-grid { grid-template-columns: 1fr; } }
+/* Fund from any chain (Aurora Intents) */
+.fund-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 0.9fr); gap: 18px; align-items: start; }
+.fund-l { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); margin-bottom: 12px; flex: 1; min-width: 0; }
+.fund-i { width: 100%; background: rgba(0, 0, 0, 0.25); border: 1px solid var(--line-2); border-radius: 10px; padding: 10px 12px; color: var(--ink); font-size: 14px; min-width: 0; }
+.fund-i:focus { outline: none; border-color: var(--green); }
+.fund-row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+.fund-row .fund-i { flex: 1; }
+.fund-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.fund-quote { margin-top: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(52, 211, 153, 0.3); background: var(--green-bg); display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.fund-dep { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; margin-bottom: 14px; }
+.fund-addr { font-size: 13px; word-break: break-all; padding: 10px 12px; border-radius: 10px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--line-2); width: 100%; }
+.fund-track { margin-top: 14px; }
+.fund-track summary { cursor: pointer; margin-bottom: 8px; }
+.fund-pre { font-family: var(--mono); font-size: 12px; white-space: pre-wrap; word-break: break-all; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; color: var(--ink-2); }
+@media (max-width: 960px) { .fund-grid { grid-template-columns: 1fr; } }
