@@ -56,7 +56,7 @@ merge rules; the Mera viem account signs the Guard EIP-712 receipt and stops aft
 
 ## Owner demo (real passkey)
 
-Use the deployed HTTPS page (`https://predgeai.github.io/erc8004-outcome-validator/mera.html`) or
+Use the deployed HTTPS page (`https://guard.predge.io/mera.html`) or
 `http://localhost:5173/mera.html` after `npm run build && npx vite preview --port 5173`. A passkey is
 bound to the host it was created on, so do the whole demo on one host. Use iCloud Keychain,
 1Password or Google Password Manager (on desktop Chrome, save to Google Password Manager; a passkey in

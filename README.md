@@ -20,19 +20,19 @@ two things it can check without trusting us:
 This repository is Predge's submission to the **Monad Metropolis hackathon, Track 4 (Trust,
 Identity and AI Infrastructure)**. Everything below runs on **Monad testnet (chain 10143)**.
 
-**Predge Guard:** https://predgeai.github.io/erc8004-outcome-validator/ checks one market end to end:
+**Predge Guard:** https://guard.predge.io/ checks one market end to end:
 paste a Polymarket link, slug or market id, and it fetches the signed record, verifies the ed25519
 signature and SHA-256 content hash in your browser, reads Predge's verdict from Monad testnet, confirms
 `responseHash == keccak256(signed record)`, and answers "is it safe to act?". Wallet login with Privy
 or Dynamic lets you watch markets and send a validationRequest on Monad testnet from your own wallet
 (source: [`guard/`](guard/), built into `docs/` with `cd guard && npm install && npm run build`).
 A passkey through [Mera](https://mera.category.xyz) is a third sign-in, and
-[`mera.html`](https://predgeai.github.io/erc8004-outcome-validator/mera.html) makes it the whole
+[`mera.html`](https://guard.predge.io/mera.html) makes it the whole
 account layer. The same passkey also derives an ed25519 key that signs risk receipts without any wallet
 and an AES-256-GCM key that seals the watchlist and receipts into a blob that can be stored anywhere,
 each from its own PRF salt ([`guard/MERA.md`](guard/MERA.md)).
 The verdict board that re-verifies all 145 verdicts at once is at
-[`board.html`](https://predgeai.github.io/erc8004-outcome-validator/board.html) (source: [`docs/board.html`](docs/board.html)).
+[`board.html`](https://guard.predge.io/board.html) (source: [`docs/board.html`](docs/board.html)).
 
 Target user: builders of agents, trading and signal bots, and protocols that act on or settle
 against prediction-market outcomes. Revenue today is $0; there are no paying customers yet.
@@ -432,7 +432,7 @@ This repo is open source (MIT) and maintained by a solo developer as part of Pre
 - EVM (Base preferred; the same address works on Arbitrum and Arc): `0x9084f5000E07C7133D6dA5eE4f271AB6D1821144`
 - Solana: `9dxMRRtC7RKZH5rFZpUywjmnQ87H9qHhtW43u5LYmpV`
 
-These are the same addresses Predge already uses to receive x402 payments. Send USDC or the network's native token only. You can also fund the repo through [Drips](https://www.drips.network/app/projects/github/predgeAI/erc8004-outcome-validator). All options are listed on the [support page](https://predgeai.github.io/erc8004-outcome-validator/support/).
+These are the same addresses Predge already uses to receive x402 payments. Send USDC or the network's native token only. You can also fund the repo through [Drips](https://www.drips.network/app/projects/github/predgeAI/erc8004-outcome-validator). All options are listed on the [support page](https://guard.predge.io/support/).
 
 ## License
 

@@ -100,7 +100,7 @@ the strength of the dispute verifier.
 
 Nothing below needs a key or sends a transaction.
 
-- Predge Guard: https://predgeai.github.io/erc8004-outcome-validator/ (try 1137824, then any market id)
+- Predge Guard: https://guard.predge.io/ (opens on a famous dispute; tap the cards, no typing)
 - Mainnet contracts (chain 143): PredgeAgentValidator 0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9,
   PredgeValidatorBond 0xd7bC19f836a92561b368eFf34667c32cAe4E7111, AgentJob
   0x64668df7917A84a26d53Fff7883DD998258D6987, PredgeSettlement 0xb4540AD38FE0bCd08578664151689d4E9dd67F35
