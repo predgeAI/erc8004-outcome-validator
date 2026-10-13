@@ -75,11 +75,13 @@ export async function checkFull(input: string, opts: CheckOptions): Promise<{ re
   let verdictNote: string | null = null;
   if (opts.skipChain) verdictNote = "chain read skipped (--no-chain)";
   else {
-    const reads = await Promise.allSettled([readTestnetVerdict(rec.signed, opts.clients, { fetch: opts.fetch }), readMainnetVerdict(r.marketId, opts.clients, { fetch: opts.fetch })]);
+    const reads = await Promise.allSettled([readMainnetVerdict(r.marketId, opts.clients, { fetch: opts.fetch }), readTestnetVerdict(rec.signed, opts.clients, { fetch: opts.fetch })]);
     for (const x of reads) {
       if (x.status === "fulfilled" && x.value) verdicts.push(x.value);
       else if (x.status === "rejected") verdictNote = `chain read failed: ${(x.reason as Error).message.split("\n")[0]}`;
     }
+    // Mainnet first: when Monad mainnet has this market, an empty testnet read is noise.
+    if (verdicts.some((v) => v.chainId === 143)) for (let i = verdicts.length - 1; i >= 0; i--) if (verdicts[i].chainId !== 143 && !verdicts[i].found) verdicts.splice(i, 1);
     if (!r.disputes[0]?.disputed_proposal && !verdicts.length) verdictNote = "no disputed proposal, so Predge has no claim to score on chain for this market";
     else if (verdicts.length && !verdicts.some((v) => v.found)) verdictNote = "no verdict on chain yet for this market's claim";
   }
@@ -149,7 +151,7 @@ export function renderCheck(c: CheckReport): string {
   L.push(`Outcome:   ${c.proposalVsOutcome}`);
   L.push(`Record:    signed by Predge key ${c.record.kid}, signature ${c.record.signature ? "ok" : "BAD"}, pinned key ${c.record.pinnedKey ? "ok" : "BAD"}, content hash ${c.record.contentHash === null ? "n/a" : c.record.contentHash ? "ok" : "BAD"}, condition id ${c.record.conditionIdMatches ? "matches" : "MISMATCH"}; checked ${c.record.checkedAt}`);
   for (const v of c.verdicts) {
-    if (!v.found) { L.push(`Verdict:   ${v.network}: none yet for requestHash ${short(v.requestHash)} (${v.explorerUrl})`); continue; }
+    if (!v.found) { L.push(`Verdict:   ${v.network}: ${v.pending ? "requested, pending until the dispute settles" : "none yet"} for requestHash ${short(v.requestHash)} (${v.explorerUrl})`); continue; }
     // Two claims are validated: settlement-risk-v1 asks "did the disputed proposal stand" (100 yes, 0 no);
     // resolved-outcome-vs-claim asks "does the signed record match the claim it was requested for" (100 yes).
     const meaning = v.tag === "predge:resolved-outcome-vs-claim"

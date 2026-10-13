@@ -15,6 +15,7 @@ import {
   verifyRecord,
 } from "../../../sdk/src/index.js";
 import { type FetchLike, getJson } from "./http.js";
+import { MAINNET_VALIDATOR_CONTRACT, MAINNET_VALIDATOR_VERDICTS } from "./mainnet-validator.js";
 
 export const MONAD_MAINNET = Object.freeze({
   chainId: 143,
@@ -81,6 +82,8 @@ export interface ChainVerdict {
   tag: string | null;
   lastUpdate: string | null;
   bound: boolean;
+  /** requested on chain, no response yet */
+  pending?: boolean;
   scoreConsistent: boolean | null;
   explorerUrl: string;
   via: string;
@@ -104,6 +107,8 @@ async function readStatus(factory: ClientFactory, fallback: ClientFactory, chain
 function bind(out: ChainVerdict, s: readonly [Hex, bigint, number, Hex, string, bigint], records: SignedRecord[], expectedProposal: string | null) {
   const [validator, , response, responseHash, tag, lastUpdate] = s;
   if (validator.toLowerCase() === ZERO || lastUpdate === 0n) { out.problems.push("no verdict on chain for this requestHash"); return out; }
+  // A request with no response yet (e.g. the market is still in a UMA vote): pending, not a score of 0.
+  if (/^0x0*$/.test(responseHash) && !tag) { out.pending = true; out.problems.push("validation requested, verdict pending"); return out; }
   out.found = true;
   out.validator = validator;
   out.score = Number(response);
@@ -156,8 +161,25 @@ export async function readTestnetVerdict(signed: Record<string, any>, factory: C
   return bind(out, s, records, claim.proposal);
 }
 
-/** Mainnet: the ERC-8004 ValidationRegistry verdicts listed in MAINNET_VERDICTS. */
+/**
+ * Mainnet: PredgeAgentValidator verdicts from the live runs (monad/mainnet/runs/), then the
+ * ERC-8004 ValidationRegistry verdicts listed in MAINNET_VERDICTS.
+ */
 export async function readMainnetVerdict(marketId: string, factory: ClientFactory, opts: { fetch?: FetchLike } = {}): Promise<ChainVerdict | null> {
+  const live = MAINNET_VALIDATOR_VERDICTS[marketId];
+  if (live) {
+    const contract = MAINNET_VALIDATOR_CONTRACT as Hex;
+    const out: ChainVerdict = {
+      chainId: MONAD_MAINNET.chainId, network: "Monad mainnet", contract, requestHash: live.requestHash, found: false, score: null, validator: null, validatorMatches: false,
+      responseHash: null, tag: null, lastUpdate: null, bound: false, scoreConsistent: null,
+      explorerUrl: `${MONAD_MAINNET.explorer}/tx/${live.tx}`, via: "", problems: [],
+    };
+    const { s, via } = await readStatus(factory, publicRpcFactory(), MONAD_MAINNET.chainId, contract, live.requestHash);
+    out.via = via;
+    let records: SignedRecord[] = [];
+    try { records = [(await getJson<{ attestation: SignedRecord }>(live.recordUrl, { fetch: opts.fetch, timeoutMs: 20_000 })).attestation]; } catch (e) { out.problems.push(`record fetch failed: ${(e as Error).message}`); }
+    return bind(out, s, records, live.proposal);
+  }
   const known = MAINNET_VERDICTS[marketId];
   if (!known) return null;
   const contract = MONAD_MAINNET.validationRegistry as Hex;
