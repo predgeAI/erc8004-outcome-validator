@@ -10,7 +10,7 @@ whether a market's answer is final: a signed dispute record plus a verdict writt
 - Android: APK at https://github.com/predgeAI/predge-settle-watch/releases/tag/v0.6.4-monad
 
 **Proof on Monad mainnet (chain 143).**
-- Validator contract [`0xf4EE…eeF9`](https://monadvision.com/address/0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9) with 28 verdicts and 10 open requests ([receipts](monad/mainnet/runs/))
+- Validator contract [`0xf4EE…eeF9`](https://monadvision.com/address/0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9) with 36 verdicts and 2 open requests ([receipts](monad/mainnet/runs/))
 - x402 paid check, 0.001 USDC: [tx 0x83de…5228](https://monadvision.com/tx/0x83de667bb4cdb8a7c338fd35a015d9b4071ea209eca0a1bbdd031250e0e55228)
 - Envio GraphQL (indexer `predgeai/predge-validator`): https://indexer.dev.hyperindex.xyz/ee81664/v1/graphql
 
@@ -413,6 +413,7 @@ later):
 | 34 markets, 56 tx (22 verdicts, 12 open requests) | 2026-10-12 22:32 | [`monad/mainnet/runs/live-2026-10-12T22-32-40-193Z.json`](monad/mainnet/runs/live-2026-10-12T22-32-40-193Z.json) |
 | 4 more verdicts (MicroStrategy, Iran, Mexico, Ronaldo) | 2026-10-13 08:15 | [`monad/mainnet/runs/live-2026-10-13T08-15-57-062Z.json`](monad/mainnet/runs/live-2026-10-13T08-15-57-062Z.json) |
 | Verdicts for 5592771 and 5592765 after their disputes settled (28 verdicts, 10 open) | 2026-10-13 18:25 | [`monad/mainnet/runs/live-2026-10-13T18-25-09-206Z.json`](monad/mainnet/runs/live-2026-10-13T18-25-09-206Z.json) |
+| Verdicts for 8 more markets after their disputes settled (36 verdicts, 2 open) | 2026-10-14 21:29 UTC | [`monad/mainnet/runs/live-2026-10-14T21-29-33-064Z.json`](monad/mainnet/runs/live-2026-10-14T21-29-33-064Z.json) |
 | Nansen exposure refresh for 5219930, 0.13 USDC over x402 (5 payments) | 2026-10-13 20:08 | [tx 0xca47…08f5](https://monadvision.com/tx/0xca470ea617a3f53b5a2556e72e330826e7892ca78d63a9303d7062cf73b308f5) |
 | x402 paid check, 0.001 USDC | 2026-10-13 06:31 | [tx 0x83de…5228](https://monadvision.com/tx/0x83de667bb4cdb8a7c338fd35a015d9b4071ea209eca0a1bbdd031250e0e55228) |
 | Aurora: 2 USDC from Base delivered to Monad | 2026-10-13 | [tx 0xece7…7caf](https://monadvision.com/tx/0xece785a6188c7c53aa27268b89e84b34a040296eb79a3a19bd443ab8daaa7caf), [`aurora/runs/`](aurora/runs/) |

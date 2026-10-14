@@ -1,0 +1,231 @@
+{
+ "kind": "respond",
+ "ranAt": "2026-10-14T21:29:33.064Z",
+ "chainId": 143,
+ "explorer": "https://monadvision.com",
+ "contract": "0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9",
+ "contractUrl": "https://monadvision.com/address/0xf4EE0Af65804D5754E59316b3DBB53D5c3AeeeF9",
+ "validator": "0x9F0Af03C5695b72903c03852f7Dd4Fe5A0d49Fc9",
+ "tag": "predge:settlement-risk-v1",
+ "plannedWorstCaseMON": "0.198357824",
+ "gasLimitCharged": "1771052",
+ "readBackBound": 8,
+ "verdicts": [
+  {
+   "market_id": "5518151",
+   "title": "Stopin Oleh vs. Semenets Serhii: Total Games O/U 3.5",
+   "state": "open",
+   "proposal": "Over",
+   "outcome": "Under",
+   "score": 0,
+   "requestHash": "0xa6b7d7096a9897d0bdaee08e1eaee97891f25cd3574ccd0884dfa686c26a5320",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5518151.json",
+   "responseHash": "0x42be3078a1e590943a91d677e9370369c68d30de0fd8dfbe8639da69611f4459",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5518151-settled.json",
+   "request": null,
+   "response": {
+    "tx": "0x01c5d0b2ce66e50c1e5d7f9ba70f72cfa690f693107471327c83ee60ada743ff",
+    "url": "https://monadvision.com/tx/0x01c5d0b2ce66e50c1e5d7f9ba70f72cfa690f693107471327c83ee60ada743ff",
+    "status": 1,
+    "block": 113434547,
+    "gasUsed": "219883",
+    "gasLimit": "219883"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x42be3078a1e590943a91d677e9370369c68d30de0fd8dfbe8639da69611f4459",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5545588",
+   "title": "Pierluigi Gollini: 4+ saves",
+   "state": "open",
+   "proposal": "Yes",
+   "outcome": "Yes",
+   "score": 100,
+   "requestHash": "0x53cc1f16d932ff5452d3f68902a4303ab2b2435f191c6a9fa4f4f703a91e8f03",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5545588.json",
+   "responseHash": "0xe8182960164502e1b6e43dceb26f7daa5f4fdf80bf10badbac39e87398c0d750",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5545588-settled.json",
+   "request": null,
+   "response": {
+    "tx": "0x4db52d990f2d3262fe5bacfc0a5d2e54a3e327ad4b7e962842d3f43d8f5c448d",
+    "url": "https://monadvision.com/tx/0x4db52d990f2d3262fe5bacfc0a5d2e54a3e327ad4b7e962842d3f43d8f5c448d",
+    "status": 1,
+    "block": 113434547,
+    "gasUsed": "219896",
+    "gasLimit": "219896"
+   },
+   "readBack": {
+    "response": 100,
+    "responseHash": "0xe8182960164502e1b6e43dceb26f7daa5f4fdf80bf10badbac39e87398c0d750",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5527590",
+   "title": "Albert Rusnák: 1+ goals + assists",
+   "state": "open",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0xc081f7dcfe63c298ec08f1e71ef078668f4949a3ecc7387dce3c672b0742c9f6",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5527590.json",
+   "responseHash": "0x61e60d973ae1ebc36b09a4613e40f14508da21e48fb14135fab614a704460643",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5527590-settled.json",
+   "request": null,
+   "response": {
+    "tx": "0xade06a2cc32bd5bb45faa369cad80bbdd0735119a338529263b922862d22076c",
+    "url": "https://monadvision.com/tx/0xade06a2cc32bd5bb45faa369cad80bbdd0735119a338529263b922862d22076c",
+    "status": 1,
+    "block": 113434547,
+    "gasUsed": "219883",
+    "gasLimit": "219883"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x61e60d973ae1ebc36b09a4613e40f14508da21e48fb14135fab614a704460643",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5527470",
+   "title": "Albert Rusnák: 1+ assists",
+   "state": "open",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0x0acdbc0460bbfa7cfefa1b33b72f1242eda34362f4dfbbe8e3231bd0cc563940",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5527470.json",
+   "responseHash": "0xe7086d6f0efb313d9eb233d8bd2c1facdd5851dc40d5d2a0c06d7aaa3e43a2ee",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5527470-settled.json",
+   "request": null,
+   "response": {
+    "tx": "0x8b650d0d574ad2ef3a71cb4f3857af97f7e908a3798c2b9f6a5f78f4198a8637",
+    "url": "https://monadvision.com/tx/0x8b650d0d574ad2ef3a71cb4f3857af97f7e908a3798c2b9f6a5f78f4198a8637",
+    "status": 1,
+    "block": 113434548,
+    "gasUsed": "219883",
+    "gasLimit": "219883"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0xe7086d6f0efb313d9eb233d8bd2c1facdd5851dc40d5d2a0c06d7aaa3e43a2ee",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5531929",
+   "title": "Timo Werner: 1+ assists",
+   "state": "open",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0x47909d3b539873a21f4d230f05e94b97b063cc5aac6114a7e6b545dfbf10d984",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5531929.json",
+   "responseHash": "0x2b56e42b55932e8cf770b8d9d80d91328d06e13e603071e24a11780bfccb58de",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5531929-settled.json",
+   "request": null,
+   "response": {
+    "tx": "0x62cd9f20d5138316d2954445ea46b3f8bf2312aac0f3fb6cf6f6a3832e04f6da",
+    "url": "https://monadvision.com/tx/0x62cd9f20d5138316d2954445ea46b3f8bf2312aac0f3fb6cf6f6a3832e04f6da",
+    "status": 1,
+    "block": 113434549,
+    "gasUsed": "231858",
+    "gasLimit": "231858"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x2b56e42b55932e8cf770b8d9d80d91328d06e13e603071e24a11780bfccb58de",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5532585",
+   "title": "Sergio Vasquez: 1+ assists",
+   "state": "open",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0x71037518f213765a322b32e675ba01271c151523cf3f90dfb5a09de860ab6791",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5532585.json",
+   "responseHash": "0x989146d2e3e7efdc2dad05bd4e2c83894c2912d3afbe50c4b5d8775c7b3a6430",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5532585-settled.json",
+   "request": null,
+   "response": {
+    "tx": "0x79c4628ccf2ba62f65ca61902f0f690dc3e6277f81b6ec72d4c1a9929dd0e0f7",
+    "url": "https://monadvision.com/tx/0x79c4628ccf2ba62f65ca61902f0f690dc3e6277f81b6ec72d4c1a9929dd0e0f7",
+    "status": 1,
+    "block": 113434549,
+    "gasUsed": "219883",
+    "gasLimit": "219883"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x989146d2e3e7efdc2dad05bd4e2c83894c2912d3afbe50c4b5d8775c7b3a6430",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5532645",
+   "title": "Sergio Vasquez: 1+ goals + assists",
+   "state": "open",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0x7b21f9f8e48d748508dbb7c5411a2655a5597c9b62893baeb4f04c47bb2d4878",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5532645.json",
+   "responseHash": "0x62df53f92db738f6833ad3a0b42598a8cc1d980cbaadf7159a6bc1aebe421f50",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5532645-settled.json",
+   "request": null,
+   "response": {
+    "tx": "0x1a865f53ca30f0c23b87732c8df2ac4719e4c504a141de78c331c4ad78bef699",
+    "url": "https://monadvision.com/tx/0x1a865f53ca30f0c23b87732c8df2ac4719e4c504a141de78c331c4ad78bef699",
+    "status": 1,
+    "block": 113434550,
+    "gasUsed": "219883",
+    "gasLimit": "219883"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x62df53f92db738f6833ad3a0b42598a8cc1d980cbaadf7159a6bc1aebe421f50",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  },
+  {
+   "market_id": "5508116",
+   "title": "Richie Laryea: 1+ goals + assists",
+   "state": "open",
+   "proposal": "No",
+   "outcome": "Yes",
+   "score": 0,
+   "requestHash": "0xa38c3d13c816feb75e26e6990f12a8f309a953f8783d8097df0f882f1a43f256",
+   "requestURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5508116.json",
+   "responseHash": "0x4ccbee983fe67e1fe101611be48fef8bf3a6d14d44b171cf26caccfefd6d5450",
+   "responseURI": "https://raw.githubusercontent.com/predgeAI/erc8004-outcome-validator/main/monad/mainnet/records/5508116-settled.json",
+   "request": null,
+   "response": {
+    "tx": "0x2074a9e3e27c780f1e2389ad6b1d98a1c069714ac0829d5251f9693078c904b0",
+    "url": "https://monadvision.com/tx/0x2074a9e3e27c780f1e2389ad6b1d98a1c069714ac0829d5251f9693078c904b0",
+    "status": 1,
+    "block": 113434551,
+    "gasUsed": "219883",
+    "gasLimit": "219883"
+   },
+   "readBack": {
+    "response": 0,
+    "responseHash": "0x4ccbee983fe67e1fe101611be48fef8bf3a6d14d44b171cf26caccfefd6d5450",
+    "tag": "predge:settlement-risk-v1",
+    "bound": true
+   }
+  }
+ ]
+}
