@@ -49,21 +49,37 @@ const H32 = /^0x[0-9a-f]{64}$/;
 const DEC = /^(0|[1-9][0-9]{0,77})$/;
 const CAIP19 = /^eip155:([1-9][0-9]*)\/erc20:(0x[0-9a-f]{40})$/;
 const REGISTRY = /^eip155:[1-9][0-9]*:0x[0-9a-f]{40}$/;
-const GROUNDING = ["x402-settlement", "escrow-release", "settlement-contract"];
+const GROUNDING = ["x402-settlement", "escrow-release", "settlement-contract", "x402-receipt-commitment"];
 // capacity-attest's unit table: which `measured.unit` each `assetType` allows.
 const UNITS = { "gpu-hours": ["gpu-second"], storage: ["byte", "byte-second"], bandwidth: ["byte"], "api-credits": ["call", "token", "credit"] };
 const KEYS = {
-  common: ["scheme", "grounding", "payer", "payee", "ratee", "amount", "asset", "resource", "nonce", "settlementTx"],
+  common: ["scheme", "grounding", "payer", "payee", "ratee", "amount", "asset", "resource"],
   optional: ["requirementsHash", "issuedAt", "assetType", "measured"],
-  "escrow-release": ["escrow"],
+  "x402-settlement": ["nonce", "settlementTx"],
+  "escrow-release": ["escrow", "nonce", "settlementTx"],
+  "settlement-contract": ["nonce", "settlementTx"],
+  "x402-receipt-commitment": ["receiptCommitment", "receiptHash", "opening"],
 };
+// x402-receipt-commitment: what each `opening` requires (README "x402-receipt-commitment"). Every
+// key in OPENING_KEYS that is not required by the record's own opening must be absent.
+const OPENINGS = { public: ["nonce", "settlementTx", "receiptSalt"], private: ["verifier", "openingStatement"], none: [] };
+const OPENING_KEYS = ["nonce", "settlementTx", "receiptSalt", "verifier", "openingStatement"];
+const B64U32 = /^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$/; // 32 bytes, base64url, no padding
 
 // Field rules from README.md "Record fields". Returns a list of problems.
 function schemaProblems(r) {
   const p = [];
-  const allowed = new Set([...KEYS.common, ...KEYS.optional, ...(KEYS[r.grounding] || [])]);
+  const commitment = r.grounding === "x402-receipt-commitment";
+  const byOpening = commitment ? OPENINGS[r.opening] || [] : [];
+  const required = [...KEYS.common, ...(KEYS[r.grounding] || []), ...byOpening];
+  const allowed = new Set([...required, ...KEYS.optional]);
   for (const k of Object.keys(r)) if (!allowed.has(k)) p.push(`unknown key ${k}`);
-  for (const k of [...KEYS.common, ...(KEYS[r.grounding] || [])]) if (r[k] === undefined) p.push(`missing ${k}`);
+  for (const k of required) if (r[k] === undefined) p.push(`missing ${k}`);
+  if (commitment) {
+    if (!(r.opening in OPENINGS)) p.push("opening not public | private | none");
+    for (const k of ["receiptCommitment", "receiptHash", "receiptSalt", "openingStatement"]) if (r[k] !== undefined && !H32.test(r[k])) p.push(`${k} not 0x + 64 lower-case hex`);
+    if (r.verifier !== undefined && !B64U32.test(r.verifier)) p.push("verifier not a base64url ed25519 public key");
+  }
   if (r.scheme !== "x402-grounded-feedback-v0") p.push("scheme");
   if (!GROUNDING.includes(r.grounding)) p.push("grounding");
   for (const k of ["payer", "payee", "escrow"]) if (r[k] !== undefined && !ADDR.test(r[k])) p.push(`${k} not a lower-case address`);
@@ -91,6 +107,26 @@ function schemaProblems(r) {
     else if (typeof v !== "string") p.push(`${path} is not a string`);
   })(r, "record");
   return p;
+}
+
+// x402 receipt v2 (x402-foundation/x402#3827 at 0e492d6, section 5.6): the record must describe the
+// receipt it carries, and a public opening must recompute the receipt's authorizationCommitment.
+const SPLIT = Buffer.from("x402-receipt-authorization/0\0eip3009\0", "ascii");
+function commitmentChecks(r, receipt) {
+  const out = {};
+  if (!receipt) return { receiptConsistent: false };
+  const [, chainId, token] = CAIP19.exec(r.asset ?? "") || [];
+  out.receiptConsistent =
+    receipt.version === 2 && receipt.authorizationMethod === "eip3009" &&
+    String(receipt.payer).toLowerCase() === r.payer && String(receipt.authorizationCommitment).toLowerCase() === r.receiptCommitment &&
+    receipt.resourceUrl === r.resource && receipt.network === `eip155:${chainId}` &&
+    "0x" + crypto.createHash("sha256").update(canonicalize(receipt), "utf8").digest("hex") === r.receiptHash;
+  if (r.opening === "public" && token && H32.test(r.nonce ?? "") && H32.test(r.receiptSalt ?? "")) {
+    // authorizer = the receipt's signed payer (5.6.4 step 1), not the record's payer.
+    const pre = Buffer.concat([SPLIT, ...[token, String(receipt.payer), r.nonce, r.receiptSalt].map((h) => Buffer.from(h.slice(2), "hex"))]);
+    out.commitmentOpens = "0x" + crypto.createHash("sha256").update(pre).digest("hex") === String(receipt.authorizationCommitment).toLowerCase();
+  }
+  return out;
 }
 
 function ed25519Verify(message, publicKeyHex, signatureHex) {
@@ -278,6 +314,10 @@ for (const file of files) {
   const ancillaryData = v.evidence?.ancillaryData;
   const problems = oracle ? oracleSchemaProblems(payload, ancillaryData) : schemaProblems(payload);
   got.schemaValid = problems.length === 0;
+  if (payload.grounding === "x402-receipt-commitment") {
+    const c = commitmentChecks(payload, v.receipt);
+    Object.assign(got, c);
+  }
   const call = iface.decodeFunctionData("validationResponse", v.validationResponse.calldata);
   let callOk =
     call[0] === v.validationResponse.requestHash &&
@@ -298,7 +338,14 @@ for (const file of files) {
   } else callOk = callOk && call[4] === payload.grounding;
   got.acceptOffline =
     got.canonicalMatches && got.signatureValid && got.responseHashMatches && got.requirementsHashMatches !== false &&
-    got.requirementsConsistent !== false && got.schemaValid && got.stateTagConsistent !== false && got.supersedeChainValid !== false && callOk;
+    got.requirementsConsistent !== false && got.schemaValid && got.stateTagConsistent !== false && got.supersedeChainValid !== false &&
+    got.receiptConsistent !== false && got.commitmentOpens !== false && callOk;
+  if (payload.grounding === "x402-receipt-commitment") {
+    // Counting tier (README "x402-receipt-commitment"). A private opening is counted only after its
+    // statement is checked, which this file does not carry, so an offline verdict never counts one.
+    got.tier = payload.opening === "public" ? "opened" : payload.opening === "private" ? "private opening" : "seller-signed, not linked";
+    got.counted = got.acceptOffline && payload.opening === "public";
+  }
   let onchain = [];
   const needsChain = "onchainStateMatches" in v.expect;
   if (needsChain && ONCHAIN && got.schemaValid) {
