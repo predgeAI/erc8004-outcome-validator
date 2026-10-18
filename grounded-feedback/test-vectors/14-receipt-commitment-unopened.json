@@ -1,0 +1,64 @@
+{
+  "_README": "x402-grounded-feedback-v0, grounding x402-receipt-commitment, opening none: the same receipt with no salt, nonce or settlementTx. The record is valid and is reported as seller-signed, not linked; it never counts toward a deduplicated or Sybil threshold. Check offline: node grounded-feedback/verify-test-vectors.mjs",
+  "spec": "grounded-feedback/README.md",
+  "signingKeyNote": "Signed with the RFC 8032 section 7.1 TEST 1 ed25519 key: secret 9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60, public d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a. Publicly known, never used for anything real. TEST KEY ONLY.",
+  "receipt": {
+    "version": 2,
+    "network": "eip155:8453",
+    "resourceUrl": "https://api.example.com/premium-data",
+    "payer": "0x857b06519E91e3A54538791bDbb0E22373e36b66",
+    "issuedAt": 1703123456,
+    "transaction": "",
+    "authorizationMethod": "eip3009",
+    "authorizationCommitment": "0x5d905bbf08a97e04ab551d276d8e94b1abaff7d0737324d360e983c2796af23b"
+  },
+  "envelope": {
+    "payload": {
+      "scheme": "x402-grounded-feedback-v0",
+      "grounding": "x402-receipt-commitment",
+      "payer": "0x857b06519e91e3a54538791bdbb0e22373e36b66",
+      "payee": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "ratee": {
+        "agentRegistry": "eip155:8453:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+        "agentId": "42"
+      },
+      "amount": "10000",
+      "asset": "eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "resource": "https://api.example.com/premium-data",
+      "receiptCommitment": "0x5d905bbf08a97e04ab551d276d8e94b1abaff7d0737324d360e983c2796af23b",
+      "receiptHash": "0x33f017519afd7efceb138187dfc1ac27af6953efd54ea6d37d0a55410d06bba5",
+      "opening": "none"
+    },
+    "canonical": "{\"amount\":\"10000\",\"asset\":\"eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913\",\"grounding\":\"x402-receipt-commitment\",\"opening\":\"none\",\"payee\":\"0x70997970c51812dc3a010c7d01b50e0d17dc79c8\",\"payer\":\"0x857b06519e91e3a54538791bdbb0e22373e36b66\",\"ratee\":{\"agentId\":\"42\",\"agentRegistry\":\"eip155:8453:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432\"},\"receiptCommitment\":\"0x5d905bbf08a97e04ab551d276d8e94b1abaff7d0737324d360e983c2796af23b\",\"receiptHash\":\"0x33f017519afd7efceb138187dfc1ac27af6953efd54ea6d37d0a55410d06bba5\",\"resource\":\"https://api.example.com/premium-data\",\"scheme\":\"x402-grounded-feedback-v0\"}",
+    "signature": "0e992b63a1bec1144551a96094ac4d0557bf81e7e6a88b8b4259bd86a336db7ea46b17004819611acc10d76e5d3c09867f8b72e4ef399c617b6744e46791580d",
+    "public_key": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+    "algorithm": "ed25519"
+  },
+  "canonicalByteLength": 607,
+  "responseHash": "0xb3462e6f2654f3070e0b896241129cac355aafb5052458ef92385a3c3b578dba",
+  "validationResponse": {
+    "function": "validationResponse(bytes32,uint8,string,bytes32,string)",
+    "requestHash": "0xcdc40489bf9f11c430584f2166ad38b48e5e8ec5e1ef38baa0c7e41eeefe3fd0",
+    "response": 100,
+    "responseURI": "https://example.com/attestations/14.json",
+    "responseHash": "0xb3462e6f2654f3070e0b896241129cac355aafb5052458ef92385a3c3b578dba",
+    "tag": "x402-receipt-commitment",
+    "calldata": "0x3d659a96cdc40489bf9f11c430584f2166ad38b48e5e8ec5e1ef38baa0c7e41eeefe3fd0000000000000000000000000000000000000000000000000000000000000006400000000000000000000000000000000000000000000000000000000000000a0b3462e6f2654f3070e0b896241129cac355aafb5052458ef92385a3c3b578dba0000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000002868747470733a2f2f6578616d706c652e636f6d2f6174746573746174696f6e732f31342e6a736f6e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000017783430322d726563656970742d636f6d6d69746d656e74000000000000000000"
+  },
+  "expect": {
+    "canonicalMatches": true,
+    "signatureValid": true,
+    "responseHashMatches": true,
+    "schemaValid": true,
+    "receiptConsistent": true,
+    "tier": "seller-signed, not linked",
+    "counted": false,
+    "accept": true
+  },
+  "notes": {
+    "receipt": "The signed receipt v2 payload from section 5 of the receipt spec (https://github.com/babyblueviper1/x402/blob/0e492d6730bef14b9c722428386c114f3475a914/specs/extensions/extension-offer-and-receipt.md). receiptHash is 0x + sha256 of its canonical JSON, the same bytes the private-opening statement's receipt_sha256 covers. The seller's receipt signature is out of scope here, as in the spec's own vectors.",
+    "commitment": "authorizationCommitment = 0x + sha256(\"x402-receipt-authorization/0\" 0x00 \"eip3009\" 0x00 asset(20) authorizer(20) nonce(32) salt(32)). authorizer is the receipt's signed payer, never a value supplied with the salt (section 5.6.4 step 1).",
+    "counting": "Section 5.6.5: an unopened commitment is unique per receipt, not per payment, so a deduplicated or Sybil-resistant count counts opened commitments only.",
+    "why": "The seller can issue two receipts with different salts for one settlement, or a commitment that opens to none. Until it is opened, the commitment says only that the seller signed it."
+  }
+}

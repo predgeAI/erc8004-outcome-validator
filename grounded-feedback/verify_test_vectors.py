@@ -15,6 +15,7 @@ One on-chain rule it does check, against the read committed in the vector's evid
 a record read where the oracle request is SETTLED or RESOLVED and payoutDenominator is still 0 gets reason settled_not_resolved
 (`onchainReason` in `expect`).
 """
+import base64
 import glob
 import hashlib
 import json
@@ -34,8 +35,17 @@ H32 = re.compile(r"^0x[0-9a-f]{64}$")
 DEC = re.compile(r"^(0|[1-9][0-9]{0,77})$")
 REGISTRY = re.compile(r"^eip155:[1-9][0-9]*:0x[0-9a-f]{40}$")
 ISSUED_AT = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z$")
-REQUIRED = ["scheme", "grounding", "payer", "payee", "ratee", "amount", "asset", "resource", "nonce", "settlementTx"]
+REQUIRED = ["scheme", "grounding", "payer", "payee", "ratee", "amount", "asset", "resource"]
 OPTIONAL = ["requirementsHash", "issuedAt", "assetType", "measured"]
+# keys each grounding method adds to REQUIRED; x402-receipt-commitment adds more by `opening`
+BY_GROUNDING = {
+    "x402-settlement": ["nonce", "settlementTx"],
+    "escrow-release": ["escrow", "nonce", "settlementTx"],
+    "settlement-contract": ["nonce", "settlementTx"],
+    "x402-receipt-commitment": ["receiptCommitment", "receiptHash", "opening"],
+}
+BY_OPENING = {"public": ["nonce", "settlementTx", "receiptSalt"], "private": ["verifier", "openingStatement"], "none": []}
+VERIFIER_KEY = re.compile(r"^[A-Za-z0-9_-]{43}$")
 # capacity-attest's unit table: which measured.unit each assetType allows
 UNITS = {"gpu-hours": {"gpu-second"}, "storage": {"byte", "byte-second"}, "bandwidth": {"byte"}, "api-credits": {"call", "token", "credit"}}
 
@@ -48,12 +58,26 @@ def canonical(value):
 def schema_problems(r):
     """Field rules from README.md "Record fields" and the measured mapping. Returns a list of problems."""
     p = []
-    extra = ["escrow"] if r.get("grounding") == "escrow-release" else []
+    extra = list(BY_GROUNDING.get(r.get("grounding"), []))
+    if r.get("grounding") == "x402-receipt-commitment":
+        if r.get("opening") not in BY_OPENING:
+            p.append("opening")
+        extra += BY_OPENING.get(r.get("opening"), [])
+        p += [f"{k} not 0x + 64 lower-case hex" for k in ("receiptCommitment", "receiptHash", "receiptSalt", "openingStatement")
+              if k in r and not H32.match(str(r[k]))]
+        if "verifier" in r:
+            try:
+                ok = bool(VERIFIER_KEY.match(str(r["verifier"]))) and len(base64.urlsafe_b64decode(r["verifier"] + "=")) == 32 \
+                    and base64.urlsafe_b64encode(base64.urlsafe_b64decode(r["verifier"] + "=")).rstrip(b"=").decode() == r["verifier"]
+            except ValueError:
+                ok = False
+            if not ok:
+                p.append("verifier")
     p += [f"unknown key {k}" for k in r if k not in REQUIRED + OPTIONAL + extra]
     p += [f"missing {k}" for k in REQUIRED + extra if k not in r]
     if r.get("scheme") != "x402-grounded-feedback-v0":
         p.append("scheme")
-    if r.get("grounding") not in ("x402-settlement", "escrow-release", "settlement-contract"):
+    if r.get("grounding") not in BY_GROUNDING:
         p.append("grounding")
     p += [f"{k} not a lower-case address" for k in ("payer", "payee", "escrow") if k in r and not ADDR.match(str(r[k]))]
     p += [f"{k} not 0x + 64 lower-case hex" for k in ("nonce", "settlementTx", "requirementsHash") if k in r and not H32.match(str(r[k]))]
@@ -90,6 +114,25 @@ def schema_problems(r):
             p.append(f"{path} is not a string")
     leaves(r, "record")
     return p
+
+
+def receipt_checks(r, receipt):
+    """x402 receipt v2 (x402-foundation/x402#3827 at 0e492d6, sec 5.6): the record describes the receipt it carries,
+    and a public opening recomputes authorizationCommitment with the receipt's own payer as authorizer (5.6.4 step 1)."""
+    out = {}
+    if not isinstance(receipt, dict):
+        return {"receiptConsistent": False}
+    m = CAIP19.match(str(r.get("asset", "")))
+    out["receiptConsistent"] = bool(m) and receipt.get("version") == 2 and receipt.get("authorizationMethod") == "eip3009" \
+        and str(receipt.get("payer")).lower() == r.get("payer") \
+        and str(receipt.get("authorizationCommitment")).lower() == r.get("receiptCommitment") \
+        and receipt.get("resourceUrl") == r.get("resource") and receipt.get("network") == "eip155:" + m.group(1) \
+        and "0x" + hashlib.sha256(canonical(receipt).encode("utf-8")).hexdigest() == r.get("receiptHash")
+    if r.get("opening") == "public" and m and H32.match(str(r.get("nonce"))) and H32.match(str(r.get("receiptSalt"))):
+        pre = b"x402-receipt-authorization/0" + b"\x00" + b"eip3009" + b"\x00" + bytes.fromhex(m.group(2)[2:]) \
+            + bytes.fromhex(str(receipt["payer"])[2:]) + bytes.fromhex(r["nonce"][2:]) + bytes.fromhex(r["receiptSalt"][2:])
+        out["commitmentOpens"] = "0x" + hashlib.sha256(pre).hexdigest() == str(receipt["authorizationCommitment"]).lower()
+    return out
 
 
 def keccak256(data):
@@ -283,6 +326,8 @@ for path in files:
     ancillary = (v.get("evidence") or {}).get("ancillaryData")
     problems = oracle_schema_problems(payload, ancillary) if is_oracle else schema_problems(payload)
     got["schemaValid"] = not problems
+    if payload.get("grounding") == "x402-receipt-commitment":
+        got.update(receipt_checks(payload, v.get("receipt")))
     call = decode_validation_response(v["validationResponse"]["calldata"])
     call_ok = call["requestHash"] == v["validationResponse"]["requestHash"] and call["response"] == v["validationResponse"]["response"] \
         and call["responseURI"] == v["validationResponse"]["responseURI"] and call["responseHash"] == v["responseHash"] \
@@ -299,7 +344,12 @@ for path in files:
         call_ok = call_ok and call["tag"] == payload["grounding"]
     got["acceptOffline"] = got["canonicalMatches"] and got["signatureValid"] and got["responseHashMatches"] \
         and got.get("requirementsHashMatches", True) and got.get("requirementsConsistent", True) and got["schemaValid"] \
-        and got.get("stateTagConsistent", True) and got.get("supersedeChainValid", True) and call_ok
+        and got.get("stateTagConsistent", True) and got.get("supersedeChainValid", True) \
+        and got.get("receiptConsistent", True) and got.get("commitmentOpens", True) and call_ok
+    if payload.get("grounding") == "x402-receipt-commitment":
+        # counting tier; a private opening needs its verifier statement checked, which the vector does not carry
+        got["tier"] = {"public": "opened", "private": "private opening"}.get(payload.get("opening"), "seller-signed, not linked")
+        got["counted"] = got["acceptOffline"] and payload.get("opening") == "public"
     needs_chain = "onchainStateMatches" in v["expect"]
     got["accept"] = got["acceptOffline"]
     read = committed_read(v, payload) if is_oracle and got["schemaValid"] and "onchainReason" in v["expect"] else None

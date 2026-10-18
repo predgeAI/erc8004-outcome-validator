@@ -28,16 +28,19 @@ never set to `null`. Unknown keys make the record invalid.
 | Field | Required | Meaning |
 |---|---|---|
 | `scheme` | yes | `"x402-grounded-feedback-v0"` |
-| `grounding` | yes | How the settlement is verified: `x402-settlement`, `escrow-release` or `settlement-contract` (see [Grounding methods](#grounding-methods)). |
+| `grounding` | yes | How the settlement is verified: `x402-settlement`, `escrow-release`, `settlement-contract` or `x402-receipt-commitment` (see [Grounding methods](#grounding-methods)). |
 | `payer` | yes | Address that paid. For x402 this is the EIP-3009 `from`. |
 | `payee` | yes | Address that received the money. Payment evidence only: it is not the party being rated. |
 | `ratee` | yes | The agent the record is about: `{ "agentRegistry": "eip155:<chainId>:<identityRegistry>", "agentId": "<decimal>" }`, ERC-8004's own global agent identifier. |
 | `amount` | yes | Atomic units of `asset`, decimal, no sign, no leading zeros. |
 | `asset` | yes | CAIP-19, e.g. `eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913`. Its chain is where `settlementTx` lives. |
 | `resource` | yes | What was bought: the x402 `resource` URL, or the job's URI for an escrow. |
-| `nonce` | yes | Unique per settled interaction: the EIP-3009 authorization nonce for `x402-settlement`, the escrow's job id as bytes32 for `escrow-release`. |
-| `settlementTx` | yes | The transaction that moved the money. |
+| `nonce` | yes, except `x402-receipt-commitment` unless `opening` is `public` | Unique per settled interaction: the EIP-3009 authorization nonce for `x402-settlement` and `x402-receipt-commitment`, the escrow's job id as bytes32 for `escrow-release`. |
+| `settlementTx` | yes, except `x402-receipt-commitment` unless `opening` is `public` | The transaction that moved the money. |
 | `escrow` | for `escrow-release` | Address of the escrow contract. |
+| `receiptCommitment`, `receiptHash`, `opening` | for `x402-receipt-commitment` | The receipt's `authorizationCommitment`, `0x` + sha256 of the receipt's canonical JSON, and `public`, `private` or `none` (see [`x402-receipt-commitment`](#x402-receipt-commitment)). |
+| `receiptSalt` | with `opening` `public` | The salt that opens `receiptCommitment`. Absent otherwise. |
+| `verifier`, `openingStatement` | with `opening` `private` | The verifier the receipt was opened to (its ed25519 key, base64url, as in its statement) and `0x` + sha256 of that statement's canonical JSON. Absent otherwise. |
 | `requirementsHash` | no | x402 only: `0x` + sha256 of the canonical JSON of the `accepts[]` entry the payer accepted, exactly as the unpaid 402 returned it. |
 | `issuedAt` | with `measured` | When the record was signed, `YYYY-MM-DDTHH:MM:SS.sssZ` with exactly three fractional digits: capacity-attest's strict `timestamp` form. |
 | `assetType` | with `measured` | capacity-attest's `assetType`: `gpu-hours`, `storage`, `bandwidth` or `api-credits`. Present exactly when `measured` is. |
@@ -121,7 +124,10 @@ hash is not written down yet (see [Open questions](#open-questions)).
    - it is the hash of that challenge;
    - `amount`, `payee` (= `payTo`), `asset` and network all agree with it.
 6. Count at most one record per settled interaction:
-   - per (`asset`, `payer`, `nonce`) for `x402-settlement`;
+   - per (`asset`, `payer`, `nonce`) for `x402-settlement` and for an opened `x402-receipt-commitment`, as one key
+     space: a payment grounded both ways counts once;
+   - an unopened `x402-receipt-commitment` never; a private opening per (`payer`, `ratee`) pair, under the rules in
+     [`x402-receipt-commitment`](#x402-receipt-commitment);
    - per (`asset` chain, `escrow`, `nonce`) for `escrow-release`;
    - per `settlementTx` for `settlement-contract`.
 7. Weight it with your own policy.
@@ -135,6 +141,7 @@ The `tag` says how the record was verified and nothing about how much it is wort
 | `x402-settlement` | The `settlementTx` receipt has status 1, and its own logs include `AuthorizationUsed(payer, nonce)` and `Transfer(payer, payee, amount)`, both emitted by the asset contract. | yes |
 | `escrow-release` | The `settlementTx` receipt has status 1, and its own logs include the `escrow` contract's release event for job `nonce` and the asset's `Transfer(escrow, payee, amount)`. | yes |
 | `settlement-contract` | The validator is the settlement contract itself. It calls `validationResponse` in the same transaction that pays, so one receipt holds both the `Transfer` to `payee` and the registry's `ValidationResponse` event. The record could not exist without the settlement. | no |
+| `x402-receipt-commitment` | An x402 receipt v2 `authorizationCommitment`. Opened (`opening` `public`): the salt is in the record, the commitment recomputes from (`asset`, the receipt's `payer`, `nonce`, salt), and `settlementTx` is then checked as for `x402-settlement`; counted, deduplicated on (`asset`, `payer`, `nonce`). Unopened (`none`): reported as "seller-signed, not linked" and never counted toward a Sybil threshold. Private opening (`private`): counted only when the verifier is named in the record and its statement binds the receipt hash and the block (number and hash) where it read `AuthorizationUsed`. | yes |
 
 Take both logs from the `settlementTx` receipt itself, never from a scan of the block or a time
 window. `Transfer` carries no nonce, so a check that finds the two events anywhere in a block
@@ -149,6 +156,47 @@ multicall. A real x402 settlement on Base shows the shape: in
 `tx.to` is Multicall3, and the two logs, both from USDC, are:
 - `AuthorizationUsed(0x718b…0bd6, 0x035f…7f45)`;
 - `Transfer(0x718b…0bd6 → 0x9084…1144, 5000)`.
+
+## `x402-receipt-commitment`
+
+x402 receipt payload v2 adds a salted `authorizationCommitment`
+([x402-foundation/x402#3827](https://github.com/x402-foundation/x402/pull/3827), section 5.6 of
+[`extension-offer-and-receipt.md` at `0e492d6`](https://github.com/babyblueviper1/x402/blob/0e492d6730bef14b9c722428386c114f3475a914/specs/extensions/extension-offer-and-receipt.md)):
+
+```
+authorizationCommitment = "0x" || hex( SHA-256( "x402-receipt-authorization/0" || 0x00 || "eip3009" || 0x00
+                                                || asset || authorizer || nonce || salt ) )
+```
+
+Whoever holds the salt can tie the receipt to exactly one settlement; nobody else can. The record says how far it
+was opened, and that decides whether it counts. The record carries `receiptCommitment` (the receipt's
+`authorizationCommitment`, lower case) and `receiptHash` (`0x` + sha256 of the signed receipt payload's canonical
+JSON), and they must agree with the receipt: same `payer`, `authorizationMethod` `eip3009`, `resourceUrl` equal to
+`resource`, `network` equal to the chain of `asset`.
+
+| `opening` | Tier | Counted toward a Sybil or deduplicated threshold |
+|---|---|---|
+| `public` | opened | Yes. The record carries `nonce`, `settlementTx` and `receiptSalt`. The consumer recomputes the commitment with `authorizer` = the receipt's signed `payer`, never a value supplied with the salt (section 5.6.4 step 1), then checks `settlementTx` exactly as for `x402-settlement`. Deduplicated on (`asset`, `payer`, `nonce`), shared with `x402-settlement`. |
+| `none` | seller-signed, not linked | Never. A commitment that has not been opened is a statement by the receipt's signer, unique per receipt and not per payment: the seller can issue two receipts with different salts for one settlement, or one that opens to none. Section 5.6.5 at `0e492d6`: a consumer that counts settlements counts opened commitments only. The record may still be shown, labelled as such. |
+| `private` | private opening | Only when the record names the `verifier` the rater opened to, and that verifier's signed statement (hashed in `openingStatement`) checks out. The record carries no `nonce`, `settlementTx` or `receiptSalt`. |
+
+A private opening counts when all of these hold:
+- the statement's signature verifies under the record's `verifier`, and its sha256 equals `openingStatement`;
+- it binds the receipt: its receipt hash equals `receiptHash` and its commitment equals `receiptCommitment`;
+- it binds the block, number and hash, at which the verifier read `AuthorizationUsed`, so a challenger can tell a
+  reorg from a wrong answer;
+- its rater is the record's `payer`, its agent is `ratee`, and its finding is `opens_to_settlement`.
+
+Count it per (`payer`, `ratee`) pair, not per record, and not again for a pair that already has an opened record.
+A per-nonce store would need the (`asset`, `payer`, `nonce`) tuple the opening keeps private. Whether to trust a
+given verifier is consumer policy, like any other weight.
+
+The statement format, its privacy, log and challenge rules and its vectors are @babyblueviper1's
+[`x402-receipt-private-opening/0`](https://github.com/babyblueviper1/preaction-governance-conformance/tree/c267825e61d0e10eda2c3022eeabf67050fc9cd6/examples/x402-receipt-private-opening)
+(CC0), pinned at commit `c267825e61d0e10eda2c3022eeabf67050fc9cd6`. That kit is the source of truth for the
+statement; this document references it rather than restating it. At that commit the statement binds the receipt
+hash but not yet the read block, which was proposed in #99. A statement without the block is reported here, not
+counted.
 
 ## Rules from the thread
 
@@ -170,6 +218,9 @@ multicall. A real x402 settlement on Base shows the shape: in
 - **Both logs from one receipt, payee from the record** (@goun7, in
   [coinbase/x402#360](https://github.com/coinbase/x402/pull/360)). The settlement check is scoped
   to `settlementTx`, and `payee` is a required field, so a third party can run it.
+- **Unopened receipt commitments are not counted** (@AgenticFinanceGraph, @babyblueviper1). An unopened
+  commitment is unique per receipt, not per payment, so counting it toward a Sybil threshold would count a statement
+  the indexer cannot check. Private opening is the middle tier, counted only with the verifier named.
 - **Registry writes are advisory** (@MuhammedAkinci). A settlement contract should catch a failed
   registry write and emit an event rather than revert the payment. The write is not free: Wiener
   Labs measured about 48,000 extra gas per finalize against the real registries (465,486 versus
@@ -210,6 +261,11 @@ the same fields under the same rules:
 | [`04-metered-gpu.json`](test-vectors/04-metered-gpu.json) | x402 payment for metered GPU time, with `measured`, `assetType` and `issuedAt` | accept |
 | [`05-unit-not-in-asset-type.json`](test-vectors/05-unit-not-in-asset-type.json) | correctly signed, but `unit` is `byte` under `assetType` `gpu-hours` | reject: the schema check fails, everything else holds |
 | `06` to `12` | oracle-outcome-validation-v0 on Polymarket market 1992979, see [oracle-outcome.md](oracle-outcome.md#test-vectors-polymarket-market-1992979) | 06, 07 accept; 08 to 12 reject (12: `settled_not_resolved`) |
+| [`13-receipt-commitment-opened.json`](test-vectors/13-receipt-commitment-opened.json) | `x402-receipt-commitment`, opened in public, on the receipt, asset, nonce and salt of section 5 of the receipt spec at `0e492d6` | accept, tier opened, counted |
+| [`14-receipt-commitment-unopened.json`](test-vectors/14-receipt-commitment-unopened.json) | the same receipt, unopened | accept, tier "seller-signed, not linked", not counted |
+| [`15-receipt-commitment-wrong-salt.json`](test-vectors/15-receipt-commitment-wrong-salt.json) | vector 13 with a salt that does not open the commitment | reject: `commitmentOpens` fails, everything else holds |
+| [`16-private-opening-verifier-not-named.json`](test-vectors/16-private-opening-verifier-not-named.json) | `opening` `private` with no `verifier` | reject: the schema check fails |
+| [`x402-receipt-private-opening/0` at `c267825`](https://github.com/babyblueviper1/preaction-governance-conformance/tree/c267825e61d0e10eda2c3022eeabf67050fc9cd6/examples/x402-receipt-private-opening) | the private-opening statement itself: 11 vectors, 5 lax-verifier mutants, `python3 run_vectors.py` | external, pinned by commit |
 
 Each file carries:
 - the record, the envelope, the exact canonical string and its byte length;
@@ -217,8 +273,9 @@ Each file carries:
 - an `expect` block and notes on the likely mistakes.
 
 They are signed with the RFC 8032 section 7.1 TEST 1 key, which is public and was never used for
-anything real. Every settlement transaction in vectors 01 to 05 is a placeholder; the on-chain
-references in vectors 06 to 11 are real. capacity-attest (linked above)
+anything real. Every settlement transaction in vectors 01 to 05 and 13 to 16 is a placeholder; the on-chain
+references in vectors 06 to 12 are real. Vectors 13 to 16 use the receipt spec's own example receipt, so their
+`receiptCommitment` is the one printed in the spec. capacity-attest (linked above)
 tests its own rules for the `measured` block; vectors 04 and 05 test only the two fields this
 record maps them onto.
 
@@ -231,7 +288,7 @@ node grounded-feedback/make-test-vectors.mjs         # regenerate; output is byt
 ```
 
 The two verifiers share no code with each other or with the generator, and both report GREEN on
-all eleven vectors, including the negative ones (each vector's `expect` block says which checks
+all sixteen vectors, including the negative ones (each vector's `expect` block says which checks
 must fail).
 
 ## Oracle outcome validation: `outcomeState`

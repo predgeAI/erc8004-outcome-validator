@@ -240,6 +240,133 @@ vector("05-unit-not-in-asset-type.json", {
 });
 
 // ---------------------------------------------------------------------------------------------
+// grounding x402-receipt-commitment: a record grounded in an x402 receipt v2 authorizationCommitment
+// (x402-foundation/x402#3827 at 0e492d6, section 5.6). The receipt, asset, nonce and salt are the
+// spec's own section 5 example, so the commitment below is the one printed in the spec.
+// ---------------------------------------------------------------------------------------------
+const receiptV2 = {
+  version: 2,
+  network: "eip155:8453",
+  resourceUrl: "https://api.example.com/premium-data",
+  payer: "0x857b06519E91e3A54538791bDbb0E22373e36b66",
+  issuedAt: 1703123456,
+  transaction: "",
+  authorizationMethod: "eip3009",
+  authorizationCommitment: "0x5d905bbf08a97e04ab551d276d8e94b1abaff7d0737324d360e983c2796af23b",
+};
+const RECEIPT_NONCE = "0x5135a00b531830a13a751f3c48944d7a5fdfde7a3b87f73493591cd77efdef4f";
+const RECEIPT_SALT = "0x10d2ae5f0c8536e82d882bf3d2c31a663597e890ca6c3fede0d278fd2a78f655";
+const RECEIPT_SPEC = "https://github.com/babyblueviper1/x402/blob/0e492d6730bef14b9c722428386c114f3475a914/specs/extensions/extension-offer-and-receipt.md";
+const commitmentOf = (asset, authorizer, nonce, salt) =>
+  "0x" + crypto.createHash("sha256").update(Buffer.concat([
+    Buffer.from("x402-receipt-authorization/0\0eip3009\0", "ascii"),
+    ...[asset, authorizer, nonce, salt].map((h) => Buffer.from(h.slice(2), "hex")),
+  ])).digest("hex");
+if (commitmentOf("0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", receiptV2.payer, RECEIPT_NONCE, RECEIPT_SALT) !== receiptV2.authorizationCommitment)
+  throw new Error("section 5 example commitment does not reproduce");
+
+const commitmentBase = {
+  scheme: "x402-grounded-feedback-v0",
+  grounding: "x402-receipt-commitment",
+  payer: receiptV2.payer.toLowerCase(),
+  payee: "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+  ratee: { agentRegistry: "eip155:8453:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432", agentId: "42" },
+  amount: "10000",
+  asset: "eip155:8453/erc20:0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+  resource: receiptV2.resourceUrl,
+  receiptCommitment: receiptV2.authorizationCommitment,
+  receiptHash: sha256(canonicalJson(receiptV2)),
+};
+const COMMITMENT_NOTES = {
+  receipt: `The signed receipt v2 payload from section 5 of the receipt spec (${RECEIPT_SPEC}). receiptHash is 0x + sha256 of its canonical JSON, the same bytes the private-opening statement's receipt_sha256 covers. The seller's receipt signature is out of scope here, as in the spec's own vectors.`,
+  commitment:
+    "authorizationCommitment = 0x + sha256(\"x402-receipt-authorization/0\" 0x00 \"eip3009\" 0x00 asset(20) authorizer(20) nonce(32) salt(32)). authorizer is the receipt's signed payer, never a value supplied with the salt (section 5.6.4 step 1).",
+  counting:
+    "Section 5.6.5: an unopened commitment is unique per receipt, not per payment, so a deduplicated or Sybil-resistant count counts opened commitments only.",
+};
+
+const opened = { ...commitmentBase, opening: "public", nonce: RECEIPT_NONCE, settlementTx: "0x" + "13".repeat(32), receiptSalt: RECEIPT_SALT };
+const e13 = envelope(opened);
+const h13 = keccak(e13.canonical);
+vector("13-receipt-commitment-opened.json", {
+  _README:
+    "x402-grounded-feedback-v0, grounding x402-receipt-commitment, opening public: the record publishes the salt, so anyone recomputes the receipt's authorizationCommitment and then checks the settlement exactly as for x402-settlement. Counted, deduplicated on (asset, payer, nonce). Check offline: node grounded-feedback/verify-test-vectors.mjs",
+  spec: "grounded-feedback/README.md",
+  signingKeyNote: KEY_NOTE,
+  receipt: receiptV2,
+  envelope: e13,
+  canonicalByteLength: Buffer.byteLength(e13.canonical, "utf8"),
+  responseHash: h13,
+  validationResponse: onChain(13, h13, opened.grounding),
+  expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: true, receiptConsistent: true, commitmentOpens: true, tier: "opened", counted: true, accept: true },
+  notes: {
+    ...COMMITMENT_NOTES,
+    settlement:
+      "After the commitment opens, the settlementTx check is the x402-settlement one: status 1, and from the asset contract both AuthorizationUsed(payer, nonce) and Transfer(payer, payee, amount) in that receipt. settlementTx and payee here are placeholders; the receipt, asset, nonce and salt are the spec's example.",
+  },
+});
+
+const unopened = { ...commitmentBase, opening: "none" };
+const e14 = envelope(unopened);
+const h14 = keccak(e14.canonical);
+vector("14-receipt-commitment-unopened.json", {
+  _README:
+    "x402-grounded-feedback-v0, grounding x402-receipt-commitment, opening none: the same receipt with no salt, nonce or settlementTx. The record is valid and is reported as seller-signed, not linked; it never counts toward a deduplicated or Sybil threshold. Check offline: node grounded-feedback/verify-test-vectors.mjs",
+  spec: "grounded-feedback/README.md",
+  signingKeyNote: KEY_NOTE,
+  receipt: receiptV2,
+  envelope: e14,
+  canonicalByteLength: Buffer.byteLength(e14.canonical, "utf8"),
+  responseHash: h14,
+  validationResponse: onChain(14, h14, unopened.grounding),
+  expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: true, receiptConsistent: true, tier: "seller-signed, not linked", counted: false, accept: true },
+  notes: {
+    ...COMMITMENT_NOTES,
+    why: "The seller can issue two receipts with different salts for one settlement, or a commitment that opens to none. Until it is opened, the commitment says only that the seller signed it.",
+  },
+});
+
+const wrongSalt = { ...opened, receiptSalt: sha256("x402-grounded-feedback-v0 test vector 15 salt") };
+const e15 = envelope(wrongSalt);
+const h15 = keccak(e15.canonical);
+vector("15-receipt-commitment-wrong-salt.json", {
+  _README:
+    "Negative vector: vector 13 with a different salt. Correctly signed and hashed, and the settlementTx may be real, but the commitment does not open to (asset, payer, nonce, salt), so the receipt is not linked to that settlement and the record must be rejected. Check offline: node grounded-feedback/verify-test-vectors.mjs",
+  spec: "grounded-feedback/README.md",
+  signingKeyNote: KEY_NOTE,
+  receipt: receiptV2,
+  envelope: e15,
+  canonicalByteLength: Buffer.byteLength(e15.canonical, "utf8"),
+  responseHash: h15,
+  validationResponse: onChain(15, h15, wrongSalt.grounding),
+  expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: true, receiptConsistent: true, commitmentOpens: false, counted: false, accept: false },
+  notes: {
+    ...COMMITMENT_NOTES,
+    why: "A consumer that checks the settlement and skips the opening would credit this receipt with any settlement of the same payer and nonce, which is the link the commitment exists to prove.",
+  },
+});
+
+const privateNoVerifier = { ...commitmentBase, opening: "private", openingStatement: sha256("x402-grounded-feedback-v0 test vector 16 statement") };
+const e16 = envelope(privateNoVerifier);
+const h16 = keccak(e16.canonical);
+vector("16-private-opening-verifier-not-named.json", {
+  _README:
+    "Negative vector: opening private, but the record does not name the verifier the receipt was opened to. A private opening counts only when the verifier is named in the record, so the schema check fails and the record must be rejected. Check offline: node grounded-feedback/verify-test-vectors.mjs",
+  spec: "grounded-feedback/README.md",
+  signingKeyNote: KEY_NOTE,
+  receipt: receiptV2,
+  envelope: e16,
+  canonicalByteLength: Buffer.byteLength(e16.canonical, "utf8"),
+  responseHash: h16,
+  validationResponse: onChain(16, h16, privateNoVerifier.grounding),
+  expect: { canonicalMatches: true, signatureValid: true, responseHashMatches: true, schemaValid: false, receiptConsistent: true, counted: false, accept: false },
+  notes: {
+    ...COMMITMENT_NOTES,
+    why: "A private opening is a claim by the verifier the rater opened to, so a consumer has to know which verifier that was to decide whether to trust it, and to check the statement's signature under that key. The statement format and its own vectors are babyblueviper1/preaction-governance-conformance examples/x402-receipt-private-opening at c267825.",
+  },
+});
+
+// ---------------------------------------------------------------------------------------------
 // oracle-outcome-validation-v0: outcome validation with the oracle lifecycle state bound by
 // responseHash. One real Polymarket market (1992979) on Polygon, from the committed evidence file
 // written by tools/collect-uma-ctf.mjs. "Yes" was proposed, disputed, and the market settled "No".
