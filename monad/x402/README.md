@@ -11,7 +11,41 @@ transfer and pays the gas.
 |---|---|
 | `server.mjs` | x402 resource server (`@x402/express` 2.28.0), `GET /v1/settlement-risk/:market` at $0.001; returns the signed record and, when Predge has one, the on-chain verdict from `PredgeAgentValidator` with the exact signed record it is bound to. Holds no key. |
 | `agent.mjs` | paying agent (`@x402/fetch`): gets the 402, signs the authorization, pays, verifies ed25519, verifies `responseHash == keccak256(signed record)` against Monad, finds the USDC `Transfer` in the settlement receipt, then decides |
+| `spend-semantics.mjs` | two optional off-chain spend fields: `redeem_count` (seller side) and `consumed` (buyer side). Zero dependencies, no contract change. See below. |
 | `runs/` | output of each agent run |
+
+## Spend semantics (`redeem_count` / `consumed`)
+
+Predge's receipt proves *what was bought* and *that it was paid for*. Two questions it does
+not answer, and which no receipt spec currently answers:
+
+1. **Did the buyer actually use the result?** An agent can pay, receive a valid record, and
+   never reference it downstream — budget exhausted, a downstream step discarded it, a retry
+   superseded it. Real cost, zero downstream effect, indistinguishable today from a used
+   result.
+2. **How many times was the same payment proof redeemed?** x402 permits multiple `complete`
+   transitions for one proof. In-flight dedup prevents *concurrent* replay but records
+   nothing.
+
+`spend-semantics.mjs` adds both as optional, off-chain fields. **No contract changes, no new
+dependencies, no change to the attestation or the verdict path.**
+
+| Field | Side | Meaning |
+|---|---|---|
+| `payment.redeem_count` | seller | How many times the seller **saw** this payment proof. Counted as *attempts* — a replay, a retry or a refused second redemption all increment. Under `exact` (EIP-3009) the nonce is single-use, so a *completed* second redemption is structurally impossible; counting attempts is what makes `> 1` meaningful instead of reading as broken forever at `1`. |
+| `result.consumed` | buyer | `yes` / `no` / `unknown`, default `unknown`. Whether the buyer runtime referenced the paid result downstream. Attested by the **buyer**, never by the seller: the seller has no observation of the buyer's runtime, so a seller-written `consumed` is unfalsifiable. Absence of a downstream reference is **not** evidence of idle spend. |
+
+The server counts redemptions before it writes the response, so a refused retry is still
+recorded, and surfaces the count as `spend` in the JSON body plus an
+`x-predge-redeem-count` header. The agent attests `consumed` from the decision it derived,
+and both fields land in `runs/*.json`.
+
+The counter is in-process (`Map`). A multi-instance deployment needs the same interface over
+Redis; the module does not pretend otherwise.
+
+Field names follow [gates-spec v0.1](https://github.com/ruiruii/gates-spec) (Apache-2.0). If
+Predge prefers different names, we're happy to adopt them — the objective is one vocabulary,
+not a new project.
 
 ```bash
 npm ci
